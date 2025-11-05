@@ -9,3 +9,6 @@ Thumbs.db
 .vscode/
 .idea/
 outputs/
+
+# local helpers for branch protection
+protection*.json
