@@ -45,7 +45,7 @@ def main():
     df["log_rt"] = np.log(df["rt_ms"])
 
     # Subject means per condition (paired t-test)
-    subj_means = df.groupby(["subject", "condition"], as_index=False)["log_rt"].mean()
+    subj_means = df.groupby(["subject", "condition"], as_index=False, observed=False)["log_rt"].mean()
     wide = subj_means.pivot(index="subject", columns="condition", values="log_rt")
     # paired t-test (incongruent > congruent expected)
     tstat, pval = stats.ttest_rel(wide["incongruent"], wide["congruent"], nan_policy="omit")
@@ -64,7 +64,7 @@ def main():
     print(m.summary())
 
     # Simple marginal means (back-transform)
-    emmeans = df.groupby("condition")["log_rt"].mean().apply(np.exp)
+    emmeans = df.groupby("condition", observed=False)["log_rt"].mean().apply(np.exp)
     print("\nEstimated marginal means (back-transformed ms):")
     for k, v in emmeans.items():
         print(f"  {k:<12} = {v:.1f} ms")
