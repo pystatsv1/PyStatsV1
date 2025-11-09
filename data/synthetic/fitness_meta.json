@@ -1,0 +1,11 @@
+{
+  "seed": 7,
+  "n": 80,
+  "design": "2x2 mixed (Group between \u00d7 Time within)",
+  "programs": [
+    "ProgramA",
+    "ProgramB"
+  ],
+  "dv": "strength_1RM_like",
+  "generated_utc": "2025-11-09T18:46:49Z"
+}

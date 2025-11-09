@@ -1,10 +1,11 @@
 # SPDX-License-Identifier: MIT
 import os, json, time
 import numpy as np, pandas as pd
-rng = np.random.default_rng(7)
 
+rng = np.random.default_rng(7)
 N = 80
 GROUPS = ["ProgramA","ProgramB"]
+
 def simulate():
     os.makedirs("data/synthetic", exist_ok=True)
     subjects = pd.DataFrame({
@@ -14,25 +15,40 @@ def simulate():
         "sex": rng.choice(["F","M"], size=N, p=[0.5,0.5]),
         "bmi": rng.normal(24, 3.5, size=N).clip(17, 38),
     })
-    # baseline strength varies by covariates a bit
-    base = 80 + 0.8*(subjects["age"]-30) + 1.2*(subjects["bmi"]-24) + rng.normal(0, 8, N)
-    # program effects (post - pre), slightly larger for ProgramB
-    gain_A = rng.normal(8, 4, N)
-    gain_B = rng.normal(12, 4, N)
-    gain = np.where(subjects["group"]=="ProgramA", gain_A, gain_B)
+
+    # baseline strength with small covariate effects
+    base = (80
+            + 0.8*(subjects["age"]-30)
+            + 1.2*(subjects["bmi"]-24)
+            + rng.normal(0, 8, size=N))
+
+    # program gains
+    gain_A = rng.normal(8, 4, size=N)
+    gain_B = rng.normal(12, 4, size=N)
+    gain = np.where(subjects["group"].to_numpy()=="ProgramA", gain_A, gain_B)
 
     long = pd.concat([
-        pd.DataFrame({"id": subjects["id"], "time":"pre",  "strength": base + rng.normal(0, 3, N)}),
-        pd.DataFrame({"id": subjects["id"], "time":"post", "strength": base + gain + rng.normal(0, 3, N)})
+        pd.DataFrame({"id": subjects["id"], "time":"pre",
+                      "strength": base + rng.normal(0, 3, size=N)}),
+        pd.DataFrame({"id": subjects["id"], "time":"post",
+                      "strength": base + gain + rng.normal(0, 3, size=N)})
     ], ignore_index=True).merge(subjects, on="id")
 
     subjects.to_csv("data/synthetic/fitness_subjects.csv", index=False)
     long.to_csv("data/synthetic/fitness_long.csv", index=False)
+
     meta = dict(
-        seed=7, n= int(N), design="2x2 mixed (Group between × Time within)",
-        programs=GROUPS, dv="strength_1RM_like",
+        seed=7,
+        n=int(N),
+        design="2x2 mixed (Group between × Time within)",
+        programs=GROUPS,
+        dv="strength_1RM_like",
         generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     )
-    with open("data/synthetic/fitness_meta.json","w") as f: json.dump(meta, f, indent=2)
+    with open("data/synthetic/fitness_meta.json","w") as f:
+        json.dump(meta, f, indent=2)
+
     print("Wrote fitness_subjects.csv, fitness_long.csv, fitness_meta.json")
-if __name__ == "__main__": simulate()
+
+if __name__ == "__main__":
+    simulate()
