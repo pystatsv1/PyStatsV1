@@ -17,3 +17,6 @@ protection*.json
 *.patch
 outputs/*.png
 outputs/*.pdf
+
+# generated metadata (timestamps change on each run)
+data/synthetic/*_meta.json
