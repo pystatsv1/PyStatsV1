@@ -1,9 +1,17 @@
 # SPDX-License-Identifier: MIT
-import argparse, os
+import argparse, os, math
 import numpy as np, pandas as pd
 import statsmodels.formula.api as smf
 import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+# --- make Windows console UTF-8 friendly ---
+import sys
+if os.name == "nt":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 def hedges_g(a, b):
     na, nb = len(a), len(b)
