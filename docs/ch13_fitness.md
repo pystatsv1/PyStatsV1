@@ -1,7 +1,7 @@
 # Fitness 2×2 Mixed Example (Chapter 13)
 
 **Data**: `data/synthetic/fitness_subjects.csv`, `data/synthetic/fitness_long.csv`  
-*(metadata JSON is generated and ignored by git)*
+*(metadata JSON is generated on the fly and ignored by git).*
 
 ## Run
 ```bash
