@@ -1,3 +1,11 @@
-* text=auto eol=lf
-*.bat eol=crlf
-*.ps1 eol=crlf
+# Text
+*.py   text eol=lf
+*.md   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.txt  text eol=lf
+
+# Keep these as-is (binary)
+*.png  -text
+*.pdf  -text
+*.docx -text
