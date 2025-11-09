@@ -12,3 +12,8 @@ outputs/
 
 # local helpers for branch protection
 protection*.json
+
+# local patches & generated plots
+*.patch
+outputs/*.png
+outputs/*.pdf
