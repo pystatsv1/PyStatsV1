@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-
 jobs:
   test:
     runs-on: windows-latest  # matches your local environment
@@ -29,11 +28,10 @@ jobs:
       - name: Tiny Chapter 13 smoke
         run: make ch13-ci
 
- 
-       - name: Upload plots (artifact)
-         if: always()
-         uses: actions/upload-artifact@v4
-         with:
-           name: ch13-plots
-           path: outputs/
-           if-no-files-found: ignore
+      - name: Upload plots (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ch13-plots
+          path: outputs/
+          if-no-files-found: ignore
