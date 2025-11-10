@@ -73,7 +73,7 @@ def simulate():
 
                 # sprinkle outliers (anticipations & lapses)
                 if rng.random() < OUTLIER_RATE_ANTICIP:
-                    rt = rng.normal(OUTLIER_RT_ANTICIP_MU, OUTLIER_RT_ANTICIP_SD)   # anticipatory
+                    rt = rng.normal(OUTLIER_RT_ANTICIP_MU, OUTLIER_RT_ANTICIP_SD)    # anticipatory
                 if rng.random() < OUTLIER_RATE_LAPSE:
                     rt = rng.normal(OUTLIER_RT_LAPSE_MU, OUTLIER_RT_LAPSE_SD)      # lapse
 
@@ -135,10 +135,6 @@ def write_meta(subjects: pd.DataFrame, trials: pd.DataFrame):
         json.dump(meta, f, indent=2)
     print("Wrote data/synthetic/psych_stroop_meta.json")
 
-if __name__ == "__main__":
-    subjects_df, trials_df = simulate()
-    write_meta(subjects_df, trials_df)
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -146,9 +142,13 @@ def main():
     ap.add_argument("--n-subjects", type=int, default=60)
     ap.add_argument("--n-trials", type=int, default=100)
     args = ap.parse_args()
-    global N_SUBJ, N_TRIALS_PER_COND, rng
+    global N_SUBJ, N_TRIALS_PER_COND, rng, RNG_SEED
     N_SUBJ = args.n_subjects
     N_TRIALS_PER_COND = args.n_trials
-    rng = np.random.default_rng(args.seed)
+    RNG_SEED = args.seed
+    rng = np.random.default_rng(RNG_SEED)
+    subjects_df, trials_df = simulate()
+    write_meta(subjects_df, trials_df)
+
 if __name__ == "__main__":
     main()

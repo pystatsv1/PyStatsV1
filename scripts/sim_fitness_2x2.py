@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: MIT
-import os, json, time
+import os, json, time, argparse
 import numpy as np, pandas as pd
 
-rng = np.random.default_rng(7)
+# globals configured in main()
+rng = np.random.default_rng()
 N = 80
 GROUPS = ["ProgramA","ProgramB"]
 
@@ -38,7 +39,7 @@ def simulate():
     long.to_csv("data/synthetic/fitness_long.csv", index=False)
 
     meta = dict(
-        seed=7,
+        seed=int(getattr(rng, "seed_seq", np.random.SeedSequence()).entropy) if hasattr(rng, "seed_seq") else None,
         n=int(N),
         design="2x2 mixed (Group between × Time within)",
         programs=GROUPS,
@@ -50,5 +51,14 @@ def simulate():
 
     print("Wrote fitness_subjects.csv, fitness_long.csv, fitness_meta.json")
 
-if __name__ == "__main__":
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--seed", type=int, default=7, help="RNG seed")
+    ap.add_argument("--n-per-group", type=int, default=5, help="(kept for CLI parity; not used here)")
+    args = ap.parse_args()
+    global rng
+    rng = np.random.default_rng(args.seed)
     simulate()
+
+if __name__ == "__main__":
+    main()
