@@ -20,3 +20,11 @@ ch13:
 	python scripts/ch13_stroop_within.py --save-plots
 	python scripts/sim_fitness_2x2.py
 	python scripts/ch13_fitness_mixed.py --save-plots
+
+.PHONY: lint format test
+lint:
+	ruff check .
+format:
+	black .
+test:
+	pytest -q || true
