@@ -26,3 +26,6 @@ data/synthetic/psych_stroop_*.csv
 data/synthetic/fitness_*.csv
 # generated plots
 outputs/
+
+# CI temp files
+.github/workflows/*.new
