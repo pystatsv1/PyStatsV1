@@ -1,3 +1,4 @@
+from __future__ import annotations
 import statsmodels.formula.api as smf
 from scripts import sim_fitness_2x2 as sim
 
@@ -9,17 +10,19 @@ def test_fitness_mixed_model_signals():
 
     # Mixed model with random intercept for id, categorical time/group + covariates
     md = smf.mixedlm(
-        "strength ~ C(time) * C(group) + age + sex + bmi",
+        # FIX: Explicitly set 'pre' as the reference level for 'time'
+        "strength ~ C(time, Treatment(reference='pre')) * C(group) + age + sex + bmi",
         long_df,
         groups=long_df["id"],
     )
     res = md.fit(reml=True)
 
     # main pre->post should be positive and clearly significant
-    assert res.params["C(time)[T.post]"] > 5
-    assert res.pvalues["C(time)[T.post]"] < 1e-6
+    assert res.params["C(time, Treatment(reference='pre'))[T.post]"] > 5
+    assert res.pvalues["C(time, Treatment(reference='pre'))[T.post]"] < 1e-6
 
     # interaction should be positive (ProgramB a bit more improvement)
-    assert res.params["C(time)[T.post]:C(group)[T.ProgramB]"] > 0
+    key = "C(time, Treatment(reference='pre'))[T.post]:C(group)[T.ProgramB]"
+    assert res.params[key] > 0
     # With N=80, we can have a stricter p-value check
-    assert res.pvalues["C(time)[T.post]:C(group)[T.ProgramB]"] < 0.05
+    assert res.pvalues[key] < 0.05

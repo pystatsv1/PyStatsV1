@@ -1,3 +1,4 @@
+from __future__ import annotations
 import numpy as np
 import statsmodels.formula.api as smf
 
@@ -10,7 +11,8 @@ def test_stroop_effect_and_mixed_model():
 
     # subject-level means by condition (ms)
     means = (
-        trials[trials["correct"]]
+        # FIX: Convert 'correct' (int) to boolean for pandas masking
+        trials[trials["correct"].astype(bool)]
         .query("rt_ms.between(200, 2000)")
         .groupby(["subject", "condition"], as_index=False)["rt_ms"]
         .mean()
@@ -22,7 +24,8 @@ def test_stroop_effect_and_mixed_model():
     assert diff.mean() > 60 and diff.mean() < 140
 
     # mixed model on log RT with random intercept for subject
-    df = trials[trials["correct"] & trials["rt_ms"].between(200, 2000)].copy()
+    # FIX: Convert 'correct' (int) to boolean for pandas masking
+    df = trials[trials["correct"].astype(bool) & trials["rt_ms"].between(200, 2000)].copy()
     df["log_rt"] = np.log(df["rt_ms"])
     # Use categorical for condition
     md = smf.mixedlm("log_rt ~ C(condition)", df, groups=df["subject"])
