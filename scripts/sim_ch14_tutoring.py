@@ -9,7 +9,6 @@ Generates a CSV file with student scores from two independent groups.
 from __future__ import annotations
 
 import json
-import pathlib
 from typing import Any
 
 import numpy as np

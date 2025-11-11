@@ -6,7 +6,9 @@ Chapter 8 — Inference for Simple Linear Regression (R mirror, manual formulas)
 - Gives mean response CI and prediction interval at user x0 (default 20)
 - Optional: saves CI/PI bands plot at outputs/ch08_slr_bands.png with --save-plot
 """
-import argparse, math, os
+import argparse
+import math
+import os
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -44,7 +46,7 @@ def inference(outputs, alpha=0.05, x0=20.0, save_plot=False):
     x, y = outputs["x"], outputs["y"]
     res  = outputs["fit"]
     n, Sxx, xbar = res["n"], res["Sxx"], res["xbar"]
-    b0, b1, s2, sigma = res["b0"], res["b1"], res["s2"], res["sigma"]
+    b0, b1, _, sigma = res["b0"], res["b1"], res["s2"], res["sigma"]
     df = n - 2
     tcrit = stats.t.ppf(1 - alpha/2, df)
 

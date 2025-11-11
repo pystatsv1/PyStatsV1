@@ -32,7 +32,8 @@ def load_autompg(path: str) -> pd.DataFrame:
     }.items():
         for o in opts:
             if o in df.columns:
-                ren[o] = want; break
+                ren[o] = want 
+                break
     df = df.rename(columns=ren)
     need = ["mpg","cylinders","displacement","horsepower","weight","acceleration","model_year"]
     if not set(need).issubset(df.columns):
@@ -55,19 +56,25 @@ def plot_resid_vs_fitted(fitted, resid, out):
     plt.xlabel("Fitted")
     plt.ylabel("Residuals")
     plt.title("Residuals vs Fitted")
-    plt.tight_layout(); plt.savefig(out, dpi=150)
+    plt.tight_layout()
+    plt.savefig(out, dpi=150)
 
 def plot_qq(resid, out):
     plt.figure(figsize=(6,5))
     sm.ProbPlot(resid).qqplot(line="45", alpha=0.7)
-    plt.title("Normal Q-Q"); plt.tight_layout(); plt.savefig(out, dpi=150)
+    plt.title("Normal Q-Q") 
+    plt.tight_layout() 
+    plt.savefig(out, dpi=150)
 
 def plot_scale_location(fitted, resid, out):
     sr = np.sqrt(np.abs(resid))
     plt.figure(figsize=(6,5))
     plt.scatter(fitted, sr, s=12, alpha=0.7)
-    plt.xlabel("Fitted"); plt.ylabel("√|Residuals|")
-    plt.title("Scale-Location"); plt.tight_layout(); plt.savefig(out, dpi=150)
+    plt.xlabel("Fitted") 
+    plt.ylabel("√|Residuals|")
+    plt.title("Scale-Location") 
+    plt.tight_layout() 
+    plt.savefig(out, dpi=150)
 
 def plot_leverage_resid2(hat, studres, cooks, out):
     plt.figure(figsize=(6,5))
@@ -76,7 +83,8 @@ def plot_leverage_resid2(hat, studres, cooks, out):
     plt.xlabel("Leverage (hat)")
     plt.ylabel("Studentized Residuals")
     plt.title("Residuals vs Leverage (size ~ Cook's D)")
-    plt.tight_layout(); plt.savefig(out, dpi=150)
+    plt.tight_layout() 
+    plt.savefig(out, dpi=150)
 
 def compute_vif(model) -> pd.DataFrame:
     X = model.model.exog
@@ -99,7 +107,8 @@ def main():
     os.makedirs("outputs", exist_ok=True)
     df = load_autompg(args.data)
     formula = args.formula or default_formula(df)
-    print("=== Formula ==="); print(formula)
+    print("=== Formula ===") 
+    print(formula)
 
     model = smf.ols(formula, data=df).fit()
     print("\n=== Fit Stats ===")

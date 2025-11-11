@@ -5,7 +5,9 @@ Chapter 7 — Simple Linear Regression (R mirror)
 - Prints coef, sigma, R^2, predictions
 - --save-plot writes outputs/ch07_slr.png
 """
-import argparse, math, os
+import argparse
+import math
+import os
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
@@ -54,7 +56,8 @@ def main():
         plt.figure()
         plt.scatter(x, y, s=40)
         plt.plot(xs, b0 + b1*xs, linewidth=3)
-        plt.xlabel("Speed (mph)"); plt.ylabel("Stopping Distance (ft)")
+        plt.xlabel("Speed (mph)") 
+        plt.ylabel("Stopping Distance (ft)")
         plt.title("Stopping Distance vs Speed — Fitted SLR")
         out = "outputs/ch07_slr.png"
         plt.savefig(out, dpi=130, bbox_inches="tight")
