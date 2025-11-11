@@ -1,43 +1,53 @@
-# Default target
 .DEFAULT_GOAL := help
 
-# Config
 PYTHON := python
 SEED ?= 123
 OUT_SYN := data/synthetic
 OUT_CH13 := outputs/ch13
+OUT_CH14 := outputs/ch14
 
 .PHONY: help
 help:
 	@echo "Available targets:"
 	@echo "  ch13       - full Chapter 13 run (sim + analysis + plots)"
-	@echo "  ch13-ci    - tiny smoke run for CI (fast)"
-	@echo "  lint       - run ruff checks on new/test code"
-	@echo "  lint-fix   - auto-fix with ruff"
-	@echo "  test       - run pytest"
+	@echo "  ch13-ci    - tiny, fast CI smoke for Chapter 13"
+	@echo "  ch14       - full Chapter 14 A/B t-test (sim + analysis + plots)"
+	@echo "  ch14-ci    - tiny, fast CI smoke for Chapter 14"
+	@echo "  lint       - ruff check"
+	@echo "  lint-fix   - ruff check with fixes"
+	@echo "  test       - pytest"
 	@echo "  clean      - remove generated outputs"
 
-# ---- Fast CI smoke (small n, deterministic) ----
+# --- CI smokes (small, deterministic) ---
 .PHONY: ch13-ci
 ch13-ci:
 	$(PYTHON) -m scripts.sim_stroop --n-subjects 6 --n-trials 10 --seed $(SEED) --outdir $(OUT_SYN)
-	$(PYTHON) -m scripts.ch13_stroop_within --data $(OUT_SYN)/psych_stroop_trials.csv --outdir $(OUT_CH13) --save-plots --seed $(SEED)
+	$(PYTHON) -m scripts.ch13_stroop_within --datadir $(OUT_SYN) --outdir $(OUT_CH13) --save-plots --seed $(SEED)
 	$(PYTHON) -m scripts.sim_fitness_2x2 --n-per-group 10 --seed $(SEED) --outdir $(OUT_SYN)
-	$(PYTHON) -m scripts.ch13_fitness_mixed --data $(OUT_SYN)/fitness_long.csv --outdir $(OUT_CH13) --save-plots --seed $(SEED)
+	$(PYTHON) -m scripts.ch13_fitness_mixed --datadir $(OUT_SYN) --outdir $(OUT_CH13) --save-plots --seed $(SEED)
 
-# ---- Full Chapter 13 demo (default sizes) ----
+.PHONY: ch14-ci
+ch14-ci:
+	$(PYTHON) -m scripts.sim_ch14_tutoring --n-per-group 10 --seed $(SEED) --outdir $(OUT_SYN)
+	$(PYTHON) -m scripts.ch14_tutoring_ab --datadir $(OUT_SYN) --outdir $(OUT_CH14) --seed $(SEED)
+
+# --- Full demos ---
 .PHONY: ch13
 ch13:
 	$(PYTHON) -m scripts.sim_stroop --seed $(SEED) --outdir $(OUT_SYN)
-	$(PYTHON) -m scripts.ch13_stroop_within --data $(OUT_SYN)/psych_stroop_trials.csv --outdir $(OUT_CH13) --save-plots --seed $(SEED)
+	$(PYTHON) -m scripts.ch13_stroop_within --datadir $(OUT_SYN) --outdir $(OUT_CH13) --save-plots --seed $(SEED)
 	$(PYTHON) -m scripts.sim_fitness_2x2 --seed $(SEED) --outdir $(OUT_SYN)
-	$(PYTHON) -m scripts.ch13_fitness_mixed --data $(OUT_SYN)/fitness_long.csv --outdir $(OUT_CH13) --save-plots --seed $(SEED)
+	$(PYTHON) -m scripts.ch13_fitness_mixed --datadir $(OUT_SYN) --outdir $(OUT_CH13) --save-plots --seed $(SEED)
 
-# ---- Quality gates ----
+.PHONY: ch14
+ch14:
+	$(PYTHON) -m scripts.sim_ch14_tutoring --n-per-group 50 --seed $(SEED) --outdir $(OUT_SYN)
+	$(PYTHON) -m scripts.ch14_tutoring_ab --datadir $(OUT_SYN) --outdir $(OUT_CH14) --seed $(SEED)
+
+# --- Quality gates ---
 .PHONY: lint
 lint:
-	# Only lint our new, clean code to avoid legacy errors
-	ruff check tests/ scripts/_cli.py scripts/__init__.py
+	ruff check .
 
 .PHONY: lint-fix
 lint-fix:
@@ -47,8 +57,8 @@ lint-fix:
 test:
 	pytest -q
 
-# ---- Utilities ----
+# --- Utilities ---
 .PHONY: clean
 clean:
-	@echo "Removing generated outputs in $(OUT_SYN) and $(OUT_CH13)"
-	-@rm -rf $(OUT_SYN) $(OUT_CH13)
+	@echo "Removing generated outputs in $(OUT_SYN), $(OUT_CH13), $(OUT_CH14)"
+	-@rm -rf $(OUT_SYN) $(OUT_CH13) $(OUT_CH14)
