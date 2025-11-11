@@ -41,7 +41,8 @@ def load_autompg(path: str) -> pd.DataFrame:
         raise SystemExit(f"ERROR: missing columns; have {list(df.columns)}")
     df = df.dropna()
     df["cylinders"] = df["cylinders"].astype("category")
-    if "origin" in df.columns: df["origin"] = df["origin"].astype("category")
+    if "origin" in df.columns: 
+        df["origin"] = df["origin"].astype("category")
     return df
 
 def default_formula(df: pd.DataFrame) -> str:

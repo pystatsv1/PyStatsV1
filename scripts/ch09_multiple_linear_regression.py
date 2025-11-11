@@ -63,7 +63,8 @@ def save_outputs(model, df, outdir="outputs"):
     plt.figure()
     plt.scatter(fitted, resid, s=20)
     plt.axhline(0, linestyle="--", linewidth=1)
-    plt.xlabel("Fitted values"); plt.ylabel("Residuals")
+    plt.xlabel("Fitted values") 
+    plt.ylabel("Residuals")
     plt.title("Residuals vs Fitted")
     plt.savefig(os.path.join(outdir, "ch09_resid_vs_fitted.png"), dpi=130, bbox_inches="tight")
 

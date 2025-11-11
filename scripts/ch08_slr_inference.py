@@ -115,7 +115,8 @@ def inference(outputs, alpha=0.05, x0=20.0, save_plot=False):
         plt.plot(xs, ci_l, linestyle="--")
         plt.plot(xs, pi_u, linestyle=":")
         plt.plot(xs, pi_l, linestyle=":")
-        plt.xlabel("Speed (mph)"); plt.ylabel("Stopping Distance (ft)")
+        plt.xlabel("Speed (mph)") 
+        plt.ylabel("Stopping Distance (ft)")
         plt.title("SLR with 95% CI (--) and 95% PI (:)")
         out = "outputs/ch08_slr_bands.png"
         plt.savefig(out, dpi=130, bbox_inches="tight")
