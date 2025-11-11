@@ -1,12 +1,29 @@
 from __future__ import annotations
-import pathlib, subprocess, sys, tempfile
+import pathlib
+import subprocess
+import sys
+import tempfile
 
-SCRIPTS = ["ch13_stroop_within","ch13_fitness_mixed","sim_stroop","sim_fitness_2x2"]
+SCRIPTS = [
+    "ch13_stroop_within",
+    "ch13_fitness_mixed",
+    "sim_stroop",
+    "sim_fitness_2x2",
+]
 
 def run_module(mod: str) -> None:
     root = pathlib.Path(__file__).resolve().parents[1]
     with tempfile.TemporaryDirectory() as tmpd:
-        cmd = [sys.executable, "-m", f"scripts.{mod}", "--outdir", tmpd, "--seed", "42"]
+        cmd = [
+            sys.executable,
+            "-m",
+            f"scripts.{mod}",
+            "--outdir",
+            tmpd,
+            "--seed",
+            "42",
+        ]
+        # We must run from the repo root for the 'scripts' package to be found
         res = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
         assert res.returncode == 0, res.stderr or res.stdout
 
