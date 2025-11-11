@@ -1,6 +1,4 @@
 import numpy as np
-import pandas as pd
-from scipy import stats
 import statsmodels.formula.api as smf
 
 from scripts import sim_stroop
