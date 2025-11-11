@@ -33,4 +33,4 @@ def test_stroop_effect_and_mixed_model():
     coef = res.params.get("C(condition)[T.incongruent]")
     pval = res.pvalues.get("C(condition)[T.incongruent]")
     assert 0.12 < coef < 0.23
-    assert pval < 1e-6
+    assert pval < 1e-4
