@@ -5,6 +5,7 @@ SEED ?= 123
 OUT_SYN := data/synthetic
 OUT_CH13 := outputs/ch13
 OUT_CH14 := outputs/ch14
+OUT_CH15 := outputs/ch15
 
 .PHONY: help
 help:
@@ -13,10 +14,13 @@ help:
 	@echo "  ch13-ci    - tiny, fast CI smoke for Chapter 13"
 	@echo "  ch14       - full Chapter 14 A/B t-test (sim + analysis + plots)"
 	@echo "  ch14-ci    - tiny, fast CI smoke for Chapter 14"
+	@echo "  ch15       - full Chapter 15 reliability (sim + analysis + plots)"
+	@echo "  ch15-ci    - tiny, fast CI smoke for Chapter 15"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
 	@echo "  clean      - remove generated outputs"
+
 
 # --- CI smokes (small, deterministic) ---
 .PHONY: ch13-ci
@@ -31,6 +35,11 @@ ch14-ci:
 	$(PYTHON) -m scripts.sim_ch14_tutoring --n-per-group 10 --seed $(SEED) --outdir $(OUT_SYN)
 	$(PYTHON) -m scripts.ch14_tutoring_ab --datadir $(OUT_SYN) --outdir $(OUT_CH14) --seed $(SEED)
 
+.PHONY: ch15-ci
+ch15-ci:
+	$(PYTHON) -m scripts.sim_ch15_reliability --n-survey 20 --n-retest 10 --seed $(SEED) --outdir $(OUT_SYN)
+	$(PYTHON) -m scripts.ch15_reliability_analysis --datadir $(OUT_SYN) --outdir $(OUT_CH15) --seed $(SEED)
+
 # --- Full demos ---
 .PHONY: ch13
 ch13:
@@ -43,6 +52,11 @@ ch13:
 ch14:
 	$(PYTHON) -m scripts.sim_ch14_tutoring --n-per-group 50 --seed $(SEED) --outdir $(OUT_SYN)
 	$(PYTHON) -m scripts.ch14_tutoring_ab --datadir $(OUT_SYN) --outdir $(OUT_CH14) --seed $(SEED)
+
+.PHONY: ch15
+ch15:
+	$(PYTHON) -m scripts.sim_ch15_reliability --n-survey 150 --n-retest 40 --seed $(SEED) --outdir $(OUT_SYN)
+	$(PYTHON) -m scripts.ch15_reliability_analysis --datadir $(OUT_SYN) --outdir $(OUT_CH15) --seed $(SEED)
 
 # --- Quality gates ---
 .PHONY: lint
@@ -60,5 +74,5 @@ test:
 # --- Utilities ---
 .PHONY: clean
 clean:
-	@echo "Removing generated outputs in $(OUT_SYN), $(OUT_CH13), $(OUT_CH14)"
-	-@rm -rf $(OUT_SYN) $(OUT_CH13) $(OUT_CH14)
+	@echo "Removing generated outputs in $(OUT_SYN), $(OUT_CH13), $(OUT_CH14), $(OUT_CH15)"
+	-@rm -rf $(OUT_SYN) $(OUT_CH13) $(OUT_CH14) $(OUT_CH15)
