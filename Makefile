@@ -22,11 +22,6 @@ help:
 	@echo "  clean      - remove generated outputs"
 
 
-.PHONY: clean
-clean:
-	@echo "Removing generated outputs in $(OUT_SYN), $(OUT_CH13), $(OUT_CH14), $(OUT_CH15)"
-	-@rm -rf $(OUT_SYN) $(OUT_CH13) $(OUT_CH14) $(OUT_CH15)
-
 # --- CI smokes (small, deterministic) ---
 .PHONY: ch13-ci
 ch13-ci:
