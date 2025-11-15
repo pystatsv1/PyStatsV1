@@ -12,8 +12,8 @@
 
 
 
-[![ci](https://img.shields.io/github/actions/workflow/status/nicholaskarlson/PyStatsV1/ci.yml?branch=main)](https://github.com/nicholaskarlson/PyStatsV1/actions/workflows/ci.yml)
-[![release](https://img.shields.io/github/v/tag/nicholaskarlson/PyStatsV1?label=release)](https://github.com/nicholaskarlson/PyStatsV1/tags)
+[![ci](https://img.shields.io/github/actions/workflow/status/PyStatsV1/PyStatsV1/ci.yml?branch=main)](https://github.com/PyStatsV1/PyStatsV1/actions/workflows/ci.yml)
+[![release](https://img.shields.io/github/v/tag/PyStatsV1/PyStatsV1?label=release)](https://github.com/PyStatsV1/PyStatsV1/tags)
 
 Plain Python scripts that mirror R recipes so non-specialists can run analyses from the command line, save figures/tables, and compare results across R/Python.
 

@@ -122,5 +122,5 @@ Criteria:
 ---
 
 If you'd like to contribute to any milestone, visit:  
-👉 **Issues:** https://github.com/nicholaskarlson/PyStatsV1/issues  
+👉 **Issues:** https://github.com/PyStatsV1/PyStatsV1/issues  
 👉 **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
