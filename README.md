@@ -5,12 +5,21 @@
 
 PyStatsV1 provides **plain, transparent Python scripts** that mirror classical **R textbook analyses**, making it easy for students, tutors, and practitioners to:
 
-- run statistical analyses from the command line,  
-- generate synthetic data for teaching,  
-- produce figures and JSON summaries,  
+- run statistical analyses from the command line,
+- generate synthetic data for teaching,
+- produce figures and JSON summaries,
 - and compare outputs across R/Python.
 
-The project follows a **chapter-based structure**—each chapter includes a simulator + analyzer + Makefile targets + CI smoke tests.
+The project follows a **chapter-based structure** — each chapter includes a simulator, an analyzer, Makefile targets, and CI smoke tests.
+
+### Who is this for?
+
+PyStatsV1 is designed for:
+
+- **Students** who want to run textbook-style analyses in real Python code.
+- **Instructors / TAs** who need reproducible demos and synthetic data for lectures, labs, or assignments.
+- **Practitioners** who prefer plain scripts and command-line tools over large frameworks.
+- **R users** who want a clear, line-by-line bridge from R examples into Python.
 
 ---
 
@@ -19,6 +28,7 @@ The project follows a **chapter-based structure**—each chapter includes a simu
 ### 1. Create and activate a virtual environment
 
 **macOS / Linux**
+
 ```bash
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -U pip
@@ -26,6 +36,7 @@ pip install -r requirements.txt
 ```
 
 **Windows (Git Bash or PowerShell)**
+
 ```bash
 # Git Bash first; PowerShell as fallback
 python -m venv .venv; source .venv/Scripts/activate 2>/dev/null || .venv\Scripts\Activate.ps1
@@ -37,24 +48,28 @@ pip install -r requirements.txt
 
 ## 📊 Chapter Scripts
 
-### Chapter 1 (intro)
+### Chapter 1 — Introduction
+
 ```bash
 python -m scripts.ch01_introduction
 ```
 
 ### Chapter 13 — Within-subjects & Mixed Models
+
 ```bash
 make ch13-ci   # tiny CI smoke
 make ch13      # full demo
 ```
 
 ### Chapter 14 — Tutoring A/B Test (two-sample t-test)
+
 ```bash
 make ch14-ci
 make ch14
 ```
 
-### Chapter 15 — Reliability (Cronbach α + ICC + Bland–Altman)
+### Chapter 15 — Reliability (Cronbach’s α, ICC, Bland–Altman)
+
 ```bash
 make ch15-ci
 make ch15
@@ -62,7 +77,7 @@ make ch15
 
 For an overview of what each chapter contains:
 
-- **[CHAPTERS.md](CHAPTERS.md)** — coverage, commands, and outputs  
+- **[CHAPTERS.md](CHAPTERS.md)** — coverage, commands, and outputs
 - **[ROADMAP.md](ROADMAP.md)** — planned chapters (e.g., Ch16 Epidemiology RR)
 
 ---
@@ -79,8 +94,48 @@ PyStatsV1 is structured with a core set of documentation:
 - **[SUPPORT.md](SUPPORT.md)** — how to get help or ask questions.
 - **Case Study Template:** [`docs/case_study_template.md`](docs/case_study_template.md) — structure for building new chapter teaching documentation.
 
-If you want to contribute, start with **[CONTRIBUTING.md](CONTRIBUTING.md)** and check issues labeled  
+If you want to contribute, start with **[CONTRIBUTING.md](CONTRIBUTING.md)** and check issues labeled
 `good first issue` or `help wanted`.
+
+---
+
+## 🤝 Contribute in 5 minutes
+
+Want to help but not sure where to start?
+
+1. **Browse issues** labeled `good first issue` or `help wanted`.
+2. **Pick one small thing** (typo, doc improvement, tiny refactor, or a missing test).
+3. **Fork & clone** the repo.
+4. **Create and activate a virtual environment**, then:
+
+   ```bash
+   pip install -r requirements.txt
+   make lint
+   make test
+   ```
+
+5. Make your change, and ensure `make lint` and `make test` both pass.
+6. Open a Pull Request and briefly describe:
+   - what you changed,
+   - how you tested it,
+   - which chapter(s) it touches, if any.
+
+Maintainer promise: we’ll give constructive feedback and help first-time contributors land their PRs.
+
+---
+
+## 🗺️ Roadmap snapshot
+
+High-level upcoming work (see `ROADMAP.md` for details):
+
+- ✅ v0.17.0 — Onboarding and issue templates
+- ⏳ Next steps:
+  - Additional regression chapters (logistic, Poisson, etc.)
+  - Power and sample size simulations
+  - Epidemiology-focused examples (risk ratios, odds ratios)
+  - More teaching case studies using `docs/case_study_template.md`
+
+If you’d like to champion a specific chapter or topic, open an issue and we can design it together.
 
 ---
 
@@ -103,7 +158,7 @@ make ch15-ci
 
 All synthetic data is written to:
 
-- `data/synthetic/`  
+- `data/synthetic/`
 - `outputs/<chapter>/`
 
 …and ignored by Git.
@@ -112,18 +167,18 @@ All synthetic data is written to:
 
 ## 🔀 Pull Requests
 
-Every pull request must:
+Every pull request should:
 
 - pass `make lint` and `make test`,
 - avoid committing generated outputs,
-- follow the structure described in **CONTRIBUTING.md**.
+- follow the structure described in **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 GitHub provides:
 
-- 🐛 Bug report template  
-- 💡 Feature request template  
-- 📘 Good first issue template  
-- 🔀 Pull request template  
+- 🐛 Bug report template
+- 💡 Feature request template
+- 📘 Good first issue template
+- 🔀 Pull request template
 
 ---
 
@@ -131,6 +186,21 @@ GitHub provides:
 
 If you believe you’ve found a security issue, **do not** open a public GitHub issue.  
 Follow the private disclosure process described in **[SECURITY.md](SECURITY.md)**.
+
+---
+
+## 💬 Community & support
+
+- **Questions?**  
+  Open a GitHub issue with the `question` label.
+
+- **Using PyStatsV1 in a course?**  
+  We’d love to hear about it — open an issue titled `Course report: <institution>` or mention it in your PR description.
+
+- **Feature ideas / chapter requests?**  
+  Open an issue with the `enhancement` or `chapter-idea` label.
+
+As the project grows, we plan to enable GitHub Discussions and possibly a lightweight chat space for instructors and contributors.
 
 ---
 
