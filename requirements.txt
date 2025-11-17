@@ -4,3 +4,5 @@ statsmodels>=0.14
 scipy>=1.11
 matplotlib>=3.8
 pingouin>=0.5.4
+sphinx
+sphinx-rtd-theme

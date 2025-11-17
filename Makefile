@@ -22,6 +22,11 @@ help:
 	@echo "  clean      - remove generated outputs"
 
 
+
+docs:
+	python -m sphinx -b html docs/source docs/build/html
+
+
 # --- CI smokes (small, deterministic) ---
 .PHONY: ch13-ci
 ch13-ci:
