@@ -8,6 +8,7 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    :caption: Contents:
 
    getting_started
+   applied_stats_with_python_intro
    chapters
    teaching_guide
    contributing
