@@ -22,6 +22,7 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    applied_stats_with_python_ch12_analysis_of_variance.rst
    applied_stats_with_python_ch13_model_diagnostics
    applied_stats_with_python_ch14_transformations
+   applied_stats_with_python_ch15_collinearity
    
    chapters
    teaching_guide
