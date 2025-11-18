@@ -16,6 +16,7 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    applied_stats_with_python_ch6_resources
    applied_stats_with_python_ch7_simple_linear_regression
    applied_stats_with_python_ch8_inference_for_simple_linear_regression
+   applied_stats_with_python_ch9_multiple_linear_regression
    chapters
    teaching_guide
    contributing
