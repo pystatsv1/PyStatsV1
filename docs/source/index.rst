@@ -25,6 +25,7 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    applied_stats_with_python_ch15_collinearity
    applied_stats_with_python_ch16_variable_selection_and_model_building
    applied_stats_with_python_ch17_logistic_regression
+   applied_stats_with_python_ch18_beyond
    
    chapters
    teaching_guide
