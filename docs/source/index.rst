@@ -39,3 +39,4 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
 
    psych_intro
    psych_ch1_thinking_like_a_scientist
+   psych_ch2_ethics
