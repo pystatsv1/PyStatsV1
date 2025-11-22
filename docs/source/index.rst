@@ -42,3 +42,4 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    psych_ch2_ethics
    psych_ch3_measuring_variables
    psych_ch4_distributions
+   psych_ch5_central_variability
