@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pandas as pd
 
 from scripts.psych_ch6_normal_zscores import compute_zscores, summarize_tails
