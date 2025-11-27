@@ -61,8 +61,13 @@ psych-ch07:
 psych-ch08:
 	$(PYTHON) -m scripts.psych_ch8_one_sample_test
 
+.PHONY: psych-ch09
 psych-ch09:
 	python -m scripts.psych_ch9_one_sample_ci
+
+.PHONY: psych-ch10
+psych-ch10:
+	python -m scripts.psych_ch10_independent_t
 
 
 .PHONY: ch13
