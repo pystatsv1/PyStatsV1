@@ -12,7 +12,6 @@ We check:
 from __future__ import annotations
 
 import numpy as np
-import pandas as pd
 from scipy import stats
 
 from scripts.psych_ch10_independent_t import (
