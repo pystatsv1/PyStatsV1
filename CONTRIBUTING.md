@@ -1,270 +1,209 @@
-# CONTRIBUTING.md
-*(PyStatsV1 – Open Statistics Case Studies)*
+# Contributing to PyStatsV1
 
-Welcome! 🎓  
-Thank you for your interest in contributing to **PyStatsV1** — an open, teaching-oriented repository that implements real statistical case studies as clean, reproducible Python modules.
+**Welcome!** Thank you for helping us build a framework for rigorous, reproducible applied statistics.
 
-This document will show you how the project works, how to get set up locally, how to contribute code, documentation, or examples, and how to open successful pull requests.
-
-PyStatsV1 is intentionally organized like a **factory**:
-
-- Each “chapter” (Ch13, Ch14, Ch15, …) corresponds to a **complete statistical case study**.  
-- Each chapter has two core components:  
-  1. A **simulator** (`sim_chXX_*.py`) that generates synthetic data  
-  2. An **analyzer** (`chXX_*.py`) that performs the statistical analysis  
-- Everything is **reproducible**, **seeded**, and **CI-tested**.
-
-If you want to contribute a new “chapter car” or improve an existing one, this guide is for you.
+Whether you are a veteran Python developer, a statistics student, or an instructor moving from R to Python, your contribution is valuable. We believe that **high-quality software engineering** is the foundation of **defensible science**, and we are excited to have you join this mission.
 
 ---
 
-# 🔧 **1. Project Goals**
+## 🚦 Where to Start?
 
-PyStatsV1 aims to:
+You do **not** need to be a “coder” to contribute. Here are some common ways to help.
 
-- Teach **practical statistics** through real, runnable case studies  
-- Provide clean, idiomatic, documented **Python implementations**  
-- Offer synthetic data generation so learners can run analyses without external datasets  
-- Maintain a **rigorous CI pipeline** using Python 3.10 on Windows  
-- Keep everything **MIT-licensed, open, and beginner-friendly**
+### 1. I am a Student or Researcher (Non-Programmer)
 
----
+You are our target audience! Your feedback is critical.
 
-# 🏗️ **2. Repository Layout**
+- **Fix typos and unclear text**  
+  If a chapter explanation is confusing or has a typo, that is a bug. Please let us know.
+- **Report “it didn’t work” moments**  
+  If you followed a tutorial and got an error, please open an issue and paste:
+  - the command you ran,
+  - the full error message,
+  - your OS and Python version (e.g. `python --version`).
+- **Request a topic**  
+  Need a specific analysis (e.g., *Two-way ANOVA* or *logistic regression*)? Open an issue labeled `feature request` and describe the use case.
 
-```
-PyStatsV1/
-│
-├── scripts/                    # Chapter simulators and analyzers
-│   ├── _cli.py                 # Shared CLI helpers (base_parser, apply_seed)
-│   ├── sim_ch13_*              # Chapter 13 simulators
-│   ├── ch13_*                  # Chapter 13 analyzers
-│   ├── sim_ch14_tutoring.py    # Chapter 14 simulator
-│   ├── ch14_tutoring_ab.py     # Chapter 14 analyzer
-│   ├── sim_ch15_reliability.py # Chapter 15 simulator
-│   └── ch15_reliability_analysis.py  # Chapter 15 analyzer
-│
-├── tests/                      # pytest tests + CLI smoke tests
-│   └── test_cli_smoke.py
-│
-├── data/
-│   └── synthetic/              # Generated CSVs (ignored by Git)
-│
-├── outputs/
-│   ├── ch13/ ch14/ ch15/ …     # Generated plots + summaries (ignored by Git)
-│
-├── Makefile                    # Unified developer interface
-├── requirements.txt            # Runtime dependencies
-├── requirements-dev.txt        # Dev tools (future)
-├── README.md                   # Project overview
-└── LICENSE                     # MIT
-```
+### 2. I am an Instructor
+
+- **Share a case study**  
+  Have a great dataset or teaching example? We can help turn it into a PyStatsV1 “chapter” or lab.
+- **Give course feedback**  
+  Tell us how the scripts worked in your classroom: what flowed well, what students struggled with, and what you’d like to see next.
+
+### 3. I am a Developer (Python / R)
+
+- **Translate R to Python**  
+  Many classic applied stats books are R-first. We are actively porting those examples into the PyStatsV1 structure.
+- **Improve the “plumbing”**  
+  Help us refine CI, Makefiles, type hints, and tests, or add new chapter helpers and simulators.
+
+If you’re unsure where to start, look for issues labeled **`good first issue`** or **`help wanted`**.
 
 ---
 
-# 💻 **3. Local Development Setup**
+## 🛠️ The Engineering-First Workflow
 
-PyStatsV1 supports **Python 3.10**.
+We treat statistical analysis like production software. That means:
 
-### **Step 1: Clone**
+- every chapter has scripts and tests,
+- we use **CI** to catch bugs early,
+- and contributors share a common workflow.
 
-```bash
-git clone https://github.com/<your-username>/PyStatsV1
-cd PyStatsV1
-```
+Don’t worry — the tooling is there to *help* you. You do not have to be an expert in any of it to contribute.
 
-### **Step 2: Create & Activate Virtual Environment**
+### 1. Fork and Clone
+
+1. Fork the repository on GitHub to your own account.
+2. Clone your fork:
+
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/PyStatsV1.git
+   cd PyStatsV1
+   ```
+
+3. Add the upstream remote (optional but recommended):
+
+   ```bash
+   git remote add upstream https://github.com/pystatsv1/PyStatsV1.git
+   ```
+
+### 2. Set Up Your Environment
+
+We recommend using a virtual environment.
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate      # Windows: source .venv/Scripts/activate
+# On macOS / Linux:
+source .venv/bin/activate
+# On Windows (PowerShell):
+.venv\Scripts\Activate.ps1
 ```
 
-### **Step 3: Install Dependencies**
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
-### **Step 4: Verify Your Environment**
+You should now be able to run:
 
 ```bash
-make lint
-make test
-make ch15-ci
-```
-
----
-
-# 🧪 **4. Running the Project**
-
-## **4.1 Full Case Studies**
-
-```bash
-make ch13
-make ch14
-make ch15
-```
-
-## **4.2 CI-sized Versions**
-
-```bash
-make ch13-ci
-make ch14-ci
-make ch15-ci
-```
-
-## **4.3 Test Suite**
-
-```bash
-make test
-```
-
-## **4.4 Linting**
-
-```bash
+pytest
 make lint
 ```
 
----
+without errors.
 
-# 🧩 **5. Contribution Types**
+### 3. Create a Branch
 
-- New chapters (Ch16+)  
-- Fixes / improvements  
-- Explain-mode for existing chapters  
-- Documentation  
-- New plots or statistical metrics  
-- Tests  
-
----
-
-# 🧱 **6. Adding a New Chapter**
-
-Each new case study must include:
-
-### **6.1 Simulator Requirements**
-
-- Use `base_parser()` & `apply_seed()`
-- Accept `--seed` and `--outdir`
-- Save only to `data/synthetic/`
-- Include a JSON metadata file
-- Deterministic under fixed seed
-
-### **6.2 Analyzer Requirements**
-
-- Accept `--datadir` or `--data`
-- Save outputs (JSON, plots) to `outputs/chXX/`
-- Use:
-
-```python
-import matplotlib
-matplotlib.use("Agg")
-```
-
-### **6.3 Makefile Update**
-
-Add:
-
-- `chXX` target  
-- `chXX-ci` target  
-- Help entry  
-
-### **6.4 Update CLI Smoke Tests**
-
-Add the module names to `tests/test_cli_smoke.py`.
-
----
-
-# 🔍 **7. Coding Standards**
-
-- Lint with `make lint`
-- Use type hints
-- Clear docstrings explaining the *purpose*
-- Prefer simple, educational code
-- Avoid unnecessary dependencies
-
----
-
-# 🧪 **8. Tests**
-
-All new chapters **must**:
-
-- Be added to CLI smoke tests  
-- Produce deterministic outputs under `--seed`  
-- Pass `pytest` on Windows/Python 3.10  
-
-Run:
+Use a short, descriptive branch name:
 
 ```bash
-make test
+# Examples:
+git checkout -b fix/typo-ch09-ci-docs
+git checkout -b feat/psych-ch10-independent-t
+git checkout -b tests/psych-ch8-one-sample
 ```
 
----
+We loosely follow a convention like:
 
-# 🔀 **9. Branching & Pull Requests**
+- `docs/...` for documentation changes,
+- `feat/...` for new functionality or scripts,
+- `tests/...` for new or improved tests,
+- `tooling/...` for Makefile / CI / tooling updates.
 
-### **Branch Naming**
+### 4. Make Your Changes
 
-```
-feat/ch15-explain-mode
-fix/ch14-ci-warning
-docs/improve-readme
-```
+Some suggestions by contribution type:
 
-### **Open PRs against `main`**
+- **Docs / textbook text**
+  - Edit the relevant `.rst` files under `docs/source/`.
+  - Keep explanations student-friendly and avoid unnecessary jargon.
+- **Scripts**
+  - Add or modify files under `scripts/...`.
+  - Prefer small, pure functions that are easy to test.
+  - Keep dependencies minimal and standard-library-first when possible.
+- **Tests**
+  - Put tests in `tests/` and follow the existing naming pattern  
+    (e.g. `test_psych_ch8_one_sample_test.py`).
+  - Use simple, deterministic examples with fixed random seeds when simulating.
+
+Run the basic checks before committing:
 
 ```bash
-git push -u origin <branch>
-gh pr create --fill --base main --head <branch>
+pytest
+make lint
 ```
 
-### **PR Requirements**
+If you are working on chapter-specific helpers, also run any relevant `make` target (e.g. `make psych-ch08`, `make psych-ch09`).
 
-- Lint passes  
-- Tests pass  
-- CI green  
-- No synthetic data committed  
+### 5. Commit Style
+
+Use clear, focused commits. A few examples that match the existing history:
+
+- `docs: clarify Chapter 8 p-value explanation`
+- `feat: add Chapter 10 independent-samples simulator`
+- `tests: add smoke tests for psych CLI`
+- `tooling: add Make target for psych Chapter 9 lab`
+
+Commit your work:
+
+```bash
+git add PATH/TO/FILES
+git commit -m "docs: short, descriptive message"
+```
+
+### 6. Keep Your Branch Up to Date
+
+If `main` has moved forward while you were working:
+
+```bash
+git fetch upstream
+git checkout main
+git pull upstream main
+git checkout your-branch-name
+git rebase main   # or merge, if you prefer
+```
+
+Resolve any conflicts, rerun tests, and push again.
+
+### 7. Open a Pull Request
+
+Push your branch to your fork:
+
+```bash
+git push -u origin your-branch-name
+```
+
+Then open a Pull Request (PR) on GitHub:
+
+- Base repository: `pystatsv1/PyStatsV1`
+- Base branch: `main`
+- Compare: `your-branch-name`
+
+In the PR description, please include:
+
+- a short summary of what you changed,
+- which chapter(s) or files are affected,
+- how you tested it (`pytest`, `make lint`, specific `make` targets).
+
+Maintainers will review your PR, possibly suggest changes, and then merge it once it’s ready.
 
 ---
 
-# 📦 **10. Filing Issues**
+## 💬 Questions, Ideas, and Support
 
-Use GitHub Issues for:
+If you’re not sure how to implement something — or you just want to float an idea — please:
 
-- Bugs  
-- Enhancements  
-- New chapter proposals  
-- Documentation improvements  
+- open an issue with the **question**, or  
+- draft a PR and mark it as **Draft** to start a conversation.
 
-Use labels:
+We’re excited to collaborate with:
 
-- `bug`
-- `enhancement`
-- `good first issue`
-- `help wanted`
+- students learning applied statistics,
+- instructors building reproducible courses,
+- and practitioners who care about transparent, defensible analyses.
 
----
-
-# 🤝 **11. Code of Conduct**
-
-Please be respectful.  
-See `CODE_OF_CONDUCT.md`.
-
----
-
-# 🚀 **12. Roadmap**
-
-Planned additions:
-
-- Explain-mode for Ch14 & Ch15  
-- Epidemiology: Risk Ratio w/ strata  
-- Reliability extensions  
-- Additional inference & regression chapters  
-
----
-
-# 🎉 **Thank You**
-
-PyStatsV1 is an open educational project — your contributions make it meaningful and useful for learners everywhere.  
-We’re excited to build new “chapter cars” with you! 🚗📊✨
+Thank you again for contributing to **PyStatsV1** 💙
