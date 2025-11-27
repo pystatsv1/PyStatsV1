@@ -1,8 +1,15 @@
 # Contributing to PyStatsV1
 
+Don't just calculate your results — engineer them.
+
+PyStatsV1 is an open-source organization applying modern software engineering standards to applied statistics.
+Our mission is to help students, instructors, and researchers escape the Reproducibility Crisis by treating statistical analysis not as a scratchpad, but as a transparent, testable, and re-runnable system.
+
+PyStatsV1 = statistics + software engineering for transparent and reproducible research.
+
 **Welcome!** Thank you for helping us build a framework for rigorous, reproducible applied statistics.
 
-Whether you are a veteran Python developer, a statistics student, or an instructor moving from R to Python, your contribution is valuable. We believe that **high-quality software engineering** is the foundation of **defensible science**, and we are excited to have you join this mission.
+Whether you are a veteran Python developer, a statistics student, or an instructor moving from R to Python, your contribution is valuable. We believe that **high-quality software engineering** can provide a strong foundation for **transparent and reproducible science**, and we are excited to have you join this mission.
 
 ---
 
