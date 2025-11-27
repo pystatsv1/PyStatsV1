@@ -1,6 +1,6 @@
 # Contributing to PyStatsV1
 
-Don't just calculate your results — engineer them. We treat statistical analysis like production software.
+**Don't just calculate your results — engineer them. We treat statistical analysis like production software.**
 
 PyStatsV1 is an open-source organization applying modern software engineering standards to applied statistics.
 Our mission is to help students, instructors, and researchers escape the Reproducibility Crisis by treating statistical analysis not as a scratchpad, but as a transparent, testable, and re-runnable system.
