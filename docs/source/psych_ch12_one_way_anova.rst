@@ -477,12 +477,5 @@ In the next chapter, you will extend these ideas further to **factorial
 designs**, where more than one independent variable is manipulated at the same
 time.
 
-Code listing
-------------
-
-For reference, the full implementation is included via Sphinx:
-
-.. literalinclude:: ../scripts/psych_ch12_one_way_anova.py
-   :language: python
-   :linenos:
-   :caption: ``scripts/psych_ch12_one_way_anova.py`` – simulator and one-way ANOVA helpers
+For the full Python implementation, see
+``scripts/psych_ch12_one_way_anova.py`` in the PyStatsV1 GitHub repository.

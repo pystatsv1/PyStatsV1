@@ -475,12 +475,5 @@ measures. In later chapters, you will extend these ideas to more complex
 designs and models (ANOVA, regression, mixed models), but the core logic will
 remain the same.
 
-Code listing
-------------
-
-For reference, the full implementation is included via Sphinx:
-
-.. literalinclude:: ../scripts/psych_ch11_paired_t.py
-   :language: python
-   :linenos:
-   :caption: ``scripts/psych_ch11_paired_t.py`` – simulator and paired *t*-test helpers
+For the full Python implementation, see
+``scripts/psych_ch11_paired_t.py`` in the PyStatsV1 GitHub repository.
