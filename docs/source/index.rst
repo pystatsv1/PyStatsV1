@@ -48,3 +48,4 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    psych_ch8_hypothesis_testing
    psych_ch9_one_sample_ci
    psych_ch10_independent_t
+   psych_ch11_paired_t
