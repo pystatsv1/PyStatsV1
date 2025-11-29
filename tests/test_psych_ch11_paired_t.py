@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import numpy as np
 
 from scripts.psych_ch11_paired_t import (
     mis_specified_independent_t,
