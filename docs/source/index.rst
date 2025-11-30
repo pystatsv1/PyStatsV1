@@ -50,3 +50,4 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    psych_ch10_independent_t
    psych_ch11_paired_t
    psych_ch12_one_way_anova
+   psych_ch13_two_way_anova
