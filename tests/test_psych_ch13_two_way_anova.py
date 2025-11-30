@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import numpy as np
-import pandas as pd
 
 from scripts.psych_ch13_two_way_anova import (
     compute_simple_main_effects_training_within_context,
