@@ -77,6 +77,10 @@ psych-ch11:
 psych-ch12:
 	python -m scripts.psych_ch12_one_way_anova
 
+.PHONY: psych-ch13
+psych-ch13:
+	python -m scripts.psych_ch13_two_way_anova
+
 
 .PHONY: ch13
 ch13:
