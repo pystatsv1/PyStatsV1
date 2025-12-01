@@ -52,3 +52,4 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    psych_ch12_one_way_anova
    psych_ch13_two_way_anova
    psych_ch14_repeated_measures_anova
+   psych_ch14a_pingouin_appendix
