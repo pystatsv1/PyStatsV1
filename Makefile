@@ -92,6 +92,14 @@ test-psych-ch14:
 	pytest tests/test_psych_ch14_repeated_measures_anova.py
 
 
+psych-ch15:
+	python -m scripts.psych_ch15_correlation
+
+
+test-psych-ch15:
+	pytest tests/test_psych_ch15_correlation.py
+
+
 
 .PHONY: ch13
 ch13:
