@@ -100,6 +100,22 @@ test-psych-ch15:
 	pytest tests/test_psych_ch15_correlation.py
 
 
+psych-ch15a-pairwise:
+	python -m scripts.psych_ch15a_pingouin_pairwise_demo
+
+
+test-psych-ch15a-pairwise:
+	pytest tests/test_psych_ch15a_pingouin_pairwise_demo.py
+
+
+psych-ch15a-partial:
+	python -m scripts.psych_ch15a_pingouin_partial_demo
+
+
+test-psych-ch15a-partial:
+	pytest tests/test_psych_ch15a_pingouin_partial_demo.py
+
+
 
 .PHONY: ch13
 ch13:
