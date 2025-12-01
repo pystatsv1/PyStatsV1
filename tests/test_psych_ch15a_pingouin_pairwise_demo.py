@@ -28,7 +28,6 @@ def test_pairwise_corr_rowcount_matches_combinatorics():
 
 def test_stress_and_exam_score_are_strongly_negative():
     """Stress and exam score should have a reasonably strong negative r."""
-    df = simulate_psych_correlation_dataset(n=300, random_state=999)
     table = compute_pairwise_corr(
         method="pearson",
         padjust="none",
