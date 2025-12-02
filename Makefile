@@ -116,6 +116,14 @@ test-psych-ch15a-partial:
 	pytest tests/test_psych_ch15a_pingouin_partial_demo.py
 
 
+psych-ch16:
+	python -m scripts.psych_ch16_regression
+
+
+test-psych-ch16:
+	pytest tests/test_psych_ch16_regression.py
+
+
 
 .PHONY: ch13
 ch13:
