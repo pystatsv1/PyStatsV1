@@ -56,3 +56,4 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    psych_ch15_correlation
    psych_ch15a_pingouin_appendix
    psych_ch16_regression
+   psych_ch16a_pingouin_regression
