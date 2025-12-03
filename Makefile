@@ -140,6 +140,14 @@ test-psych-ch17:
 	pytest tests/test_psych_ch17_mixed_models.py
 
 
+psych-ch18:
+	python -m scripts.psych_ch18_ancova
+
+
+test-psych-ch18:
+	pytest tests/test_psych_ch18_ancova.py
+
+
 
 .PHONY: ch13
 ch13:
