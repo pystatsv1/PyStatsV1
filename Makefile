@@ -132,6 +132,14 @@ test-psych-ch16a:
 	pytest tests/test_psych_ch16a_pingouin_regression_demo.py
 
 
+psych-ch17:
+	python -m scripts.psych_ch17_mixed_models
+
+
+test-psych-ch17:
+	pytest tests/test_psych_ch17_mixed_models.py
+
+
 
 .PHONY: ch13
 ch13:
