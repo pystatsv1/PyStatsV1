@@ -7,10 +7,6 @@ We mostly check that:
 - the engineered Group × Time interaction is strong and in the right direction.
 """
 
-from pathlib import Path
-
-import numpy as np
-import pandas as pd
 
 from scripts.psych_ch17_mixed_models import (
     MixedDesignData,
