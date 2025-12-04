@@ -61,3 +61,4 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    psych_ch17_mixed_models
    psych_ch18_ancova
    psych_ch19_nonparametrics
+   psych_ch19a_rank_nonparametrics
