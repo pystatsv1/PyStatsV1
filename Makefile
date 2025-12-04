@@ -147,6 +147,17 @@ psych-ch18:
 test-psych-ch18:
 	pytest tests/test_psych_ch18_ancova.py
 
+.PHONY: psych-ch19
+psych-ch19:
+	python -m scripts.psych_ch19_nonparametrics
+
+.PHONY: test-psych-ch19
+test-psych-ch19:
+	pytest tests/test_psych_ch19_nonparametrics.py
+
+
+
+
 
 
 .PHONY: ch13
