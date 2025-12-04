@@ -165,6 +165,15 @@ test-psych-ch19a:
 
 
 
+psych-ch20:
+	python -m scripts.psych_ch20_responsible_researcher
+
+
+test-psych-ch20:
+	pytest tests/test_psych_ch20_responsible_researcher.py
+
+
+
 .PHONY: ch13
 ch13:
 	$(PYTHON) -m scripts.sim_stroop --seed $(SEED) --outdir $(OUT_SYN)
