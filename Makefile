@@ -157,6 +157,11 @@ test-psych-ch19:
 
 
 
+psych-ch19a:
+	python -m scripts.psych_ch19a_rank_nonparametrics
+
+test-psych-ch19a:
+	pytest tests/test_psych_ch19a_rank_nonparametrics.py
 
 
 
