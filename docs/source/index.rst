@@ -63,3 +63,15 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
    psych_ch19_nonparametrics
    psych_ch19a_rank_nonparametrics
    psych_ch20_responsible_researcher
+
+
+
+.. _psych-track-c:
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Track C – Problem Sets & Worked Solutions (Psych track)
+
+   psych_track_c_overview
+   psych_ch10_problem_set
+
