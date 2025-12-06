@@ -173,6 +173,16 @@ test-psych-ch20:
 	pytest tests/test_psych_ch20_responsible_researcher.py
 
 
+# Track C – Chapter 10 problem set (independent t)
+psych-ch10-problems:
+	python -m scripts.psych_ch10_problem_set
+
+test-psych-ch10-problems:
+	pytest tests/test_psych_ch10_problem_set.py
+
+
+
+
 
 .PHONY: ch13
 ch13:
