@@ -74,4 +74,5 @@ Welcome to the documentation for **PyStatsV1** – chapter-based applied statist
 
    psych_track_c_overview
    psych_ch10_problem_set
+   psych_ch12_problem_set
 
