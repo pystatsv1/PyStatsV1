@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/v/tag/pystatsv1/PyStatsV1?label=release&color=brightgreen)](https://github.com/pystatsv1/PyStatsV1/tags)
 [![Docs](https://readthedocs.org/projects/pystatsv1/badge/?version=latest)](https://pystatsv1.readthedocs.io/en/latest/?badge=latest)
 [![PyPI - Version](https://img.shields.io/pypi/v/pystatsv1.svg?label=pypi&color=brightgreen)](https://pypi.org/project/pystatsv1/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pystatsv1.svg?label=python&color=brightgreen)](https://pypi.org/project/pystatsv1/)
+[![Python version](https://img.shields.io/badge/python-3.10%2B-brightgreen)](https://pypi.org/project/pystatsv1/)
 
 PyStatsV1 provides **plain, transparent Python scripts** that mirror classical **R textbook analyses**, making it easy for students, tutors, and practitioners to:
 
