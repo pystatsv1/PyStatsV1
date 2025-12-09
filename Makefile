@@ -181,6 +181,14 @@ test-psych-ch10-problems:
 	pytest tests/test_psych_ch10_problem_set.py
 
 
+# Track C – Chapter 11 problem set (Paired-samples t tests)
+psych-ch11-problems:
+	python -m scripts.psych_ch11_problem_set
+
+test-psych-ch11-problems:
+	pytest tests/test_psych_ch11_problem_set.py
+
+
 # Track C – Chapter 12 problem set (one-way ANOVA)
 psych-ch12-problems:
 	python -m scripts.psych_ch12_problem_set
