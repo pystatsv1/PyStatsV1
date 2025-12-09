@@ -1,10 +1,10 @@
 # PyStatsV1 — Applied Statistics (R ↔ Python)
 
-[![ci](https://img.shields.io/github/actions/workflow/status/pystatsv1/PyStatsV1/ci.yml?branch=main)](https://github.com/pystatsv1/PyStatsV1/actions/workflows/ci.yml)
-[![GitHub release](https://img.shields.io/github/v/tag/pystatsv1/PyStatsV1?label=github%20release)](https://github.com/pystatsv1/PyStatsV1/tags)
+[![CI](https://img.shields.io/github/actions/workflow/status/pystatsv1/PyStatsV1/ci.yml?branch=main&label=ci)](https://github.com/pystatsv1/PyStatsV1/actions/workflows/ci.yml)
+[![GitHub release](https://img.shields.io/github/v/tag/pystatsv1/PyStatsV1?label=release&color=brightgreen)](https://github.com/pystatsv1/PyStatsV1/tags)
 [![Docs](https://readthedocs.org/projects/pystatsv1/badge/?version=latest)](https://pystatsv1.readthedocs.io/en/latest/?badge=latest)
-[![PyPI - Version](https://img.shields.io/pypi/v/pystatsv1.svg)](https://pypi.org/project/pystatsv1/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pystatsv1.svg)](https://pypi.org/project/pystatsv1/)
+[![PyPI - Version](https://img.shields.io/pypi/v/pystatsv1.svg?color=brightgreen)](https://pypi.org/project/pystatsv1/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pystatsv1.svg?color=brightgreen)](https://pypi.org/project/pystatsv1/)
 
 PyStatsV1 provides **plain, transparent Python scripts** that mirror classical **R textbook analyses**, making it easy for students, tutors, and practitioners to:
 
