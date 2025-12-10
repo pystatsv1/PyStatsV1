@@ -31,6 +31,54 @@ cd PyStatsV1
 pip install -e .
 ```
 
+
+## Quick start (PyPI + local PDF docs)
+
+You **do not** need Git or GitHub to start using PyStatsV1.
+
+```bash
+python -m venv pystatsv1-env
+source pystatsv1-env/Scripts/activate  # Windows (Git Bash)
+# source pystatsv1-env/bin/activate    # macOS/Linux
+
+pip install pystatsv1
+```
+
+Then, inside Python:
+
+```bash
+import pystatsv1
+# Open the bundled PDF version of the documentation:
+pystatsv1.open_local_docs()
+```
+
+This will open a local PDF copy of the ReadTheDocs site in your default PDF viewer.
+You can also just get the path:
+
+```bash
+from pystatsv1 import get_local_docs_path
+print(get_local_docs_path())
+```
+
+Example Using Git Bash on Windows 11 (after creating folder Test-v2-PyStatsV1 in the folder Python in the Videos folder and then opening the folder Test-v2-PyStatsV1 in GitBash and then enter and run commands at the command prompt which is denoted by the dollar-sign symbol $)
+
+```bash
+nicho@Victus-HP-2024 MINGW64 ~/Videos/Python/Test-v2-PyStatsV1
+$ python -m venv pystatsv1-smoketest
+source pystatsv1-smoketest/Scripts/activate  
+pip install --upgrade pip
+pip install pystatsv1
+
+nicho@Victus-HP-2024 MINGW64 ~/Videos/Python/Test-v2-PyStatsV1
+$ python -c "import pystatsv1; print(pystatsv1.get_local_docs_path())"
+python -c "import pystatsv1; pystatsv1.open_local_docs()"
+C:\Users\nicho\Videos\Python\Test-v2-PyStatsV1\pystatsv1-smoketest\lib\site-packages\pystatsv1\docs\pystatsv1.pdf
+(pystatsv1-smoketest)
+nicho@Victus-HP-2024 MINGW64 ~/Videos/Python/Test-v2-PyStatsV1
+```
+
+## Project Structure
+
 The project follows a **chapter-based structure** — each chapter includes a simulator, an analyzer, Makefile targets, and CI smoke tests.
 
 ### Who is this for?
@@ -44,7 +92,7 @@ PyStatsV1 is designed for:
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Using a Virtual Environment
 
 ### 1. Create and activate a virtual environment
 
