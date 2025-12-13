@@ -197,6 +197,16 @@ test-psych-ch12-problems:
 	pytest tests/test_psych_ch12_problem_set.py
 
 
+psych-ch13-problems:
+	python -m scripts.psych_ch13_factorial_anova --n-per-cell 30 --seed 123 --outdir data/synthetic/psych_ch13
+
+
+test-psych-ch13-problems:
+	pytest tests/test_psych_ch13_factorial_anova.py
+
+
+
+
 
 
 
