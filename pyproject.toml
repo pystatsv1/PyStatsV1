@@ -15,6 +15,12 @@ license = { file = "LICENSE" }
 # Runtime dependencies are installed from requirements.txt in CI.
 dependencies = []
 
+
+[project.scripts]
+pystatsv1 = "pystatsv1.__main__:main"
+pystatsv1-docs = "pystatsv1.__main__:open_docs_cli"
+
+
 [project.urls]
 "Homepage" = "https://github.com/pystatsv1/PyStatsV1"
 "Documentation" = "https://pystatsv1.readthedocs.io"
@@ -24,6 +30,7 @@ dependencies = []
 
 [tool.setuptools]
 package-dir = { "" = "src" }
+include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
