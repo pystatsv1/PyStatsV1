@@ -245,3 +245,6 @@ test:
 clean:
 	@echo "Removing generated outputs in $(OUT_SYN), $(OUT_CH13), $(OUT_CH14), $(OUT_CH15)"
 	-@rm -rf $(OUT_SYN) $(OUT_CH13) $(OUT_CH14) $(OUT_CH15)
+	-@rm -rf $(OUT_DIR)
+	-@rm -rf $(CACHE_DIR)
+	-@rm -rf dist build
