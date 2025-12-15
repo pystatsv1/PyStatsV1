@@ -205,6 +205,12 @@ test-psych-ch13-problems:
 	pytest tests/test_psych_ch13_factorial_anova.py
 
 
+# Track C – Chapter 14 problem set (Repeated-Measures ANOVA)
+psych-ch14-problems:
+	python -m scripts.psych_ch14_problem_set
+
+test-psych-ch14-problems:
+	pytest tests/test_psych_ch14_problem_set.py
 
 
 
