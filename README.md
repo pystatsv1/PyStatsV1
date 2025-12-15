@@ -13,68 +13,41 @@ PyStatsV1 provides **plain, transparent Python scripts** that mirror classical *
 - produce figures and JSON summaries,
 - and compare outputs across R/Python.
 
-## 📦 Install
+## ⭐ Fastest start (PyPI + offline PDF docs)
 
-The simplest way to get started is from [PyPI](https://pypi.org/project/pystatsv1/):
+Install from PyPI:
 
 ```bash
-pip install pystatsv1
+pip install -U pystatsv1
 ```
 
-This installs the lightweight pystatsv1 helper package used by the labs (for example, the shared paths utilities).
+Open the bundled local PDF docs (works offline):
 
-If you want the full chapter-by-chapter repository with simulators, Makefiles, tests, and docs, clone from GitHub and install in editable mode:
+```bash
+pystatsv1 docs
+# or:
+pystatsv1-docs
+```
+
+Print where the PDF lives on disk:
+
+```bash
+pystatsv1 docs-path
+```
+
+This installs the **pystatsv1** command-line tool and bundles an **offline PDF** copy of the docs inside the package.
+
+> If you want to use a virtual environment first, see **Using a Virtual Environment (PyPI install)** below.
+
+## Full repository (scripts, Makefile targets, tests, docs)
+
+
+If you want the full chapter-by-chapter repo (simulators, analyzers, Makefile targets, tests, and the docs source), clone from GitHub and install in editable mode:
 
 ```bash
 git clone https://github.com/pystatsv1/PyStatsV1.git
 cd PyStatsV1
 pip install -e .
-```
-
-
-## Quick start (PyPI + local PDF docs)
-
-You **do not** need Git or GitHub to start using PyStatsV1.
-
-```bash
-python -m venv pystatsv1-env
-source pystatsv1-env/Scripts/activate  # Windows (Git Bash)
-# source pystatsv1-env/bin/activate    # macOS/Linux
-
-pip install pystatsv1
-```
-
-Then, inside Python:
-
-```bash
-import pystatsv1
-# Open the bundled PDF version of the documentation:
-pystatsv1.open_local_docs()
-```
-
-This will open a local PDF copy of the ReadTheDocs site in your default PDF viewer.
-You can also just get the path:
-
-```bash
-from pystatsv1 import get_local_docs_path
-print(get_local_docs_path())
-```
-
-Example Using Git Bash on Windows 11 (after creating folder Test-v2-PyStatsV1 in the folder Python in the Videos folder and then opening the folder Test-v2-PyStatsV1 in GitBash and then enter and run commands at the command prompt which is denoted by the dollar-sign symbol $)
-
-```bash
-nicho@Victus-HP-2024 MINGW64 ~/Videos/Python/Test-v2-PyStatsV1
-$ python -m venv pystatsv1-smoketest
-source pystatsv1-smoketest/Scripts/activate  
-pip install --upgrade pip
-pip install pystatsv1
-
-nicho@Victus-HP-2024 MINGW64 ~/Videos/Python/Test-v2-PyStatsV1
-$ python -c "import pystatsv1; print(pystatsv1.get_local_docs_path())"
-python -c "import pystatsv1; pystatsv1.open_local_docs()"
-C:\Users\nicho\Videos\Python\Test-v2-PyStatsV1\pystatsv1-smoketest\lib\site-packages\pystatsv1\docs\pystatsv1.pdf
-(pystatsv1-smoketest)
-nicho@Victus-HP-2024 MINGW64 ~/Videos/Python/Test-v2-PyStatsV1
 ```
 
 ## Project Structure
@@ -94,24 +67,38 @@ PyStatsV1 is designed for:
 
 ## 🚀 Using a Virtual Environment
 
-### 1. Create and activate a virtual environment
+### Option A — PyPI install (recommended for most users)
 
 **macOS / Linux**
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python -m venv pystatsv1-env
+source pystatsv1-env/bin/activate
 python -m pip install -U pip
-pip install -r requirements.txt
+pip install -U pystatsv1
+pystatsv1 docs
 ```
 
-**Windows (Git Bash or PowerShell)**
+**Windows (Git Bash)**
 
 ```bash
+python -m venv pystatsv1-env
+source pystatsv1-env/Scripts/activate
+python -m pip install -U pip
+pip install -U pystatsv1
+pystatsv1 docs
+```
+
+### Option B — Repo dev install (contributors)
+
+```bash
+python -m venv .venv
 # Git Bash first; PowerShell as fallback
-python -m venv .venv; source .venv/Scripts/activate 2>/dev/null || .venv\Scripts\Activate.ps1
+source .venv/Scripts/activate 2>/dev/null || .venv\\Scripts\\Activate.ps1
 python -m pip install -U pip
 pip install -r requirements.txt
 ```
+
 
 ---
 
