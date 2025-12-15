@@ -221,6 +221,15 @@ test-psych-ch15-problems:
 	pytest tests/test_psych_ch15_problem_set.py
 
 
+# Track C – Chapter 16 problem set (linear regression)
+psych-ch16-problems:
+	python -m scripts.psych_ch16_problem_set
+
+test-psych-ch16-problems:
+	pytest tests/test_psych_ch16_problem_set.py
+
+
+
 
 .PHONY: ch13
 ch13:
