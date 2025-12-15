@@ -28,5 +28,11 @@ data/synthetic/fitness_*.csv
 # generated plots
 outputs/
 
+# Packaging / build artifacts
+/dist/
+/build/
+*.whl
+*.tar.gz
+
 # CI temp files
 .github/workflows/*.new
