@@ -213,6 +213,12 @@ test-psych-ch14-problems:
 	pytest tests/test_psych_ch14_problem_set.py
 
 
+# Track C – Chapter 15 problem set (Correlation)
+psych-ch15-problems:
+	python -m scripts.psych_ch15_problem_set
+
+test-psych-ch15-problems:
+	pytest tests/test_psych_ch15_problem_set.py
 
 
 
