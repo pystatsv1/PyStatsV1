@@ -228,6 +228,12 @@ psych-ch16-problems:
 test-psych-ch16-problems:
 	pytest tests/test_psych_ch16_problem_set.py
 
+psych-ch17-problems:
+	python -m scripts.psych_ch17_problem_set
+
+test-psych-ch17-problems:
+	pytest tests/test_psych_ch17_problem_set.py
+
 
 
 
