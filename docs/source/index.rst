@@ -95,4 +95,5 @@ we recommend cloning the GitHub repository and installing in editable mode:
    psych_ch14_problem_set
    psych_ch15_problem_set
    psych_ch16_problem_set
+   psych_ch17_problem_set
 
