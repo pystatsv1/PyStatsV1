@@ -6,6 +6,8 @@ OUT_SYN := data/synthetic
 OUT_CH13 := outputs/ch13
 OUT_CH14 := outputs/ch14
 OUT_CH15 := outputs/ch15
+OUT_TRACK_D := outputs/track_d
+OUT_LEDGERLAB_CH01 := data/synthetic/ledgerlab_ch01
 
 .PHONY: help
 help:
@@ -18,6 +20,8 @@ help:
 	@echo "  ch15-ci    - tiny, fast CI smoke for Chapter 15"
 	@echo "  psych-ch06 - Track B Chapter 6 z-score lab"
 	@echo "  psych-ch07 - Track B Chapter 7 sampling lab"
+	@echo "  business-sim  - Track D LedgerLab simulator (Chapter 1 core tables)"
+	@echo "  business-ch01 - Track D Chapter 1 analysis (accounting as measurement)"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
@@ -164,7 +168,6 @@ test-psych-ch19a:
 	pytest tests/test_psych_ch19a_rank_nonparametrics.py
 
 
-
 psych-ch20:
 	python -m scripts.psych_ch20_responsible_researcher
 
@@ -263,6 +266,17 @@ ch14:
 ch15:
 	$(PYTHON) -m scripts.sim_ch15_reliability --n-survey 150 --n-retest 40 --seed $(SEED) --outdir $(OUT_SYN)
 	$(PYTHON) -m scripts.ch15_reliability_analysis --datadir $(OUT_SYN) --outdir $(OUT_CH15) --seed $(SEED)
+
+
+# --- Track D (Business Statistics & Forecasting for Accountants) ---
+
+.PHONY: business-sim
+business-sim:
+	$(PYTHON) -m scripts.sim_business_ledgerlab --outdir $(OUT_LEDGERLAB_CH01) --seed $(SEED) --month 2025-01 --n-sales 18
+
+.PHONY: business-ch01
+business-ch01:
+	$(PYTHON) -m scripts.business_ch01_accounting_measurement --datadir $(OUT_LEDGERLAB_CH01) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
 # --- Quality gates ---
 .PHONY: lint

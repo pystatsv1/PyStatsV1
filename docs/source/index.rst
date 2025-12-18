@@ -98,3 +98,15 @@ we recommend cloning the GitHub repository and installing in editable mode:
    psych_ch17_problem_set
    psych_ch18_problem_set
 
+
+.. _business-track-d:
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Track D – Business Statistics & Forecasting for Accountants
+
+   business_intro
+   business_ch01_accounting_measurement
+   business_appendix_pdf_refresher
+   business_appendix_authoring_rules
+
