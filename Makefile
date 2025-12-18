@@ -235,6 +235,16 @@ test-psych-ch17-problems:
 	pytest tests/test_psych_ch17_problem_set.py
 
 
+.PHONY: psych-ch18-problems test-psych-ch18-problems
+
+psych-ch18-problems:
+	python -m scripts.psych_ch18_problem_set
+
+test-psych-ch18-problems:
+	pytest -q tests/test_psych_ch18_problem_set.py
+
+
+
 
 
 .PHONY: ch13
