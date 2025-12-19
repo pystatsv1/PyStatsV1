@@ -248,6 +248,16 @@ test-psych-ch18-problems:
 	pytest -q tests/test_psych_ch18_problem_set.py
 
 
+.PHONY: psych-ch19-problems test-psych-ch19-problems
+
+psych-ch19-problems:
+	python -m scripts.psych_ch19_problem_set
+
+test-psych-ch19-problems:
+	pytest -q tests/test_psych_ch19_problem_set.py
+
+
+
 
 
 

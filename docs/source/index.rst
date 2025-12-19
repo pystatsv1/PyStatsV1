@@ -97,6 +97,7 @@ we recommend cloning the GitHub repository and installing in editable mode:
    psych_ch16_problem_set
    psych_ch17_problem_set
    psych_ch18_problem_set
+   psych_ch19_problem_set
 
 
 .. _business-track-d:
