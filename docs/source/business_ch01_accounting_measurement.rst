@@ -122,6 +122,43 @@ You will run a “mini-close” workflow:
 4. **Summarize** the month with a few “accountant-friendly” descriptive statistics.
 
 
+What the automated checks verify (exactly)
+------------------------------------------
+When you run ``make business-ch01``, the script prints a small set of controls-style checks.
+These checks are intentionally “audit-friendly”: they tell you whether the accounting data
+is internally consistent before you trust any statistics or forecasts derived from it. 
+
+These appear under “Checks:” in the console output.
+
+Double-entry transaction check
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- ``transactions_balanced``: for every ``txn_id``, sum(debits) == sum(credits).
+  (If this fails, the GL is not a valid double-entry ledger.)
+
+  Companion diagnostics:
+  - ``n_transactions``: number of transactions observed
+  - ``n_unbalanced``: number of transactions failing the rule
+  - ``max_abs_diff``: worst imbalance magnitude (0.0 is ideal)
+
+Accounting equation tie-out (balance sheet identity)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- ``accounting_equation_balances``: verifies the balance sheet integrity constraint:
+
+  .. math::
+
+     \text{Total Assets} = \text{Total Liabilities + Equity}
+
+  Companion diagnostics:
+  - ``total_assets``: computed total assets
+  - ``total_liabilities_plus_equity``: computed total liabilities + equity
+  - ``abs_diff``: absolute difference between the two totals (0.0 is ideal)
+
+Small nonzero differences extremely close to 0 can occur due to floating-point arithmetic; treat anything near machine precision as “effectively zero.”
+
+If a check fails, treat it like a controls exception:
+trace back to the offending transaction(s), confirm sign conventions, and verify statement rollups.
+
+
 PyStatsV1 lab (Run it)
 ----------------------
 
@@ -154,12 +191,14 @@ Using Python module commands
 Outputs you should see
 ^^^^^^^^^^^^^^^^^^^^^^
 
+* Console output showing the integrity checks and key month metrics.
 * A LedgerLab dataset folder in ``data/synthetic/ledgerlab_ch01``.
 * A chapter output folder in ``outputs/track_d`` containing:
 
   * ``business_ch01_summary.json``
   * ``business_ch01_cash_balance.png``
   * ``business_ch01_balance_sheet_bar.png``
+
 
 
 How to modify the scripts (student exercises)
