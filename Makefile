@@ -22,6 +22,7 @@ help:
 	@echo "  psych-ch07 - Track B Chapter 7 sampling lab"
 	@echo "  business-sim  - Track D LedgerLab simulator (Chapter 1 core tables)"
 	@echo "  business-ch01 - Track D Chapter 1 analysis (accounting as measurement)"
+	@echo "  business-ch02 - Track D Chapter 2 analysis (double-entry & GL as database)"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
@@ -277,6 +278,11 @@ business-sim:
 .PHONY: business-ch01
 business-ch01:
 	$(PYTHON) -m scripts.business_ch01_accounting_measurement --datadir $(OUT_LEDGERLAB_CH01) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
+.PHONY: business-ch02
+business-ch02:
+	$(PYTHON) -m scripts.business_ch02_double_entry_and_gl --datadir $(OUT_LEDGERLAB_CH01) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
