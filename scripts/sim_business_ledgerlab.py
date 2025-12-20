@@ -3,19 +3,18 @@
 
 This simulator generates a tiny month of bookkeeping activity with:
 
-* Chart of accounts
-* Journal / GL detail (debit/credit lines)
-* Derived month-level statements (income statement + balance sheet)
+- Chart of accounts (COA)
+- Journal / general ledger detail (debit/credit lines)
+- Derived month-level statements (IS/BS/CF)
 
 Design goals (aligned with PyStatsV1):
-
-* Deterministic output via ``--seed``
-* Human-readable CSV artifacts
-* Simple but realistic accounting story (sales, COGS, inventory purchases, expenses)
+- Deterministic output via ``--seed``
+- Human-readable CSV artifacts
+- Simple but realistic accounting story (sales, COGS, inventory, expenses)
 
 Chapter usage:
-
-* Track D Ch01 uses only the core tables produced here.
+- Track D Ch01 uses the core tables produced here
+- Track D Ch02/Ch03 use GL/TB/Statements for analysis and validation
 """
 
 from __future__ import annotations
@@ -39,16 +38,19 @@ class LedgerLabOutputs:
     trial_balance_monthly: pd.DataFrame
     statements_is_monthly: pd.DataFrame
     statements_bs_monthly: pd.DataFrame
+    statements_cf_monthly: pd.DataFrame
     meta: dict[str, Any]
 
 
 def _month_bounds(month: str) -> tuple[date, date]:
-    """Return (start_date, end_date) for a YYYY-MM month."""
+    """Return (start_date, end_date) for a YYYY-MM month.
+
+    Teaching simplification: all months are treated as 28 days.
+    """
     year_s, mon_s = month.split("-")
     y = int(year_s)
     m = int(mon_s)
     start = date(y, m, 1)
-    # Keep it simple: treat all months as 28 days for reproducible teaching examples.
     end = date(y, m, 28)
     return start, end
 
@@ -68,7 +70,9 @@ def build_chart_of_accounts() -> pd.DataFrame:
         ("6200", "Utilities Expense", "Expense", "Debit"),
         ("6300", "Payroll Expense", "Expense", "Debit"),
     ]
-    return pd.DataFrame(rows, columns=["account_id", "account_name", "account_type", "normal_side"])
+    return pd.DataFrame(
+        rows, columns=["account_id", "account_name", "account_type", "normal_side"]
+    )
 
 
 def _add_txn(
@@ -84,11 +88,11 @@ def _add_txn(
     for account_id, debit, credit in entries:
         lines.append(
             {
-                "txn_id": txn_id,
+                "txn_id": int(txn_id),
                 "date": txn_date.isoformat(),
-                "doc_id": doc_id,
-                "description": description,
-                "account_id": account_id,
+                "doc_id": str(doc_id),
+                "description": str(description),
+                "account_id": str(account_id),
                 "debit": float(debit),
                 "credit": float(credit),
             }
@@ -109,7 +113,7 @@ def simulate_ledgerlab_month(
     mean_utilities: float = 180.0,
     random_state: int | None = None,
 ) -> LedgerLabOutputs:
-    """Simulate a small month of ledger activity and derive statements."""
+    """Simulate a small month of ledger activity and derive IS/BS/CF statements."""
     apply_seed(random_state)
     rng = np.random.default_rng(random_state)
     start, end = _month_bounds(month)
@@ -120,11 +124,10 @@ def simulate_ledgerlab_month(
     txn_id = 0
 
     def rand_day() -> date:
-        # Uniform day within 1..28 inclusive.
-        d = int(rng.integers(1, 29))
+        d = int(rng.integers(1, 29))  # 1..28 inclusive
         return date(start.year, start.month, d)
 
-    # 1) Owner invests cash
+    # 1) Owner invests cash (startup month)
     txn_id += 1
     _add_txn(
         lines=lines,
@@ -135,13 +138,14 @@ def simulate_ledgerlab_month(
         entries=[("1000", initial_cash, 0.0), ("3000", 0.0, initial_cash)],
     )
 
-    # Sales amounts
+    # 2) Sales amounts and whether on account (AR) vs cash
     sale_amounts = np.maximum(rng.normal(mean_sale, sale_sd, size=n_sales), 20.0)
     is_on_account = rng.random(size=n_sales) < pct_on_account
 
-    total_cogs = float(np.sum(sale_amounts) * cogs_rate)
+    total_sales = float(np.sum(sale_amounts))
+    total_cogs = float(total_sales * cogs_rate)
 
-    # 2) Inventory purchases (ensure inventory covers COGS)
+    # 3) Inventory purchases (ensure inventory covers COGS)
     purchase_total = total_cogs * 1.25
     n_purchases = 3
     purchase_splits = rng.dirichlet(np.ones(n_purchases)) * purchase_total
@@ -149,12 +153,13 @@ def simulate_ledgerlab_month(
 
     for i, amt in enumerate(purchase_splits, start=1):
         txn_id += 1
+        amt_f = float(amt)
         if purchase_on_credit[i - 1]:
-            entries = [("1200", float(amt), 0.0), ("2000", 0.0, float(amt))]
             desc = "Inventory purchase on credit"
+            entries = [("1200", amt_f, 0.0), ("2000", 0.0, amt_f)]
         else:
-            entries = [("1200", float(amt), 0.0), ("1000", 0.0, float(amt))]
             desc = "Inventory purchase (cash)"
+            entries = [("1200", amt_f, 0.0), ("1000", 0.0, amt_f)]
         _add_txn(
             lines=lines,
             txn_id=txn_id,
@@ -164,7 +169,7 @@ def simulate_ledgerlab_month(
             entries=entries,
         )
 
-    # 3) Record sales + COGS (two transactions per sale for clarity)
+    # 4) Record sales + COGS (two txns per sale for clarity)
     for i, amt in enumerate(sale_amounts, start=1):
         sale_amt = float(amt)
         cogs_amt = float(sale_amt * cogs_rate)
@@ -199,10 +204,10 @@ def simulate_ledgerlab_month(
             entries=[("5000", cogs_amt, 0.0), ("1200", 0.0, cogs_amt)],
         )
 
-    # 4) Collect some AR (assume 60% of AR collected in-month)
+    # 5) Collect some AR (assume 60% collected in-month)
     ar_sales_total = float(np.sum(sale_amounts[is_on_account]))
     collect_amt = 0.60 * ar_sales_total
-    if collect_amt > 0:
+    if collect_amt > 0.0:
         txn_id += 1
         _add_txn(
             lines=lines,
@@ -213,10 +218,10 @@ def simulate_ledgerlab_month(
             entries=[("1000", float(collect_amt), 0.0), ("1100", 0.0, float(collect_amt))],
         )
 
-    # 5) Pay some AP (assume 50% of AP purchases paid in-month)
+    # 6) Pay some AP (assume 50% of AP purchases paid in-month)
     ap_purchases_total = float(np.sum(purchase_splits[:2]))
     pay_ap_amt = 0.50 * ap_purchases_total
-    if pay_ap_amt > 0:
+    if pay_ap_amt > 0.0:
         txn_id += 1
         _add_txn(
             lines=lines,
@@ -227,7 +232,7 @@ def simulate_ledgerlab_month(
             entries=[("2000", float(pay_ap_amt), 0.0), ("1000", 0.0, float(pay_ap_amt))],
         )
 
-    # 6) Operating expenses (rent once; utilities once; payroll twice)
+    # 7) Operating expenses (rent once; utilities once; payroll N times)
     txn_id += 1
     _add_txn(
         lines=lines,
@@ -262,9 +267,12 @@ def simulate_ledgerlab_month(
         )
 
     gl = pd.DataFrame(lines)
-    gl = gl.sort_values(["date", "txn_id", "account_id"], kind="mergesort").reset_index(drop=True)
+    gl = (
+        gl.sort_values(["date", "txn_id", "account_id"], kind="mergesort")
+        .reset_index(drop=True)
+    )
 
-    # Join account names/types
+    # Join account metadata for convenience
     gl = gl.merge(coa, on="account_id", how="left")
 
     # Trial balance (sum debits/credits per account)
@@ -281,26 +289,45 @@ def simulate_ledgerlab_month(
     tb = tb.drop(columns=["net"])
     tb.insert(0, "month", month)
 
-    # Income statement
-    revenue = float(tb.loc[tb["account_type"] == "Revenue", "credit"].sum() - tb.loc[tb["account_type"] == "Revenue", "debit"].sum())
-    expenses = float(tb.loc[tb["account_type"] == "Expense", "debit"].sum() - tb.loc[tb["account_type"] == "Expense", "credit"].sum())
-    net_income = revenue - expenses
+    # Income statement (standard breakdown: Revenue, COGS, Operating Expenses, Net Income)
+    revenue = float(
+        tb.loc[tb["account_type"] == "Revenue", "credit"].sum()
+        - tb.loc[tb["account_type"] == "Revenue", "debit"].sum()
+    )
+
+    cogs = float(
+        tb.loc[tb["account_id"] == "5000", "debit"].sum()
+        - tb.loc[tb["account_id"] == "5000", "credit"].sum()
+    )
+
+    op_expenses = float(
+        tb.loc[
+            (tb["account_type"] == "Expense") & (tb["account_id"] != "5000"),
+            "debit",
+        ].sum()
+        - tb.loc[
+            (tb["account_type"] == "Expense") & (tb["account_id"] != "5000"),
+            "credit",
+        ].sum()
+    )
+
+    gross_profit = revenue - cogs
+    net_income = gross_profit - op_expenses
 
     is_df = pd.DataFrame(
         [
             {"month": month, "line": "Sales Revenue", "amount": revenue},
-            {
-                "month": month,
-                "line": "Total Expenses (incl. COGS)",
-                "amount": expenses,
-            },
+            {"month": month, "line": "Cost of Goods Sold", "amount": cogs},
+            {"month": month, "line": "Gross Profit", "amount": gross_profit},
+            {"month": month, "line": "Operating Expenses", "amount": op_expenses},
             {"month": month, "line": "Net Income", "amount": net_income},
         ]
     )
 
-    # Balance sheet (assets/liabilities from TB; equity = owner capital + current period earnings)
+
+    # Balance sheet (assets/liabilities from TB; equity = owner capital + current-period earnings)
     def _ending_balance(acct_id: str) -> float:
-        """Return signed balance: positive if the account has its normal balance."""
+        """Return balance in its normal direction (positive if normal-side)."""
         row = tb.loc[tb["account_id"] == acct_id]
         if row.empty:
             return 0.0
@@ -314,11 +341,11 @@ def simulate_ledgerlab_month(
     inv = _ending_balance("1200")
     ap = _ending_balance("2000")
     owner_cap = _ending_balance("3000")
-    retained = net_income
+    retained = net_income  # simplified: current-period NI sits in equity
 
-    total_assets = cash + ar + inv
-    total_liab = ap
-    total_equity = owner_cap + retained
+    total_assets = float(cash + ar + inv)
+    total_liab = float(ap)
+    total_equity = float(owner_cap + retained)
 
     bs_df = pd.DataFrame(
         [
@@ -329,15 +356,45 @@ def simulate_ledgerlab_month(
             {"month": month, "line": "Accounts Payable", "amount": total_liab},
             {"month": month, "line": "Total Liabilities", "amount": total_liab},
             {"month": month, "line": "Owner Capital", "amount": owner_cap},
-            {
-                "month": month,
-                "line": "Retained Earnings (Current Period)",
-                "amount": retained,
-            },
+            {"month": month, "line": "Retained Earnings (Current Period)", "amount": retained},
             {"month": month, "line": "Total Equity", "amount": total_equity},
             {"month": month, "line": "Total Liabilities + Equity", "amount": total_liab + total_equity},
         ]
     )
+
+    # Cash flow statement (simple bridge; startup-month friendly)
+    net_income_stmt = float(is_df.loc[is_df["line"] == "Net Income", "amount"].iloc[0])
+    cash_end = float(bs_df.loc[bs_df["line"] == "Cash", "amount"].iloc[0])
+    ar_end = float(bs_df.loc[bs_df["line"] == "Accounts Receivable", "amount"].iloc[0])
+    inv_end = float(bs_df.loc[bs_df["line"] == "Inventory", "amount"].iloc[0])
+    ap_end = float(bs_df.loc[bs_df["line"] == "Accounts Payable", "amount"].iloc[0])
+
+    # Beginning balances assumed 0 for teaching “month 1”
+    cash_begin = 0.0
+
+    # CFO using ΔWC with beginning = 0
+    cfo = float(net_income_stmt - ar_end - inv_end + ap_end)
+
+    # CFF = owner contribution (startup month)
+    cff = float(owner_cap)
+
+    net_change_cash = float(cfo + cff)
+    cash_end_from_bridge = float(cash_begin + net_change_cash)
+
+    cf_rows = [
+        (month, "Net Income", net_income_stmt),
+        (month, "Change in Accounts Receivable", -ar_end),
+        (month, "Change in Inventory", -inv_end),
+        (month, "Change in Accounts Payable", ap_end),
+        (month, "Net Cash from Operations", cfo),
+        (month, "Owner Contribution", owner_cap),
+        (month, "Net Cash from Financing", cff),
+        (month, "Net Change in Cash", net_change_cash),
+        (month, "Beginning Cash (assumed)", cash_begin),
+        (month, "Ending Cash (from bridge)", cash_end_from_bridge),
+        (month, "Ending Cash (balance sheet)", cash_end),
+    ]
+    cf_df = pd.DataFrame(cf_rows, columns=["month", "line", "amount"])
 
     meta: dict[str, Any] = {
         "dataset": "LedgerLab",
@@ -350,13 +407,23 @@ def simulate_ledgerlab_month(
             "ar_collected_in_month": 0.60,
             "ap_paid_in_month": 0.50,
             "month_length_days": 28,
+            "cash_begin_assumed": 0.0,
         },
         "notes": [
-            "Balance sheet equity uses Owner Capital + current-period net income (simplified; no closing entries).",
+            "Equity simplified: Owner Capital + current-period net income (no closing entries).",
+            "Cash flow uses a simple NI + working-capital bridge with beginning balances assumed 0.",
         ],
     }
 
-    return LedgerLabOutputs(coa, gl, tb, is_df, bs_df, meta)
+    return LedgerLabOutputs(
+        chart_of_accounts=coa,
+        gl_journal=gl,
+        trial_balance_monthly=tb,
+        statements_is_monthly=is_df,
+        statements_bs_monthly=bs_df,
+        statements_cf_monthly=cf_df,
+        meta=meta,
+    )
 
 
 def write_ledgerlab(outputs: LedgerLabOutputs, outdir: Path) -> None:
@@ -367,15 +434,18 @@ def write_ledgerlab(outputs: LedgerLabOutputs, outdir: Path) -> None:
     outputs.trial_balance_monthly.to_csv(outdir / "trial_balance_monthly.csv", index=False)
     outputs.statements_is_monthly.to_csv(outdir / "statements_is_monthly.csv", index=False)
     outputs.statements_bs_monthly.to_csv(outdir / "statements_bs_monthly.csv", index=False)
+    outputs.statements_cf_monthly.to_csv(outdir / "statements_cf_monthly.csv", index=False)
 
     (outdir / "ledgerlab_meta.json").write_text(
-        json.dumps(outputs.meta, indent=2), encoding="utf-8"
+        json.dumps(outputs.meta, indent=2),
+        encoding="utf-8",
     )
 
 
 def main() -> None:
-    parser = base_parser("Track D Simulator: LedgerLab (Chapter 1 core tables)")
+    parser = base_parser("Track D Simulator: LedgerLab (Chapter 1+ core tables)")
     parser.set_defaults(outdir=Path("data/synthetic/ledgerlab_ch01"))
+
     parser.add_argument(
         "--month",
         type=str,
@@ -389,12 +459,7 @@ def main() -> None:
         default=0.45,
         help="Share of sales on account (AR) rather than cash",
     )
-    parser.add_argument(
-        "--mean-sale",
-        type=float,
-        default=220.0,
-        help="Average sale amount",
-    )
+    parser.add_argument("--mean-sale", type=float, default=220.0, help="Average sale amount")
     parser.add_argument(
         "--sale-sd",
         type=float,
@@ -407,6 +472,26 @@ def main() -> None:
         default=0.55,
         help="COGS as a fraction of sales (e.g., 0.55)",
     )
+    parser.add_argument(
+        "--initial-cash",
+        type=float,
+        default=5000.0,
+        help="Owner contribution at start of month (startup cash).",
+    )
+    parser.add_argument("--pay-rent", type=float, default=1400.0, help="Monthly rent paid (cash).")
+    parser.add_argument(
+        "--payroll-runs",
+        type=int,
+        default=2,
+        help="Number of payroll runs (each is a cash-paid expense).",
+    )
+    parser.add_argument(
+        "--mean-utilities",
+        type=float,
+        default=180.0,
+        help="Mean utilities expense (cash).",
+    )
+
     args = parser.parse_args()
 
     outs = simulate_ledgerlab_month(
@@ -416,6 +501,10 @@ def main() -> None:
         sale_sd=args.sale_sd,
         pct_on_account=args.pct_on_account,
         cogs_rate=args.cogs_rate,
+        initial_cash=args.initial_cash,
+        pay_rent=args.pay_rent,
+        payroll_runs=args.payroll_runs,
+        mean_utilities=args.mean_utilities,
         random_state=args.seed,
     )
     write_ledgerlab(outs, args.outdir)
