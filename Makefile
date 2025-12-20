@@ -304,6 +304,11 @@ business-ch01:
 business-ch02:
 	$(PYTHON) -m scripts.business_ch02_double_entry_and_gl --datadir $(OUT_LEDGERLAB_CH01) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch03
+business-ch03: 
+	$(PYTHON) -m scripts.business_ch03_statements_as_summaries --datadir $(OUT_LEDGERLAB_CH01) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
+
 
 # --- Quality gates ---
 .PHONY: lint

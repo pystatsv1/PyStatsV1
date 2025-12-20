@@ -109,7 +109,9 @@ we recommend cloning the GitHub repository and installing in editable mode:
 
    business_intro
    business_ch01_accounting_measurement
+   business_ch02_double_entry_and_gl
+   business_ch03_statements_as_summaries
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
-   business_ch02_double_entry_and_gl
+
 
