@@ -8,6 +8,8 @@ OUT_CH14 := outputs/ch14
 OUT_CH15 := outputs/ch15
 OUT_TRACK_D := outputs/track_d
 OUT_LEDGERLAB_CH01 := data/synthetic/ledgerlab_ch01
+OUT_NSO_V1 := data/synthetic/nso_v1
+
 
 .PHONY: help
 help:
@@ -23,6 +25,9 @@ help:
 	@echo "  business-sim  - Track D LedgerLab simulator (Chapter 1 core tables)"
 	@echo "  business-ch01 - Track D Chapter 1 analysis (accounting as measurement)"
 	@echo "  business-ch02 - Track D Chapter 2 analysis (double-entry & GL as database)"
+	@echo "  business-nso-sim - Track D NSO v1 simulator (multi-month running case)"
+	@echo "  business-validate - Validate Track D dataset schema + basic checks"
+	@echo "  business-ch04 - Track D Chapter 4 analysis (assets: inventory + depreciation)"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
@@ -308,6 +313,17 @@ business-ch02:
 business-ch03: 
 	$(PYTHON) -m scripts.business_ch03_statements_as_summaries --datadir $(OUT_LEDGERLAB_CH01) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-nso-sim
+business-nso-sim:
+	$(PYTHON) -m scripts.sim_business_nso_v1 --outdir $(OUT_NSO_V1) --seed $(SEED) --start-month 2025-01 --n-months 24
+
+.PHONY: business-validate
+business-validate:
+	$(PYTHON) -m scripts.business_validate_dataset --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
+.PHONY: business-ch04
+business-ch04:
+	$(PYTHON) -m scripts.business_ch04_assets_inventory_fixed_assets --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
 
 # --- Quality gates ---
