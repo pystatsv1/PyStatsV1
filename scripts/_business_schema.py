@@ -95,6 +95,39 @@ NSO_V1_TABLES: tuple[TableSchema, ...] = (
         "depreciation_schedule.csv",
         ("month", "asset_id", "dep_expense", "accum_dep", "net_book_value"),
     ),
+
+     # --- Chapter 5 additions ---
+     TableSchema(
+         name="payroll_events.csv",
+         required_columns={
+             "month","txn_id","date","event_type",
+             "gross_wages","employee_withholding","employer_tax",
+             "cash_paid","wages_payable_delta","payroll_taxes_payable_delta",
+         },
+     ),
+     TableSchema(
+         name="sales_tax_events.csv",
+         required_columns={
+             "month","txn_id","date","event_type",
+             "taxable_sales","tax_amount","cash_paid","sales_tax_payable_delta",
+         },
+     ),
+     TableSchema(
+         name="debt_schedule.csv",
+         required_columns={
+             "month","loan_id","txn_id",
+             "beginning_balance","payment","interest","principal","ending_balance",
+         },
+     ),
+     TableSchema(
+         name="equity_events.csv",
+         required_columns={"month","txn_id","date","event_type","amount"},
+     ),
+     TableSchema(
+         name="ap_events.csv",
+         required_columns={"month","txn_id","date","vendor","invoice_id","event_type","amount","ap_delta","cash_paid"},
+     ),
+
 )
 
 
