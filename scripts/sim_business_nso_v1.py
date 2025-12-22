@@ -26,6 +26,10 @@ Ch05 subledgers (added for liabilities/payroll/taxes/equity):
 - equity_events.csv
 - ap_events.csv
 
+Ch06 subledgers (added for reconciliations/quality control):
+- ar_events.csv
+- bank_statement.csv
+
 Design constraints:
 - deterministic via --seed / seed=
 - small + readable
@@ -62,6 +66,8 @@ class NSOV1Outputs:
     debt_schedule: pd.DataFrame
     equity_events: pd.DataFrame
     ap_events: pd.DataFrame
+    ar_events: pd.DataFrame
+    bank_statement: pd.DataFrame
     meta: dict[str, Any]
 
 
@@ -298,7 +304,16 @@ def _compute_cf_for_month(
     delta_wages_pay = float(wages_pay_end - wages_pay_begin)
     delta_payroll_taxes = float(payroll_taxes_end - payroll_taxes_begin)
 
-    cfo = float(net_income + dep_expense - delta_ar - delta_inv + delta_ap + delta_sales_tax + delta_wages_pay + delta_payroll_taxes)
+    cfo = float(
+    net_income
+    + dep_expense
+    - delta_ar
+    - delta_inv
+    + delta_ap
+    + delta_sales_tax
+    + delta_wages_pay
+    + delta_payroll_taxes
+)
 
     cfi = float(-capex_cash)
 
@@ -1055,6 +1070,120 @@ def simulate_nso_v1(
 
     inv_df = pd.DataFrame(inv_moves).sort_values(["date", "txn_id"], kind="mergesort").reset_index(drop=True)
 
+    # ------------------------------------------------------------------
+    # Chapter 6 additions: AR events + bank statement feed
+    # ------------------------------------------------------------------
+    ar_gl = gl.loc[
+        gl["account_id"].astype(str) == "1100",
+        ["txn_id", "date", "doc_id", "description", "debit", "credit"],
+    ].copy()
+
+    if ar_gl.empty:
+        ar_events_df = pd.DataFrame(
+            columns=[
+                "month",
+                "txn_id",
+                "date",
+                "customer",
+                "invoice_id",
+                "event_type",
+                "amount",
+                "ar_delta",
+                "cash_received",
+            ]
+        )
+    else:
+        def _stable_bucket(x: str, k: int) -> int:
+            return sum(ord(ch) for ch in str(x)) % k
+
+        customers = ["AquaSports", "Mariner", "Summit", "Northwind"]
+        ar_gl["month"] = ar_gl["date"].astype(str).str.slice(0, 7)
+        ar_gl["customer"] = ar_gl["doc_id"].astype(str).apply(
+            lambda d: customers[_stable_bucket(d, len(customers))]
+        )
+        ar_gl["invoice_id"] = ar_gl["doc_id"].astype(str)
+        ar_gl["event_type"] = np.where(ar_gl["debit"] > 0, "invoice", "collection")
+        ar_gl["amount"] = np.where(ar_gl["debit"] > 0, ar_gl["debit"], ar_gl["credit"])
+        ar_gl["ar_delta"] = ar_gl["debit"] - ar_gl["credit"]
+        ar_gl["cash_received"] = np.where(ar_gl["event_type"] == "collection", ar_gl["credit"], 0.0)
+        ar_events_df = (
+            ar_gl[
+                [
+                    "month",
+                    "txn_id",
+                    "date",
+                    "customer",
+                    "invoice_id",
+                    "event_type",
+                    "amount",
+                    "ar_delta",
+                    "cash_received",
+                ]
+            ]
+            .sort_values(["date", "txn_id"], kind="mergesort")
+            .reset_index(drop=True)
+        )
+
+    # Bank statement feed (external truth): derive from Cash 1000 activity
+    cash_gl = gl.loc[
+        gl["account_id"].astype(str) == "1000",
+        ["txn_id", "date", "description", "debit", "credit"],
+    ].copy()
+
+    if cash_gl.empty:
+        bank_statement_df = pd.DataFrame(
+            columns=["month", "bank_txn_id", "posted_date", "description", "amount", "gl_txn_id"]
+        )
+    else:
+        cash_gl["cash_net"] = cash_gl["debit"] - cash_gl["credit"]
+        cash_txn = (
+            cash_gl.groupby("txn_id", observed=True)
+            .agg(date=("date", "min"), description=("description", "first"), amount=("cash_net", "sum"))
+            .reset_index()
+        )
+        cash_txn = cash_txn.loc[cash_txn["amount"].abs() > 1e-9].copy()
+        cash_txn = cash_txn.sort_values(["date", "txn_id"], kind="mergesort").reset_index(drop=True)
+
+        seed_for_bank = int(0 if random_state is None else random_state) + 8675309
+        rng_bank = np.random.default_rng(seed_for_bank)
+        lags = rng_bank.choice([0, 1, 3, 5, 10], size=len(cash_txn), replace=True)
+        posted_dt = pd.to_datetime(cash_txn["date"]) + pd.to_timedelta(lags, unit="D")
+
+        bank_statement_df = pd.DataFrame(
+            {
+                "month": posted_dt.dt.strftime("%Y-%m"),
+                "bank_txn_id": cash_txn["txn_id"].apply(lambda x: f"B{int(x):06d}"),
+                "posted_date": posted_dt.dt.strftime("%Y-%m-%d"),
+                "description": cash_txn["description"].astype(str),
+                "amount": cash_txn["amount"].astype(float),
+                "gl_txn_id": cash_txn["txn_id"].astype(int),
+            }
+        )
+
+        # Inject anomalies for deterministic exception testing
+        if len(months) > 0:
+            fee_row = {
+                "month": months[-1],
+                "bank_txn_id": "B-FEE-0001",
+                "posted_date": f"{months[-1]}-15",
+                "description": "Bank fee (no GL link)",
+                "amount": -25.0,
+                "gl_txn_id": np.nan,
+            }
+            bank_statement_df = pd.concat([bank_statement_df, pd.DataFrame([fee_row])], ignore_index=True)
+
+        if not bank_statement_df.empty:
+            dup = bank_statement_df.iloc[[0]].copy()
+            dup["posted_date"] = (pd.to_datetime(dup["posted_date"]) + pd.Timedelta(days=1)).dt.strftime("%Y-%m-%d")
+            dup["month"] = pd.to_datetime(dup["posted_date"]).dt.strftime("%Y-%m")
+            dup["description"] = "Duplicate bank txn id (injected)"
+            bank_statement_df = pd.concat([bank_statement_df, dup], ignore_index=True)
+
+        bank_statement_df = bank_statement_df.sort_values(
+            ["posted_date", "bank_txn_id"], kind="mergesort"
+        ).reset_index(drop=True)
+
+
     meta: dict[str, Any] = {
         "dataset": "NSO_v1",
         "start_month": start_month,
@@ -1093,6 +1222,8 @@ def simulate_nso_v1(
         debt_schedule=pd.DataFrame(debt_schedule),
         equity_events=pd.DataFrame(equity_events),
         ap_events=pd.DataFrame(ap_events),
+        ar_events=ar_events_df,
+        bank_statement=bank_statement_df,
         meta=meta,
     )
 
@@ -1117,6 +1248,9 @@ def write_nso_v1(outputs: NSOV1Outputs, outdir: Path) -> None:
     outputs.debt_schedule.to_csv(outdir / "debt_schedule.csv", index=False)
     outputs.equity_events.to_csv(outdir / "equity_events.csv", index=False)
     outputs.ap_events.to_csv(outdir / "ap_events.csv", index=False)
+    # --- Chapter 6 additions ---
+    outputs.ar_events.to_csv(outdir / "ar_events.csv", index=False)
+    outputs.bank_statement.to_csv(outdir / "bank_statement.csv", index=False)
 
     (outdir / "nso_v1_meta.json").write_text(json.dumps(outputs.meta, indent=2), encoding="utf-8")
 

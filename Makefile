@@ -29,6 +29,7 @@ help:
 	@echo "  business-validate - Validate Track D dataset schema + basic checks"
 	@echo "  business-ch04 - Track D Chapter 4 analysis (assets: inventory + depreciation)"
 	@echo "  business-ch05 - Track D Chapter 5 analysis (liabilities + payroll + taxes + debt + equity)"
+	@echo "  business-ch06 - Track D Chapter 6 analysis (reconciliations as data validation)"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
@@ -329,6 +330,11 @@ business-ch04:
 .PHONY: business-ch05
 business-ch05:
 	$(PYTHON) -m scripts.business_ch05_liabilities_payroll_taxes_equity --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
+.PHONY: business-ch06
+business-ch06:
+	$(PYTHON) -m scripts.business_ch06_reconciliations_quality_control --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
