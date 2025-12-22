@@ -26,6 +26,9 @@ def test_nso_v1_writes_required_tables(tmp_path: Path) -> None:
          "debt_schedule.csv",
          "equity_events.csv",
          "ap_events.csv",
+         # --- Chapter 6 additions ---
+         "ar_events.csv",
+         "bank_statement.csv",
     ]
     for f in required:
         assert (tmp_path / f).exists()
