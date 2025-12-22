@@ -1,279 +1,175 @@
-Track D — Chapter 5
-===================
+Business Chapter 5: Liabilities — Payroll, Taxes, Debt, and Equity
+==================================================================
 
-Liabilities, payroll, taxes, and equity: obligations and structure
------------------------------------------------------------------
+This chapter expands the running case from “assets” to the other side of the accounting equation:
 
-This chapter is about *structure* and *controls-aware accounting mechanics*:
+.. math::
 
-- Liabilities are not just “numbers on a balance sheet” — they represent obligations
-  that must be tracked, paid, and reconciled.
-- Payroll and sales tax are *compliance-heavy* flows where control failures show up
-  quickly (penalties, notices, cash surprises).
-- Debt introduces the most common classification trap: **principal vs interest**.
-- Equity is the ownership “claim” and the bridge between operations (retained earnings)
-  and financing (contributions/distributions).
+   \textbf{Assets} = \textbf{Liabilities} + \textbf{Equity}
 
-In this repo, we treat these ideas the same way we treat statistics later:
-**as data generating processes + validation checks**.
+Liabilities and equity are where bookkeeping becomes *timing‑sensitive*:
+you record obligations when they are incurred (accrual basis), and later you clear them when cash moves.
 
-Learning objectives (from the outline)
---------------------------------------
+Chapter 5 introduces several common subledgers that are perfect examples of **governed datasets**:
 
-By the end of this chapter you should be able to:
+- Payroll payables (wages payable, payroll taxes payable)
+- Sales tax payable (tax collected on taxable sales)
+- Accounts payable (vendor invoices and payments)
+- Notes payable (loan balance roll-forward with interest vs principal)
+- Equity events (contributions / distributions)
 
-- Explain the defining features of a liability and classify common examples.
-- Post AP, debt payments (principal vs interest), and payroll liabilities.
-- Explain equity movements (contributions, distributions, retained earnings).
-- Identify compliance/control checkpoints for payroll and sales tax.
+What you should be able to do after this chapter
+------------------------------------------------
 
-Running case dataset: NSO v1 (multi-month)
-------------------------------------------
+Accounting concepts
+^^^^^^^^^^^^^^^^^^
+- Explain what it means for an obligation to be **incurred** vs **paid**.
+- Build a monthly **roll-forward** (beginning balance + changes = ending balance).
+- Distinguish **interest expense** from **principal repayment** in a loan payment.
+- Describe how equity changes through owner contributions and distributions.
 
-Chapter 5 uses the NSO v1 running case (multi-month) produced by the simulator:
+Python / software concepts
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+- Model subledger events as tidy tables and aggregate them to produce roll-forwards.
+- Implement validation checks that tie subledgers to control totals (trial balance).
+- Produce stable, inspectable artifacts (CSV + JSON) that work in CI and in documentation.
+
+Inputs and outputs
+------------------
+
+Inputs (NSO v1 dataset folder)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Chapter 5 uses the monthly trial balance plus five subledger tables produced by the simulator:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 26 74
+
+   * - Table
+     - Purpose
+   * - ``trial_balance_monthly.csv``
+     - Control totals for payable / debt / equity accounts.
+   * - ``payroll_events.csv``
+     - Payroll event stream (gross wages, withholdings, employer taxes, cash paid, and payable deltas).
+   * - ``sales_tax_events.csv``
+     - Sales tax event stream (tax accrued, cash remitted, delta to sales tax payable).
+   * - ``ap_events.csv``
+     - Accounts payable events (vendor invoices, payments, and delta to A/P).
+   * - ``debt_schedule.csv``
+     - Amortization schedule per loan (beginning balance, payment, interest, principal, ending balance).
+   * - ``equity_events.csv``
+     - Owner contributions/distributions (simplified equity change events).
+
+Outputs (``outdir``)
+^^^^^^^^^^^^^^^^^^^^
+The Chapter 5 script writes:
+
+- ``business_ch05_summary.json`` — pass/fail checks and headline metrics.
+- ``business_ch05_wages_payable_rollforward.csv`` — wages payable roll-forward.
+- ``business_ch05_payroll_taxes_payable_rollforward.csv`` — payroll taxes payable roll-forward.
+- ``business_ch05_sales_tax_payable_rollforward.csv`` — sales tax payable roll-forward.
+- ``business_ch05_accounts_payable_rollforward.csv`` — accounts payable roll-forward.
+- ``business_ch05_notes_payable_rollforward.csv`` — notes payable roll-forward (loan balance + interest/principal decomposition).
+- ``business_ch05_liabilities_over_time.png`` — a quick visual showing key liabilities through time.
+
+Where these tables come from in code
+------------------------------------
+
+- Simulator: :mod:`scripts.sim_business_nso_v1`
+- Contracts: :mod:`scripts._business_schema`
+- Chapter 5 analysis: :mod:`scripts.business_ch05_liabilities_payroll_taxes_equity`
+
+Running the chapter
+-------------------
 
 .. code-block:: bash
 
    make business-nso-sim
+   make business-ch05
 
-The simulator writes to:
-
-``data/synthetic/nso_v1/``
-
-Core tables
-~~~~~~~~~~~
-
-- ``chart_of_accounts.csv``
-- ``gl_journal.csv``
-- ``trial_balance_monthly.csv``
-- ``statements_is_monthly.csv``
-- ``statements_bs_monthly.csv``
-- ``statements_cf_monthly.csv``
-
-Ch04 tables (assets)
-~~~~~~~~~~~~~~~~~~~~
-
-- ``inventory_movements.csv``
-- ``fixed_assets.csv``
-- ``depreciation_schedule.csv``
-
-Ch05 tables (obligations and structure)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-These are intentionally small and readable “mini-ledgers” / event logs:
-
-- ``payroll_events.csv``
-
-  Columns:
-
-  - ``month`` (YYYY-MM)
-  - ``txn_id``, ``date``
-  - ``event_type`` ∈ {``payroll_run``, ``wage_accrual``, ``wage_payment``, ``tax_remittance``}
-  - ``gross_wages``, ``employee_withholding``, ``employer_tax``
-  - ``cash_paid``
-  - ``wages_payable_delta`` (positive increases liability)
-  - ``payroll_taxes_payable_delta`` (positive increases liability)
-
-- ``sales_tax_events.csv``
-
-  Columns:
-
-  - ``month`` (YYYY-MM)
-  - ``txn_id``, ``date``
-  - ``event_type`` ∈ {``tax_collected``, ``tax_remittance``}
-  - ``taxable_sales``, ``tax_amount``
-  - ``cash_paid``
-  - ``sales_tax_payable_delta``
-
-- ``debt_schedule.csv``
-
-  Columns:
-
-  - ``month`` (YYYY-MM)
-  - ``loan_id``, ``txn_id``
-  - ``beginning_balance``, ``payment``, ``interest``, ``principal``, ``ending_balance``
-
-- ``equity_events.csv``
-
-  Columns:
-
-  - ``month`` (YYYY-MM)
-  - ``txn_id``, ``date``
-  - ``event_type`` ∈ {``contribution``, ``draw``}
-  - ``amount``
-
-- ``ap_events.csv``
-
-  Columns:
-
-  - ``month`` (YYYY-MM)
-  - ``txn_id``, ``date``, ``vendor``, ``invoice_id``
-  - ``event_type`` ∈ {``invoice``, ``payment``}
-  - ``amount``
-  - ``ap_delta`` (positive increases AP)
-  - ``cash_paid``
-
-Why this design?
-----------------
-
-The book’s Part B later frames reconciliations as “data validation.”
-We start that mindset here:
-
-- Each event table is a **controlled source of truth** for a specific obligation stream.
-- The GL is the **system of record**.
-- Chapter scripts prove that the obligation subledger ties to the GL by construction
-  using rollforwards and monthly totals.
-
-Concept refresher
------------------
-
-What makes something a liability?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A liability is an obligation arising from past events that will require a future
-outflow of resources.
-
-Common classifications:
-
-- Current vs non-current (timing matters for liquidity and forecasting)
-- Operating liabilities (AP, wages payable, tax payable) vs financing (debt)
-- Known vs estimated (accruals, provisions)
-
-Principal vs interest (debt payments)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A debt payment is not “an expense.”
-
-- **Interest** is the cost of borrowing → Income Statement expense.
-- **Principal** is repayment of the balance → reduces the liability on the Balance Sheet.
-- Cash decreases by the full payment.
-
-Payroll (gross, deductions, employer portions)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Payroll introduces multiple flows:
-
-- Gross wages: expense
-- Deductions/withholdings: liability (you owe the government / third parties)
-- Employer payroll taxes: additional expense
-- Remittances: cash outflow that reduces the liability
-
-Sales tax (collection and remittance)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Sales tax is typically not revenue:
-
-- When collected, it increases cash/AR and increases a liability.
-- When remitted, it reduces cash and reduces the liability.
-
-Equity movements
-~~~~~~~~~~~~~~~~
-
-Equity changes via:
-
-- Owner contribution (financing inflow)
-- Owner draw/distribution (financing outflow)
-- Retained earnings (accumulated net income minus dividends/draws, depending on entity)
-
-Automated checks performed by the Chapter 5 script
---------------------------------------------------
-
-Run:
+Or:
 
 .. code-block:: bash
 
-   make business-ch05
+   python -m scripts.business_ch05_liabilities_payroll_taxes_equity      --datadir data/synthetic/nso_v1      --outdir outputs/track_d      --seed 123
 
-The script writes outputs to:
+Roll-forwards as “data reconciliations”
+---------------------------------------
 
-``outputs/track_d/``
+A roll-forward is one of the most useful patterns in accounting *and* data engineering:
 
-Tie-out checks:
+.. math::
 
-- Debt schedule ↔ GL:
+   \text{Ending} = \text{Beginning} + \text{Increases} - \text{Decreases}
 
-  - Interest expense ties to GL interest expense account.
-  - Notes payable rollforward ties to TB ending balances.
+In this project, each subledger event table includes an explicit delta column
+(e.g., ``ap_delta`` or ``sales_tax_payable_delta``). The chapter script aggregates these deltas by month and checks that:
 
-- Payroll events ↔ GL:
+- the computed ending balances match the trial balance for the corresponding accounts, and
+- the cash portions align with cash activity in the GL when applicable.
 
-  - Payroll expense ties to GL payroll expense.
-  - Employer payroll tax expense ties to GL payroll tax expense.
-  - Wages payable rollforward ties to TB ending balances.
-  - Payroll taxes payable rollforward ties to TB ending balances.
+Payroll payables (high level)
+-----------------------------
 
-- Sales tax events ↔ GL:
+Payroll is a bundle of related obligations:
 
-  - Sales tax payable rollforward ties to TB ending balances.
+- **Gross wages**: what employees earned.
+- **Employee withholdings**: amounts withheld from paychecks (not an employer expense).
+- **Employer payroll taxes**: employer-side taxes (an expense).
+- **Wages payable / payroll taxes payable**: liabilities that may exist between the payroll date and payment date.
 
-- AP events ↔ GL:
+This chapter separates wages payable from payroll taxes payable so learners can see why payroll is not “just one number.”
 
-  - Accounts payable rollforward ties to TB ending balances.
+Sales tax payable (high level)
+------------------------------
 
-- Equity events ↔ GL:
+Sales tax often behaves like a liability the business is collecting on behalf of a government:
 
-  - Contributions tie to owner capital postings.
-  - Draws tie to owner draw postings.
+- When a taxable sale occurs, the business records a liability (sales tax payable).
+- When remitted, the liability decreases and cash decreases.
 
-Outputs produced:
+Accounts payable (high level)
+-----------------------------
 
-- ``business_ch05_summary.json``
-- rollforward CSVs for each obligation stream
-- ``business_ch05_liabilities_over_time.png``
+A/P tracks vendor invoices and payments:
 
-How to think about the end-of-chapter problems
-----------------------------------------------
+- Recording an invoice increases A/P (liability).
+- Paying the vendor decreases A/P and decreases cash.
 
-1) Loan payment entry
-~~~~~~~~~~~~~~~~~~~~~
+Notes payable (high level)
+--------------------------
 
-Given a payment amount and an interest calculation:
+Loan payments usually contain:
 
-- Record interest expense
-- Record principal reduction
-- Record cash decrease
+- **Interest** (expense) and
+- **Principal** (reduces the liability).
 
-Then describe impacts:
+The notes payable roll-forward output makes this decomposition explicit month-by-month.
 
-- IS: interest expense reduces net income
-- BS: notes payable decreases (principal), cash decreases (full)
-- CF: operating cash outflow for interest, financing for principal (conceptually)
+Reading the outputs
+-------------------
 
-2) Payroll mini-ledger
-~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
 
-Record:
+   import pandas as pd
 
-- Gross pay
-- Deductions
-- Employer portion
-- Remittances
+   ap = pd.read_csv("outputs/track_d/business_ch05_accounts_payable_rollforward.csv")
+   notes = pd.read_csv("outputs/track_d/business_ch05_notes_payable_rollforward.csv")
 
-Then confirm:
+   print(ap.tail())
+   print(notes.tail())
 
-- liabilities move correctly over time
-- remittance clears the liability stream
+Exercises and extensions
+------------------------
 
-3) Equity rollforward
-~~~~~~~~~~~~~~~~~~~~~
+1. Introduce a “late payment” scenario (shift cash paid to a later month) and verify how payables change.
+2. Add a second loan with a different rate and term; compare interest profiles.
+3. Extend the plot to include equity and show how liabilities and equity together finance assets.
 
-Given events:
+Notes for maintainers
+---------------------
 
-- start equity
-- add contributions
-- subtract draws
-- add net income (retained earnings concept)
-
-Compute ending equity and tie to the Balance Sheet.
-
-Next chapter
-------------
-
-Chapter 6 will formalize “controls as data validation”:
-
-- Bank reconciliation (timing vs error)
-- AR/AP ties
-- exception reports
-
-Chapter 5 is the foundation because it gives you realistic obligation streams
-that will *require* reconciliation later.
+- If you change any of the Chapter 5 tables (columns, names), update :mod:`scripts._business_schema`
+  and add/adjust tests.
+- The goal is not only to compute results, but to show learners the *audit trail*:
+  event table → roll-forward → tie-out to trial balance.
