@@ -130,6 +130,16 @@ def prepare_gl_tidy(gl_journal: pd.DataFrame, chart_of_accounts: pd.DataFrame) -
     return out[cols + extra]
 
 
+def build_gl_tidy_dataset(gl: pd.DataFrame, coa: pd.DataFrame) -> pd.DataFrame:
+    """Backward-compatible alias for :func:`prepare_gl_tidy`.
+
+    Chapter 8 imports ``build_gl_tidy_dataset``.
+    Chapter 7 uses the canonical name ``prepare_gl_tidy``.
+    """
+
+    return prepare_gl_tidy(gl, coa)
+
+
 def prepare_gl_monthly_summary(gl_tidy: pd.DataFrame) -> pd.DataFrame:
     """Monthly rollup of tidy GL.
 
