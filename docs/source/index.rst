@@ -114,6 +114,7 @@ we recommend cloning the GitHub repository and installing in editable mode:
    business_ch04_assets_inventory_fixed_assets
    business_ch05_liabilities_payroll_taxes_equity
    business_ch06_reconciliations_quality_control
+   business_ch07_preparing_accounting_data_for_analysis
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
 
