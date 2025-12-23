@@ -31,6 +31,7 @@ help:
 	@echo "  business-ch05 - Track D Chapter 5 analysis (liabilities + payroll + taxes + debt + equity)"
 	@echo "  business-ch06 - Track D Chapter 6 analysis (reconciliations as data validation)"
 	@echo "  business-ch07 - Track D Chapter 7 analysis (prepare accounting data for analysis)"
+	@echo "  business-ch08 - Track D Chapter 8 analysis (descriptive stats for financial performance)"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
@@ -339,6 +340,10 @@ business-ch06:
 .PHONY: business-ch07
 business-ch07:
 	$(PYTHON) -m scripts.business_ch07_preparing_accounting_data_for_analysis --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
+.PHONY: business-ch08
+business-ch08:
+	$(PYTHON) -m scripts.business_ch08_descriptive_statistics_financial_performance --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
 
 # --- Quality gates ---
