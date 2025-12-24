@@ -118,6 +118,7 @@ we recommend cloning the GitHub repository and installing in editable mode:
    business_ch08_descriptive_statistics_financial_performance
    business_ch09_reporting_style_contract
    business_ch10_probability_risk
+   business_ch11_sampling_estimation_audit_controls
    business_appendix_ch08_milestone_big_picture
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
