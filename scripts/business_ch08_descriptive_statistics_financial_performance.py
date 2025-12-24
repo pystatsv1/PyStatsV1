@@ -53,11 +53,18 @@ class Ch08Outputs:
     summary: dict[str, Any]
 
 
-def _read_csv_required(datadir: Path, filename: str) -> pd.DataFrame:
-    path = datadir / filename
-    if not path.exists():
-        raise FileNotFoundError(path)
-    return pd.read_csv(path)
+def _read_csv_required(datadir: Path, filename: str, *, fallbacks: list[str] | None = None) -> pd.DataFrame:
+    """Read a required CSV, optionally trying fallback filenames.
+
+    This keeps chapters robust when the simulator/export names evolve.
+    """
+    candidates = [filename] + (fallbacks or [])
+    for name in candidates:
+        path = datadir / name
+        if path.exists():
+            return pd.read_csv(path)
+    # If none found, raise using the primary expected name (so error is clear)
+    raise FileNotFoundError(datadir / filename)
 
 
 def _pivot_statement(df: pd.DataFrame) -> pd.DataFrame:
@@ -293,8 +300,8 @@ def _ar_days_stats(slices: pd.DataFrame) -> pd.DataFrame:
 def analyze_ch08(datadir: Path, outdir: Path | None = None, seed: int = 123) -> Ch08Outputs:
     """Run Chapter 8 analysis and return outputs as dataframes."""
     # Build analysis-ready GL (Chapter 7 logic) directly from raw exports
-    gl = _read_csv_required(datadir, "gl_journal.csv")
-    coa = _read_csv_required(datadir, "chart_of_accounts.csv")
+    gl = _read_csv_required(datadir, "gl_journal.csv", fallbacks=["gl.csv", "general_ledger.csv"])
+    coa = _read_csv_required(datadir, "chart_of_accounts.csv", fallbacks=["coa.csv"])
     gl_tidy = build_gl_tidy_dataset(gl, coa)
 
     # Statements are already monthly and are a stable “accounting truth” for KPIs
