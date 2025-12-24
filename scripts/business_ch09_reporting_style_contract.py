@@ -70,7 +70,11 @@ def _ensure_outdir(outdir: Path) -> tuple[Path, Path, Path, Path, Path]:
 
 
 def _make_executive_memo(kpi: pd.DataFrame, ar_monthly: pd.DataFrame, ar_days_stats: pd.DataFrame) -> str:
-    """Create a compact, deterministic markdown memo (10 bullets max)."""
+    """Create a compact, deterministic markdown memo (10 bullets max).
+
+    Chapter 9 embeds *ethics guardrails* directly in the memo generator so the
+    output is harder to misuse in executive settings.
+    """
     lines: list[str] = []
     lines.append("# Chapter 9 — Executive memo (example)\n")
     lines.append(
@@ -78,45 +82,87 @@ def _make_executive_memo(kpi: pd.DataFrame, ar_monthly: pd.DataFrame, ar_days_st
         "consistent reporting style (not to make real-world claims).\n"
     )
 
+    # --- Ethics guardrails (deterministic) ---
+    # Percent metrics (margins, growth) can be misleading when the denominator is tiny.
+    # We flag percent metrics when the revenue base is "small" relative to the series.
+    PCT_DENOM_ABS_MIN: float = 1_000.0
+    PCT_DENOM_REL_MIN: float = 0.05  # 5% of typical (median) revenue
+
+    # DSO is a risk metric; extreme values are flagged neutrally as "needs investigation".
+    DSO_NEEDS_INVESTIGATION_DAYS: float = 75.0
+
+    typical_revenue = 0.0
+    if not kpi.empty and "revenue" in kpi.columns:
+        s = (
+            pd.to_numeric(kpi["revenue"], errors="coerce")
+            .replace([np.inf, -np.inf], np.nan)
+            .dropna()
+            .astype(float)
+        )
+        if len(s) > 0:
+            typical_revenue = float(s.median())
+
+    def _is_small_denominator(denom: float | int | None, typical: float) -> bool:
+        if denom is None:
+            return True
+        d = float(denom)
+        if not np.isfinite(d):
+            return True
+        floor = max(PCT_DENOM_ABS_MIN, PCT_DENOM_REL_MIN * float(typical))
+        return d < floor
+
+    def _pct_note_if_unstable(denom: float | int | None, typical: float) -> str:
+        if _is_small_denominator(denom=denom, typical=typical):
+            return " (flag: denominator small; interpret with caution)"
+        return ""
+
     if not kpi.empty:
         latest = kpi.iloc[-1]
         prev = kpi.iloc[-2] if len(kpi) > 1 else latest
         lines.append(f"- Latest month: **{latest['month']}**")
         lines.append(f"- Revenue: **{latest['revenue']:.0f}** (prev {prev['revenue']:.0f})")
         lines.append(f"- Net income: **{latest['net_income']:.0f}** (prev {prev['net_income']:.0f})")
-        if pd.notna(latest.get('gross_margin_pct', pd.NA)):
-            lines.append(f"- Gross margin: **{latest['gross_margin_pct']:.1%}**")
-        if pd.notna(latest.get('net_margin_pct', pd.NA)):
-            lines.append(f"- Net margin: **{latest['net_margin_pct']:.1%}**")
-        if pd.notna(latest.get('revenue_growth_pct', pd.NA)):
-            lines.append(f"- MoM revenue growth: **{latest['revenue_growth_pct']:.1%}**")
+        if pd.notna(latest.get("gross_margin_pct", pd.NA)):
+            note = _pct_note_if_unstable(denom=latest.get("revenue"), typical=typical_revenue)
+            lines.append(f"- Gross margin: **{latest['gross_margin_pct']:.1%}**{note}")
+        if pd.notna(latest.get("net_margin_pct", pd.NA)):
+            note = _pct_note_if_unstable(denom=latest.get("revenue"), typical=typical_revenue)
+            lines.append(f"- Net margin: **{latest['net_margin_pct']:.1%}**{note}")
+        if pd.notna(latest.get("revenue_growth_pct", pd.NA)):
+            note = _pct_note_if_unstable(denom=prev.get("revenue"), typical=typical_revenue)
+            lines.append(f"- MoM revenue growth: **{latest['revenue_growth_pct']:.1%}**{note}")
 
-    if not ar_monthly.empty and 'dso' in ar_monthly.columns:
+    if not ar_monthly.empty and "dso" in ar_monthly.columns:
         latest_ar = ar_monthly.iloc[-1]
-        dso = latest_ar.get('dso')
-        cr = latest_ar.get('collections_rate')
+        dso = latest_ar.get("dso")
+        cr = latest_ar.get("collections_rate")
         if pd.notna(dso):
-            lines.append(f"- DSO (approx): **{dso:.1f} days**")
+            note = ""
+            if float(dso) >= DSO_NEEDS_INVESTIGATION_DAYS:
+                note = " (flag: unusually high; needs investigation)"
+            elif float(dso) < 0:
+                note = " (flag: negative; check data/definitions)"
+            lines.append(f"- DSO (approx): **{float(dso):.1f} days**{note}")
         if pd.notna(cr):
-            lines.append(f"- Collections rate: **{cr:.1%}**")
+            lines.append(f"- Collections rate: **{float(cr):.1%}**")
 
     # Tail risk from payment lag distribution
     if not ar_days_stats.empty:
-        all_row = ar_days_stats.loc[ar_days_stats['customer'] == 'ALL']
+        all_row = ar_days_stats.loc[ar_days_stats["customer"] == "ALL"]
         if not all_row.empty:
             r = all_row.iloc[0]
-            if pd.notna(r.get('median_days', pd.NA)):
+            if pd.notna(r.get("median_days", pd.NA)):
                 lines.append(f"- Payment lag median: **{float(r['median_days']):.0f} days**")
-            if pd.notna(r.get('p90_days', pd.NA)):
+            if pd.notna(r.get("p90_days", pd.NA)):
                 lines.append(f"- Payment lag p90 (tail): **{float(r['p90_days']):.0f} days**")
 
     # Keep it to ~10 bullets for a one-page feel
-    bullet_lines = [ln for ln in lines if ln.startswith('-')]
+    bullet_lines = [ln for ln in lines if ln.startswith("-")]
     if len(bullet_lines) > 10:
-        trimmed = []
+        trimmed: list[str] = []
         kept = 0
         for ln in lines:
-            if ln.startswith('-'):
+            if ln.startswith("-"):
                 kept += 1
                 if kept > 10:
                     continue
