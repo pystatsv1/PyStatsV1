@@ -1,22 +1,22 @@
 =============================================================
-Chapter 8 — Descriptive Statistics for Financial Performance
+Chapter 8 -- Descriptive Statistics for Financial Performance
 =============================================================
 
 By Chapter 7 we have an *analysis-ready* General Ledger:
 
-* ``gl_tidy.csv`` — line-level tidy GL (one row per journal line)
-* ``gl_monthly_summary.csv`` — monthly rollup by account
+* ``gl_tidy.csv`` -- line-level tidy GL (one row per journal line)
+* ``gl_monthly_summary.csv`` -- monthly rollup by account
 
 Chapter 8 answers the next practical question:
 
-**“Now that the accounting data is tidy, how do we summarize performance and
-variability in a way that helps business decisions?”**
+**"Now that the accounting data is tidy, how do we summarize performance and
+variability in a way that helps business decisions?"**
 
 This chapter focuses on descriptive statistics that accountants use every day:
 
 * level (mean / median)
 * spread (variance / standard deviation, coefficient of variation)
-* tails and skew (quantiles; why “average” can be misleading)
+* tails and skew (quantiles; why "average" can be misleading)
 * simple stability checks (rolling mean / rolling std; z-score style flags)
 
 It also includes an A/R-focused section because receivables are a common source
@@ -36,14 +36,14 @@ Accounting goals
   * credit sales vs collections
   * A/R ending balance and approximate Days Sales Outstanding (DSO)
   * a simple *FIFO application* of collections to invoices to estimate a
-    distribution of “days outstanding”.
+    distribution of "days outstanding".
 
 Python/data goals
 -----------------
 
 * Convert long-form statement tables to wide data for analysis (``pivot_table``).
 * Compute rolling statistics with ``Series.rolling``.
-* Build “analysis artifacts” as CSV + a JSON summary/data dictionary.
+* Build "analysis artifacts" as CSV + a JSON summary/data dictionary.
 * Keep scripts deterministic and testable.
 
 
@@ -65,7 +65,7 @@ Outputs
 This chapter writes the following files to ``outputs/track_d``:
 
 ``gl_kpi_monthly.csv``
-  A compact monthly “performance dashboard” built from Income Statement +
+  A compact monthly "performance dashboard" built from Income Statement +
   Balance Sheet lines. Includes ratios and rolling statistics.
 
 ``ar_monthly_metrics.csv``
@@ -78,11 +78,11 @@ This chapter writes the following files to ``outputs/track_d``:
 ``ar_payment_slices.csv``
   **Optional-but-recommended** detail table. Each row represents a slice of a
   collection applied to an invoice under a FIFO assumption. This produces a
-  realistic “days outstanding” distribution even when cash receipts do not
+  realistic "days outstanding" distribution even when cash receipts do not
   explicitly reference invoice numbers.
 
 ``ar_days_stats.csv``
-  Descriptive stats for “days outstanding” overall and by customer.
+  Descriptive stats for "days outstanding" overall and by customer.
 
 ``ch08_summary.json``
   Summary metrics, checks, and a data dictionary.
@@ -114,21 +114,21 @@ KPIs: level vs variability
 Two businesses can have the same *average* gross margin but very different risk
 profiles.
 
-* If ``gross_margin_pct_std_w3`` is high, margin is unstable — pricing, input
+* If ``gross_margin_pct_std_w3`` is high, margin is unstable -- pricing, input
   costs, and product mix might be swinging month to month.
 * ``gross_margin_pct_cv`` (coefficient of variation) normalizes volatility by
   the mean and is useful when comparing different scales.
 
-A/R: why “average DSO” can hide tails
+A/R: why "average DSO" can hide tails
 -----------------------------------
 
 The **mean** days outstanding can be pulled upward by a few very late payments.
-The **median** is often a better “typical” payment time.
+The **median** is often a better "typical" payment time.
 
 In ``ar_days_stats.csv`` look for:
 
-* ``p90_days`` / ``p95_days`` — tail risk (customers who pay very late)
-* differences between mean and median — skewness
+* ``p90_days`` / ``p95_days`` -- tail risk (customers who pay very late)
+* differences between mean and median -- skewness
 
 The table ``ar_monthly_metrics.csv`` is your month-by-month monitoring view.
 Large DSO spikes (or big gaps between credit sales and collections) are often
@@ -157,12 +157,13 @@ Data dictionary highlights
 Appendix
 --------
 
-See :doc:`business_appendix_ch08_milestone_big_picture` for a big-picture recap of Chapters 1–8 and a roadmap beyond Chapter 8.
+See :doc:`business_appendix_ch08_milestone_big_picture` for a big-picture recap of Chapters 1-8 and a roadmap beyond Chapter 8.
 
 Next chapter
 ============
 
-Chapter 9 moves from descriptive summaries to *forecasting* concepts.
-With clean KPIs and A/R metrics in place, we can build simple baseline models
-(moving averages, trend fits) and then evaluate forecast accuracy.
+Chapter 9 focuses on **visualization and reporting that doesn't mislead**.
+Using the KPIs and A/R artifacts from Chapter 8, we standardize how figures
+are labeled, how axes are handled (to avoid "chart crimes"), and how to produce a
+compact executive memo that tells a coherent story from a small chart pack.
 
