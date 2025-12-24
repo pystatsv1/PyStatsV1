@@ -153,9 +153,16 @@ Data dictionary highlights
   * rows are *amount-weighted* payment slices created by FIFO application
 
 
+
+Appendix
+--------
+
+See :doc:`business_appendix_ch08_milestone_big_picture` for a big-picture recap of Chapters 1–8 and a roadmap beyond Chapter 8.
+
 Next chapter
 ============
 
 Chapter 9 moves from descriptive summaries to *forecasting* concepts.
 With clean KPIs and A/R metrics in place, we can build simple baseline models
 (moving averages, trend fits) and then evaluate forecast accuracy.
+
