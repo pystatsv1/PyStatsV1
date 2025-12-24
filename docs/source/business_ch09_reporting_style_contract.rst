@@ -1,114 +1,193 @@
-Business Chapter 9 — Plotting & reporting style contract
-=======================================================
+Track D — Chapter 9: Visualization and reporting that doesn’t mislead
+=====================================================================
 
-Chapter 9 has two goals:
+Chapter 9 introduces a conservative **plotting + reporting style contract** for Track D.
+The point is not to make beautiful charts — it is to make charts that are
+**hard to misread** and **hard to misuse**.
 
-1. Define a *style contract* for the Track D figures and short reports.
-2. Produce a set of example figures (KPIs + A/R) that follow the contract.
+In business settings, a chart is often treated as “proof.” This chapter teaches
+how to match the **intent** of a chart to its **design**, and how to add small
+guardrails so the visuals remain honest.
 
-Why a “style contract”?
------------------------
+Learning objectives
+-------------------
 
-In business analytics, the same *data* can look honest or misleading depending
-on presentation. A consistent contract makes results:
+By the end of Chapter 9, you should be able to:
 
-- easier to compare across months/chapters,
-- easier to audit,
-- easier to re-run in CI without manual tweaks.
+- **Choose the right chart** for the question (trend vs. comparison vs. distribution).
+- **Avoid common visualization pitfalls** (“chart crimes”) such as y-axis truncation,
+  cherry-picked time windows, and ambiguous labels.
+- **Produce a one-page executive story**: a compact narrative that summarizes the key
+  insights from a small chart pack (strictly limited to 10 bullets).
 
-Inputs
-------
+What we implement in code
+-------------------------
 
-This chapter reads the raw NSO v1 synthetic bookkeeping dataset (the same
-folder used by Chapters 7–8). It internally calls Chapter 8 to compute KPIs
-and A/R metrics.
+This chapter implements two things:
 
-Outputs
--------
+1) A reusable style/guardrails module:
 
-The chapter writes a small figure set and metadata:
+- ``scripts/_reporting_style.py``
 
-- ``figures/``
+2) A Chapter 9 driver that produces a small, compliant “chart pack” + manifest:
 
-  - ``kpi_revenue_net_income.png``
-  - ``kpi_margin_pct.png``
-  - ``ar_dso_approx.png``
-  - ``ar_days_hist.png``
-  - ``ar_days_ecdf.png``
+- ``scripts/business_ch09_reporting_style_contract.py``
 
-- ``ch09_figures_manifest.csv``
-  One row per figure (filename, type, title/caption, labels, and source).
+The style contract (rules)
+--------------------------
 
-- ``ch09_style_contract.json``
-  A machine-readable snapshot of the plotting contract.
-
-- ``ch09_executive_memo.md``
-  A compact, deterministic “one-page memo” with 10 bullets derived from the
-  KPIs and A/R metrics (useful as a template for stakeholder updates).
-
-- ``ch09_summary.json``
-  Run report: row counts + a few basic checks.
-
-The style contract
-------------------
-
-The contract is intentionally small. It answers: *what chart types do we allow
-and what are the rules for each?*
+The style contract lives in ``scripts/_reporting_style.py`` as ``STYLE_CONTRACT``.
+It is intentionally conservative so later chapters can reuse it.
 
 Allowed chart types
-~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
-- **Time-series line**: KPIs over time (optionally with a rolling average).
-- **Bar chart**: categorical comparisons (must start y-axis at zero).
-- **Histogram**: distributions (show mean/median markers).
-- **ECDF**: distributions with tails (best for skew, like A/R days).
-- **Box plot**: optional for multi-group comparisons.
+- **Line**: trends over time (monthly KPIs, DSO).
+- **Bar**: categorical comparisons (by product, by department) *with a zero baseline*.
+- **Histogram**: distribution shape.
+- **ECDF**: distribution tails (what fraction is below a threshold?).
+- **Box**: distribution comparison across groups.
+- **Scatter**: relationships between two variables.
 
 Labeling rules
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-- Title: clear, specific, no jargon.
-- Axis labels include units (e.g., ``Days`` or ``$``).
-- Percent values are shown as percent on the y-axis.
-- For time series, the x-axis is month (``YYYY-MM``), with ticks rotated.
+- Title required.
+- X and Y labels required.
+- Include units in labels where possible (e.g., “Days”, “$”, “%”).
+- Legends only when multiple series are present.
+- Month labels should be shown as ``YYYY-MM``.
 
-Avoiding misleading axes
-~~~~~~~~~~~~~~~~~~~~~~~~
+Axis guardrails
+^^^^^^^^^^^^^^^
 
-- **Bar charts** must start at zero.
-- **Line charts** may use a focused y-range, but must show units and include a
-  caption that the axis is not zero-based.
-- Ratio charts (margins, growth) include a zero reference line.
+- **Bar charts start at zero** (default guardrail against y-axis tricks).
+- Avoid dual axes.
+- For ratio charts (margins, growth), include a **0 reference line** when helpful.
 
-Distributions (A/R days)
-~~~~~~~~~~~~~~~~~~~~~~~
+Distributions (e.g., A/R payment lag)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For skewed distributions:
+Skewed business distributions (like days-to-pay) should be communicated using a
+**pair** of views:
 
-1. Show a **histogram** with **mean** and **median** markers.
-2. Show an **ECDF** and mark key quantiles (P50/P90) to highlight tails.
+- Histogram + vertical markers for **mean**, **median**, and a tail marker such as **p90**.
+- ECDF to reveal tails (e.g., “90% of payments are within X days”).
+
+Chapter outputs
+---------------
+
+Running Chapter 9 writes these outputs to the chosen ``outdir``:
+
+- ``ch09_style_contract.json``
+  - The style contract rules in a portable format.
+- ``ch09_figures_manifest.csv``
+  - A manifest (audit log) of each figure: filename, chart type, labels, and guardrail note.
+- ``ch09_executive_memo.md``
+  - A “10-bullet max” executive memo generated from the same inputs.
+- ``ch09_summary.json``
+  - A small structured summary (paths + counts).
+- ``figures/*.png``
+  - The example chart pack:
+
+    - ``kpi_revenue_net_income_line.png``
+    - ``kpi_margins_line.png``
+    - ``ar_dso_line.png``
+    - ``ar_days_hist.png``
+    - ``ar_days_ecdf.png``
 
 How to run
 ----------
 
-From the project root:
-
-.. code-block:: bash
-
-   make business-nso-sim
-   make business-ch09
-
-Or run the script directly:
+From the repo root (Windows / Git Bash):
 
 .. code-block:: bash
 
    python -m scripts.business_ch09_reporting_style_contract \
-     --datadir data/synthetic/nso_v1 \
-     --outdir outputs/track_d \
+     --datadir data/nso_v1 \
+     --outdir outputs/track_d/ch09 \
      --seed 123
 
-Next chapter
-------------
+The command expects **NSO v1** simulator exports in ``--datadir``.
+Chapter 9 reuses Chapter 8’s computations (KPIs + A/R metrics) and focuses on
+consistent presentation.
 
-Chapter 10 will use the same contract while introducing simple forecasting
-baselines (moving averages / naive) and forecast accuracy reporting.
+Reading the manifest
+--------------------
+
+The manifest exists so a reviewer can answer:
+
+- What chart type was used?
+- Are labels present?
+- Is there an explicit note when a guardrail matters?
+
+In practice, this makes visual outputs auditable during code review.
+
+Visualization pitfalls (“chart crimes”)
+--------------------------------------
+
+Common problems this chapter is designed to prevent:
+
+- **Y-axis truncation in bar charts** to exaggerate differences.
+- **Ambiguous labels** (“Revenue” without units, unclear time period).
+- **Cherry-picked time windows** that hide seasonality or volatility.
+- **Smoothing away volatility** that management should see.
+- **Dual-axis charts** that encourage accidental correlation.
+
+End-of-chapter problems
+-----------------------
+
+1) Chart correction
+^^^^^^^^^^^^^^^^^^^
+
+You are given three misleading charts (examples might include a truncated bar
+chart or an over-smoothed line chart).
+
+Task:
+
+- Rebuild each chart using Chapter 9 helpers.
+- Add a one-paragraph justification explaining what was misleading and how you fixed it.
+
+Deliverable:
+
+- “Before” (original) + “After” (corrected) figures.
+- A short justification that references the style contract guardrails.
+
+2) Variance waterfall (“bridge chart”)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Build a waterfall-style bridge that explains how net income changed from last
+month to this month, using driver categories such as:
+
+- volume, price, cost savings, fixed-cost changes
+
+Deliverable:
+
+- A waterfall chart (or a bar-bridge approximation) with clear labels.
+- A short paragraph summarizing the dominant drivers.
+
+(Implementation note: Chapter 9 does not yet ship a dedicated waterfall helper.
+This problem is intentionally designed as an extension that students implement.)
+
+3) The 10-bullet memo
+^^^^^^^^^^^^^^^^^^^^^
+
+Write a narrative executive summary based on a provided chart pack.
+
+Rules:
+
+- Maximum 10 bullets.
+- Every bullet must reference a chart or a metric.
+- No false precision (prefer rounding: “$1.0M” instead of “$1,000,043.22”).
+
+Deliverable:
+
+- A markdown memo.
+- Include a short “assumptions and caveats” section.
+
+What’s next
+-----------
+
+Chapter 10 will build on this chapter by translating distributions into
+**probability-and-risk statements** (e.g., “we will miss payroll 1 out of 20
+months”) and by communicating uncertainty without false precision.
