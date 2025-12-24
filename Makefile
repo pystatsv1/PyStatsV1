@@ -350,6 +350,10 @@ business-ch08:
 business-ch09:
 	$(PYTHON) -m scripts.business_ch09_reporting_style_contract --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch10
+business-ch10:
+	$(PYTHON) -m scripts.business_ch10_probability_risk --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
