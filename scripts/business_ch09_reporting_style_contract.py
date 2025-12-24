@@ -41,6 +41,7 @@ from ._reporting_style import (
     FigureSpec,
     plot_ecdf,
     plot_histogram_with_markers,
+    plot_waterfall_bridge,
     save_figure,
     style_context,
     write_contract_json,
@@ -285,7 +286,54 @@ def analyze_ch09(datadir: Path, outdir: Path, seed: int = 123) -> Ch09Outputs:
     )
     figure_paths.append(path)
 
+    # Net income variance bridge (waterfall)
+    # Decompose change from prior month net income to latest month net income.
+    if len(kpi) >= 2 and {"month", "revenue", "cogs", "operating_expenses", "net_income"}.issubset(set(kpi.columns)):
+        prev = kpi.iloc[-2]
+        latest = kpi.iloc[-1]
+
+        start = float(prev["net_income"])
+        end = float(latest["net_income"])
+
+        components: list[tuple[str, float]] = [
+            ("Revenue", float(latest["revenue"]) - float(prev["revenue"])),
+            ("COGS", -(float(latest["cogs"]) - float(prev["cogs"]))),
+            ("Operating expenses", -(float(latest["operating_expenses"]) - float(prev["operating_expenses"]))),
+        ]
+
+        residual = end - (start + sum(delta for _, delta in components))
+        if abs(float(residual)) > 1e-6:
+            components.append(("Other / rounding", float(residual)))
+
+        with style_context():
+            fig = plot_waterfall_bridge(
+                start_label=f"{prev['month']} net income",
+                end_label=f"{latest['month']} net income",
+                start_value=start,
+                end_value=end,
+                components=components,
+                title=f"Net income bridge: {prev['month']} → {latest['month']}",
+                y_label="Net income (currency units)",
+            )
+            path = figures_dir / "net_income_bridge.png"
+            save_figure(fig, path, FigureSpec(chart_type="waterfall_bridge", title="Net income bridge"))
+            plt.close(fig)
+
+        manifest.append(
+            FigureManifestRow(
+                filename=path.name,
+                chart_type="waterfall_bridge",
+                title=f"Net income bridge: {prev['month']} → {latest['month']}",
+                x_label="Component",
+                y_label="Net income (currency units)",
+                guardrail_note="Bridge chart reconciles explicit start/end totals using additive components; use sign conventions consistently. 'Other / rounding' closes any residual.",
+                data_source="gl_kpi_monthly.csv",
+            )
+        )
+        figure_paths.append(path)
+
     # A/R: DSO
+
     if not ar_month.empty and "dso_approx" in ar_month.columns:
         with style_context():
             fig = _plot_time_series(

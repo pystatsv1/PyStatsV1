@@ -30,6 +30,9 @@ def test_analyze_ch09_writes_expected_outputs(tmp_path: Path) -> None:
     assert {"filename", "chart_type", "title", "x_label", "y_label", "guardrail_note", "data_source"}.issubset(
         set(manifest.columns)
     )
+
+    # Bridge chart (net income waterfall) should be present
+    assert (manifest["filename"] == "net_income_bridge.png").any()
     assert len(outputs.figure_paths) >= 3
     for p in outputs.figure_paths:
         assert p.exists()
