@@ -37,6 +37,7 @@ STYLE_CONTRACT: dict[str, Any] = {
         "ecdf",
         "box",
         "scatter",
+        "waterfall_bridge",
     ],
     "labeling_rules": {
         "title_required": True,
@@ -384,6 +385,111 @@ def plot_ecdf(
 
     if markers and len(markers) > 0:
         ax.legend(loc="best")
+
+    return fig
+
+
+def plot_waterfall_bridge(
+    start_label: str,
+    end_label: str,
+    start_value: float,
+    end_value: float,
+    components: list[tuple[str, float]],
+    title: str,
+    y_label: str,
+    x_label: str = "Component",
+    figsize: tuple[float, float] | None = None,
+):
+    """Create a variance waterfall / bridge chart (start -> end via additive components).
+
+    Guardrails
+    ---------
+    - Deterministic structure: explicit start and end totals plus additive components.
+    - Printer-safe encoding: hatch patterns distinguish positive vs negative deltas.
+    - Zero line included; y-limits padded to reduce truncation temptation.
+
+    Notes
+    -----
+    The caller is responsible for choosing defensible components. Any residual
+    can be included as an "Other / rounding" component to reconcile exactly.
+    """
+
+    _, plt = _mpl()
+
+    if figsize is None:
+        w, h = STYLE_CONTRACT["figure_sizes"]["time_series"]
+        figsize = (float(w), float(h))
+
+    labels = [start_label] + [name for name, _ in components] + [end_label]
+
+    # Running totals after each component (for connectors and y-range).
+    running = float(start_value)
+    totals = [running]
+    for _, delta in components:
+        running += float(delta)
+        totals.append(running)
+    totals.append(float(end_value))
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Start total
+    ax.bar(0, float(start_value), edgecolor="black", linewidth=0.8)
+
+    # Component deltas
+    running = float(start_value)
+    for i, (_, delta) in enumerate(components, start=1):
+        d = float(delta)
+        new_total = running + d
+
+        if d >= 0:
+            bottom = running
+            height = d
+            hatch = "//"
+        else:
+            bottom = new_total
+            height = -d
+            hatch = "\\"
+
+        ax.bar(i, height, bottom=bottom, hatch=hatch, edgecolor="black", linewidth=0.8)
+        running = new_total
+
+    # End total
+    ax.bar(len(labels) - 1, float(end_value), edgecolor="black", linewidth=0.8)
+
+    # Connectors between bars (running totals)
+    running = float(start_value)
+    for i, (_, delta) in enumerate(components, start=1):
+        ax.plot([i - 0.4, i + 0.4], [running, running], linewidth=1.0)
+        running += float(delta)
+
+    ax.set_title(title)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_xticks(list(range(len(labels))))
+    ax.set_xticklabels(labels, rotation=0)
+    ax.axhline(0.0, linewidth=1.0)
+
+    def _fmt(v: float) -> str:
+        return f"{v:,.0f}"
+
+    # Annotate start/end totals
+    ax.text(0, float(start_value), _fmt(float(start_value)), ha="center", va="bottom")
+    ax.text(len(labels) - 1, float(end_value), _fmt(float(end_value)), ha="center", va="bottom")
+
+    # Annotate component deltas
+    running = float(start_value)
+    for i, (_, delta) in enumerate(components, start=1):
+        d = float(delta)
+        y = (running + d) if d >= 0 else running
+        ax.text(i, y, f"{d:+,.0f}", ha="center", va="bottom")
+        running += d
+
+    # Pad y-limits (anti-truncation guardrail)
+    lo = min([0.0] + totals)
+    hi = max([0.0] + totals)
+    span = hi - lo
+    pad = 0.10 * span if span > 0 else 1.0
+    ax.set_ylim(lo - pad, hi + pad)
 
     return fig
 

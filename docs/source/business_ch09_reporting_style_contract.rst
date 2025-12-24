@@ -48,6 +48,7 @@ Allowed chart types
 - **ECDF**: distribution tails (what fraction is below a threshold?).
 - **Box**: distribution comparison across groups.
 - **Scatter**: relationships between two variables.
+- **Bridge (waterfall)**: reconcile a change (e.g., net income) into additive components.
 
 Labeling rules
 ^^^^^^^^^^^^^^
@@ -95,6 +96,7 @@ Running Chapter 9 writes these outputs to the chosen ``outdir``:
     - ``ar_dso_line.png``
     - ``ar_days_hist.png``
     - ``ar_days_ecdf.png``
+    - ``net_income_bridge.png``
 
 How to run
 ----------
@@ -156,18 +158,26 @@ Deliverable:
 2) Variance waterfall (“bridge chart”)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Build a waterfall-style bridge that explains how net income changed from last
-month to this month, using driver categories such as:
+A bridge chart explains *how* a value changed from one period to the next.
+It reduces storytelling bias because the components must reconcile to the start
+and end totals.
 
-- volume, price, cost savings, fixed-cost changes
+In this repo, Chapter 9 ships an **audit-friendly net income bridge**:
+
+- Start: prior month net income
+- Components: revenue change, COGS change, operating expense change
+- Residual: “Other / rounding” to reconcile exactly (if needed)
+- End: latest month net income
+
+Task:
+
+- Review the generated bridge chart and confirm the sign conventions.
+- Write a short paragraph summarizing the dominant drivers.
 
 Deliverable:
 
-- A waterfall chart (or a bar-bridge approximation) with clear labels.
-- A short paragraph summarizing the dominant drivers.
-
-(Implementation note: Chapter 9 does not yet ship a dedicated waterfall helper.
-This problem is intentionally designed as an extension that students implement.)
+- ``figures/net_income_bridge.png``
+- 1 paragraph interpretation (no false precision)
 
 3) The 10-bullet memo
 ^^^^^^^^^^^^^^^^^^^^^
