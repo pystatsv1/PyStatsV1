@@ -361,6 +361,9 @@ business-ch11:
 business-ch12: ## Run Track D Chapter 12 analysis
 	$(PYTHON) -m scripts.business_ch12_hypothesis_testing_decisions --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+business-ch13:
+	$(PYTHON) -m scripts.business_ch13_correlation_causation_controlled_comparisons --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
