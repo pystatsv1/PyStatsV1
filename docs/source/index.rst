@@ -121,8 +121,7 @@ we recommend cloning the GitHub repository and installing in editable mode:
    business_ch10_probability_risk
    business_ch11_sampling_estimation_audit_controls
    business_ch12_hypothesis_testing_decisions
-business_ch13_correlation_causation_controlled_comparisons
+   business_ch13_correlation_causation_controlled_comparisons
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
-
 
