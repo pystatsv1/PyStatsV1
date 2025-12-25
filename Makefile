@@ -358,6 +358,9 @@ business-ch10:
 business-ch11:
 	$(PYTHON) -m scripts.business_ch11_sampling_estimation_audit_controls --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+business-ch12: ## Run Track D Chapter 12 analysis
+	$(PYTHON) -m scripts.business_ch12_hypothesis_testing_decisions --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
