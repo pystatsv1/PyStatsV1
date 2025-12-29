@@ -125,6 +125,7 @@ we recommend cloning the GitHub repository and installing in editable mode:
    business_ch14_regression_driver_analysis
    business_appendix_ch14_milestone_track_d_data
    business_appendix_ch14b_nso_v1_data_dictionary
+   business_appendix_ch14c_ch14_artifact_dictionary
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
 

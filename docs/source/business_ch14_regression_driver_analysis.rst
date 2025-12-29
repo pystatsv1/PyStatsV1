@@ -398,3 +398,11 @@ For a compact “what table is what” reference (grain, keys, joins, checks), s
 
 - :doc:`business_appendix_ch14b_nso_v1_data_dictionary`
 
+
+Appendix 14C: Chapter 14 artifact dictionary
+--------------------------------------------
+
+For a compact reference that explains every Chapter 14 output artifact (what it is, what it’s for,
+and what to look at first), see:
+
+- :doc:`business_appendix_ch14c_ch14_artifact_dictionary`
