@@ -416,3 +416,11 @@ Before you share the Chapter 14 memo or coefficients, use the “big picture” 
 
 - :doc:`business_appendix_ch14d_artifact_qa_checklist_big_picture`
 
+
+Appendix 14E: applying this chapter to your own data
+----------------------------------------------------
+
+To adapt the Chapter 14 workflow (driver table + explainable regression + artifacts) to your own
+real-world business data, see:
+
+- :doc:`business_appendix_ch14e_apply_to_real_world`

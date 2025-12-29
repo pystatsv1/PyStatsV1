@@ -127,6 +127,7 @@ we recommend cloning the GitHub repository and installing in editable mode:
    business_appendix_ch14b_nso_v1_data_dictionary
    business_appendix_ch14c_ch14_artifact_dictionary
    business_appendix_ch14d_artifact_qa_checklist_big_picture
+   business_appendix_ch14e_apply_to_real_world
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
 
