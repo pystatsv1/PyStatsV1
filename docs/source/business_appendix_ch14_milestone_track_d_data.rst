@@ -372,3 +372,7 @@ This project is intentionally “controls-aware”:
 
 Chapter 14 is the point where that philosophy becomes visible:
 **drivers → model → explanation → planning conversation**.
+
+
+- :doc:`business_appendix_ch14b_nso_v1_data_dictionary`
+
