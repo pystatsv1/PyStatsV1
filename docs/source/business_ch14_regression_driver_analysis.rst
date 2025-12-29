@@ -370,6 +370,7 @@ If you hit a matplotlib backend error on Windows, ensure you’re using the proj
 recommended environment (venv) and that your matplotlib install is healthy.
 
 
+
 What’s next (Chapter 15+)
 -------------------------
 
@@ -389,3 +390,11 @@ The natural next steps for Chapter 15+ are to expand from “single driver lens�
 
 If Chapter 14 is your first regression chapter, you’re already in the right place:
 the goal is not sophistication—it’s **usable, auditable models that improve decisions**.
+
+Appendix 14B: NSO v1 data dictionary cheat sheet
+------------------------------------------------
+
+For a compact “what table is what” reference (grain, keys, joins, checks), see:
+
+- :doc:`business_appendix_ch14b_nso_v1_data_dictionary`
+
