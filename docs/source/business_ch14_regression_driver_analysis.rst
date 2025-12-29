@@ -391,6 +391,7 @@ The natural next steps for Chapter 15+ are to expand from “single driver lens�
 If Chapter 14 is your first regression chapter, you’re already in the right place:
 the goal is not sophistication—it’s **usable, auditable models that improve decisions**.
 
+
 Appendix 14B: NSO v1 data dictionary cheat sheet
 ------------------------------------------------
 
@@ -406,3 +407,12 @@ For a compact reference that explains every Chapter 14 output artifact (what it 
 and what to look at first), see:
 
 - :doc:`business_appendix_ch14c_ch14_artifact_dictionary`
+
+
+Appendix 14D: Artifact QA checklist (what to verify before sharing results)
+---------------------------------------------------------------------------
+
+Before you share the Chapter 14 memo or coefficients, use the “big picture” QA checklist:
+
+- :doc:`business_appendix_ch14d_artifact_qa_checklist_big_picture`
+
