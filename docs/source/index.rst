@@ -129,6 +129,6 @@ we recommend cloning the GitHub repository and installing in editable mode:
    business_appendix_ch14d_artifact_qa_checklist_big_picture
    business_appendix_ch14e_apply_to_real_world
    business_ch15_forecasting_foundations
+   business_ch16_seasonality_baselines
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
-
