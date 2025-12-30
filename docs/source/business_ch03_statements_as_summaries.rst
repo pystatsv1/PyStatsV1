@@ -68,8 +68,11 @@ Accounting Connection (PDF refresher)
 -------------------------------------
 Refreshes: **income statement**, **balance sheet**, **cash flows**.
 
-Dataset tables used (LedgerLab)
--------------------------------
+Dataset tables used (LedgerLab core)
+------------------------------------
+This chapter uses the small LedgerLab **core ledger** dataset.
+Later chapters shift to the **NSO v1** running case (``data/synthetic/nso_v1``) for richer operational examples.
+
 - ``chart_of_accounts.csv``
 - ``gl_journal.csv``
 - ``trial_balance_monthly.csv``
@@ -79,7 +82,7 @@ Dataset tables used (LedgerLab)
 
 PyStatsV1 lab (Run it)
 ----------------------
-If you haven’t generated LedgerLab yet::
+If you haven’t generated the LedgerLab *core* dataset yet::
 
    make business-sim
 

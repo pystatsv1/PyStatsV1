@@ -20,14 +20,17 @@ How we guarantee coverage
 Every Track D chapter includes an **Accounting Connection** section that:
 
 * names exactly which of the four pillars gets refreshed in the chapter, and
-* points to the specific LedgerLab table(s) used.
+* points to the specific dataset table(s) used (LedgerLab core and/or the NSO v1 running case).
 
 In the textbook, this becomes a one-paragraph “coverage map” per chapter.
 
 Where to find the first refresher
 --------------------------------
 
-Chapter 1 (:ref:`business-ch01`) refreshes pillar #1 and introduces LedgerLab.
+Chapter 1 (:ref:`business-ch01`) refreshes pillar #1 and introduces the LedgerLab *core* dataset.
+
+Starting in later chapters, Track D’s default running case becomes **North Shore Outfitters (NSO v1)**
+written to ``data/synthetic/nso_v1``.
 
 Later chapters (planned)
 ------------------------
