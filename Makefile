@@ -372,6 +372,11 @@ business-ch15:
 	$(PYTHON) -m scripts.business_ch15_forecasting_foundations --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
 
+.PHONY: business-ch16
+business-ch16:
+	$(PYTHON) -m scripts.business_ch16_seasonality_baselines --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
+
 
 # --- Quality gates ---
 .PHONY: lint
@@ -398,5 +403,3 @@ clean:
 clean-synth:
 	@echo "Removing synthetic data in $(OUT_SYN) (may remove tracked fixtures!)"
 	-@rm -rf $(OUT_SYN)
-
-
