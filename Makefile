@@ -367,6 +367,11 @@ business-ch13:
 business-ch14:
 	$(PYTHON) -m scripts.business_ch14_regression_driver_analysis --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch15
+business-ch15:
+	$(PYTHON) -m scripts.business_ch15_forecasting_foundations --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
+
 
 # --- Quality gates ---
 .PHONY: lint
