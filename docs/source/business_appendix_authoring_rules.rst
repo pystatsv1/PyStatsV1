@@ -31,7 +31,7 @@ Every Track D chapter page follows this structure:
 * Why this matters (for accountants)
 * Learning objectives
 * Accounting Connection (PDF refresher)
-* Dataset tables used (LedgerLab)
+* Dataset tables used (LedgerLab core / NSO v1)
 * PyStatsV1 lab (Run it)
 * Interpretation & decision memo
 * End-of-chapter problems

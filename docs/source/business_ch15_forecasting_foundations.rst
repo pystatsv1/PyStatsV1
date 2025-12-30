@@ -1,5 +1,5 @@
 Track D — Chapter 15
-=================
+====================
 
 Forecasting Foundations and Forecast Hygiene (NSO running case)
 --------------------------------------------------------------
@@ -128,6 +128,14 @@ All artifacts are written under:
 
 ``outputs/track_d/track_d``
 
+**Open this first (recommended order):**
+
+1. ``ch15_backtest_metrics.csv`` (which baseline wins?)
+2. ``figures/ch15_fig_backtest_overlay.png`` (does the chosen method track reality?)
+3. ``ch15_forecast_memo.md`` (shareable summary)
+4. ``ch15_forecast_next12.csv`` (numbers you plug into planning)
+
+
 Core tables (CSV)
 ^^^^^^^^^^^^^^^^^
 
@@ -192,3 +200,8 @@ End-of-chapter exercises
 1. Re-run Chapter 15 but forecast **COGS** instead of revenue.
 2. Change the holdout window to 6 months. Does the best baseline method change?
 3. Use the assumptions log template to document a hypothetical pricing change next quarter.
+
+See also
+--------
+- Appendix 14D (Artifact QA checklist): use the same pre-share mindset before circulating forecasts.
+- Appendix 14E (Apply to real world): adapting the workflow to your own chart of accounts and datasets.

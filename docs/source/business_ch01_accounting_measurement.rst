@@ -96,9 +96,13 @@ This chapter refreshes the PDF’s **Bookkeeping basics** pillar:
 * the GL and financial statements as outputs.
 
 
-Dataset tables used (LedgerLab)
--------------------------------
-In Track D we use a synthetic, accounting-shaped dataset called **LedgerLab**.
+Dataset tables used (LedgerLab core)
+------------------------------------
+In Track D we use a synthetic, accounting-shaped dataset family sometimes referred to as **LedgerLab**.
+
+For Chapters 1–3 we start with a **small “core ledger” dataset** (e.g., ``ledgerlab_ch01``).
+Starting in later chapters, Track D’s default running case becomes **North Shore Outfitters (NSO v1)**
+written to ``data/synthetic/nso_v1``.
 In Chapter 1 we start small:
 
 * ``chart_of_accounts.csv``
@@ -175,7 +179,7 @@ Using Python module commands
 
 .. code-block:: bash
 
-   # 1) Simulate LedgerLab (Chapter 1 needs only the core tables)
+   # 1) Simulate the LedgerLab *core* dataset (Chapter 1 needs only the core tables)
    python -m scripts.sim_business_ledgerlab \
      --outdir data/synthetic/ledgerlab_ch01 \
      --seed 123 \
@@ -192,7 +196,8 @@ Outputs you should see
 ^^^^^^^^^^^^^^^^^^^^^^
 
 * Console output showing the integrity checks and key month metrics.
-* A LedgerLab dataset folder in ``data/synthetic/ledgerlab_ch01``.
+* A LedgerLab core dataset folder in ``data/synthetic/ledgerlab_ch01``.
+* (Later) the NSO v1 running case in ``data/synthetic/nso_v1``.
 * A chapter output folder in ``outputs/track_d`` containing:
 
   * ``business_ch01_summary.json``

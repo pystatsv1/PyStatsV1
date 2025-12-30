@@ -75,15 +75,18 @@ Accounting Connection (PDF refresher)
 -------------------------------------
 Refreshes: **double-entry**, **general ledger**, **bookkeeper role**.
 
-Dataset tables used (LedgerLab)
--------------------------------
+Dataset tables used (LedgerLab core)
+------------------------------------
+This chapter continues with the small LedgerLab **core ledger** dataset.
+The larger **NSO v1** running case (``data/synthetic/nso_v1``) is introduced in later chapters.
+
 - ``chart_of_accounts.csv`` (COA “schema”: account_id, type, normal side)
 - ``gl_journal.csv`` (transaction detail lines: debits, credits, doc IDs)
 - ``trial_balance_monthly.csv`` (monthly checksum summary)
 
 PyStatsV1 lab (Run it)
 ----------------------
-If you haven’t generated LedgerLab yet::
+If you haven’t generated the LedgerLab *core* dataset yet::
 
    make business-sim
 
