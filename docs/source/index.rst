@@ -130,5 +130,6 @@ we recommend cloning the GitHub repository and installing in editable mode:
    business_appendix_ch14e_apply_to_real_world
    business_ch15_forecasting_foundations
    business_ch16_seasonality_baselines
+   business_ch17_revenue_forecasting_segmentation_drivers
    business_appendix_pdf_refresher
    business_appendix_authoring_rules

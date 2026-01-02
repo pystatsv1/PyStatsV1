@@ -377,6 +377,10 @@ business-ch16:
 	$(PYTHON) -m scripts.business_ch16_seasonality_baselines --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
 
+.PHONY: business-ch17
+business-ch17:
+	$(PYTHON) -m scripts.business_ch17_revenue_forecasting_segmentation_drivers --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
