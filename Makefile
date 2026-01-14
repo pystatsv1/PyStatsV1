@@ -36,12 +36,31 @@ help:
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
+	@echo "  docs       - build Sphinx docs (html)"
+	@echo "  docs-strict- build docs with warnings as errors (clean rebuild)"
 	@echo "  clean      - remove generated outputs"
 
 
 
+.PHONY: docs docs-strict docs-workbook docs-workbook-strict
+
 docs:
-	python -m sphinx -b html docs/source docs/build/html
+	$(PYTHON) -m sphinx -b html docs/source docs/build/html
+
+# Full-site strict (NOT green yet in PyStatsV1; keep for later cleanup PR)
+docs-strict:
+	# Force a clean rebuild so warnings can't be hidden by cached doctrees.
+	$(PYTHON) -m sphinx -a -E -W --keep-going -b html docs/source docs/build/html
+
+# Workbook-only builds (this is what we enforce first, like LedgerLoom Workbook)
+docs-workbook:
+	$(PYTHON) -m sphinx -c docs/source -b html docs/source/workbook docs/build/html-workbook
+
+docs-workbook-strict:
+	# Clean rebuild of workbook subtree only; warnings are errors.
+	$(PYTHON) -m sphinx -c docs/source -E -W --keep-going -b html docs/source/workbook docs/build/html-workbook
+
+
 
 
 # --- CI smokes (small, deterministic) ---
