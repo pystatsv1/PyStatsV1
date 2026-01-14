@@ -36,3 +36,6 @@ outputs/
 
 # CI temp files
 .github/workflows/*.new
+
+# Sphinx build outputs
+docs/build/

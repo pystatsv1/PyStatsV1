@@ -19,6 +19,12 @@ we recommend cloning the GitHub repository and installing in editable mode:
    pip install -e .
 
 .. toctree::
+   :maxdepth: 1
+   :caption: Workbook – Student Labs (recommended starting point)
+
+   workbook/index
+
+.. toctree::
    :maxdepth: 2
    :caption: Track A – Applied Statistics with Python (Regression)
 
