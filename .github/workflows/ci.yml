@@ -70,12 +70,12 @@ jobs:
           python -m venv wheeltest
           .\wheeltest\Scripts\python -m pip install -U pip
           $wheel = Get-ChildItem dist\*.whl | Select-Object -First 1
-        .\wheeltest\Scripts\python -m pip install $wheel.FullName
+          .\wheeltest\Scripts\python -m pip install $wheel.FullName
           .\wheeltest\Scripts\python -m pip install pytest
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
           .\wheeltest\Scripts\pystatsv1.exe workbook init --dest wb_smoke
-          if (!(Test-Path wb_smoke\Makefile)) { throw "Missing Makefile" }
-          if (!(Test-Path wb_smoke\scripts\psych_ch10_problem_set.py)) { throw "Missing script psych_ch10_problem_set.py" }
+          if (!(Test-Path wb_smoke\Makefile)) { throw 'Missing Makefile' }
+          if (!(Test-Path wb_smoke\scripts\psych_ch10_problem_set.py)) { throw 'Missing script psych_ch10_problem_set.py' }
           .\wheeltest\Scripts\pystatsv1.exe workbook run ch10 --workdir wb_smoke
           .\wheeltest\Scripts\pystatsv1.exe workbook check ch10 --workdir wb_smoke
 
