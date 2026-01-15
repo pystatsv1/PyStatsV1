@@ -13,31 +13,40 @@ PyStatsV1 provides **plain, transparent Python scripts** that mirror classical *
 - produce figures and JSON summaries,
 - and compare outputs across R/Python.
 
-## ⭐ Fastest start (PyPI + offline PDF docs)
+## ⭐ Fastest start (PyPI + Workbook)
 
-Install from PyPI:
+Install from PyPI (recommended: include the Workbook bundle so you can run `pytest` checks):
 
 ```bash
-pip install -U pystatsv1
+python -m pip install -U pip
+python -m pip install "pystatsv1[workbook]"
+```
+
+Sanity-check your environment:
+
+```bash
+pystatsv1 doctor
+```
+
+Create a local Workbook starter and run Chapter 10:
+
+```bash
+pystatsv1 workbook init
+cd pystatsv1_workbook
+
+python scripts/psych_ch10_problem_set.py
+pytest -q
 ```
 
 Open the bundled local PDF docs (works offline):
 
 ```bash
 pystatsv1 docs
-# or:
+# optional convenience script:
 pystatsv1-docs
 ```
 
-Print where the PDF lives on disk:
-
-```bash
-pystatsv1 docs-path
-```
-
-This installs the **pystatsv1** command-line tool and bundles an **offline PDF** copy of the docs inside the package.
-
-> If you want to use a virtual environment first, see **Using a Virtual Environment (PyPI install)** below.
+Tip: the online docs are always available via the ReadTheDocs badge at the top of this README.
 
 ## Full repository (scripts, Makefile targets, tests, docs)
 
@@ -48,6 +57,7 @@ If you want the full chapter-by-chapter repo (simulators, analyzers, Makefile ta
 git clone https://github.com/pystatsv1/PyStatsV1.git
 cd PyStatsV1
 pip install -e .
+pip install -r requirements-dev.txt
 ```
 
 ## Project Structure
@@ -67,7 +77,7 @@ PyStatsV1 is designed for:
 
 ## 🚀 Using a Virtual Environment
 
-### Option A — PyPI install (recommended for most users)
+### Option A — Student mode (PyPI + Workbook)
 
 **macOS / Linux**
 
@@ -75,8 +85,9 @@ PyStatsV1 is designed for:
 python -m venv pystatsv1-env
 source pystatsv1-env/bin/activate
 python -m pip install -U pip
-pip install -U pystatsv1
-pystatsv1 docs
+python -m pip install "pystatsv1[workbook]"
+pystatsv1 doctor
+pystatsv1 workbook init
 ```
 
 **Windows (Git Bash)**
@@ -85,8 +96,9 @@ pystatsv1 docs
 python -m venv pystatsv1-env
 source pystatsv1-env/Scripts/activate
 python -m pip install -U pip
-pip install -U pystatsv1
-pystatsv1 docs
+python -m pip install "pystatsv1[workbook]"
+pystatsv1 doctor
+pystatsv1 workbook init
 ```
 
 ### Option B — Repo dev install (contributors)
@@ -96,7 +108,8 @@ python -m venv .venv
 # Git Bash first; PowerShell as fallback
 source .venv/Scripts/activate 2>/dev/null || .venv\\Scripts\\Activate.ps1
 python -m pip install -U pip
-pip install -r requirements.txt
+pip install -e .
+pip install -r requirements-dev.txt
 ```
 
 
