@@ -50,13 +50,16 @@ Run tests for a chapter:
 
 .. code-block:: bash
 
+   pystatsv1 workbook check ch18
 
 .. note::
 
-   ``pystatsv1 workbook check`` runs `pytest`.
-   Install it with: ``python -m pip install "pystatsv1[workbook]"``.
+   Under the hood, ``pystatsv1 workbook check`` runs `pytest`.
+   The recommended install is:
 
-   pystatsv1 workbook check ch18
+   .. code-block:: bash
+
+      python -m pip install "pystatsv1[workbook]"
 
 
 Next: Try your own data
