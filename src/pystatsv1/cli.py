@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import argparse
 import os
+import platform
 import sys
 import textwrap
 import zipfile
-from importlib import resources
+from importlib import metadata, resources
 from pathlib import Path
 from typing import Final
 
@@ -74,7 +75,8 @@ def cmd_workbook_init(args: argparse.Namespace) -> int:
     dest = Path(args.dest).expanduser().resolve()
     print(
         textwrap.dedent(
-            f"""            ✅ Workbook starter created at:
+            f"""\
+            ✅ Workbook starter created at:
 
                 {dest}
 
@@ -108,32 +110,63 @@ def cmd_workbook_list(_: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_doctor(_: argparse.Namespace) -> int:
+def _dist_version(dist_name: str) -> str:
+    try:
+        return metadata.version(dist_name)
+    except metadata.PackageNotFoundError:
+        return "not installed"
+    except Exception:
+        return "unknown"
+
+
+_REQUIRED_IMPORTS: Final[list[tuple[str, str]]] = [
+    ("numpy", "numpy"),
+    ("pandas", "pandas"),
+    ("scipy", "scipy"),
+    ("statsmodels", "statsmodels"),
+    ("matplotlib", "matplotlib"),
+    ("pingouin", "pingouin"),
+    ("sklearn", "scikit-learn"),
+]
+
+
+def cmd_doctor(args: argparse.Namespace) -> int:
     ok = True
 
-    if not _in_venv():
-        ok = False
+    in_venv = _in_venv()
+    if not in_venv:
         print(
-            "⚠️  You are NOT in a virtual environment.\n"
-            "Create one and activate it first (recommended):\n"
+            "⚠️  You are NOT in a virtual environment. This is OK, but not recommended.\n"
+            "Create one and activate it first:\n"
             "  python -m venv .venv\n"
             "  source .venv/Scripts/activate   # Windows Git Bash\n"
             "  source .venv/bin/activate       # macOS/Linux\n"
         )
 
-    # Lightweight import checks (avoid crashing if optional deps are missing)
-    required = ["numpy", "pandas", "scipy", "statsmodels", "matplotlib", "pingouin", "sklearn"]
+    if getattr(args, "verbose", False):
+        print("Environment")
+        print(f"  python: {sys.version.splitlines()[0]}")
+        print(f"  executable: {sys.executable}")
+        print(f"  platform: {platform.platform()}")
+        print(f"  venv: {'yes' if in_venv else 'no'}")
+        print("\nPackages")
+
     missing: list[str] = []
-    for mod in required:
+
+    # Lightweight import checks (avoid crashing if optional deps are missing)
+    for mod, dist in _REQUIRED_IMPORTS:
         try:
             __import__(mod)
         except Exception:
             missing.append(mod)
 
+        if getattr(args, "verbose", False):
+            print(f"  - {mod}: {_dist_version(dist)}")
+
     if missing:
         ok = False
         print(
-            "❌ Missing packages in this environment:\n  - "
+            "\n❌ Missing packages in this environment:\n  - "
             + "\n  - ".join(missing)
             + "\n\nInstall the student bundle:\n"
             "  python -m pip install -U pip\n"
@@ -141,8 +174,12 @@ def cmd_doctor(_: argparse.Namespace) -> int:
         )
 
     if ok:
-        print("✅ Environment looks good.")
+        if in_venv:
+            print("✅ Environment looks good.")
+        else:
+            print("✅ Packages look good (consider using a venv).")
         return 0
+
     return 1
 
 
@@ -163,6 +200,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_docs.set_defaults(func=cmd_docs)
 
     p_doctor = sub.add_parser("doctor", help="Sanity-check your environment (venv + deps).")
+    p_doctor.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Print Python/platform info and package versions.",
+    )
     p_doctor.set_defaults(func=cmd_doctor)
 
     p_wb = sub.add_parser("workbook", help="Workbook helpers (student labs).")
