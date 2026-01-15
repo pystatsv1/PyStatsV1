@@ -58,3 +58,21 @@ def test_workbook_run_missing_script_returns_2(tmp_path):
     dest.mkdir()
     rc = cli.cmd_workbook_run(Namespace(target="ch10", workdir=str(dest)))
     assert rc == 2
+
+def test_workbook_check_resolves_case_study_key(tmp_path, monkeypatch):
+    dest = tmp_path / "wb"
+    cli._extract_workbook_template(dest=dest, force=False)
+
+    calls: list[tuple[list[str], str]] = []
+
+    def fake_run(cmd, cwd=None, check=False):
+        calls.append((list(cmd), str(cwd)))
+        return subprocess.CompletedProcess(cmd, 0)
+
+    monkeypatch.setattr(cli.subprocess, "run", fake_run)
+
+    rc = cli.cmd_workbook_check(Namespace(target="study_habits", workdir=str(dest)))
+    assert rc == 0
+
+    cmd, _cwd = calls[0]
+    assert str(dest / "tests" / "test_study_habits_case_study.py") in cmd
