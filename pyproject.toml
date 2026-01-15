@@ -67,3 +67,6 @@ pystatsv1 = [
   "docs/pystatsv1.pdf",
 ]
 
+"pystatsv1.assets" = [
+  "*.zip",
+]
