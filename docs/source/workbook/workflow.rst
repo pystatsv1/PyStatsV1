@@ -1,66 +1,61 @@
-Workflow
-========
+Workflow: Run → Inspect → Check
+===============================
 
-The PyStatsV1 Workbook follows a simple loop:
+Every chapter follows the same loop:
 
-1. **Run** a chapter script (or a ``make`` target).
-2. **Inspect** the printed output + any saved plots/tables.
-3. **Check your work** by running the corresponding unit tests.
+**Run**
+  Runs the script for a chapter (or another Workbook script you choose).
 
-Run a chapter
--------------
+**Inspect**
+  Look at what the script produced (usually in ``outputs/``).
 
-Most Track C chapters have a "problem set" script under ``scripts/``.
-You can run a chapter in two equivalent ways.
+**Check**
+  Runs the tests for that chapter (or for a case study pack).
 
-Option A: Use the Makefile target (recommended)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The goal is to make your learning *fast* and *safe*:
 
-Each problem set has a ``make`` target that runs the script for you.
-Example (Chapter 18, ANCOVA)::
+* you can run experiments,
+* you can see results immediately,
+* and you can confirm your work with one command.
 
-   make psych-ch18-problems
 
-Option B: Run the script directly
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Run
+---
 
-The Makefile target is just a convenience wrapper. You can always run the script::
+Run a chapter script:
 
-   python scripts/psych_ch18_problem_set.py
+.. code-block:: bash
 
-Where outputs go
-----------------
+   pystatsv1 workbook run ch18
 
-Most Track C scripts write two kinds of artifacts:
+Or run a script by path:
 
-- **Synthetic datasets** used in the exercises:
+.. code-block:: bash
 
-  - ``data/synthetic/`` (CSV files)
+   pystatsv1 workbook run scripts/psych_ch18_problem_set.py
 
-- **Student-facing outputs** (plots and/or summary tables):
 
-  - ``outputs/track_c/``
+Inspect
+-------
 
-The exact filenames vary by chapter, but you will usually see a pattern like:
+Most scripts write artifacts under ``outputs/`` (tables, plots, and intermediate results).
 
-- ``psych_ch18_exercise_1_*.csv`` in ``data/synthetic/``
-- ``psych_ch18_exercise_1_*.png`` and/or ``.json`` in ``outputs/track_c/``
+Use your file browser (or ``ls`` / ``dir``) to explore what was created.
 
-Check your work
----------------
 
-Every Workbook chapter has unit tests that assert the *intended statistical pattern*.
-For example, to check Chapter 18::
+Check
+-----
 
-   pytest -q tests/test_psych_ch18_problem_set.py
+Run tests for a chapter:
 
-If a test fails, the most common causes are:
+.. code-block:: bash
 
-- You changed a parameter (sample size, standard deviations, effect sizes) and the
-  simulated data no longer reliably shows the intended pattern.
-- You changed factor labels or column names (the analysis functions expect stable
-  names like ``group``, ``time``, ``score``, etc.).
+   pystatsv1 workbook check ch18
 
-Tip: keep the default ``random_state`` values in each exercise while you learn.
-That makes your results stable and makes it easier to compare your output
-with classmates and with the docs.
+
+
+Optional: Make targets (if you already have make)
+-------------------------------------------------
+
+If you have ``make`` installed, the Workbook also includes convenience targets,
+but they are optional. The CLI commands above are the recommended workflow.
