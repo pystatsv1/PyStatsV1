@@ -50,6 +50,12 @@ Run tests for a chapter:
 
 .. code-block:: bash
 
+
+.. note::
+
+   ``pystatsv1 workbook check`` runs `pytest`.
+   Install it with: ``python -m pip install "pystatsv1[workbook]"``.
+
    pystatsv1 workbook check ch18
 
 

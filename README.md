@@ -273,6 +273,24 @@ As the project grows, we plan to enable GitHub Discussions and possibly a lightw
 
 ---
 
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install "pystatsv1[workbook]"
+```
+
+```bash
+pystatsv1 workbook init --dest pystatsv1_workbook
+pystatsv1 workbook run ch10 --workdir pystatsv1_workbook
+pystatsv1 workbook check ch10 --workdir pystatsv1_workbook
+```
+
+Notes:
+
+- **No `make` required.** The workbook commands work on Linux, macOS, and Windows.
+- ``workbook check`` runs `pytest` (installed via the ``[workbook]`` extra).
+- If you prefer, you can also run the chapter scripts directly under ``pystatsv1_workbook/scripts/``.
+
 ## 📜 License
 
 MIT © 2025 Nicholas Elliott Karlson

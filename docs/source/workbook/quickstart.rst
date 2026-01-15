@@ -38,8 +38,14 @@ Create a virtual environment (recommended), then install:
    # .venv\Scripts\Activate.ps1
 
    python -m pip install --upgrade pip
-   python -m pip install pystatsv1
+   python -m pip install "pystatsv1[workbook]"
 
+
+
+
+.. note::
+
+   The ``[workbook]`` extra installs `pytest`, which is required for ``pystatsv1 workbook check``.
 
 2) Initialize the Workbook
 --------------------------
