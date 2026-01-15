@@ -69,7 +69,8 @@ jobs:
         run: |
           python -m venv wheeltest
           .\wheeltest\Scripts\python -m pip install -U pip
-          .\wheeltest\Scripts\python -m pip install dist\*.whl
+          $wheel = Get-ChildItem dist\*.whl | Select-Object -First 1
+        .\wheeltest\Scripts\python -m pip install $wheel.FullName
           .\wheeltest\Scripts\python -m pip install pytest
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
           .\wheeltest\Scripts\pystatsv1.exe workbook init --dest wb_smoke
