@@ -47,6 +47,7 @@ docs = [
 
 [project.scripts]
 pystatsv1 = "pystatsv1.cli:main"
+pystatsv1-docs = "pystatsv1.cli:docs_main"
 
 [project.urls]
 "Homepage" = "https://github.com/pystatsv1/PyStatsV1"
