@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 import os
 import platform
+import re
+import subprocess
 import sys
 import textwrap
 import zipfile
@@ -82,8 +84,8 @@ def cmd_workbook_init(args: argparse.Namespace) -> int:
 
             Next steps:
               1) cd {dest}
-              2) python scripts/psych_ch10_problem_set.py
-              3) pytest -q
+              2) pystatsv1 workbook run ch10
+              3) pystatsv1 workbook check ch10
 
             Tip: If you're new to Python, always work inside a virtual environment.
             """
@@ -118,6 +120,100 @@ def _dist_version(dist_name: str) -> str:
     except Exception:
         return "unknown"
 
+
+
+def _workdir(args: argparse.Namespace) -> Path:
+    return Path(getattr(args, "workdir", ".")).expanduser().resolve()
+
+
+_CHAPTER_RE: Final[re.Pattern[str]] = re.compile(r"^ch(?P<num>\d+)$", re.IGNORECASE)
+
+
+def _chapter_num(key: str) -> int | None:
+    m = _CHAPTER_RE.match(key.strip())
+    if not m:
+        return None
+    return int(m.group("num"))
+
+
+def _resolve_script_path(workdir: Path, target: str) -> Path:
+    target = target.strip()
+
+    # Explicit path?
+    if target.endswith(".py") or "/" in target or "\\" in target:
+        p = Path(target)
+        if not p.is_absolute():
+            p = workdir / p
+        return p
+
+    ch = _chapter_num(target)
+    if ch is not None:
+        return workdir / "scripts" / f"psych_ch{ch:02d}_problem_set.py"
+
+    # Default: treat as a script key under scripts/
+    return workdir / "scripts" / f"{target}.py"
+
+
+def _resolve_test_path(workdir: Path, target: str) -> Path:
+    target = target.strip()
+
+    ch = _chapter_num(target)
+    if ch is not None:
+        return workdir / "tests" / f"test_psych_ch{ch:02d}_problem_set.py"
+
+    # Try a few conventions for non-chapter keys.
+    candidates = [
+        workdir / "tests" / f"test_{target}.py",
+        workdir / "tests" / f"test_{target}_case_study.py",
+        workdir / "tests" / f"test_{target}_problem_set.py",
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    # If none exist, still return the first candidate for a helpful error path.
+    return candidates[0]
+
+
+def cmd_workbook_run(args: argparse.Namespace) -> int:
+    workdir = _workdir(args)
+    script = _resolve_script_path(workdir, args.target)
+
+    if not script.exists():
+        print(
+            "❌ Could not find the script to run.\n"
+            f"   Looking for: {script}\n\n"
+            "Tip: run this inside your workbook folder (created by `pystatsv1 workbook init`).\n"
+            "     Or pass --workdir to point at it."
+        )
+        return 2
+
+    cmd = [sys.executable, str(script)]
+    try:
+        subprocess.run(cmd, cwd=str(workdir), check=True)
+    except subprocess.CalledProcessError as e:
+        return int(e.returncode or 1)
+    return 0
+
+
+def cmd_workbook_check(args: argparse.Namespace) -> int:
+    workdir = _workdir(args)
+    test_file = _resolve_test_path(workdir, args.target)
+
+    if not test_file.exists():
+        print(
+            "❌ Could not find the test file to run.\n"
+            f"   Looking for: {test_file}\n\n"
+            "Tip: run this inside your workbook folder (created by `pystatsv1 workbook init`).\n"
+            "     Or pass --workdir to point at it."
+        )
+        return 2
+
+    cmd = [sys.executable, "-m", "pytest", "-q", str(test_file)]
+    try:
+        subprocess.run(cmd, cwd=str(workdir), check=True)
+    except subprocess.CalledProcessError as e:
+        return int(e.returncode or 1)
+    return 0
 
 _REQUIRED_IMPORTS: Final[list[tuple[str, str]]] = [
     ("numpy", "numpy"),
@@ -225,6 +321,31 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_list = wb_sub.add_parser("list", help="List chapters included in the starter kit.")
     p_list.set_defaults(func=cmd_workbook_list)
+
+    p_run = wb_sub.add_parser("run", help="Run a workbook script (no make required).")
+    p_run.add_argument(
+        "target",
+        help="Target to run: chapter key like 'ch10', a script key like 'study_habits_01_explore', or a .py path.",
+    )
+    p_run.add_argument(
+        "--workdir",
+        default=".",
+        help="Workbook directory (default: current directory).",
+    )
+    p_run.set_defaults(func=cmd_workbook_run)
+
+    p_check = wb_sub.add_parser("check", help="Run workbook checks/tests via pytest (no make required).")
+    p_check.add_argument(
+        "target",
+        help="Target to check: chapter key like 'ch10' or a key that resolves to tests/test_<key>*.py.",
+    )
+    p_check.add_argument(
+        "--workdir",
+        default=".",
+        help="Workbook directory (default: current directory).",
+    )
+    p_check.set_defaults(func=cmd_workbook_check)
+
 
     return p
 

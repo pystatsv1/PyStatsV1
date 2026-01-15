@@ -1,166 +1,87 @@
-Quickstart
-==========
+Quickstart (all platforms)
+==========================
 
-This quickstart shows two ways to use PyStatsV1:
+This Workbook is designed to work the same way on **Linux**, **macOS**, and **Windows**.
 
-- **Student mode (recommended):** install from **PyPI** inside a virtual environment, then generate a local Workbook folder.
-- **Contributor mode:** clone the repo and run chapters from source.
+You will do the same 3-step loop in every chapter:
 
-Why the virtual environment matters
------------------------------------
+1. **Run** a script (generates results you can look at)
+2. **Inspect** the outputs (tables + plots)
+3. **Check** your work (runs the matching tests)
 
-PyStatsV1 is intentionally a *thin wrapper built on the shoulders of giants* (NumPy, pandas, SciPy, statsmodels, etc.).
-A virtual environment (``.venv``) keeps those dependencies isolated so your system Python stays clean.
+No ``make`` required.
 
-Student mode: PyPI + Workbook starter (recommended)
----------------------------------------------------
 
-Windows 11 (Git Bash)
-^^^^^^^^^^^^^^^^^^^^^
+Prerequisites
+-------------
 
-1) Create a folder and a virtual environment
+* Python 3.10+ installed
+* A terminal:
+  * Linux/macOS: Terminal
+  * Windows: PowerShell or Git Bash
+
+Tip: If you ever see ``pystatsv1: command not found`` (or Windows says it “is not recognized”),
+jump to :doc:`troubleshooting`.
+
+
+1) Install PyStatsV1
+--------------------
+
+Create a virtual environment (recommended), then install:
 
 .. code-block:: bash
-
-   mkdir -p ~/pystatsv1_student
-   cd ~/pystatsv1_student
 
    python -m venv .venv
-   source .venv/Scripts/activate
-
-2) Install PyStatsV1 + the Workbook dependency bundle
-
-.. code-block:: bash
-
-   python -m pip install -U pip
-   python -m pip install "pystatsv1[workbook]"
-
-3) Sanity check (optional but recommended)
-
-.. code-block:: bash
-
-   pystatsv1 doctor
-
-4) Create the local Workbook starter and run Chapter 10
-
-.. code-block:: bash
-
-   pystatsv1 workbook init
-   cd pystatsv1_workbook
-
-   python scripts/psych_ch10_problem_set.py
-   pytest -q
-
-
-macOS
-^^^^^
-
-1) Create a folder and a virtual environment
-
-.. code-block:: bash
-
-   mkdir -p ~/pystatsv1_student
-   cd ~/pystatsv1_student
-
-   python3 -m venv .venv
+   # Linux/macOS
    source .venv/bin/activate
+   # Windows (PowerShell)
+   # .venv\Scripts\Activate.ps1
 
-2) Install PyStatsV1 + the Workbook dependency bundle
-
-.. code-block:: bash
-
-   python -m pip install -U pip
-   python -m pip install "pystatsv1[workbook]"
-
-3) Create the local Workbook starter and run Chapter 10
-
-.. code-block:: bash
-
-   pystatsv1 workbook init
-   cd pystatsv1_workbook
-
-   python scripts/psych_ch10_problem_set.py
-   pytest -q
+   python -m pip install --upgrade pip
+   python -m pip install pystatsv1
 
 
-Linux (Ubuntu / Debian)
-^^^^^^^^^^^^^^^^^^^^^^^
+2) Initialize the Workbook
+--------------------------
 
-1) Ensure Python tooling is installed
+Pick a folder you want to work in, then run:
 
 .. code-block:: bash
 
-   sudo apt update
-   sudo apt install -y python3 python3-venv python3-pip
+   pystatsv1 workbook init ./my_workbook
 
-2) Create a folder and a virtual environment
+This creates a ready-to-run Workbook folder (scripts + tests + data).
 
-.. code-block:: bash
 
-   mkdir -p ~/pystatsv1_student
-   cd ~/pystatsv1_student
-
-   python3 -m venv .venv
-   source .venv/bin/activate
-
-3) Install PyStatsV1 + the Workbook dependency bundle
+3) Run → Inspect → Check (Chapter 10 example)
+---------------------------------------------
 
 .. code-block:: bash
 
-   python -m pip install -U pip
-   python -m pip install "pystatsv1[workbook]"
+   cd ./my_workbook
 
-4) Create the local Workbook starter and run Chapter 10
+   # Run the chapter script (creates outputs)
+   pystatsv1 workbook run ch10
 
-.. code-block:: bash
+   # Inspect: look in the outputs/ folder
+   # (tables, plots, and other artifacts)
 
-   pystatsv1 workbook init
-   cd pystatsv1_workbook
-
-   python scripts/psych_ch10_problem_set.py
-   pytest -q
+   # Check: run the matching tests
+   pystatsv1 workbook check ch10
 
 
-Contributor mode: run from source
----------------------------------
+Next steps
+----------
 
-If you want to go “full-on” PyStatsV1 (write your own scripts, modify internals, contribute PRs), use source mode.
+* See all available chapters:
 
-Windows (Git Bash) / macOS / Linux
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  .. code-block:: bash
 
-.. code-block:: bash
+     pystatsv1 workbook list
 
-   mkdir -p ~/pystatsv1_dev
-   cd ~/pystatsv1_dev
+* Then repeat the same loop for any chapter:
 
-   git clone https://github.com/pystatsv1/PyStatsV1.git
-   cd PyStatsV1
+  .. code-block:: bash
 
-   python -m venv .venv
-   source .venv/Scripts/activate    # Windows Git Bash
-   # source .venv/bin/activate      # macOS/Linux
-
-   python -m pip install -U pip
-   pip install -e .
-   pip install -r requirements-dev.txt
-
-   make lint
-   pytest -q
-
-
-If something looks “missing”
-----------------------------
-
-- If you accidentally installed into your *system Python*, delete the environment and start over:
-
-.. code-block:: bash
-
-   deactivate
-   rm -rf .venv
-
-- If ``pystatsv1 doctor`` reports missing packages, reinstall the student bundle:
-
-.. code-block:: bash
-
-   python -m pip install "pystatsv1[workbook]"
+     pystatsv1 workbook run ch11
+     pystatsv1 workbook check ch11

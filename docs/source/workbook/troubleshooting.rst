@@ -1,37 +1,62 @@
 Troubleshooting
 ===============
 
-"pystatsv1 is not found"
-------------------------
+This page covers the most common issues for first-time Python users on Linux/macOS/Windows.
 
-- Make sure your virtual environment is activated.
-- If you're working from the repository, install the package in editable mode::
 
-   pip install -e .
+“pystatsv1” is not recognized / command not found
+-------------------------------------------------
 
-"make" is not available on Windows
-----------------------------------
+This usually means the console can’t find the ``pystatsv1`` entrypoint.
 
-- On Windows, PyStatsV1 assumes you're using **Git Bash** (which usually includes ``make``).
-- If ``make`` still isn't found, you can always run the scripts directly::
+Try running via Python directly:
 
-   python scripts/psych_ch18_problem_set.py
+.. code-block:: bash
 
-Plots do not show up
+   python -m pystatsv1 workbook list
+
+If that works, your environment is fine — it’s just a PATH/entrypoint issue.
+Make sure you activated your virtual environment before running commands.
+
+
+Pytest not installed
 --------------------
 
-Many scripts **save figures** to disk instead of opening interactive windows.
-Look in:
+``pystatsv1 workbook check ...`` runs tests using pytest.
 
-- ``outputs/track_c/``
+If you see an error mentioning ``pytest``:
 
-Tests fail even though your output "looks right"
-------------------------------------------------
+.. code-block:: bash
 
-- Re-run the chapter with the chapter's default ``random_state``.
-- Delete old outputs and try again.
-- Make sure your dependencies are up to date::
+   python -m pip install pytest
 
-   pip install -U pip
-   pip install -r requirements.txt
 
+I ran a script but don’t see anything
+-------------------------------------
+
+Most Workbook scripts write outputs to an ``outputs/`` folder.
+
+* Check ``outputs/`` in your file browser
+* Or list files in the terminal:
+
+  .. code-block:: bash
+
+     ls outputs
+     # Windows:
+     # dir outputs
+
+
+Windows PowerShell activation blocked
+-------------------------------------
+
+If PowerShell refuses to activate your venv, you can either:
+
+* use Git Bash, or
+* run PowerShell as Administrator and allow scripts (common in dev workflows)
+
+Or skip activation and run commands like:
+
+.. code-block:: bash
+
+   .venv\Scripts\python -m pip install pystatsv1
+   .venv\Scripts\python -m pystatsv1 workbook list
