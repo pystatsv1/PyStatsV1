@@ -27,10 +27,13 @@ jobs:
 
       - name: Build docs (workbook strict)
         run: make docs-workbook-strict
-
   wheel-smoke:
-    name: wheel-smoke
-    runs-on: ubuntu-latest
+    name: wheel-smoke (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -45,16 +48,35 @@ jobs:
           python -m pip install build
           python -m build --wheel
 
-      - name: Install wheel in fresh venv
+      - name: Install wheel + smoke test (posix)
+        if: runner.os != 'Windows'
         run: |
           python -m venv /tmp/wheeltest
           source /tmp/wheeltest/bin/activate
           python -m pip install -U pip
           python -m pip install dist/*.whl
+          python -m pip install pytest
           python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
           pystatsv1 workbook init --dest /tmp/wb_smoke
           test -f /tmp/wb_smoke/Makefile
           test -f /tmp/wb_smoke/scripts/psych_ch10_problem_set.py
+          pystatsv1 workbook run ch10 --workdir /tmp/wb_smoke
+          pystatsv1 workbook check ch10 --workdir /tmp/wb_smoke
+
+      - name: Install wheel + smoke test (windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m venv wheeltest
+          .\wheeltest\Scripts\python -m pip install -U pip
+          .\wheeltest\Scripts\python -m pip install dist\*.whl
+          .\wheeltest\Scripts\python -m pip install pytest
+          .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
+          .\wheeltest\Scripts\pystatsv1.exe workbook init --dest wb_smoke
+          if (!(Test-Path wb_smoke\Makefile)) { throw "Missing Makefile" }
+          if (!(Test-Path wb_smoke\scripts\psych_ch10_problem_set.py)) { throw "Missing script psych_ch10_problem_set.py" }
+          .\wheeltest\Scripts\pystatsv1.exe workbook run ch10 --workdir wb_smoke
+          .\wheeltest\Scripts\pystatsv1.exe workbook check ch10 --workdir wb_smoke
 
 
   windows-py310:
