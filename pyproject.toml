@@ -14,13 +14,39 @@ authors = [
 license = "MIT"
 license-files = ["LICENSE"]
 # Runtime dependencies are installed from requirements.txt in CI.
-dependencies = []
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scipy>=1.10",
+  "statsmodels>=0.14",
+  "matplotlib>=3.8",
+  "pingouin>=0.5",
+  "scikit-learn>=1.3",
+]
 
+
+[project.optional-dependencies]
+# Student bundle: includes pytest so you can run the Workbook checks.
+workbook = [
+  "pytest>=8.2",
+]
+
+# Contributor bundle: formatting + lint + tests.
+dev = [
+  "pytest>=8.2",
+  "ruff>=0.6",
+  "black>=24.0",
+]
+
+# Docs bundle: for building Sphinx locally.
+docs = [
+  "sphinx>=8.0",
+  "sphinx-rtd-theme>=2.0",
+  "myst-parser>=3.0",
+]
 
 [project.scripts]
-pystatsv1 = "pystatsv1.__main__:main"
-pystatsv1-docs = "pystatsv1.__main__:open_docs_cli"
-
+pystatsv1 = "pystatsv1.cli:main"
 
 [project.urls]
 "Homepage" = "https://github.com/pystatsv1/PyStatsV1"
