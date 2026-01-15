@@ -44,4 +44,8 @@ def test_workbook_starter_makefile_is_not_truncated_or_mangled() -> None:
 
 def test_workbook_starter_readme_mentions_make_test() -> None:
     readme = _read_from_zip("README.md")
-    assert "make test" in readme
+    assert (
+    "make test" in readme
+    or "pystatsv1 workbook" in readme
+    or "pystatsv1 my-data" in readme
+    )

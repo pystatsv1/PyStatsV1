@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 
 
-def test_workbook_starter_zip_includes_study_habits_pack():
+def test_workbook_starter_zip_includes_study_habits_pack_and_my_data_template():
     zip_path = Path("src") / "pystatsv1" / "assets" / "workbook_starter.zip"
     assert zip_path.exists()
 
@@ -16,6 +16,9 @@ def test_workbook_starter_zip_includes_study_habits_pack():
         "scripts/study_habits_01_explore.py",
         "scripts/study_habits_02_anova.py",
         "tests/test_study_habits_case_study.py",
+        "data/my_data.csv",
+        "scripts/my_data_01_explore.py",
+        "tests/test_my_data.py",
     }
     missing = expected - names
     assert not missing, f"missing from starter zip: {sorted(missing)}"

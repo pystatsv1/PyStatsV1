@@ -53,6 +53,12 @@ Run tests for a chapter:
    pystatsv1 workbook check ch18
 
 
+Next: Try your own data
+-----------------------
+
+After you’re comfortable with the loop, try the :doc:`my_own_data` mini-guide.
+
+
 
 Optional: Make targets (if you already have make)
 -------------------------------------------------
