@@ -3,20 +3,50 @@ PyStatsV1 documentation
 
 Welcome to the documentation for **PyStatsV1** – chapter-based applied statistics examples in plain Python, mirroring classical R textbook analyses.
 
-You can install the lightweight helper package directly from PyPI:
+Students (recommended): install from PyPI and start the Workbook
+----------------------------------------------------------------
+
+If you're a student (not a developer), the easiest path is to install the Workbook bundle
+from PyPI and let the CLI create a local copy of the labs for you.
 
 .. code-block:: bash
 
-   pip install pystatsv1
+   python -m pip install "pystatsv1[workbook]"
+   pystatsv1 workbook init ./my_workbook
 
-For the full chapter-based labs (simulators, scripts, Makefile targets, and tests),
-we recommend cloning the GitHub repository and installing in editable mode:
+Then run the built-in checks as you work:
+
+.. code-block:: bash
+
+   cd my_workbook
+   pystatsv1 workbook check
+
+If you're on Windows 11 and this is your first time installing Python, start here:
+:doc:`workbook/windows11_setup`.
+
+Lightweight install (no Workbook checks)
+----------------------------------------
+
+If you only want the core helper package (without the Workbook checks bundle), you can
+install the base package directly from PyPI:
+
+.. code-block:: bash
+
+   python -m pip install pystatsv1
+
+Developers / Contributing
+-------------------------
+
+If you want the full chapter-based labs (simulators, scripts, Makefile targets, and tests),
+clone the GitHub repository and install in editable mode:
 
 .. code-block:: bash
 
    git clone https://github.com/pystatsv1/PyStatsV1.git
    cd PyStatsV1
-   pip install -e .
+   python -m pip install -e .
+
+See :doc:`getting_started` and :doc:`contributing` for the contributor workflow.
 
 .. toctree::
    :maxdepth: 1
