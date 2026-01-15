@@ -8,3 +8,4 @@ PyStatsV1 Workbook
    quickstart
    workflow
    troubleshooting
+   track_c
