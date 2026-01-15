@@ -1,0 +1,9 @@
+id,group,outcome,x1,x2
+1,control,73,2.1,10
+2,control,69,1.8,11
+3,control,75,2.4,9
+4,treatment,82,3.0,12
+5,treatment,79,2.7,13
+6,treatment,85,3.2,12
+7,treatment,81,2.9,14
+8,control,71,2.0,10

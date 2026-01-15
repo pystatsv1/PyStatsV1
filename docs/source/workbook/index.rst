@@ -8,5 +8,6 @@ PyStatsV1 Workbook
    quickstart
    workflow
    case_study_study_habits
+   my_own_data
    troubleshooting
    track_c
