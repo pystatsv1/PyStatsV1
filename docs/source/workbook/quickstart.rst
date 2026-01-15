@@ -20,6 +20,8 @@ Prerequisites
   * Linux/macOS: Terminal
   * Windows: PowerShell or Git Bash
 
+If you are setting up Windows 11 for the first time, see :doc:`windows11_setup`.
+
 Tip: If you ever see ``pystatsv1: command not found`` (or Windows says it “is not recognized”),
 jump to :doc:`troubleshooting`.
 
@@ -29,13 +31,32 @@ jump to :doc:`troubleshooting`.
 
 Create a virtual environment (recommended), then install:
 
+Linux/macOS:
+
 .. code-block:: bash
 
    python -m venv .venv
-   # Linux/macOS
    source .venv/bin/activate
-   # Windows (PowerShell)
-   # .venv\Scripts\Activate.ps1
+
+   python -m pip install --upgrade pip
+   python -m pip install "pystatsv1[workbook]"
+
+Windows (Git Bash):
+
+.. code-block:: bash
+
+   python -m venv .venv
+   source .venv/Scripts/activate
+
+   python -m pip install --upgrade pip
+   python -m pip install "pystatsv1[workbook]"
+
+Windows (PowerShell):
+
+.. code-block:: bash
+
+   python -m venv .venv
+   .venv\Scripts\Activate.ps1
 
    python -m pip install --upgrade pip
    python -m pip install "pystatsv1[workbook]"

@@ -6,6 +6,7 @@ PyStatsV1 Workbook
    :caption: Getting started
 
    quickstart
+   windows11_setup
    workflow
    case_study_study_habits
    my_own_data
