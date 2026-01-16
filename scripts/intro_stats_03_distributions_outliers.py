@@ -21,6 +21,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
+# Matplotlib 3.9 renamed `labels` -> `tick_labels` for Axes.boxplot.
+# This import works when run via `python -m scripts...` (package import),
+# and also when run as a plain script from the `scripts/` folder.
+try:
+    from scripts._mpl_compat import ax_boxplot
+except ImportError:  # pragma: no cover
+    from _mpl_compat import ax_boxplot  # type: ignore
+
+
 def _iqr_outliers(df: pd.DataFrame, *, group_col: str, value_col: str) -> pd.DataFrame:
     """Return a table of IQR outliers per group (may be empty)."""
 
@@ -93,8 +102,8 @@ def main() -> None:
     # Boxplot
     order = ["control", "treatment"]
     data = [df.loc[df["group"] == g, "score"] for g in order if g in set(df["group"])]
-    labels = [g for g in order if g in set(df["group"])]
-    axes[1].boxplot(data, labels=labels)
+    tick_labels = [g for g in order if g in set(df["group"])]
+    ax_boxplot(axes[1], data, tick_labels=tick_labels)
     axes[1].set_title("Boxplot (outliers shown)")
     axes[1].set_ylabel("Score")
 

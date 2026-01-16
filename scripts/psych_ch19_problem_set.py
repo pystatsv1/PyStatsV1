@@ -24,6 +24,15 @@ import pandas as pd
 from scipy.stats import chi2_contingency, chisquare, kruskal, mannwhitneyu
 
 
+# Matplotlib 3.9 renamed `labels` -> `tick_labels` for Axes.boxplot.
+# This import works both when run via `python -m scripts...` and when executed
+# as a plain script from the `scripts/` folder.
+try:
+    from scripts._mpl_compat import ax_boxplot
+except ImportError:  # pragma: no cover
+    from _mpl_compat import ax_boxplot  # type: ignore
+
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SYNTHETIC_DATA_DIR = PROJECT_ROOT / "data" / "synthetic"
 TRACK_C_OUTPUT_DIR = PROJECT_ROOT / "outputs" / "track_c"
@@ -108,7 +117,7 @@ def _plot_boxplot(df: pd.DataFrame, outfile: Path, title: str) -> None:
     fig, ax = plt.subplots(figsize=(7, 4))
     groups = list(df["group"].cat.categories)
     data = [df.loc[df["group"] == g, "score"].to_numpy() for g in groups]
-    ax.boxplot(data, labels=[str(g) for g in groups], showfliers=False)
+    ax_boxplot(ax, data, tick_labels=[str(g) for g in groups], showfliers=False)
     ax.set_xlabel("Group")
     ax.set_ylabel("Score")
     ax.set_title(title)

@@ -59,13 +59,20 @@ def main() -> None:
     try:
         import matplotlib.pyplot as plt
 
+        # Matplotlib 3.9 renamed `labels` -> `tick_labels` for boxplots.
+        # Use a small compatibility helper to avoid warnings now and breaks later.
+        try:
+            from scripts._mpl_compat import ax_boxplot
+        except ImportError:  # pragma: no cover
+            from _mpl_compat import ax_boxplot  # type: ignore
+
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
 
         # Keep ordering stable.
         order = ["control", "treatment"]
         data = [df.loc[df["group"] == g, "score"].to_numpy() for g in order]
-        ax.boxplot(data, labels=order)
+        ax_boxplot(ax, data, tick_labels=order)
         ax.set_title("Intro Stats: score by group")
         ax.set_ylabel("score")
 
