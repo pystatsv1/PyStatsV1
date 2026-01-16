@@ -21,6 +21,7 @@ import pandas as pd
 from scipy import stats
 
 from scripts._cli import base_parser, apply_seed
+from scripts._mpl_compat import ax_boxplot
 
 
 def cohens_d(x: np.ndarray, y: np.ndarray) -> float:
@@ -95,7 +96,7 @@ def main() -> None:
 
     # Plot
     fig, ax = plt.subplots(figsize=(6, 5))
-    ax.boxplot([control, tutor], labels=["Control", "Tutor"], patch_artist=True)
+    ax_boxplot(ax, [control, tutor], tick_labels=["Control", "Tutor"], patch_artist=True)
     ax.set_title(f"Test Scores: Control vs Tutor (n={len(control)} per group)")
     ax.set_ylabel("Score")
     ax.grid(axis="y", linestyle=":", alpha=0.7)
