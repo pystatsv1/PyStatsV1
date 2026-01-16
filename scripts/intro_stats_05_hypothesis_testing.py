@@ -1,127 +1,152 @@
-"""Intro Stats case study — hypothesis testing by simulation + effect size.
+"""Intro Stats 5 — Permutation test (simulation) + effect sizes.
 
-Part 5 of the Intro Stats pack.
+Runs a permutation test for the difference in means (treatment minus control)
+and computes two standardized effect sizes (Cohen's d and Hedges' g).
 
-Goal:
-  - Learn a *randomization / permutation test* intuition for p-values.
-  - Compute a simple standardized effect size (Cohen's d) for the group difference.
+Outputs
+-------
+Written under outputs/case_studies/intro_stats/
 
-Creates:
-  - outputs/case_studies/intro_stats/permutation_test_summary.csv
-  - outputs/case_studies/intro_stats/effect_size.csv
-  - outputs/case_studies/intro_stats/permutation_distribution.png
+- permutation_test_summary.csv
+- effect_size.csv
+- permutation_null_distribution.png
+- permutation_dist.png (alias for the same plot; used by some docs)
 
-How the permutation test works:
-  1) Compute the observed mean difference (treatment - control).
-  2) Shuffle group labels many times and recompute the mean difference.
-  3) The p-value is the fraction of shuffles with |diff| >= |observed|.
-
-This is a great "first hypothesis test" because it requires almost no formulas.
+The simulation uses a fixed random seed by default to keep the outputs
+reproducible.
 """
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
-def _cohens_d(x: np.ndarray, y: np.ndarray) -> float:
-    """Cohen's d for difference in means (x - y) using pooled SD."""
-    nx = x.size
-    ny = y.size
-    sx2 = x.var(ddof=1)
-    sy2 = y.var(ddof=1)
-    sp2 = ((nx - 1) * sx2 + (ny - 1) * sy2) / (nx + ny - 2)
-    sp = float(np.sqrt(sp2))
+DEFAULT_CSV = Path("data") / "intro_stats_scores.csv"
+DEFAULT_OUTDIR = Path("outputs") / "case_studies" / "intro_stats"
+
+
+def _cohen_d(control: np.ndarray, treatment: np.ndarray) -> float:
+    n1 = len(control)
+    n2 = len(treatment)
+    s1 = np.var(control, ddof=1)
+    s2 = np.var(treatment, ddof=1)
+    sp = np.sqrt(((n1 - 1) * s1 + (n2 - 1) * s2) / (n1 + n2 - 2))
     if sp == 0:
         return float("nan")
-    return float((x.mean() - y.mean()) / sp)
+    return (np.mean(treatment) - np.mean(control)) / sp
 
 
-def main() -> None:
-    root = Path(__file__).resolve().parent.parent
-    csv_path = root / "data" / "intro_stats_scores.csv"
-    outdir = root / "outputs" / "case_studies" / "intro_stats"
-    outdir.mkdir(parents=True, exist_ok=True)
+def _hedges_g(d: float, n1: int, n2: int) -> float:
+    # Small sample correction.
+    df = n1 + n2 - 2
+    if df <= 1:
+        return float("nan")
+    j = 1 - (3 / (4 * df - 1))
+    return d * j
 
-    df = pd.read_csv(csv_path)
+
+def _permutation_distribution(
+    scores: np.ndarray,
+    labels: np.ndarray,
+    n_perm: int,
+    seed: int,
+) -> np.ndarray:
+    rng = np.random.default_rng(seed)
+    diffs = np.empty(n_perm, dtype=float)
+    for i in range(n_perm):
+        perm_labels = rng.permutation(labels)
+        diffs[i] = scores[perm_labels == 1].mean() - scores[perm_labels == 0].mean()
+    return diffs
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--csv", type=Path, default=DEFAULT_CSV)
+    parser.add_argument("--outdir", type=Path, default=DEFAULT_OUTDIR)
+    parser.add_argument("--n-perm", type=int, default=10_000)
+    parser.add_argument("--seed", type=int, default=123)
+    args = parser.parse_args()
+
+    args.outdir.mkdir(parents=True, exist_ok=True)
+
+    df = pd.read_csv(args.csv)
+    if set(df.columns) != {"id", "group", "score"}:
+        raise SystemExit("Expected columns: id, group, score")
 
     control = df.loc[df["group"] == "control", "score"].to_numpy(dtype=float)
-    treat = df.loc[df["group"] == "treatment", "score"].to_numpy(dtype=float)
+    treatment = df.loc[df["group"] == "treatment", "score"].to_numpy(dtype=float)
+    if len(control) == 0 or len(treatment) == 0:
+        raise SystemExit("Expected groups: control and treatment")
 
-    obs_diff = float(treat.mean() - control.mean())
+    observed = float(treatment.mean() - control.mean())
 
-    # Permutation test: shuffle labels, keep group sizes fixed.
-    n_perm = 5000
-    seed = 20260115
-    rng = np.random.default_rng(seed)
+    # Encode labels so permutation is fast.
+    scores = df["score"].to_numpy(dtype=float)
+    labels = (df["group"].to_numpy() == "treatment").astype(int)
 
-    all_scores = np.concatenate([control, treat])
-    n0 = control.size
-    n1 = treat.size
+    perm_diffs = _permutation_distribution(scores, labels, n_perm=args.n_perm, seed=args.seed)
 
-    perm_diffs = np.empty(n_perm, dtype=float)
-    for i in range(n_perm):
-        perm = rng.permutation(all_scores)
-        perm_control = perm[:n0]
-        perm_treat = perm[n0 : n0 + n1]
-        perm_diffs[i] = perm_treat.mean() - perm_control.mean()
+    # Two-sided p-value.
+    p_value = float((np.abs(perm_diffs) >= abs(observed)).mean())
 
-    more_extreme = int(np.sum(np.abs(perm_diffs) >= abs(obs_diff)))
-    p_two_sided = float((more_extreme + 1) / (n_perm + 1))
-
+    # Outputs: summary table
     summary = pd.DataFrame(
-        [
-            {
-                "observed_mean_diff": obs_diff,
-                "p_value_two_sided": p_two_sided,
-                "more_extreme": more_extreme,
-                "n_perm": n_perm,
-                "seed": seed,
-                "note": "permutation test on mean difference (treatment - control)",
-            }
-        ]
+        {
+            "observed_mean_diff": [observed],
+            "p_value_two_sided": [p_value],
+            "n_perm": [args.n_perm],
+            "seed": [args.seed],
+        }
     )
-    summary.to_csv(outdir / "permutation_test_summary.csv", index=False)
+    out_summary = args.outdir / "permutation_test_summary.csv"
+    summary.to_csv(out_summary, index=False)
 
-    d = _cohens_d(treat, control)
-    # Small-sample bias correction (Hedges' g) is optional, but it's a nice extra.
-    j = 1.0 - 3.0 / (4.0 * (n0 + n1) - 9.0)
-    g = float(j * d)
-
-    eff = pd.DataFrame(
-        [
-            {
-                "effect": "treatment - control",
-                "cohens_d": d,
-                "hedges_g": g,
-                "interpretation_hint": "~0.2 small, ~0.5 medium, ~0.8 large (very rough)",
-            }
-        ]
+    # Outputs: effect sizes
+    d = _cohen_d(control, treatment)
+    g = _hedges_g(d, n1=len(control), n2=len(treatment))
+    effect = pd.DataFrame(
+        {
+            "mean_diff": [observed],
+            "cohen_d": [d],
+            "hedges_g": [g],
+        }
     )
-    eff.to_csv(outdir / "effect_size.csv", index=False)
+    out_effect = args.outdir / "effect_size.csv"
+    effect.to_csv(out_effect, index=False)
 
-    # Plot the permutation distribution.
-    fig, ax = plt.subplots(figsize=(7, 4))
-    ax.hist(perm_diffs, bins=40)
-    ax.axvline(obs_diff, linestyle="--")
-    ax.axvline(-obs_diff, linestyle=":")
-    ax.set_title("Permutation distribution of mean differences")
-    ax.set_xlabel("Mean difference (treatment - control)")
+    # Outputs: plot (save under both names used in docs)
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.hist(perm_diffs, bins=40, alpha=0.8)
+    ax.axvline(0.0, linestyle="--", linewidth=1.5)
+    ax.axvline(observed, linestyle="-", linewidth=2)
+    ax.set_title("Permutation null distribution: mean difference (treatment - control)")
+    ax.set_xlabel("Mean difference")
     ax.set_ylabel("Count")
     fig.tight_layout()
-    fig.savefig(outdir / "permutation_distribution.png", dpi=150)
+
+    out_png_primary = args.outdir / "permutation_null_distribution.png"
+    fig.savefig(out_png_primary, dpi=160)
+
+    out_png_alias = args.outdir / "permutation_dist.png"
+    fig.savefig(out_png_alias, dpi=160)
+
     plt.close(fig)
 
-    print("Observed mean diff (treatment - control):", round(obs_diff, 3))
-    print("Permutation p-value (two-sided):", round(p_two_sided, 4))
-    print("Saved:", outdir / "permutation_test_summary.csv")
-    print("Saved:", outdir / "effect_size.csv")
-    print("Saved:", outdir / "permutation_distribution.png")
+    print("Permutation test (difference in means)")
+    print(f"Observed mean difference: {observed:.3f}")
+    print(f"Two-sided p-value: {p_value:.6f}")
+    print()
+    print("Saved:", out_summary)
+    print("Saved:", out_effect)
+    print("Saved:", out_png_primary)
+    print("Saved:", out_png_alias)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
