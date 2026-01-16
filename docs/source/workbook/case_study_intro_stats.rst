@@ -53,6 +53,25 @@ Tests
 Outputs go to
   * ``outputs/case_studies/intro_stats/``
 
+Read the mini-textbook pages (recommended)
+------------------------------------------
+
+If you are new to statistics, read these short pages as you run each script.
+Each page explains *what the script is doing*, what to look for in the outputs,
+and how to talk about the result in plain language.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Intro Stats mini-course
+
+   intro_stats_01_descriptives
+   intro_stats_02_simulation
+   intro_stats_03_distributions_outliers
+   intro_stats_04_confidence_intervals
+   intro_stats_05_hypothesis_testing
+   intro_stats_06_writeup
+
+
 Run → Inspect → Check
 ---------------------
 
