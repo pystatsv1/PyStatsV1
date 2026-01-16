@@ -187,9 +187,19 @@ def cmd_workbook_run(args: argparse.Namespace) -> int:
         )
         return 2
 
+    # Ensure workbook-root imports like `import scripts.foo` work reliably.
+    # Many workbook scripts use `from scripts...` imports; adding the workbook
+    # directory to PYTHONPATH makes this consistent across platforms.
+    env = os.environ.copy()
+    existing = env.get("PYTHONPATH", "")
+    prefix = str(workdir)
+    env["PYTHONPATH"] = (
+        f"{prefix}{os.pathsep}{existing}" if existing else prefix
+    )
+
     cmd = [sys.executable, str(script)]
     try:
-        subprocess.run(cmd, cwd=str(workdir), check=True)
+        subprocess.run(cmd, cwd=str(workdir), env=env, check=True)
     except subprocess.CalledProcessError as e:
         return int(e.returncode or 1)
     return 0
@@ -208,9 +218,15 @@ def cmd_workbook_check(args: argparse.Namespace) -> int:
         )
         return 2
 
+    # Match `workbook run`: keep workbook-root import resolution consistent.
+    env = os.environ.copy()
+    existing = env.get("PYTHONPATH", "")
+    prefix = str(workdir)
+    env["PYTHONPATH"] = f"{prefix}{os.pathsep}{existing}" if existing else prefix
+
     cmd = [sys.executable, "-m", "pytest", "-q", str(test_file)]
     try:
-        subprocess.run(cmd, cwd=str(workdir), check=True)
+        subprocess.run(cmd, cwd=str(workdir), env=env, check=True)
     except subprocess.CalledProcessError as e:
         return int(e.returncode or 1)
     return 0
