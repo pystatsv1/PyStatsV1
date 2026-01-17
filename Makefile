@@ -408,6 +408,10 @@ business-ch18:
 business-ch19:
 	$(PYTHON) -m scripts.business_ch19_cash_flow_forecasting_direct_method_13_week --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch20
+business-ch20:
+	$(PYTHON) -m scripts.business_ch20_integrated_forecasting_three_statements --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
