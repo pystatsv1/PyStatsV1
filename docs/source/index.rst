@@ -167,5 +167,6 @@ See :doc:`getting_started` and :doc:`contributing` for the contributor workflow.
    business_ch15_forecasting_foundations
    business_ch16_seasonality_baselines
    business_ch17_revenue_forecasting_segmentation_drivers
+   business_ch18_expense_forecasting_fixed_variable_step_payroll
    business_appendix_pdf_refresher
    business_appendix_authoring_rules

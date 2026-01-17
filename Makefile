@@ -400,6 +400,10 @@ business-ch16:
 business-ch17:
 	$(PYTHON) -m scripts.business_ch17_revenue_forecasting_segmentation_drivers --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch18
+business-ch18:
+	$(PYTHON) -m scripts.business_ch18_expense_forecasting_fixed_variable_step_payroll --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint

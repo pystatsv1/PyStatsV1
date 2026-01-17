@@ -1,0 +1,19 @@
+PyStatsV1 — Track D (Business Stats & Forecasting for Accountants)
+
+Patch: Chapter 18 — Expense forecasting (fixed/variable/step; payroll scenarios)
+
+What this patch adds:
+- New chapter script: scripts/business_ch18_expense_forecasting_fixed_variable_step_payroll.py
+- New docs page: docs/source/business_ch18_expense_forecasting_fixed_variable_step_payroll.rst
+- New test: tests/test_business_ch18_expense_forecasting_fixed_variable_step_payroll.py
+- Makefile target: make business-ch18
+- Sphinx index entry for Chapter 18
+
+How to run (after unzipping into repo root):
+- make lint
+- pytest -q
+- make sim-nso-v1
+- make business-ch18
+- make docs
+
+Outputs (default): outputs/track_d/...
