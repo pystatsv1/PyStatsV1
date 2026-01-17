@@ -404,6 +404,10 @@ business-ch17:
 business-ch18:
 	$(PYTHON) -m scripts.business_ch18_expense_forecasting_fixed_variable_step_payroll --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch19
+business-ch19:
+	$(PYTHON) -m scripts.business_ch19_cash_flow_forecasting_direct_method_13_week --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
