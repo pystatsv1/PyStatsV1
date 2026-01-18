@@ -228,6 +228,7 @@ TA line: “Trial balance is the structured ledger; statements are the story.”
    pystatsv1 workbook run d01
 
 It prints **Checks** and **Key metrics**, then writes artifacts under ``outputs/track_d``.
+If students ask "what is this file?", point them to :doc:`track_d_outputs_guide`.
 
 7.1 Checks (what they mean)
 ---------------------------

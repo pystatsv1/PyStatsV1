@@ -137,6 +137,9 @@ By default, Track D scripts write artifacts to:
 * ``outputs/track_d/`` — tables, memos, and small machine-readable summaries
 * ``outputs/track_d/figures/`` — charts created by chapters that plot results
 
+For a practical walkthrough of the most common output files (CSV/JSON/PNG) and how to use them in a
+write-up, see :doc:`track_d_outputs_guide`.
+
 A typical chapter produces:
 
 * one or more ``.csv`` artifacts (tables you can open in Excel)
