@@ -77,6 +77,16 @@ Pick a folder you want to work in, then run:
 
    pystatsv1 workbook init ./my_workbook
 
+.. tip::
+
+   Want the Track D accounting case workbook? Use:
+
+   .. code-block:: bash
+
+      pystatsv1 workbook init --track d ./track_d_workbook
+
+   Then see :doc:`track_d` for the Track D workflow and dataset map.
+
 This creates a ready-to-run Workbook folder (scripts + tests + data).
 
 

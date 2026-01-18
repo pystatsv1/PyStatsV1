@@ -28,6 +28,11 @@ Run a chapter script:
 
    pystatsv1 workbook run ch18
 
+.. note::
+
+   Track D uses the same loop, but the chapter wrappers are named ``d01``..``d23``
+   and outputs default to ``outputs/track_d/``. See :doc:`track_d`.
+
 Or run a script by path:
 
 .. code-block:: bash
