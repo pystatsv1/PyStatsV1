@@ -375,6 +375,15 @@ Show them the contribution entry in ``gl_journal.csv`` and compare to sales line
 constraints, and generate a first business summary. That’s the workflow: make data trustworthy before analyzing it.
 Next labs build on this foundation toward statistical reasoning and decision support.”
 
+
+Track D Lab + TA Notes (PyPI-only)
+==================================
+
+.. tip::
+
+   If students are new to the Track D case, have them read :doc:`track_d_student_edition` first.
+
+
 Appendix A: Command block (TA slide)
 ====================================
 
