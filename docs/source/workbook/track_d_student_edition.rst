@@ -129,6 +129,7 @@ A good weekly rhythm:
 
 1) Run the chapter script (``pystatsv1 workbook run dXX``).
 2) Open what it writes in ``outputs/track_d/`` (tables + summaries).
+   If you are not sure what a file is for, use :doc:`track_d_outputs_guide`.
 3) Answer the chapter questions *in words* (what changed, why, what action follows).
 4) Run the smoke checks (``pystatsv1 workbook check business_smoke``).
 

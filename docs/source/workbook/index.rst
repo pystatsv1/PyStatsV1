@@ -15,4 +15,5 @@ PyStatsV1 Workbook
    track_c
    track_d_student_edition
    track_d
+   track_d_outputs_guide
    track_d_lab_ta_notes
