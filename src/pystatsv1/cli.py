@@ -53,7 +53,27 @@ def cmd_docs(_: argparse.Namespace) -> int:
     return 0
 
 
-def _extract_workbook_template(dest: Path, force: bool) -> None:
+def _normalize_track(track: str | None) -> str:
+    t = (track or "c").strip().lower()
+    if t in {"c", "track_c"}:
+        return "c"
+    if t in {"d", "track_d"}:
+        return "d"
+    raise SystemExit(
+        "Unknown track. Use one of: c, track_c, d, track_d.\n"
+        "Example: pystatsv1 workbook init --track d"
+    )
+
+
+def _workbook_asset_for_track(track: str) -> str:
+    t = _normalize_track(track)
+    return {
+        "c": "workbook_starter.zip",
+        "d": "workbook_track_d.zip",
+    }[t]
+
+
+def _extract_workbook_template(dest: Path, force: bool, track: str = "c") -> None:
     dest = dest.expanduser().resolve()
 
     if dest.exists():
@@ -65,16 +85,36 @@ def _extract_workbook_template(dest: Path, force: bool) -> None:
     else:
         dest.mkdir(parents=True, exist_ok=True)
 
-    asset = resources.files(f"{PKG}.assets") / "workbook_starter.zip"
+    asset_name = _workbook_asset_for_track(track)
+    asset = resources.files(f"{PKG}.assets") / asset_name
     with resources.as_file(asset) as asset_path:
         with zipfile.ZipFile(asset_path) as zf:
             zf.extractall(dest)
 
 
 def cmd_workbook_init(args: argparse.Namespace) -> int:
-    _extract_workbook_template(Path(args.dest), force=args.force)
+    track = _normalize_track(getattr(args, "track", "c"))
+    _extract_workbook_template(Path(args.dest), force=args.force, track=track)
 
     dest = Path(args.dest).expanduser().resolve()
+
+    if track == "d":
+        next_steps = textwrap.dedent(
+            f"""\
+            ✅ Track D workbook starter created at:
+
+                {dest}
+
+            Next steps:
+              1) cd {dest}
+              2) pystatsv1 workbook run d00_peek_data
+
+            Tip: If you're new to Python, always work inside a virtual environment.
+            """
+        ).rstrip()
+        print(next_steps)
+        return 0
+
     print(
         textwrap.dedent(
             f"""\
@@ -94,8 +134,40 @@ def cmd_workbook_init(args: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_workbook_list(_: argparse.Namespace) -> int:
-    # Just list what is bundled in the starter zip (Track C for now).
+def cmd_workbook_list(args: argparse.Namespace) -> int:
+    track = _normalize_track(getattr(args, "track", "c"))
+
+    if track == "d":
+        chapters = [
+            "D00  Peek the Track D datasets (LedgerLab + NSO)",
+            "Ch01  Accounting as a measurement system",
+            "Ch02  Double-entry and the general ledger as a database",
+            "Ch03  Financial statements as summaries",
+            "Ch04  Assets: inventory + fixed assets",
+            "Ch05  Liabilities, payroll, taxes, and equity",
+            "Ch06  Reconciliations and quality control",
+            "Ch07  Preparing accounting data for analysis",
+            "Ch08  Descriptive statistics for financial performance",
+            "Ch09  Reporting style contract",
+            "Ch10  Probability and risk",
+            "Ch11  Sampling, estimation, and audit controls",
+            "Ch12  Hypothesis testing for decisions",
+            "Ch13  Correlation, causation, and controlled comparisons",
+            "Ch14  Regression and driver analysis",
+            "Ch15  Forecasting foundations",
+            "Ch16  Seasonality and baselines",
+            "Ch17  Revenue forecasting: segmentation + drivers",
+            "Ch18  Expense forecasting: fixed/variable/step + payroll",
+            "Ch19  Cash flow forecasting: direct method (13-week)",
+            "Ch20  Integrated forecasting: three statements",
+            "Ch21  Scenario planning: sensitivity + stress",
+            "Ch22  Financial statement analysis toolkit",
+            "Ch23  Communicating results and governance",
+        ]
+        print("\n".join(chapters))
+        return 0
+
+    # Track C (default): bundled in the starter zip.
     chapters = [
         "Ch10  One-way ANOVA",
         "Ch11  Repeated measures / mixed designs (problem set)",
@@ -324,6 +396,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_init = wb_sub.add_parser("init", help="Create a local workbook starter folder.")
     p_init.add_argument(
+        "--track",
+        default="c",
+        help="Which workbook to create: c (intro/psych) or d (business case). Default: c.",
+    )
+    p_init.add_argument(
         "--dest",
         default="pystatsv1_workbook",
         help="Destination directory to create (default: pystatsv1_workbook).",
@@ -335,7 +412,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     p_init.set_defaults(func=cmd_workbook_init)
 
-    p_list = wb_sub.add_parser("list", help="List chapters included in the starter kit.")
+    p_list = wb_sub.add_parser("list", help="List chapters included in a starter kit.")
+    p_list.add_argument(
+        "--track",
+        default="c",
+        help="Which chapter list to show: c (intro/psych) or d (business case). Default: c.",
+    )
     p_list.set_defaults(func=cmd_workbook_list)
 
     p_run = wb_sub.add_parser("run", help="Run a workbook script (no make required).")
