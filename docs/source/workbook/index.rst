@@ -14,3 +14,4 @@ PyStatsV1 Workbook
    troubleshooting
    track_c
    track_d
+   track_d_lab_ta_notes
