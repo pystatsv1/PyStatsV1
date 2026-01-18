@@ -114,6 +114,7 @@ def main(argv: list[str] | None = None) -> int:
     report.write_text("\n".join(sections).rstrip() + "\n", encoding="utf-8")
 
     print(f"\n✅ Wrote summary: {report}")
+    print("Tip: If you edited data/synthetic, run: pystatsv1 workbook run d00_setup_data --force")
     return 0
 
 
