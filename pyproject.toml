@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pystatsv1"
-version = "0.21.3"
+version = "0.22.0"
 description = "PyStatsV1: applied statistics labs in Python."
 readme = "README.md"
 requires-python = ">=3.10"
