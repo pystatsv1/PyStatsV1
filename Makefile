@@ -416,6 +416,10 @@ business-ch20:
 business-ch21:
 	$(PYTHON) -m scripts.business_ch21_scenario_planning_sensitivity_stress --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch22
+business-ch22:
+	$(PYTHON) -m scripts.business_ch22_financial_statement_analysis_toolkit --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
