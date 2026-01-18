@@ -1,6 +1,16 @@
 Track D Workbook: Business Statistics for Accounting Data
 =========================================================
 
+Start here (students)
+---------------------
+
+If you're a student, begin with :doc:`track_d_student_edition`.
+It explains the case story, the dataset contract, and the recommended “what to run” path.
+
+.. tip::
+
+   If you’re in a lab section, your TA may also assign :doc:`track_d_lab_ta_notes`.
+
 Track D is a **Business Statistics & Forecasting** track built around a realistic
 accounting running case (North Shore Outfitters, “NSO”).
 
