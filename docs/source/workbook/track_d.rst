@@ -10,7 +10,7 @@ clone required).
 
 If you haven't seen the Track D overview yet, start here:
 
-* :doc:`../business_intro`
+* `Track D overview (main docs) <https://pystatsv1.readthedocs.io/en/latest/business_intro.html>`_
 
 What you get
 ------------
@@ -103,7 +103,7 @@ and are the same every time (seed=123).
 
 If you want to see the full data dictionary for NSO v1:
 
-* :doc:`../business_appendix_ch14b_nso_v1_data_dictionary`
+* `NSO v1 data dictionary cheat sheet (main docs) <https://pystatsv1.readthedocs.io/en/latest/business_appendix_ch14b_nso_v1_data_dictionary.html>`_
 
 Resetting (or regenerating) the datasets
 ----------------------------------------
@@ -163,7 +163,7 @@ A simple way to work through Track D:
 To connect the workbook runs to the textbook pages, use the Track D chapter docs
 as your “book”:
 
-* :ref:`business-track-d`
+* `Track D chapter docs (main site) <https://pystatsv1.readthedocs.io/en/latest/business_intro.html>`_
 
 Troubleshooting
 ---------------
