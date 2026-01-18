@@ -173,5 +173,8 @@ See :doc:`getting_started` and :doc:`contributing` for the contributor workflow.
    business_ch21_scenario_planning_sensitivity_stress
    business_ch22_financial_statement_analysis_toolkit
    business_ch23_communicating_results_governance
+   business_capstone_nso_close_clean_explain_forecast_decide
+   business_capstone_templates
+   business_capstone_rubric
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
