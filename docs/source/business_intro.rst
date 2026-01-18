@@ -1,7 +1,7 @@
 .. _business-track:
 
 Track D – Business Statistics & Forecasting for Accountants
-==========================================================
+===========================================================
 
 Track D teaches **business statistics and forecasting** to learners who work with
 accounting-shaped data (bookkeeping, AP/AR, payroll, staff accounting, finance ops).
@@ -14,6 +14,34 @@ We treat statistical analysis like **production software**:
 * reproducible inputs and deterministic outputs,
 * automated checks (tests) so you can trust what you share,
 * “audit-friendly” artifacts (tables, figures, memos) that support decisions.
+
+Run Track D as a Workbook (PyPI-only)
+-------------------------------------
+
+If you're a student following Track D, the easiest path is the **Track D Workbook**.
+It installs from PyPI and generates a self-contained folder (scripts + tests + data).
+
+.. code-block:: bash
+
+   python -m venv .venv
+   # Windows (Git Bash)
+   source .venv/Scripts/activate
+   python -m pip install --upgrade pip
+   python -m pip install "pystatsv1[workbook]"
+
+   pystatsv1 workbook init --track d ./track_d_workbook
+   cd ./track_d_workbook
+
+   # Start here
+   pystatsv1 workbook run d00_peek_data
+   pystatsv1 workbook run d01
+
+   # Optional: run the included smoke test
+   pystatsv1 workbook check business_smoke
+
+The workbook ships canonical datasets (seed=123) under ``data/synthetic/`` and writes
+chapter outputs to ``outputs/track_d/``. See :doc:`workbook/track_d` for the dataset map,
+output conventions, and tips.
 
 The running case and data
 -------------------------
@@ -39,7 +67,7 @@ Reproducibility quick start
 Inputs and outputs follow two conventions:
 
 * **Inputs live in** ``data/synthetic/...`` (generated datasets)
-* **Outputs live in** ``outputs/track_d/track_d`` (chapter artifacts)
+* **Outputs live in** ``outputs/track_d/`` (chapter artifacts)
 
 To (re)generate the NSO v1 dataset:
 
