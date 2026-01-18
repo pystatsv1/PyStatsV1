@@ -92,13 +92,39 @@ def _extract_workbook_template(dest: Path, force: bool, track: str = "c") -> Non
             zf.extractall(dest)
 
 
+def _extract_asset_zip(asset_name: str, dest: Path) -> None:
+    asset = resources.files(f"{PKG}.assets") / asset_name
+    with resources.as_file(asset) as asset_path:
+        with zipfile.ZipFile(asset_path) as zf:
+            zf.extractall(dest)
+
+
+def _extract_track_d_datasets(dest: Path) -> None:
+    # Extract canonical Track D datasets (seed=123) into the workbook folder.
+    ds_root = dest / "data" / "synthetic"
+    ds_root.mkdir(parents=True, exist_ok=True)
+
+    for asset_name in (
+        "ledgerlab_ch01_seed123.zip",
+        "nso_v1_seed123.zip",
+    ):
+        try:
+            _extract_asset_zip(asset_name, ds_root)
+        except Exception as e:
+            raise SystemExit(
+                "Failed to extract Track D canonical datasets. "
+                "Try upgrading PyStatsV1 (pip install -U pystatsv1) and re-run workbook init. "
+                f"Missing or unreadable asset: {asset_name}"
+            ) from e
+
+
 def cmd_workbook_init(args: argparse.Namespace) -> int:
     track = _normalize_track(getattr(args, "track", "c"))
     _extract_workbook_template(Path(args.dest), force=args.force, track=track)
 
     dest = Path(args.dest).expanduser().resolve()
-
     if track == "d":
+        _extract_track_d_datasets(dest)
         next_steps = textwrap.dedent(
             f"""\
             ✅ Track D workbook starter created at:
@@ -108,6 +134,8 @@ def cmd_workbook_init(args: argparse.Namespace) -> int:
             Next steps:
               1) cd {dest}
               2) pystatsv1 workbook run d00_peek_data
+
+            (Datasets are pre-installed under data/synthetic/, seed=123.)
 
             Tip: If you're new to Python, always work inside a virtual environment.
             """
