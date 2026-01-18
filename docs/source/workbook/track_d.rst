@@ -111,6 +111,10 @@ and are the same every time (seed=123).
 * key files include event logs (AR/AP/payroll/inventory), a bank statement feed,
   a generated general ledger, and monthly statements and trial balances
 
+Before you run deeper chapters, skim:
+
+* :doc:`track_d_dataset_map` — what each table is, how tables relate, and why some rows look “weird” on purpose
+
 If you want to see the full data dictionary for NSO v1:
 
 * `NSO v1 data dictionary cheat sheet (main docs) <https://pystatsv1.readthedocs.io/en/latest/business_appendix_ch14b_nso_v1_data_dictionary.html>`_

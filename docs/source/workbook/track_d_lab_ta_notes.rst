@@ -13,6 +13,15 @@ This handout is for a TA running a lab section where students install **PyStatsV
 
 It includes what to say, what students should see, and how to explain the output.
 
+Recommended pre-reading (TA)
+----------------------------
+
+If you have 5 minutes before lab, skim these pages:
+
+* :doc:`track_d_student_edition` — the “book-style” Track D entry point
+* :doc:`track_d_dataset_map` — the table mental model + intentional QC “warts”
+* :doc:`track_d_outputs_guide` — what each generated output means and how to interpret it
+
 1. Learning goals
 =================
 
