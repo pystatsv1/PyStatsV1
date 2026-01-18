@@ -420,6 +420,10 @@ business-ch21:
 business-ch22:
 	$(PYTHON) -m scripts.business_ch22_financial_statement_analysis_toolkit --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
+.PHONY: business-ch23
+business-ch23:
+	$(PYTHON) -m scripts.business_ch23_communicating_results_governance --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
+
 
 # --- Quality gates ---
 .PHONY: lint
