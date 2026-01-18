@@ -172,5 +172,6 @@ See :doc:`getting_started` and :doc:`contributing` for the contributor workflow.
    business_ch20_integrated_forecasting_three_statements
    business_ch21_scenario_planning_sensitivity_stress
    business_ch22_financial_statement_analysis_toolkit
+   business_ch23_communicating_results_governance
    business_appendix_pdf_refresher
    business_appendix_authoring_rules
