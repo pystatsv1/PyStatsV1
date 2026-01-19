@@ -14,6 +14,7 @@ PyStatsV1 Workbook
    troubleshooting
    track_c
    track_d_student_edition
+   track_d_chapter_index
    track_d
    track_d_dataset_map
    track_d_outputs_guide
