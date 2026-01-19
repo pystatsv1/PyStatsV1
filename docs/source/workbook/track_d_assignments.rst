@@ -69,7 +69,7 @@ Students must include these files in ``outputs/track_d/``:
 - ``business_ch01_balance_sheet.png``
 
 Short answers (write in ``answers.md``)
---------------------------------------
+---------------------------------------
 
 Answer in 1–3 sentences each.
 
@@ -135,7 +135,7 @@ Their report must include:
 - one “before vs after” check (example: total cash inflow/outflow changes, or count of transactions)
 
 Short answers (write in ``answers.md``)
---------------------------------------
+---------------------------------------
 
 1) **What did you find?**
    - One sentence summary of the duplicate.
