@@ -1,6 +1,9 @@
 Track D — Chapter 10: Probability and risk in business terms
 ===========================================================
 
+.. |trackd_run| replace:: d10
+.. include:: _includes/track_d_run_strip.rst
+
 Chapter 10 translates abstract probability into operational business risk.
 Instead of saying **"there is a 5% chance"**, the goal is to say:
 

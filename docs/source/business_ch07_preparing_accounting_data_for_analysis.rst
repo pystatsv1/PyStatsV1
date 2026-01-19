@@ -1,6 +1,9 @@
 Business Chapter 7: Preparing accounting data for analysis
 ==========================================================
 
+.. |trackd_run| replace:: d07
+.. include:: _includes/track_d_run_strip.rst
+
 This chapter is the “bridge” between bookkeeping outputs (CSV exports, trial
 balances, etc.) and the kinds of tables you want for statistics, forecasting,
 and dashboards.

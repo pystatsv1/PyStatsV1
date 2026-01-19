@@ -1,6 +1,9 @@
 Track D — Chapter 9: Visualization and reporting that doesn’t mislead
 =====================================================================
 
+.. |trackd_run| replace:: d09
+.. include:: _includes/track_d_run_strip.rst
+
 Chapter 9 introduces a conservative **plotting + reporting style contract** for Track D.
 The point is not to make beautiful charts — it is to make charts that are
 **hard to misread** and **hard to misuse**.

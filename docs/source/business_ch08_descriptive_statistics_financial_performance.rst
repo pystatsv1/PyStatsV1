@@ -2,6 +2,9 @@
 Chapter 8 -- Descriptive Statistics for Financial Performance
 =============================================================
 
+.. |trackd_run| replace:: d08
+.. include:: _includes/track_d_run_strip.rst
+
 By Chapter 7 we have an *analysis-ready* General Ledger:
 
 * ``gl_tidy.csv`` -- line-level tidy GL (one row per journal line)
