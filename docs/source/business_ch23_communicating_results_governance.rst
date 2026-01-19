@@ -1,6 +1,9 @@
 Chapter 23 — Communicating results: decision memos, dashboards, and governance
 ==============================================================================
 
+.. |trackd_run| replace:: d23
+.. include:: _includes/track_d_run_strip.rst
+
 This chapter is the "final mile": turning analysis and forecasts into
 **decision-ready communication** with an audit trail.
 

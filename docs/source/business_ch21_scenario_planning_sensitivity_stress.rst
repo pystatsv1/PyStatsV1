@@ -4,6 +4,9 @@ Business Statistics & Forecasting for Accountants (Track D)
 Chapter 21 — Scenario planning, sensitivity analysis, and stress testing
 ------------------------------------------------------------------------
 
+.. |trackd_run| replace:: d21
+.. include:: _includes/track_d_run_strip.rst
+
 This chapter turns your integrated forecast into a **decision tool**:
 
 * **Scenarios**: best/base/worst forecasts tied to explicit driver assumptions.
