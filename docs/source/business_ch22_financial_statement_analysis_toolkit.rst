@@ -4,6 +4,9 @@ Business Statistics & Forecasting for Accountants (Track D)
 Chapter 22 — Financial statement analysis toolkit (ratios, trends, variance, common-size)
 -----------------------------------------------------------------------------------------
 
+.. |trackd_run| replace:: d22
+.. include:: _includes/track_d_run_strip.rst
+
 This chapter is the "accountant's explainer pack": a small set of repeatable analyses that
 turn monthly statements into decision support:
 
