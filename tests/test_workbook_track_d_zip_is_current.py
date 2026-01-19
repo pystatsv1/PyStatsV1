@@ -8,6 +8,39 @@ from pathlib import Path
 from zipfile import ZipFile
 
 
+# NOTE: This guardrail is intended to prevent *template drift* (files added/removed/edited)
+# rather than enforce an OS-specific newline convention. Some Git checkouts (and some tools)
+# may produce CRLF vs LF differences for text files, which should not fail CI.
+_TEXT_NAMES = {"Makefile", "makefile"}
+_TEXT_EXTS = {
+    ".cfg",
+    ".csv",
+    ".ini",
+    ".json",
+    ".md",
+    ".py",
+    ".rst",
+    ".toml",
+    ".tsv",
+    ".txt",
+    ".yaml",
+    ".yml",
+}
+
+
+def _normalized_member_bytes(name: str, data: bytes) -> bytes:
+    """Normalize member bytes for cross-platform comparison.
+
+    We only normalize *text-like* files by converting CRLF -> LF (and bare CR -> LF).
+    Binary files are hashed as-is.
+    """
+    base = name.rsplit("/", 1)[-1]
+    ext = (base.rsplit(".", 1)[-1] if "." in base else "").lower()
+    if base in _TEXT_NAMES or (ext and f".{ext}" in _TEXT_EXTS):
+        return data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return data
+
+
 def _zip_payload_hashes(zip_path: Path) -> dict[str, str]:
     """Return sha256 hashes of *decompressed* member bytes.
 
@@ -16,7 +49,7 @@ def _zip_payload_hashes(zip_path: Path) -> dict[str, str]:
     out: dict[str, str] = {}
     with ZipFile(zip_path, "r") as zf:
         for name in sorted(n for n in zf.namelist() if not n.endswith("/")):
-            data = zf.read(name)
+            data = _normalized_member_bytes(name, zf.read(name))
             out[name] = hashlib.sha256(data).hexdigest()
     return out
 
@@ -52,7 +85,27 @@ def test_workbook_track_d_zip_is_current() -> None:
         built = _zip_payload_hashes(built_zip)
         committed = _zip_payload_hashes(committed_zip)
 
-        assert built == committed, (
-            "Committed Track D workbook ZIP is stale or mismatched vs template source-of-truth.\n\n"
-            "Fix: run `python tools/build_workbook_zip.py` and commit the updated ZIP."
-        )
+        if built != committed:
+            built_names = set(built)
+            committed_names = set(committed)
+            only_in_built = sorted(built_names - committed_names)
+            only_in_committed = sorted(committed_names - built_names)
+            changed = sorted(n for n in built_names & committed_names if built[n] != committed[n])
+
+            lines: list[str] = [
+                "Committed Track D workbook ZIP is stale or mismatched vs template source-of-truth.",
+                "",
+            ]
+            if only_in_built:
+                lines += ["Only in rebuilt ZIP:"] + [f"  - {n}" for n in only_in_built] + [""]
+            if only_in_committed:
+                lines += ["Only in committed ZIP:"] + [f"  - {n}" for n in only_in_committed] + [""]
+            if changed:
+                lines += [
+                    "Same path, different content (after newline-normalization for text files):",
+                    *[f"  - {n}" for n in changed],
+                    "",
+                ]
+            lines += ["Fix: run `python tools/build_workbook_zip.py` and commit the updated ZIP."]
+
+            raise AssertionError("\n".join(lines))
