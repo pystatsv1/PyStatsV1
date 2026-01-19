@@ -30,7 +30,7 @@ This chapter implements two things:
 
 1) A reusable style/guardrails module:
 
-- ``scripts/_reporting_style.py``
+- ``pystatsv1.trackd.reporting_style`` (source: ``src/pystatsv1/trackd/reporting_style.py``)
 
 2) A Chapter 9 driver that produces a small, compliant “chart pack” + manifest:
 
@@ -39,7 +39,9 @@ This chapter implements two things:
 The style contract (rules)
 --------------------------
 
-The style contract lives in ``scripts/_reporting_style.py`` as ``STYLE_CONTRACT``.
+The style contract lives in ``pystatsv1.trackd.reporting_style`` as ``STYLE_CONTRACT``.
+
+Note: ``scripts/_reporting_style.py`` is kept as a small shim for backward compatibility with older Track D scripts and workbook templates.
 It is intentionally conservative so later chapters can reuse it.
 
 Allowed chart types
