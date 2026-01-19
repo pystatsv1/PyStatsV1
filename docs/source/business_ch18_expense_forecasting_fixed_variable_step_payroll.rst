@@ -1,3 +1,6 @@
+.. |trackd_run| replace:: d18
+.. include:: _includes/track_d_run_strip.rst
+
 Track D — Chapter 18
 ====================
 
