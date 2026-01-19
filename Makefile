@@ -33,6 +33,7 @@ help:
 	@echo "  business-ch07 - Track D Chapter 7 analysis (prepare accounting data for analysis)"
 	@echo "  business-ch08 - Track D Chapter 8 analysis (descriptive stats for financial performance)"
 	@echo "  business-ch09 - Track D Chapter 9 analysis (plotting/reporting style contract + example figures)"
+	@echo "  trackd-zip  - rebuild Track D workbook ZIP from workbooks/track_d_template/"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
@@ -43,6 +44,10 @@ help:
 
 
 .PHONY: docs docs-strict docs-workbook docs-workbook-strict
+
+.PHONY: trackd-zip
+trackd-zip:
+	$(PYTHON) tools/build_workbook_zip.py
 
 docs:
 	$(PYTHON) -m sphinx -b html docs/source docs/build/html
