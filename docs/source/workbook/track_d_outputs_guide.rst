@@ -87,18 +87,20 @@ After you run a few scripts, ``outputs/track_d`` will look something like this:
 
 The exact filenames vary by chapter.
 
-**The most important rule:** each chapter script declares its expected outputs at the top of the file.
+**The most important rule:** Track D chapter scripts (and the ``dXX`` wrapper scripts) list their expected artifacts near the top of the file.
 Open the script (in your workbook folder under ``scripts/``) and look at the docstring.
+
+If you don't see an artifacts list for some reason, search within the script for ``--outdir`` or for path joins like ``outdir / ...``.
 
 Example from Chapter 1:
 
 .. code-block:: text
 
    scripts/business_ch01_accounting_measurement.py
-     Outputs -> outputs/track_d/
-       - business_ch01_summary.json
-       - business_ch01_balance_sheet_bar.png
-       - business_ch01_cash_balance.png
+     Artifacts written to --outdir (default: outputs/track_d)
+       * business_ch01_summary.json
+       * business_ch01_balance_sheet_bar.png
+       * business_ch01_cash_balance.png
 
 Interpreting the console output
 -------------------------------

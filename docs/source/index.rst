@@ -12,7 +12,7 @@ from PyPI and let the CLI create a local copy of the labs for you.
 .. code-block:: bash
 
    python -m pip install "pystatsv1[workbook]"
-   pystatsv1 workbook init ./my_workbook
+   pystatsv1 workbook init --dest my_workbook
 
 Then run the built-in checks as you work:
 
