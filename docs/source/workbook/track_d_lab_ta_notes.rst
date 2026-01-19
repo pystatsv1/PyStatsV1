@@ -21,6 +21,7 @@ If you have 5 minutes before lab, skim these pages:
 * :doc:`track_d_student_edition` — the “book-style” Track D entry point
 * :doc:`track_d_dataset_map` — the table mental model + intentional QC “warts”
 * :doc:`track_d_outputs_guide` — what each generated output means and how to interpret it
+* :doc:`track_d_my_own_data` — a practical "bring your own data" bridge (30-minute recipe)
 
 1. Learning goals
 =================

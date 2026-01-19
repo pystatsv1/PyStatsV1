@@ -142,7 +142,7 @@ By default, Track D scripts write artifacts to:
 * ``outputs/track_d/figures/`` — charts created by chapters that plot results
 
 For a practical walkthrough of the most common output files (CSV/JSON/PNG) and how to use them in a
-write-up, see :doc:`track_d_outputs_guide`.
+write-up, see :doc:`track_d_outputs_guide`. To apply the same workflow to your own exports, see :doc:`track_d_my_own_data`.
 
 A typical chapter produces:
 

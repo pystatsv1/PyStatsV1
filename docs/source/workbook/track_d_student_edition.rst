@@ -52,6 +52,7 @@ These pages live inside the workbook documentation subtree (they build cleanly o
 - :doc:`track_d` — the Track D workbook page (run list + where to start)
 - :doc:`track_d_dataset_map` — the **dataset mental model** (what each table is, how they relate, and why some rows are “warts” on purpose)
 - :doc:`track_d_outputs_guide` — how to read the outputs folders and key CSV artifacts
+- :doc:`track_d_my_own_data` — bring your own exports: a 30-minute "one table + one chart + one check" recipe
 - :doc:`track_d_lab_ta_notes` — a lab handout + TA notes (walkthrough + interpretation)
 
 What you are building (the pipeline)
