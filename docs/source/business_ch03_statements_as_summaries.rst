@@ -3,6 +3,10 @@
 Ch 03 — Financial statements as summary statistics
 ==================================================
 
+.. |trackd_run| replace:: d03
+.. include:: _includes/track_d_run_strip.rst
+
+
 Why this matters (for accountants)
 ----------------------------------
 Financial statements are *aggregated views of the ledger*.

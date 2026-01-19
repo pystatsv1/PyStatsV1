@@ -3,6 +3,10 @@
 Ch 02 — Double-entry and the general ledger as a database
 =========================================================
 
+.. |trackd_run| replace:: d02
+.. include:: _includes/track_d_run_strip.rst
+
+
 Why this matters (for accountants)
 ----------------------------------
 Your general ledger (GL) is a *database of business events*. If it’s structured well

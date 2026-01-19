@@ -1,6 +1,10 @@
 Business Chapter 5: Liabilities — Payroll, Taxes, Debt, and Equity
 ==================================================================
 
+.. |trackd_run| replace:: d05
+.. include:: _includes/track_d_run_strip.rst
+
+
 This chapter expands the running case from “assets” to the other side of the accounting equation:
 
 .. math::

@@ -1,6 +1,10 @@
 Business Chapter 4: Assets — Inventory and Fixed Assets
 =======================================================
 
+.. |trackd_run| replace:: d04
+.. include:: _includes/track_d_run_strip.rst
+
+
 In this chapter we zoom in on **assets**—resources the business controls that are expected to provide future economic benefit.
 In the NSO v1 running case, assets show up in two very different “data shapes”:
 
