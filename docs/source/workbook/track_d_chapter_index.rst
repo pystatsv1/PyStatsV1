@@ -71,7 +71,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``business_ch01_balance_sheet_bar.png``
 - ``business_ch01_summary.json``
 
-Read the chapter narrative (main docs): `D01 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch01_accounting_measurement.html>`_
+Read the chapter narrative (main docs): `D01 narrative <../business_ch01_accounting_measurement.html>`_
 
 .. _track_d_run_d02:
 
@@ -92,7 +92,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``business_ch02_tb_by_account.png``
 - ``business_ch02_summary.json``
 
-Read the chapter narrative (main docs): `D02 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch02_double_entry_and_gl.html>`_
+Read the chapter narrative (main docs): `D02 narrative <../business_ch02_double_entry_and_gl.html>`_
 
 .. _track_d_run_d03:
 
@@ -112,7 +112,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``business_ch03_trial_balance.csv``
 - ``business_ch03_net_income_vs_cash_change.png``
 
-Read the chapter narrative (main docs): `D03 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch03_statements_as_summaries.html>`_
+Read the chapter narrative (main docs): `D03 narrative <../business_ch03_statements_as_summaries.html>`_
 
 .. _track_d_run_d04:
 
@@ -134,7 +134,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``business_ch04_gross_margin_over_time.png``
 - ``business_ch04_depreciation_over_time.png``
 
-Read the chapter narrative (main docs): `D04 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch04_assets_inventory_fixed_assets.html>`_
+Read the chapter narrative (main docs): `D04 narrative <../business_ch04_assets_inventory_fixed_assets.html>`_
 
 .. _track_d_run_d05:
 
@@ -157,7 +157,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``business_ch05_accounts_payable_rollforward.csv``
 - ``business_ch05_liabilities_over_time.png``
 
-Read the chapter narrative (main docs): `D05 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch05_liabilities_payroll_taxes_equity.html>`_
+Read the chapter narrative (main docs): `D05 narrative <../business_ch05_liabilities_payroll_taxes_equity.html>`_
 
 .. _track_d_run_d06:
 
@@ -177,7 +177,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``bank_recon_exceptions.csv``
 - ``ch06_summary.json``
 
-Read the chapter narrative (main docs): `D06 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch06_reconciliations_quality_control.html>`_
+Read the chapter narrative (main docs): `D06 narrative <../business_ch06_reconciliations_quality_control.html>`_
 
 .. _track_d_run_d07:
 
@@ -196,7 +196,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``gl_monthly_summary.csv``
 - ``ch07_summary.json``
 
-Read the chapter narrative (main docs): `D07 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch07_preparing_accounting_data_for_analysis.html>`_
+Read the chapter narrative (main docs): `D07 narrative <../business_ch07_preparing_accounting_data_for_analysis.html>`_
 
 .. _track_d_run_d08:
 
@@ -217,7 +217,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ar_days_stats.csv``
 - ``ch08_summary.json``
 
-Read the chapter narrative (main docs): `D08 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch08_descriptive_statistics_financial_performance.html>`_
+Read the chapter narrative (main docs): `D08 narrative <../business_ch08_descriptive_statistics_financial_performance.html>`_
 
 .. _track_d_run_d09:
 
@@ -238,7 +238,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch09_executive_memo.md``
 - ``ch09_summary.json``
 
-Read the chapter narrative (main docs): `D09 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch09_reporting_style_contract.html>`_
+Read the chapter narrative (main docs): `D09 narrative <../business_ch09_reporting_style_contract.html>`_
 
 .. _track_d_run_d10:
 
@@ -258,7 +258,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch10_risk_memo.md``
 - ``ch10_risk_summary.json``
 
-Read the chapter narrative (main docs): `D10 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch10_probability_risk.html>`_
+Read the chapter narrative (main docs): `D10 narrative <../business_ch10_probability_risk.html>`_
 
 .. _track_d_run_d11:
 
@@ -279,7 +279,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch11_audit_memo.md``
 - ``ch11_figures_manifest.csv``
 
-Read the chapter narrative (main docs): `D11 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch11_sampling_estimation_audit_controls.html>`_
+Read the chapter narrative (main docs): `D11 narrative <../business_ch11_sampling_estimation_audit_controls.html>`_
 
 .. _track_d_run_d12:
 
@@ -300,7 +300,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch12_experiment_memo.md``
 - ``ch12_figures_manifest.csv``
 
-Read the chapter narrative (main docs): `D12 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch12_hypothesis_testing_decisions.html>`_
+Read the chapter narrative (main docs): `D12 narrative <../business_ch12_hypothesis_testing_decisions.html>`_
 
 .. _track_d_run_d13:
 
@@ -321,7 +321,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch13_correlation_memo.md``
 - ``ch13_figures_manifest.csv``
 
-Read the chapter narrative (main docs): `D13 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch13_correlation_causation_controlled_comparisons.html>`_
+Read the chapter narrative (main docs): `D13 narrative <../business_ch13_correlation_causation_controlled_comparisons.html>`_
 
 .. _track_d_run_d14:
 
@@ -334,7 +334,7 @@ Run:
 
    pystatsv1 workbook run d14
 
-Read the chapter narrative (main docs): `D14 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch14_regression_driver_analysis.html>`_
+Read the chapter narrative (main docs): `D14 narrative <../business_ch14_regression_driver_analysis.html>`_
 
 .. _track_d_run_d15:
 
@@ -347,7 +347,7 @@ Run:
 
    pystatsv1 workbook run d15
 
-Read the chapter narrative (main docs): `D15 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch15_forecasting_foundations.html>`_
+Read the chapter narrative (main docs): `D15 narrative <../business_ch15_forecasting_foundations.html>`_
 
 .. _track_d_run_d16:
 
@@ -360,7 +360,7 @@ Run:
 
    pystatsv1 workbook run d16
 
-Read the chapter narrative (main docs): `D16 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch16_seasonality_baselines.html>`_
+Read the chapter narrative (main docs): `D16 narrative <../business_ch16_seasonality_baselines.html>`_
 
 .. _track_d_run_d17:
 
@@ -390,7 +390,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch17_forecast_next_12m.csv``
 - ``ch17_forecast_memo.md``
 
-Read the chapter narrative (main docs): `D17 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch17_revenue_forecasting_segmentation_drivers.html>`_
+Read the chapter narrative (main docs): `D17 narrative <../business_ch17_revenue_forecasting_segmentation_drivers.html>`_
 
 .. _track_d_run_d18:
 
@@ -417,7 +417,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch18_memo.md``
 - ``ch18_figures_manifest.csv``
 
-Read the chapter narrative (main docs): `D18 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch18_expense_forecasting_fixed_variable_step_payroll.html>`_
+Read the chapter narrative (main docs): `D18 narrative <../business_ch18_expense_forecasting_fixed_variable_step_payroll.html>`_
 
 .. _track_d_run_d19:
 
@@ -441,7 +441,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch19_memo.md``
 - ``ch19_figures_manifest.csv``
 
-Read the chapter narrative (main docs): `D19 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch19_cash_flow_forecasting_direct_method_13_week.html>`_
+Read the chapter narrative (main docs): `D19 narrative <../business_ch19_cash_flow_forecasting_direct_method_13_week.html>`_
 
 .. _track_d_run_d20:
 
@@ -465,7 +465,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch20_memo.md``
 - ``ch20_figures_manifest.csv``
 
-Read the chapter narrative (main docs): `D20 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch20_integrated_forecasting_three_statements.html>`_
+Read the chapter narrative (main docs): `D20 narrative <../business_ch20_integrated_forecasting_three_statements.html>`_
 
 .. _track_d_run_d21:
 
@@ -489,7 +489,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch21_design.json``
 - ``ch21_memo.md``
 
-Read the chapter narrative (main docs): `D21 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch21_scenario_planning_sensitivity_stress.html>`_
+Read the chapter narrative (main docs): `D21 narrative <../business_ch21_scenario_planning_sensitivity_stress.html>`_
 
 .. _track_d_run_d22:
 
@@ -514,7 +514,7 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch22_memo.md``
 - ``ch22_design.json``
 
-Read the chapter narrative (main docs): `D22 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch22_financial_statement_analysis_toolkit.html>`_
+Read the chapter narrative (main docs): `D22 narrative <../business_ch22_financial_statement_analysis_toolkit.html>`_
 
 .. _track_d_run_d23:
 
@@ -535,4 +535,4 @@ Expected artifacts (written under ``outputs/track_d/``):
 - ``ch23_red_team_checklist.md``
 - ``ch23_design.json``
 
-Read the chapter narrative (main docs): `D23 narrative <https://pystatsv1.readthedocs.io/en/latest/business_ch23_communicating_results_governance.html>`_
+Read the chapter narrative (main docs): `D23 narrative <../business_ch23_communicating_results_governance.html>`_
