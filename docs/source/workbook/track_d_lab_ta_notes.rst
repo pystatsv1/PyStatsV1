@@ -22,6 +22,23 @@ If you have 5 minutes before lab, skim these pages:
 * :doc:`track_d_dataset_map` — the table mental model + intentional QC “warts”
 * :doc:`track_d_outputs_guide` — what each generated output means and how to interpret it
 * :doc:`track_d_my_own_data` — a practical "bring your own data" bridge (30-minute recipe)
+* :doc:`track_d_assignments` — classroom-ready labs + rubric (gradeable artifacts + short answers)
+
+How to use the assignments page
+-------------------------------
+
+If you want Track D to be **turnkey as a lab**, point students at:
+
+* :doc:`track_d_assignments`
+
+That page is designed to be self-contained:
+
+* **Lab 1**: run Track D and interpret outputs
+* **Lab 2**: reconcile a teachable QC issue (duplicate bank transaction id)
+* **Lab 3**: write a short executive summary memo from the outputs
+
+The rubric is intended to reward analysis habits (contracts, checks, reconciliation, and clear writing),
+not just code execution.
 
 1. Learning goals
 =================
