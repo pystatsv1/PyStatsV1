@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from ._errors import TrackDDataError, TrackDSchemaError  # noqa: F401
 from ._types import DataFrame, DataFrames, PathLike  # noqa: F401
+from .csvio import read_csv_required  # noqa: F401
 
 __all__ = [
     "DataFrame",
@@ -16,4 +17,5 @@ __all__ = [
     "PathLike",
     "TrackDDataError",
     "TrackDSchemaError",
+    "read_csv_required",
 ]
