@@ -75,7 +75,7 @@ Pick a folder you want to work in, then run:
 
 .. code-block:: bash
 
-   pystatsv1 workbook init ./my_workbook
+   pystatsv1 workbook init --dest my_workbook
 
 .. tip::
 
@@ -83,7 +83,7 @@ Pick a folder you want to work in, then run:
 
    .. code-block:: bash
 
-      pystatsv1 workbook init --track d ./track_d_workbook
+      pystatsv1 workbook init --track d --dest track_d_workbook
 
    Then see :doc:`track_d_student_edition` (student path) or :doc:`track_d` (full Track D workbook page).
 
@@ -95,7 +95,7 @@ This creates a ready-to-run Workbook folder (scripts + tests + data).
 
 .. code-block:: bash
 
-   cd ./my_workbook
+   cd my_workbook
 
    # Run the chapter script (creates outputs)
    pystatsv1 workbook run ch10

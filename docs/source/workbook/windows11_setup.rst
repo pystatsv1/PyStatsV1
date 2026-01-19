@@ -122,8 +122,8 @@ Create the Workbook starter folder:
 
 .. code-block:: bash
 
-   pystatsv1 workbook init ./my_workbook
-   cd ./my_workbook
+   pystatsv1 workbook init --dest my_workbook
+   cd my_workbook
 
 List chapters (sanity check):
 

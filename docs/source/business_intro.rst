@@ -29,8 +29,8 @@ It installs from PyPI and generates a self-contained folder (scripts + tests + d
    python -m pip install --upgrade pip
    python -m pip install "pystatsv1[workbook]"
 
-   pystatsv1 workbook init --track d ./track_d_workbook
-   cd ./track_d_workbook
+   pystatsv1 workbook init --track d --dest track_d_workbook
+   cd track_d_workbook
 
    # Start here
    pystatsv1 workbook run d00_peek_data
