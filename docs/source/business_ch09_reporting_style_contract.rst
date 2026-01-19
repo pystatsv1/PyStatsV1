@@ -129,7 +129,7 @@ The manifest exists so a reviewer can answer:
 In practice, this makes visual outputs auditable during code review.
 
 Visualization pitfalls (“chart crimes”)
---------------------------------------
+---------------------------------------
 
 Common problems this chapter is designed to prevent:
 

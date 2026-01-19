@@ -21,7 +21,7 @@ Chapter 7 produces two small, reusable datasets:
 - **gl_monthly_summary.csv** (rollup): a monthly activity table by account.
 
 What you should be able to do after this chapter
------------------------------------------------
+------------------------------------------------
 
 - Explain why accountants track debits/credits, but analysts often prefer one
   signed amount column.
@@ -33,7 +33,7 @@ Inputs and outputs
 ------------------
 
 Inputs (from the NSO v1 dataset folder)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - ``gl_journal.csv``: the line-level journal export
 - ``chart_of_accounts.csv``: the COA lookup table

@@ -1,6 +1,10 @@
 Track D — Chapter 14
 ====================
 
+.. |trackd_run| replace:: d14
+.. include:: _includes/track_d_run_strip.rst
+
+
 Regression Driver Analysis (NSO running case)
 ---------------------------------------------
 
@@ -349,7 +353,7 @@ If you see an error like “Expected inventory_movements.csv … but not found�
   ``inventory_movements.csv``, ``ar_events.csv``, ``statements_is_monthly.csv``.
 
 Wrong output directory / permission issues
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If artifacts don’t appear under ``outputs/track_d/track_d/``:
 

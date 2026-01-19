@@ -138,8 +138,9 @@ Trial balance tie-out
 ^^^^^^^^^^^^^^^^^^^^^
 - ``trial_balance_matches_source``: trial balance recomputed from detail GL lines matches
   the provided ``trial_balance_monthly.csv``.
-  - ``trial_balance_max_abs_diff``: largest absolute difference (floating-point noise
-    close to 0 is normal).
+
+  Diagnostic: ``trial_balance_max_abs_diff``: largest absolute difference
+  (floating-point noise close to 0 is normal).
 
 Interpretation & decision memo
 ------------------------------

@@ -1,8 +1,12 @@
 Track D — Chapter 15
 ====================
 
+.. |trackd_run| replace:: d15
+.. include:: _includes/track_d_run_strip.rst
+
+
 Forecasting Foundations and Forecast Hygiene (NSO running case)
---------------------------------------------------------------
+---------------------------------------------------------------
 
 In Chapter 14 you built an **explainable driver model** (COGS explained by operational activity).
 In Chapter 15 you switch gears: you treat the accounting output as a **time series** and learn how

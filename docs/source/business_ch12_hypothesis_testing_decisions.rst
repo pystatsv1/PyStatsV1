@@ -1,6 +1,10 @@
 Chapter 12 — Hypothesis Testing for Decisions 
 =======================================================================
 
+.. |trackd_run| replace:: d12
+.. include:: _includes/track_d_run_strip.rst
+
+
 Why this chapter exists
 -----------------------
 Most teams *think* they are making data-driven decisions, but often they are really
@@ -119,22 +123,27 @@ The script writes artifacts into ``outputs/track_d``:
 How to interpret the results (accountant-friendly)
 --------------------------------------------------
 Promotion test (AR invoices)
-   Ask two questions:
 
-   1) Is it likely real?
-      - p < alpha suggests the observed lift is unlikely under “no effect.”
+Ask two questions:
 
-   2) Is it worth it?
-      - Compare the estimated lift (dollars per invoice and % lift) to the cost of the promo
-        and to margin impact (a 2% revenue lift can be negative value if discounts overwhelm margin).
+1. Is it likely real?
+
+   - *p* < α suggests the observed lift is unlikely under "no effect".
+
+2. Is it worth it?
+
+   - Compare the estimated lift (dollars per invoice and % lift) to the cost
+     of the promo and to margin impact (e.g., a 2% revenue lift can be negative
+     value if discounts overwhelm margin).
 
 Cycle time test (AP days-to-pay)
-   Translate days saved into dollars:
 
-   - Labor time saved (processing effort)
-   - Early-pay discounts captured
-   - Fewer late fees / fewer supplier escalations
-   - Stronger cash planning (predictable AP timing)
+Translate days saved into dollars:
+
+- Labor time saved (processing effort)
+- Early-pay discounts captured
+- Fewer late fees / fewer supplier escalations
+- Stronger cash planning (predictable AP timing)
 
 Guardrails (what we do *not* allow)
 -----------------------------------

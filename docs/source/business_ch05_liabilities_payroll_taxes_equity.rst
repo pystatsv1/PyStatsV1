@@ -26,7 +26,7 @@ What you should be able to do after this chapter
 ------------------------------------------------
 
 Accounting concepts
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 - Explain what it means for an obligation to be **incurred** vs **paid**.
 - Build a monthly **roll-forward** (beginning balance + changes = ending balance).
 - Distinguish **interest expense** from **principal repayment** in a loan payment.
@@ -42,7 +42,7 @@ Inputs and outputs
 ------------------
 
 Inputs (NSO v1 dataset folder)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Chapter 5 uses the monthly trial balance plus five subledger tables produced by the simulator:
 
 .. list-table::
