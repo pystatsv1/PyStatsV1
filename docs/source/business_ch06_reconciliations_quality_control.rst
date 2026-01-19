@@ -1,6 +1,9 @@
 Business Chapter 6: Reconciliations as Quality Control
 ======================================================
 
+.. |trackd_run| replace:: d06
+.. include:: _includes/track_d_run_strip.rst
+
 Chapter 6 treats reconciliations as a **quality control system** for bookkeeping and data pipelines.
 
 A reconciliation is a comparison between two independent sources of truth. In practice, it answers questions like:
