@@ -81,8 +81,8 @@ After you run a few scripts, ``outputs/track_d`` will look something like this:
    outputs/track_d/
      d00_peek_data_summary.md
      business_ch01_summary.json
-     business_ch01_cash_flow_bridge.png
-     business_ch01_trial_balance.png
+     business_ch01_cash_balance.png
+     business_ch01_balance_sheet_bar.png
      ...
 
 The exact filenames vary by chapter.
@@ -97,8 +97,8 @@ Example from Chapter 1:
    scripts/business_ch01_accounting_measurement.py
      Outputs -> outputs/track_d/
        - business_ch01_summary.json
-       - business_ch01_trial_balance.png
-       - business_ch01_cash_flow_bridge.png
+       - business_ch01_balance_sheet_bar.png
+       - business_ch01_cash_balance.png
 
 Interpreting the console output
 -------------------------------

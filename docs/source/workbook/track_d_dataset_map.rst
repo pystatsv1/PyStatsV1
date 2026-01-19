@@ -25,8 +25,8 @@ When you run:
 ...the workbook starter is created and the canonical (seeded) Track D datasets are
 installed into the workbook folder under:
 
-* ``data/synthetic/ledgerlab_ch01_seed123/``
-* ``data/synthetic/nso_v1_seed123/``
+* ``data/synthetic/ledgerlab_ch01/``
+* ``data/synthetic/nso_v1/``
 
 These are small, deterministic datasets (seed=123) designed for learning.
 
