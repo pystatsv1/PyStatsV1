@@ -1,0 +1,14 @@
+# Track D workbook dependencies (optional)
+#
+# If you installed PyStatsV1 via:
+#   pip install pystatsv1[workbook]
+# you already have everything you need.
+
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+statsmodels>=0.14
+matplotlib>=3.8
+pingouin>=0.5
+scikit-learn>=1.3
+pytest>=8.2

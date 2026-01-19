@@ -100,8 +100,22 @@ You should now be able to run:
 pytest
 make lint
 ```
-
 without errors.
+
+#### Track D workbook template editing
+
+Track D ships a workbook template ZIP used by `pystatsv1 workbook init --track d`.
+
+**Please do not edit the ZIP by hand.** Instead:
+
+1. Edit the source template under `workbooks/track_d_template/`.
+2. Rebuild the committed ZIP:
+
+   ```bash
+   python tools/build_workbook_zip.py
+   ```
+
+3. Re-run checks (`pytest -q` is enough to confirm the ZIP drift guard).
 
 ### 3. Create a Branch
 
