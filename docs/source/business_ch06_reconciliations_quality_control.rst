@@ -21,7 +21,7 @@ What you should be able to do after this chapter
 ------------------------------------------------
 
 Accounting concepts
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 - Explain why reconciliations are a core internal control (and why auditors care).
 - Build an A/R roll-forward and interpret a tie-out difference.
 - Categorize bank recon exceptions (missing GL, missing bank line, duplicates, timing differences).
@@ -36,7 +36,7 @@ Inputs and outputs
 ------------------
 
 Inputs (NSO v1 dataset folder)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Chapter 6 uses:
 
 .. list-table::

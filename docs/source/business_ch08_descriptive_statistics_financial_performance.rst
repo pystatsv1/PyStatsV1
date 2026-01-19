@@ -30,7 +30,7 @@ Learning goals
 ==============
 
 Accounting goals
----------------
+----------------
 
 * Turn monthly financial statements into *KPIs* (gross margin %, net margin %, etc.).
 * Use variability measures to reason about operational stability.
@@ -123,7 +123,7 @@ profiles.
   the mean and is useful when comparing different scales.
 
 A/R: why "average DSO" can hide tails
------------------------------------
+-------------------------------------
 
 The **mean** days outstanding can be pulled upward by a few very late payments.
 The **median** is often a better "typical" payment time.

@@ -1,5 +1,9 @@
 Business Chapter 11 — Sampling and Estimation (Audit and Controls Lens)
-=====================================================================
+=======================================================================
+
+.. |trackd_run| replace:: d11
+.. include:: _includes/track_d_run_strip.rst
+
 
 Accountants and controllers often face a simple constraint: you *cannot* review every transaction.
 Sampling is a cost-effective control — but only if it is designed and communicated clearly.
@@ -20,14 +24,14 @@ After this chapter, you can:
 * Draft a short memo that uses the vocabulary auditors expect: *population, sample size, materiality, tolerance, confidence*.
 
 Data inputs (NSO v1)
--------------------
+--------------------
 
 We reuse the synthetic dataset from ``sim_business_nso_v1`` and treat A/P invoices as the "pile" to audit:
 
 * ``ap_events.csv`` — invoice events and payments (we sample invoice rows)
 
 Repro commands
--------------
+--------------
 
 .. code-block:: bash
 
@@ -44,7 +48,7 @@ Or run directly:
      --seed 123
 
 Outputs (audit-friendly artifacts)
----------------------------------
+----------------------------------
 
 The chapter writes deterministic artifacts to ``outputs/track_d``:
 
@@ -57,7 +61,7 @@ The chapter writes deterministic artifacts to ``outputs/track_d``:
   * ``ch11_error_rate_ci.png`` — observed error rate with 95% CI
 
 End-of-chapter problems (implemented concepts)
----------------------------------------------
+----------------------------------------------
 
 1) **Design a sampling plan (risk-based).**
    Review 100% of transactions over a materiality threshold (e.g., $1,000),

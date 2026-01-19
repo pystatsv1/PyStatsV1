@@ -17,10 +17,10 @@ Chapter 4 introduces two foundational bookkeeping skills that also behave like *
 2. Building a **depreciation roll-forward** and tying it back to the trial balance and financial statements.
 
 What you should be able to do after this chapter
------------------------------------------------
+------------------------------------------------
 
 Accounting concepts
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 - Explain the difference between **current assets** (inventory) and **long‑term assets** (property, plant & equipment).
 - Describe how inventory flows into the income statement via **Cost of Goods Sold (COGS)**.
 - Explain why we record **Accumulated Depreciation** (a contra‑asset) and how depreciation affects net income and cash flow.
@@ -35,7 +35,7 @@ Inputs and outputs
 ------------------
 
 Inputs (NSO v1 dataset folder)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This chapter is designed to run against a generated dataset (see :mod:`scripts.sim_business_nso_v1`).
 The key input tables for Chapter 4 are:
 

@@ -2,7 +2,7 @@ Track D — Chapter 17
 ====================
 
 Revenue forecasting via segmentation + drivers (NSO running case)
----------------------------------------------------------------
+-----------------------------------------------------------------
 
 This chapter extends the Track D planning toolkit by building a simple, explainable
 forecast of **AR invoice revenue**.

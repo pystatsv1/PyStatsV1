@@ -1,14 +1,14 @@
 .. _business-ch01:
 
 Ch 01 — Accounting as a measurement system
-=========================================
+==========================================
 
 .. |trackd_run| replace:: d01
 .. include:: _includes/track_d_run_strip.rst
 
 
 Why this matters (for accountants)
----------------------------------
+----------------------------------
 Statistics is only useful if the underlying numbers are *meaningful* and *defensible*.
 Accounting is the measurement layer that makes business analysis possible.
 

@@ -1,6 +1,10 @@
 Chapter 13 — Correlation, Causation, and Controlled Comparisons
 ===============================================================
 
+.. |trackd_run| replace:: d13
+.. include:: _includes/track_d_run_strip.rst
+
+
 This chapter is about **not fooling yourself** (or your stakeholders) when you see two lines move together.
 
 Accountants are trained to explain variances. The trap is when a tidy story turns into a causal claim:

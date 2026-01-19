@@ -1,5 +1,5 @@
 Track D — Chapter 10: Probability and risk in business terms
-===========================================================
+============================================================
 
 .. |trackd_run| replace:: d10
 .. include:: _includes/track_d_run_strip.rst
