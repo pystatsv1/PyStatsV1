@@ -9,4 +9,8 @@ Keeping this shim avoids breaking imports inside the workbook's chapter scripts.
 
 from __future__ import annotations
 
-from pystatsv1.trackd.mpl_compat import *  # noqa: F401,F403
+from pystatsv1.trackd.mpl_compat import ax_boxplot
+
+__all__ = [
+    "ax_boxplot",
+]
