@@ -39,3 +39,6 @@ outputs/
 
 # Sphinx build outputs
 docs/build/
+
+# Local BYOD projects (generated)
+/byod_*/
