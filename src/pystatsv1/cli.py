@@ -420,6 +420,27 @@ def cmd_trackd_validate(args: argparse.Namespace) -> int:
     return 0
 
 
+
+def cmd_trackd_byod_init(args: argparse.Namespace) -> int:
+    # Keep CLI wiring lightweight: creation logic lives in pystatsv1.trackd.byod.
+    from pystatsv1.trackd import TrackDDataError
+    from pystatsv1.trackd.byod import init_byod_project
+
+    try:
+        root = init_byod_project(args.dest, profile=args.profile, force=args.force)
+    except TrackDDataError as e:
+        print(str(e))
+        return 1
+
+    print(
+        textwrap.dedent(
+            f"""\
+            ✅ Track D BYOD project created at:\n
+                {root}\n
+            Next steps:\n              1) cd {root}\n              2) Fill in the required CSVs in tables/\n              3) pystatsv1 trackd validate --datadir tables --profile {args.profile}\n            """
+        ).rstrip()
+    )
+    return 0
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="pystatsv1",
@@ -516,6 +537,28 @@ def build_parser() -> argparse.ArgumentParser:
         help="Which profile to validate (default: full).",
     )
     p_td_validate.set_defaults(func=cmd_trackd_validate)
+
+    p_td_byod = td_sub.add_parser("byod", help="Bring-your-own-data (BYOD) project helpers.")
+    byod_sub = p_td_byod.add_subparsers(dest="trackd_byod_cmd", required=True)
+
+    p_byod_init = byod_sub.add_parser("init", help="Create a BYOD project folder with CSV header templates.")
+    p_byod_init.add_argument(
+        "--dest",
+        default="pystatsv1_trackd_byod",
+        help="Destination directory to create (default: pystatsv1_trackd_byod).",
+    )
+    p_byod_init.add_argument(
+        "--profile",
+        default="core_gl",
+        choices=["core_gl", "ar", "full"],
+        help="Which profile to scaffold (default: core_gl).",
+    )
+    p_byod_init.add_argument(
+        "--force",
+        action="store_true",
+        help="Allow writing into an existing non-empty directory.",
+    )
+    p_byod_init.set_defaults(func=cmd_trackd_byod_init)
 
 
     return p
