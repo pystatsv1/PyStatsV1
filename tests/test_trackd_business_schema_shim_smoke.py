@@ -89,3 +89,25 @@ def test_track_d_template_business_recon_is_a_shim() -> None:
     assert "build_cash_txns_from_gl" in text
     assert "bank_reconcile" in text
     assert "ar_rollforward_vs_tb" in text
+
+
+def test_repo_level_business_etl_shim_is_explicit() -> None:
+    root = Path(__file__).resolve().parents[1]
+    shim_path = root / "scripts" / "_business_etl.py"
+    assert shim_path.exists()
+
+    text = shim_path.read_text(encoding="utf-8")
+    assert "pystatsv1.trackd.etl" in text
+    assert "__all__" in text
+    assert "import *" not in text
+
+
+def test_repo_level_business_recon_shim_is_explicit() -> None:
+    root = Path(__file__).resolve().parents[1]
+    shim_path = root / "scripts" / "_business_recon.py"
+    assert shim_path.exists()
+
+    text = shim_path.read_text(encoding="utf-8")
+    assert "pystatsv1.trackd.recon" in text
+    assert "__all__" in text
+    assert "import *" not in text
