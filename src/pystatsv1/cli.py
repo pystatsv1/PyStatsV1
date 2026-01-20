@@ -396,6 +396,30 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     return 1
 
 
+def cmd_trackd_validate(args: argparse.Namespace) -> int:
+    # Keep CLI wiring lightweight: validation logic lives in pystatsv1.trackd.validate.
+    from pystatsv1.trackd import TrackDDataError, TrackDSchemaError
+    from pystatsv1.trackd.validate import validate_dataset
+
+    try:
+        validate_dataset(args.datadir, profile=args.profile)
+    except (TrackDDataError, TrackDSchemaError) as e:
+        print(str(e))
+        return 1
+
+    print(
+        textwrap.dedent(
+            f"""\
+            ✅ Track D dataset looks valid.
+
+            Profile: {args.profile}
+            Data directory: {Path(args.datadir).expanduser()}
+            """
+        ).rstrip()
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="pystatsv1",
@@ -472,6 +496,26 @@ def build_parser() -> argparse.ArgumentParser:
         help="Workbook directory (default: current directory).",
     )
     p_check.set_defaults(func=cmd_workbook_check)
+
+    p_trackd = sub.add_parser("trackd", help="Track D helpers (business datasets).")
+    td_sub = p_trackd.add_subparsers(dest="trackd_cmd", required=True)
+
+    p_td_validate = td_sub.add_parser(
+        "validate",
+        help="Validate a Track D dataset folder against a profile (BYOD foundations).",
+    )
+    p_td_validate.add_argument(
+        "--datadir",
+        required=True,
+        help="Path to the folder containing exported Track D CSV tables.",
+    )
+    p_td_validate.add_argument(
+        "--profile",
+        default="full",
+        choices=["core_gl", "ar", "full"],
+        help="Which profile to validate (default: full).",
+    )
+    p_td_validate.set_defaults(func=cmd_trackd_validate)
 
 
     return p
