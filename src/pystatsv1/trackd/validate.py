@@ -55,7 +55,7 @@ def _format_report(report: dict[str, Any]) -> str:
 
     lines += [
         "Fix: export the required CSV(s) and ensure the header names match the Track D contract.",
-        "Tip: compare your exported CSV headers against the workbook downloads.",
+        "Tip: generate a header-only template pack with: pystatsv1 trackd byod init --dest my_byod --profile <profile>",
     ]
     return "\n".join(lines)
 
