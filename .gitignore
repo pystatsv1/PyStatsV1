@@ -42,3 +42,6 @@ docs/build/
 
 # Local BYOD projects (generated)
 /byod_*/
+
+# Local BYOD projects (generated)
+/pystatsv1_trackd_byod/
