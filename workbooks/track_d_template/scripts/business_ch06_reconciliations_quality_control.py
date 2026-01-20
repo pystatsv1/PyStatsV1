@@ -24,6 +24,8 @@ from typing import Any
 
 import pandas as pd
 
+from pystatsv1.trackd.loaders import load_table
+
 from scripts._cli import base_parser
 from scripts._business_recon import (
     build_ar_rollforward,
@@ -38,16 +40,11 @@ class Ch06Outputs:
     bank_exceptions: pd.DataFrame
     summary: dict[str, Any]
 
-def _read_csv(path: Path) -> pd.DataFrame:
-    if not path.exists():
-        raise FileNotFoundError(f"Missing required input: {path}")
-    return pd.read_csv(path)
-
 def analyze_ch06(datadir: Path) -> Ch06Outputs:
-    gl = _read_csv(datadir / "gl_journal.csv")
-    tb = _read_csv(datadir / "trial_balance_monthly.csv")
-    ar_events = _read_csv(datadir / "ar_events.csv")
-    bank = _read_csv(datadir / "bank_statement.csv")
+    gl = load_table(datadir, "gl_journal.csv")
+    tb = load_table(datadir, "trial_balance_monthly.csv")
+    ar_events = load_table(datadir, "ar_events.csv")
+    bank = load_table(datadir, "bank_statement.csv")
 
     # AR rollforward tie-out
 

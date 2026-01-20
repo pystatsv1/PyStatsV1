@@ -40,6 +40,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from pystatsv1.trackd.loaders import load_table, resolve_datadir
+
 from ._business_etl import build_gl_tidy_dataset
 from ._cli import base_parser
 
@@ -54,18 +56,19 @@ class Ch08Outputs:
 
 
 def _read_csv_required(datadir: Path, filename: str, *, fallbacks: list[str] | None = None) -> pd.DataFrame:
-    """Read a required CSV, optionally trying fallback filenames.
+    """Read a required input CSV.
 
-    This keeps chapters robust when the simulator/export names evolve.
+    Uses Track D's shared loader so errors are consistent and beginner-friendly.
+    Supports a small list of fallback filenames for backward-compatibility.
     """
+    root = resolve_datadir(datadir)
     candidates = [filename] + (fallbacks or [])
     for name in candidates:
-        path = datadir / name
+        path = root / name
         if path.exists():
-            return pd.read_csv(path)
-    # If none found, raise using the primary expected name (so error is clear)
-    raise FileNotFoundError(datadir / filename)
-
+            return load_table(root, name)
+    # Let the shared loader raise a friendly error for the primary expected name
+    return load_table(root, filename)
 
 def _pivot_statement(df: pd.DataFrame) -> pd.DataFrame:
     """Return a wide statement frame: index month, columns = line."""
