@@ -127,7 +127,7 @@ def cmd_workbook_init(args: argparse.Namespace) -> int:
         _extract_track_d_datasets(dest)
         next_steps = textwrap.dedent(
             f"""\
-            ✅ Track D workbook starter created at:
+            OK: Track D workbook starter created at:
 
                 {dest}
 
@@ -146,7 +146,7 @@ def cmd_workbook_init(args: argparse.Namespace) -> int:
     print(
         textwrap.dedent(
             f"""\
-            ✅ Workbook starter created at:
+            OK: Workbook starter created at:
 
                 {dest}
 
@@ -281,7 +281,7 @@ def cmd_workbook_run(args: argparse.Namespace) -> int:
 
     if not script.exists():
         print(
-            "❌ Could not find the script to run.\n"
+            "ERROR: Could not find the script to run.\n"
             f"   Looking for: {script}\n\n"
             "Tip: run this inside your workbook folder (created by `pystatsv1 workbook init`).\n"
             "     Or pass --workdir to point at it."
@@ -312,7 +312,7 @@ def cmd_workbook_check(args: argparse.Namespace) -> int:
 
     if not test_file.exists():
         print(
-            "❌ Could not find the test file to run.\n"
+            "ERROR: Could not find the test file to run.\n"
             f"   Looking for: {test_file}\n\n"
             "Tip: run this inside your workbook folder (created by `pystatsv1 workbook init`).\n"
             "     Or pass --workdir to point at it."
@@ -349,7 +349,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     in_venv = _in_venv()
     if not in_venv:
         print(
-            "⚠️  You are NOT in a virtual environment. This is OK, but not recommended.\n"
+            "WARNING: You are NOT in a virtual environment. This is OK, but not recommended.\n"
             "Create one and activate it first:\n"
             "  python -m venv .venv\n"
             "  source .venv/Scripts/activate   # Windows Git Bash\n"
@@ -379,7 +379,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     if missing:
         ok = False
         print(
-            "\n❌ Missing packages in this environment:\n  - "
+            "\nERROR: Missing packages in this environment:\n  - "
             + "\n  - ".join(missing)
             + "\n\nInstall the student bundle:\n"
             "  python -m pip install -U pip\n"
@@ -388,9 +388,9 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
     if ok:
         if in_venv:
-            print("✅ Environment looks good.")
+            print("OK: Environment looks good.")
         else:
-            print("✅ Packages look good (consider using a venv).")
+            print("OK: Packages look good (consider using a venv).")
         return 0
 
     return 1
@@ -410,7 +410,7 @@ def cmd_trackd_validate(args: argparse.Namespace) -> int:
     print(
         textwrap.dedent(
             f"""\
-            ✅ Track D dataset looks valid.
+            Track D dataset looks valid.
 
             Profile: {args.profile}
             Data directory: {Path(args.datadir).expanduser()}
@@ -435,12 +435,43 @@ def cmd_trackd_byod_init(args: argparse.Namespace) -> int:
     print(
         textwrap.dedent(
             f"""\
-            ✅ Track D BYOD project created at:\n
+            Track D BYOD project created at:\n
                 {root}\n
             Next steps:\n              1) cd {root}\n              2) Fill in the required CSVs in tables/\n              3) pystatsv1 trackd validate --datadir tables --profile {args.profile}\n            """
         ).rstrip()
     )
     return 0
+
+
+def cmd_trackd_byod_normalize(args: argparse.Namespace) -> int:
+    from pystatsv1.trackd import TrackDDataError, TrackDSchemaError
+    from pystatsv1.trackd.byod import normalize_byod_project
+
+    try:
+        report = normalize_byod_project(args.project, profile=args.profile)
+    except (TrackDDataError, TrackDSchemaError) as e:
+        print(str(e))
+        return 1
+
+    files = report.get("files", [])
+    written = "\n".join(f"  - {Path(f['dst']).name}" for f in files)
+
+    print(
+        textwrap.dedent(
+            f"""\
+            Track D BYOD normalization complete.
+
+            Profile: {report.get('profile')}
+            Project: {report.get('project')}
+            Input tables: {report.get('tables_dir')}
+            Output normalized: {report.get('normalized_dir')}
+            Wrote:\n{written}
+            """
+        ).rstrip()
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="pystatsv1",
@@ -559,6 +590,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="Allow writing into an existing non-empty directory.",
     )
     p_byod_init.set_defaults(func=cmd_trackd_byod_init)
+
+    p_byod_norm = byod_sub.add_parser(
+        "normalize",
+        help="Normalize BYOD tables/ into canonical normalized/ outputs (Phase 2 skeleton).",
+    )
+    p_byod_norm.add_argument(
+        "--project",
+        required=True,
+        help="Path to a BYOD project folder created by 'pystatsv1 trackd byod init'.",
+    )
+    p_byod_norm.add_argument(
+        "--profile",
+        default=None,
+        choices=["core_gl", "ar", "full"],
+        help="Override profile (default: read from config.toml).",
+    )
+    p_byod_norm.set_defaults(func=cmd_trackd_byod_normalize)
 
 
     return p
