@@ -187,8 +187,8 @@ payroll taxes will also appear to co-move with revenue.
 The controlled comparison (partial correlation) helps avoid a misleading story: “Revenue causes payroll taxes.”
 
 ## What we can and cannot claim
-✅ We can say: Revenue and payroll taxes move together in this dataset, and payroll explains much of that relationship.
-❌ We cannot say: Increasing revenue causes payroll taxes to rise (causal claim).
+- OK: Revenue and payroll taxes move together in this dataset, and payroll explains much of that relationship.
+- NOT OK: Increasing revenue causes payroll taxes to rise (a causal claim).
 
 ## Sensitivity check
 Leave-one-out naive correlation range: {loo_min:.3f} to {loo_max:.3f}

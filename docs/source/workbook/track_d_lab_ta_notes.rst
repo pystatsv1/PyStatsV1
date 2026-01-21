@@ -132,7 +132,7 @@ location. You now have a ready-to-run lab workspace.”
 
 Students should see a message like:
 
-- “✅ Track D workbook starter created at …”
+- “[OK] Track D workbook starter created at …”
 - “Datasets are pre-installed under ``data/synthetic/``, seed=123.”
 
 4.2 Why seed=123 matters

@@ -171,7 +171,7 @@ def print_quick_report(df: pd.DataFrame) -> None:
     if ID_COL in df.columns:
         dup = df[ID_COL].duplicated().sum()
         if dup:
-            print(f"\n⚠️  Duplicate {ID_COL} values: {dup}")
+            print(f"\n[WARN] Duplicate {ID_COL} values: {dup}")
 
     if GROUP_COL in df.columns:
         k = df[GROUP_COL].nunique(dropna=False)
@@ -182,7 +182,9 @@ def print_quick_report(df: pd.DataFrame) -> None:
 
     numeric = df.select_dtypes(include=["number"]).columns
     if len(numeric) == 0:
-        print("\n⚠️  No numeric columns detected. If numbers are stored as text, fix your CSV or edit the script.")
+        print(
+            "\n[WARN] No numeric columns detected. If numbers are stored as text, fix your CSV or edit the script."
+        )
     else:
         print("\nnumeric columns:")
         for c in numeric:

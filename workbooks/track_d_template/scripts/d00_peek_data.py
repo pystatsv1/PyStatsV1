@@ -43,7 +43,7 @@ def _preview_csv(path: Path, n: int = 5) -> str:
 def _peek_dataset(name: str, folder: Path, preview_rows: int) -> tuple[str, list[str]]:
     if not folder.exists():
         msg = (
-            f"⚠️  Missing dataset folder: {folder}\n"
+            f"[WARN] Missing dataset folder: {folder}\n"
             "If you just created this workbook, you may be on an older PyStatsV1 version.\n"
             "Update, then re-run workbook init:\n\n"
             "  python -m pip install -U pystatsv1\n"
@@ -54,7 +54,7 @@ def _peek_dataset(name: str, folder: Path, preview_rows: int) -> tuple[str, list
     csvs = sorted(folder.glob("*.csv"))
     if not csvs:
         msg = (
-            f"⚠️  No CSV files found in: {folder}\n"
+            f"[WARN] No CSV files found in: {folder}\n"
             "This workbook expects canonical datasets to exist under data/synthetic/.\n"
         )
         return msg, [msg]
@@ -116,7 +116,8 @@ def main(argv: list[str] | None = None) -> int:
     report = outdir / "d00_peek_data_summary.md"
     report.write_text("\n".join(sections).rstrip() + "\n", encoding="utf-8")
 
-    print(f"\n✅ Wrote summary: {report}")
+    # ASCII-only status marker for Windows consoles that default to cp1252.
+    print(f"\n[OK] Wrote summary: {report}")
     print("Tip: If you edited data/synthetic, run: pystatsv1 workbook run d00_setup_data --force")
     return 0
 
