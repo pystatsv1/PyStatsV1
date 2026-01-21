@@ -27,20 +27,25 @@ If you want to jump straight to analysis without running the normalization step 
 Option A — Build daily totals from your normalized tables
 ---------------------------------------------------------
 
-Assume your BYOD project is at ``byod/gnucash_demo`` and you have:
+Assume your BYOD project is at ``<BYOD_DIR>`` and you have:
 
-- ``byod/gnucash_demo/normalized/gl_journal.csv``
-- ``byod/gnucash_demo/normalized/chart_of_accounts.csv``
+- ``<BYOD_DIR>/normalized/gl_journal.csv``
+- ``<BYOD_DIR>/normalized/chart_of_accounts.csv``
 
 Run the built-in helper:
 
 .. code-block:: console
 
-   pystatsv1 trackd byod daily-totals --project byod/gnucash_demo
+   pystatsv1 trackd byod daily-totals --project <BYOD_DIR>
+
+   # (optional) choose an explicit output path
+   pystatsv1 trackd byod daily-totals --project <BYOD_DIR> --out <BYOD_DIR>/normalized/daily_totals.csv
+
+Need a reminder of options? Run: ``pystatsv1 trackd byod daily-totals --help``
 
 This writes:
 
-- ``byod/gnucash_demo/normalized/daily_totals.csv``
+- ``<BYOD_DIR>/normalized/daily_totals.csv``
 
 Option B — Quick first analysis (no repo clone required)
 --------------------------------------------------------
@@ -55,7 +60,9 @@ This snippet prints a few summary stats and writes a simple plot:
    import matplotlib.pyplot as plt
    from pathlib import Path
 
-   csv_path = Path("byod/gnucash_demo/normalized/daily_totals.csv")
+   project = Path("byod/gnucash_demo")  # <-- set to your BYOD project folder (e.g., "<BYOD_DIR>")
+
+   csv_path = project / "normalized" / "daily_totals.csv"
    outdir = Path("outputs/gnucash_demo")
    outdir.mkdir(parents=True, exist_ok=True)
 
