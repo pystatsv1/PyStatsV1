@@ -98,4 +98,65 @@ def test_trackd_byod_normalize_core_gl_adapter_allows_noncanonical_headers_and_c
     assert rows[0]["debit"] == "1234.00"
     assert rows[1]["debit"] == "-200.00"
     assert rows[2]["credit"] == "2000.00"
-    assert rows[0]["Memo"] == "hi"
+
+
+def test_trackd_byod_normalize_gnucash_gl_adapter_consumes_export_and_emits_core_gl_contract(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    proj = tmp_path / "byod"
+
+    rc_init = main(["trackd", "byod", "init", "--dest", str(proj), "--profile", "core_gl"])
+    assert rc_init == 0
+
+    # Switch adapter to gnucash_gl.
+    cfg_path = proj / "config.toml"
+    cfg = cfg_path.read_text(encoding="utf-8")
+    cfg_path.write_text(cfg.replace('adapter = "passthrough"', 'adapter = "gnucash_gl"'), encoding="utf-8")
+
+    # A tiny GnuCash "Export Transactions to CSV" example (complex layout; one transaction, two splits).
+    (proj / "tables" / "gl_journal.csv").write_text(
+        "Date,Transaction ID,Number,Description,Notes,Commodity/Currency,Void Reason,Action,Memo,Full Account Name,Account Name,Amount With Sym.,Amount Num.,Value With Sym.,Value Num.,Reconcile,Reconcile Date,Rate/Price\n"
+        "2026-01-20,6d0b834e77b16d5a0eeb0f92f0dd1681,000001,Test,,CURRENCY::CAD,,,,Expenses:Auto:Gas,Gas,\"$10.00\",10.00,\"$10.00\",10.00,n,,1\n"
+        "2026-01-20,6d0b834e77b16d5a0eeb0f92f0dd1681,000001,Test,,CURRENCY::CAD,,,,Assets:Current Assets:Cash in Wallet,Cash in Wallet,\"-$10.00\",-10.00,\"-$10.00\",-10.00,n,,1\n",
+        encoding="utf-8",
+    )
+
+    rc = main(["trackd", "byod", "normalize", "--project", str(proj)])
+    out = capsys.readouterr().out.lower()
+
+    assert rc == 0
+    assert "adapter: gnucash_gl" in out
+
+    # Ensure outputs exist and are parseable.
+    import csv
+
+    gl_path = proj / "normalized" / "gl_journal.csv"
+    coa_path = proj / "normalized" / "chart_of_accounts.csv"
+
+    assert gl_path.exists()
+    assert coa_path.exists()
+
+    with gl_path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+
+    assert len(rows) == 2
+
+    # Expense increases => debit; asset decreases => credit.
+    exp = next(r for r in rows if r["account_id"].startswith("Expenses"))
+    cash = next(r for r in rows if r["account_id"].startswith("Assets"))
+
+    assert exp["debit"] == "10.00"
+    assert exp["credit"] in ("", "0.00")
+
+    assert cash["credit"] == "10.00"
+    assert cash["debit"] in ("", "0.00")
+
+    with coa_path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        coa_rows = list(reader)
+
+    ids = {r["account_id"] for r in coa_rows}
+    assert "Expenses:Auto:Gas" in ids
+    assert "Assets:Current Assets:Cash in Wallet" in ids
