@@ -1,0 +1,5 @@
+# Track D BYOD project config
+[trackd]
+profile = "core_gl"
+tables_dir = "tables"
+adapter = "gnucash_gl"

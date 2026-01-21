@@ -1,0 +1,22 @@
+Date,Transaction ID,Number,Description,Full Account Name,Account Name,Amount (Num.)
+2026-01-01,TXN-0001,,Owner investment,Assets:Current Assets:Checking,Checking,5000.00
+2026-01-01,TXN-0001,,Owner investment,Equity:Owner Capital,Owner Capital,5000.00
+2026-01-02,TXN-0002,,Buy shipping supplies,Expenses:Supplies,Supplies,120.00
+2026-01-02,TXN-0002,,Buy shipping supplies,Assets:Current Assets:Checking,Checking,-120.00
+2026-01-03,TXN-0003,,Online sale (order #1001),Assets:Current Assets:Checking,Checking,250.00
+2026-01-03,TXN-0003,,Online sale (order #1001),Income:Sales,Sales,250.00
+2026-01-04,TXN-0004,,Rent payment,Expenses:Rent,Rent,800.00
+2026-01-04,TXN-0004,,Rent payment,Assets:Current Assets:Checking,Checking,-800.00
+2026-01-05,TXN-0005,,Online sale (order #1002),Assets:Current Assets:Checking,Checking,300.00
+2026-01-05,TXN-0005,,Online sale (order #1002),Income:Sales,Sales,300.00
+2026-01-05,TXN-0006,,Ship order #1001,Expenses:Shipping,Shipping,20.00
+2026-01-05,TXN-0006,,Ship order #1001,Assets:Current Assets:Checking,Checking,-20.00
+2026-01-06,TXN-0007,,Instagram ads,Expenses:Advertising,Advertising,50.00
+2026-01-06,TXN-0007,,Instagram ads,Assets:Current Assets:Checking,Checking,-50.00
+2026-01-07,TXN-0008,,Online sale (order #1003),Assets:Current Assets:Checking,Checking,180.00
+2026-01-07,TXN-0008,,Online sale (order #1003),Income:Sales,Sales,180.00
+2026-01-09,TXN-0009,,Online sale (order #1004) + sales tax,Assets:Current Assets:Checking,Checking,105.00
+2026-01-09,TXN-0009,,Online sale (order #1004) + sales tax,Income:Sales,Sales,100.00
+2026-01-09,TXN-0009,,Online sale (order #1004) + sales tax,Liabilities:Sales Tax Payable,Sales Tax Payable,5.00
+2026-01-10,TXN-0010,,Buy label printer (card),Assets:Equipment,Equipment,600.00
+2026-01-10,TXN-0010,,Buy label printer (card),Liabilities:Credit Card,Credit Card,600.00
