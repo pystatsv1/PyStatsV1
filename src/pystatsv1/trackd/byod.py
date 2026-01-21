@@ -17,7 +17,7 @@ import textwrap
 from pathlib import Path
 from typing import Any
 
-from ._errors import TrackDDataError
+from ._errors import TrackDDataError, TrackDSchemaError
 from ._types import PathLike
 from .adapters.base import NormalizeContext, TrackDAdapter
 from .contracts import ALLOWED_PROFILES, schemas_for_profile
@@ -244,9 +244,14 @@ def _get_adapter(name: str | None) -> TrackDAdapter:
     n = (name or "").strip().lower() or "passthrough"
     if n == "passthrough":
         return _PassthroughAdapter()
+    if n == "core_gl":
+        from .adapters.core_gl import CoreGLAdapter
+
+        return CoreGLAdapter()
     raise TrackDDataError(
-        f"Unknown adapter: {name}.\n" "Use one of: passthrough"
+        f"Unknown adapter: {name}.\n" "Use one of: passthrough, core_gl"
     )
+
 
 
 def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> dict[str, Any]:
@@ -293,8 +298,20 @@ def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> 
 
     adapter = _get_adapter(cfg.get("adapter"))
 
-    # Validate required schema issues first, so adapters can assume headers exist.
-    validate_dataset(tables_dir, profile=p)
+    # Validation strategy:
+    # - passthrough expects contract-shaped inputs under tables/
+    # - other adapters may accept non-canonical headers, so we validate after normalize
+    if getattr(adapter, "name", "") == "passthrough":
+        # Validate required schema issues first, so passthrough can assume headers exist.
+        validate_dataset(tables_dir, profile=p)
+    else:
+        # Light check: required files must exist; detailed schema validation runs on normalized outputs.
+        schemas = schemas_for_profile(p)
+        missing = [s.name for s in schemas if not (tables_dir / s.name).exists()]
+        if missing:
+            raise TrackDSchemaError(
+                "Missing required files in tables/: " + ", ".join(missing)
+            )
 
     ctx = NormalizeContext(
         project_root=root,
@@ -303,4 +320,10 @@ def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> 
         raw_dir=(root / "raw"),
         normalized_dir=(root / "normalized"),
     )
-    return adapter.normalize(ctx)
+    report = adapter.normalize(ctx)
+
+    if getattr(adapter, "name", "") != "passthrough":
+        # Ensure adapter output conforms to the Track D contract.
+        validate_dataset(ctx.normalized_dir, profile=p)
+
+    return report

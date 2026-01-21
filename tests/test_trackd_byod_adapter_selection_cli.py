@@ -21,3 +21,4 @@ def test_trackd_byod_normalize_uses_adapter_from_config(tmp_path: Path, capsys) 
     assert rc == 1
     assert "unknown adapter" in out
     assert "passthrough" in out
+    assert "core_gl" in out
