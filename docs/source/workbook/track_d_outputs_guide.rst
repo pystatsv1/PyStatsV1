@@ -172,15 +172,17 @@ This is a reliable "lab rhythm" that works for almost any Track D chapter:
 Optional: changing the output location
 --------------------------------------
 
-Most Track D scripts support an ``--outdir`` argument.
+Most Track D scripts support an ``--outdir`` argument **when you run the script directly**.
 
-This is useful if you want one folder per lab group, or you want to keep a "clean" outputs folder.
+The ``pystatsv1 workbook run ...`` command is the simplest way to run Track D, but it does not forward
+extra arguments to the underlying script. So if you want a custom outputs folder, run the script with Python:
 
 .. code-block:: console
 
-   pystatsv1 workbook run d01 --outdir outputs/track_d_groupA
+   # from inside your Track D workbook folder
+   python scripts/d01.py --outdir outputs/track_d_groupA
 
-If you are new to command-line tools, ignore this at first and use the default.
+If you are new to command-line tools, ignore this at first and use the default ``outputs/track_d`` folder.
 
 Common gotchas
 --------------

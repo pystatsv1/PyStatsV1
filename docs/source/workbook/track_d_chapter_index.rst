@@ -3,6 +3,8 @@ Track D chapter index (PyPI)
 
 This page is a "table of contents" for running Track D from the PyPI workbook.
 
+Track D is the “big picture” track: you’re learning how to do **statistics on accounting data** (not toy datasets) in a way that is repeatable, testable, and usable on your own books. The workflow loop is the same in every chapter: start from accounting tables (canonical demos or your own exports), normalize them into a consistent GL contract (see :doc:`track_d_byod`), validate the structure, then analyze with scripts that produce tidy CSVs, figures, and short JSON/MD summaries. In the PyPI workbook you run chapters with ``pystatsv1 workbook run dXX`` and outputs land under ``outputs/track_d/`` (see :doc:`track_d_outputs_guide`). When you bring your own data, you use the BYOD pipeline (export → ``tables/`` → normalize → ``normalized/`` → analyze); start at :doc:`track_d_byod` and :doc:`track_d_playbook/index` for the end-to-end “how it all fits together.” Keep asking one question as you go: *what does this accounting structure measure, and what statistical summary answers a real decision problem?*
+
 After you've initialized a Track D workbook:
 
 .. code-block:: bash

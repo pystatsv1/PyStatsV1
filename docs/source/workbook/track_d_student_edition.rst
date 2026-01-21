@@ -10,6 +10,14 @@ If you do only one thing first, do this:
 
 1) Follow the workbook quickstart.
 2) Run ``d00_peek_data`` to *see the data*.
+
+Big picture
+-----------
+
+If you want a quick map of how the Track D pieces fit together, read:
+
+- :doc:`Track D Playbook: Big Picture <track_d_playbook/index>`
+
 3) Run ``d01`` to *see the accounting invariants*.
 4) Use the “skill map” below to keep your bearings.
 

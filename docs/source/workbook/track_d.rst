@@ -28,6 +28,14 @@ What you get
 When you run ``pystatsv1 workbook init --track d``, PyStatsV1 creates a local
 folder containing:
 
+Big picture map (recommended)
+-----------------------------
+
+If you feel like you are learning lots of commands but losing the "why", read:
+
+- :doc:`Track D Playbook: Big Picture <track_d_playbook/index>`
+
+
 * convenience runner scripts (``d01`` … ``d23``) that map to Track D chapters
 * a reproducible, pre-installed dataset under ``data/synthetic/`` (seed=123)
 * an ``outputs/track_d/`` folder where results are written
