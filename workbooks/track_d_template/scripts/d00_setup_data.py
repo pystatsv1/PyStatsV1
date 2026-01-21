@@ -97,7 +97,8 @@ def main(argv: list[str] | None = None) -> int:
             ],
         )
 
-    print("\n✅ Datasets ready under:", root)
+    # ASCII-only status marker for Windows consoles that default to cp1252.
+    print("\n[OK] Datasets ready under:", root)
     print("   -", ledger_dir)
     print("   -", nso_dir)
     return 0

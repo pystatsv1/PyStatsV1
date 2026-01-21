@@ -209,7 +209,7 @@ The ``[workbook]`` part is important: it means "include the workbook extras".
 
 ``pystatsv1 doctor`` runs a quick health check. If you see::
 
-  ✅ Environment looks good.
+  [OK] Environment looks good.
 
 then your install is working.
 
