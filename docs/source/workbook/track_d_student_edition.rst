@@ -173,13 +173,17 @@ By the end of Track D you should be able to:
 - Produce a simple forecast and scenario analysis with clear assumptions.
 - Write a short memo that a manager could actually use.
 
+
 How to apply Track D to your own data
 -------------------------------------
 
 For a general starting point, see :doc:`my_own_data`.
 
-Track D will also include a Track D-specific “Bring Your Own Data” playbook that shows how to map real
-exports (QuickBooks / bank / invoices) to the same **dataset contract** used in the NSO synthetic case.
+For Track D specifically:
+
+- Start with :doc:`track_d_my_own_data` (what to analyze + what to check).
+- Use :doc:`track_d_byod` to turn a **real export** into Track D’s canonical tables (the BYOD pipeline).
+
 
 
 Next page

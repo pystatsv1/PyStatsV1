@@ -14,6 +14,13 @@ and your own accounting / bookkeeping / finance data.
 - run **checks** (duplicates, missingness, reconciliations)
 - produce **reproducible outputs** (tables + charts + short memo)
 
+.. tip::
+
+   If your starting point is a **real export** (GnuCash / QuickBooks / bank / invoices),
+   begin with :doc:`track_d_byod` to normalize it into Track D’s canonical tables.
+   Then come back to this page for the analysis checklist.
+
+
 If you haven’t yet, skim these pages first:
 
 - :doc:`track_d_student_edition` (entry point)
