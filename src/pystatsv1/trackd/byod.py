@@ -248,8 +248,12 @@ def _get_adapter(name: str | None) -> TrackDAdapter:
         from .adapters.core_gl import CoreGLAdapter
 
         return CoreGLAdapter()
+    if n == "gnucash_gl":
+        from .adapters.gnucash_gl import GnuCashGLAdapter
+
+        return GnuCashGLAdapter()
     raise TrackDDataError(
-        f"Unknown adapter: {name}.\n" "Use one of: passthrough, core_gl"
+        f"Unknown adapter: {name}.\n" "Use one of: passthrough, core_gl, gnucash_gl"
     )
 
 
