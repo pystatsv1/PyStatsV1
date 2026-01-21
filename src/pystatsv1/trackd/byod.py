@@ -15,10 +15,91 @@ from __future__ import annotations
 import csv
 import textwrap
 from pathlib import Path
+from typing import Any
 
 from ._errors import TrackDDataError
 from ._types import PathLike
 from .contracts import ALLOWED_PROFILES, schemas_for_profile
+
+
+def _read_trackd_config(project_root: Path) -> dict[str, str]:
+    """Read a tiny subset of config.toml.
+
+    The BYOD config is intentionally minimal (and write-only in the early PRs).
+    We parse just enough here to support normalization:
+
+    - [trackd].profile
+    - [trackd].tables_dir
+
+    Notes
+    -----
+    - We avoid adding a TOML dependency (Python 3.10).
+    - Unknown keys are ignored.
+    """
+
+    cfg_path = project_root / "config.toml"
+    if not cfg_path.exists():
+        return {}
+
+    section: str | None = None
+    out: dict[str, str] = {}
+
+    for raw in cfg_path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            section = line.strip("[]").strip()
+            continue
+        if section != "trackd" or "=" not in line:
+            continue
+
+        k, v = line.split("=", 1)
+        key = k.strip()
+        val = v.strip().strip('"').strip("'")
+        if key in {"profile", "tables_dir"}:
+            out[key] = val
+
+    return out
+
+
+def _normalize_csv(
+    src: Path, dst: Path, *, required_columns: tuple[str, ...]
+) -> dict[str, Any]:
+    """Write a normalized CSV with canonical column order.
+
+    - required columns appear first, in contract order
+    - any extra columns are preserved, appended in their original order
+    """
+
+    with src.open("r", newline="", encoding="utf-8-sig") as f_in:
+        reader = csv.DictReader(f_in)
+        if not reader.fieldnames:
+            # This should be caught by validate(), but keep a friendly message.
+            raise TrackDDataError(f"CSV appears to have no header row: {src.name}")
+
+        fieldnames = [str(c) for c in reader.fieldnames if c is not None]
+        required = list(required_columns)
+        required_set = set(required)
+        extras = [c for c in fieldnames if c not in required_set]
+        out_fields = required + extras
+
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        with dst.open("w", newline="", encoding="utf-8") as f_out:
+            writer = csv.DictWriter(f_out, fieldnames=out_fields)
+            writer.writeheader()
+            n_rows = 0
+            for row in reader:
+                out_row = {k: (row.get(k) or "") for k in out_fields}
+                writer.writerow(out_row)
+                n_rows += 1
+
+    return {
+        "src": str(src),
+        "dst": str(dst),
+        "written_rows": n_rows,
+        "written_columns": out_fields,
+    }
 
 
 def init_byod_project(dest: PathLike, *, profile: str = "core_gl", force: bool = False) -> Path:
@@ -122,3 +203,68 @@ def init_byod_project(dest: PathLike, *, profile: str = "core_gl", force: bool =
 
     (root / "README.md").write_text(readme, encoding="utf-8")
     return root
+
+
+def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> dict[str, Any]:
+    """Normalize BYOD project tables into ``normalized/`` outputs.
+
+    This is a *Phase 2 skeleton* implementation:
+    - validates required files + required columns (headers)
+    - re-writes CSVs in canonical contract column order
+
+    Parameters
+    ----------
+    project:
+        BYOD project root (created by :func:`init_byod_project`).
+    profile:
+        Optional override. If omitted, uses ``config.toml``.
+
+    Returns
+    -------
+    dict
+        Report dict with keys: ok, profile, project, tables_dir, normalized_dir, files.
+    """
+
+    from .validate import validate_dataset
+
+    root = Path(project).expanduser().resolve()
+    if not root.exists() or not root.is_dir():
+        raise TrackDDataError(f"Project directory not found: {root}")
+
+    cfg = _read_trackd_config(root)
+    p = (profile or cfg.get("profile") or "").strip().lower()
+    if not p:
+        raise TrackDDataError(
+            f"Missing profile for BYOD project: {root}\n"
+            "Fix: pass --profile <core_gl|ar|full> or create the project with 'pystatsv1 trackd byod init'."
+        )
+
+    tables_rel = cfg.get("tables_dir", "tables")
+    tables_dir = (root / tables_rel).resolve()
+    if not tables_dir.exists() or not tables_dir.is_dir():
+        raise TrackDDataError(
+            f"Tables directory not found: {tables_dir}\n"
+            "Hint: your BYOD project should contain a 'tables/' folder."
+        )
+
+    # Validate required schema issues first, so normalization can assume headers exist.
+    validate_dataset(tables_dir, profile=p)
+
+    schemas = schemas_for_profile(p)
+    out_dir = root / "normalized"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    files: list[dict[str, Any]] = []
+    for schema in schemas:
+        src = tables_dir / schema.name
+        dst = out_dir / schema.name
+        files.append(_normalize_csv(src, dst, required_columns=schema.required_columns))
+
+    return {
+        "ok": True,
+        "profile": p,
+        "project": str(root),
+        "tables_dir": str(tables_dir),
+        "normalized_dir": str(out_dir),
+        "files": files,
+    }
