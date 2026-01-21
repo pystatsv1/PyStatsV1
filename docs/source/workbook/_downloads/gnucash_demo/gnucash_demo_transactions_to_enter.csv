@@ -1,0 +1,11 @@
+step,date,where_to_enter,description,transfer_to,amount,notes
+1,2026-01-01,Checking register,Owner investment,Equity:Owner Capital,+5000.00,Deposit into checking; transfer to Owner Capital.
+2,2026-01-02,Checking register,Buy shipping supplies,Expenses:Supplies,-120.00,Withdrawal from checking; expense increases.
+3,2026-01-03,Checking register,Online sale (order #1001),Income:Sales,+250.00,Deposit; transfer to Sales income.
+4,2026-01-04,Checking register,Rent payment,Expenses:Rent,-800.00,Withdrawal; rent expense.
+5,2026-01-05,Checking register,Online sale (order #1002),Income:Sales,+300.00,Deposit; transfer to Sales income.
+6,2026-01-05,Checking register,Ship order #1001,Expenses:Shipping,-20.00,Withdrawal; shipping expense.
+7,2026-01-06,Checking register,Instagram ads,Expenses:Advertising,-50.00,Withdrawal; advertising expense.
+8,2026-01-07,Checking register,Online sale (order #1003),Income:Sales,+180.00,Deposit; transfer to Sales income.
+9,2026-01-09,Checking register (split),Online sale (order #1004) + sales tax,Split: Income:Sales (100) AND Liabilities:Sales Tax Payable (5),+105.00,Use a split transaction so the deposit equals 105.
+10,2026-01-10,Credit Card register,Buy label printer (card),Assets:Equipment,+600.00,Charge on card; transfer to Equipment asset (shows as an increase).
