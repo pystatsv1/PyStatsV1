@@ -19,6 +19,7 @@ from typing import Any
 
 from ._errors import TrackDDataError
 from ._types import PathLike
+from .adapters.base import NormalizeContext, TrackDAdapter
 from .contracts import ALLOWED_PROFILES, schemas_for_profile
 
 
@@ -30,6 +31,7 @@ def _read_trackd_config(project_root: Path) -> dict[str, str]:
 
     - [trackd].profile
     - [trackd].tables_dir
+    - [trackd].adapter
 
     Notes
     -----
@@ -57,7 +59,7 @@ def _read_trackd_config(project_root: Path) -> dict[str, str]:
         k, v = line.split("=", 1)
         key = k.strip()
         val = v.strip().strip('"').strip("'")
-        if key in {"profile", "tables_dir"}:
+        if key in {"profile", "tables_dir", "adapter"}:
             out[key] = val
 
     return out
@@ -169,6 +171,7 @@ def init_byod_project(dest: PathLike, *, profile: str = "core_gl", force: bool =
         [trackd]
         profile = "{p}"
         tables_dir = "tables"
+        adapter = "passthrough"
         """
     ).lstrip()
     (root / "config.toml").write_text(config, encoding="utf-8")
@@ -205,6 +208,47 @@ def init_byod_project(dest: PathLike, *, profile: str = "core_gl", force: bool =
     return root
 
 
+class _PassthroughAdapter:
+    """Sheets-first adapter: treat tables/ as already canonical.
+
+    Normalization for this adapter means:
+    - enforce required headers exist (handled before calling the adapter)
+    - write out normalized/*.csv with contract column ordering
+    - preserve any extra columns (appended)
+    """
+
+    name = "passthrough"
+
+    def normalize(self, ctx: NormalizeContext) -> dict[str, Any]:
+        schemas = schemas_for_profile(ctx.profile)
+        ctx.normalized_dir.mkdir(parents=True, exist_ok=True)
+
+        files: list[dict[str, Any]] = []
+        for schema in schemas:
+            src = ctx.tables_dir / schema.name
+            dst = ctx.normalized_dir / schema.name
+            files.append(_normalize_csv(src, dst, required_columns=schema.required_columns))
+
+        return {
+            "ok": True,
+            "adapter": self.name,
+            "profile": ctx.profile,
+            "project": str(ctx.project_root),
+            "tables_dir": str(ctx.tables_dir),
+            "normalized_dir": str(ctx.normalized_dir),
+            "files": files,
+        }
+
+
+def _get_adapter(name: str | None) -> TrackDAdapter:
+    n = (name or "").strip().lower() or "passthrough"
+    if n == "passthrough":
+        return _PassthroughAdapter()
+    raise TrackDDataError(
+        f"Unknown adapter: {name}.\n" "Use one of: passthrough"
+    )
+
+
 def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> dict[str, Any]:
     """Normalize BYOD project tables into ``normalized/`` outputs.
 
@@ -222,7 +266,7 @@ def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> 
     Returns
     -------
     dict
-        Report dict with keys: ok, profile, project, tables_dir, normalized_dir, files.
+        Report dict with keys: ok, adapter, profile, project, tables_dir, normalized_dir, files.
     """
 
     from .validate import validate_dataset
@@ -247,24 +291,16 @@ def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> 
             "Hint: your BYOD project should contain a 'tables/' folder."
         )
 
-    # Validate required schema issues first, so normalization can assume headers exist.
+    adapter = _get_adapter(cfg.get("adapter"))
+
+    # Validate required schema issues first, so adapters can assume headers exist.
     validate_dataset(tables_dir, profile=p)
 
-    schemas = schemas_for_profile(p)
-    out_dir = root / "normalized"
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    files: list[dict[str, Any]] = []
-    for schema in schemas:
-        src = tables_dir / schema.name
-        dst = out_dir / schema.name
-        files.append(_normalize_csv(src, dst, required_columns=schema.required_columns))
-
-    return {
-        "ok": True,
-        "profile": p,
-        "project": str(root),
-        "tables_dir": str(tables_dir),
-        "normalized_dir": str(out_dir),
-        "files": files,
-    }
+    ctx = NormalizeContext(
+        project_root=root,
+        profile=p,
+        tables_dir=tables_dir,
+        raw_dir=(root / "raw"),
+        normalized_dir=(root / "normalized"),
+    )
+    return adapter.normalize(ctx)

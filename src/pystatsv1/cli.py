@@ -461,6 +461,7 @@ def cmd_trackd_byod_normalize(args: argparse.Namespace) -> int:
             f"""\
             Track D BYOD normalization complete.
 
+            Adapter: {report.get('adapter')}
             Profile: {report.get('profile')}
             Project: {report.get('project')}
             Input tables: {report.get('tables_dir')}
