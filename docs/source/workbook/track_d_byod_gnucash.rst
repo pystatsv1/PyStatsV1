@@ -4,7 +4,10 @@
 Track D BYOD with GnuCash (core_gl profile)
 ===========================================
 
-GnuCash is a **free, open-source** double-entry accounting system.
+GnuCash is a **free, open-source** double-entry accounting system. 
+
+Note that in the commands below, replace <BYOD_DIR> with your project folder (for example: byod/gnucash_demo).
+
 In Track D, we use it as a “real but accessible” source system:
 
 - it produces realistic **multi-line split** exports (not toy spreadsheets)
@@ -87,7 +90,9 @@ From any folder you like (your BYOD projects can live anywhere):
 
 .. code-block:: console
 
-   pystatsv1 trackd byod init --dest byod/gnucash_demo --profile core_gl
+   pystatsv1 trackd byod init --dest <BYOD_DIR> --profile core_gl
+
+Need a reminder of options? Run: ``pystatsv1 trackd byod init --help``
 
 This creates:
 
@@ -100,7 +105,7 @@ Step 5 — Point the project at the GnuCash adapter
 
 Open:
 
-``byod/gnucash_demo/config.toml``
+``<BYOD_DIR>/config.toml``
 
 Change:
 
@@ -116,26 +121,27 @@ Step 6 — Place your export in the expected location
 
 Copy your GnuCash export CSV to:
 
-``byod/gnucash_demo/tables/gl_journal.csv``
+``<BYOD_DIR>/tables/gl_journal.csv``
 
 Yes, the file is called ``gl_journal.csv`` even though it is still “raw export.”
 The adapter reads this file and writes the canonical tables to ``normalized/``.
 
-If you want to test without GnuCash, copy the demo export instead:
-
-If you installed PyStatsV1 from PyPI (no repo clone), download **"Demo export (complex/multi-line)"** above
-and copy that file to ``byod/gnucash_demo/tables/gl_journal.csv``.
-
-If you have the repo source code, you can copy the demo export from this docs folder:
-
+If you downloaded the demo export from this page (PyPI users), copy it into place:
 
 .. code-block:: console
 
-   # (Windows PowerShell)
-   copy docs\source\workbook\_downloads\gnucash_demo\gnucash_demo_export_complex.csv byod\gnucash_demo\tables\gl_journal.csv
+   # Windows (PowerShell)
+   Copy-Item "<PATH_TO_DOWNLOADED_EXPORT_CSV>" (Join-Path "<BYOD_DIR>" "tables\gl_journal.csv")
 
-   # (macOS/Linux)
-   cp docs/source/workbook/_downloads/gnucash_demo/gnucash_demo_export_complex.csv byod/gnucash_demo/tables/gl_journal.csv
+   # Windows (Git Bash)
+   cp "<PATH_TO_DOWNLOADED_EXPORT_CSV>" "<BYOD_DIR>/tables/gl_journal.csv"
+
+   # macOS/Linux
+   cp "<PATH_TO_DOWNLOADED_EXPORT_CSV>" "<BYOD_DIR>/tables/gl_journal.csv"
+
+If you have the repo source code, the same demo export also lives here:
+
+- ``docs/source/workbook/_downloads/gnucash_demo/gnucash_demo_export_complex.csv``
 
 Step 7 — Normalize
 ------------------
@@ -144,19 +150,22 @@ Run:
 
 .. code-block:: console
 
-   pystatsv1 trackd byod normalize --project byod/gnucash_demo
+   pystatsv1 trackd byod normalize --project <BYOD_DIR>
+
+   # (optional) override profile explicitly
+   pystatsv1 trackd byod normalize --project <BYOD_DIR> --profile core_gl
 
 You should now have:
 
-- ``byod/gnucash_demo/normalized/chart_of_accounts.csv``
-- ``byod/gnucash_demo/normalized/gl_journal.csv``
+- ``<BYOD_DIR>/normalized/chart_of_accounts.csv``
+- ``<BYOD_DIR>/normalized/gl_journal.csv``
 
 Step 8 — Validate the normalized tables
 ---------------------------------------
 
 .. code-block:: console
 
-   pystatsv1 trackd validate --datadir byod/gnucash_demo/normalized --profile core_gl
+   pystatsv1 trackd validate --datadir <BYOD_DIR>/normalized --profile core_gl
 
 Step 9 — Do a first analysis
 ----------------------------

@@ -7,7 +7,7 @@ Track D BYOD: Bring Your Own Data
 Track D is built around a realistic accounting case study (NSO), but the *skills* are meant to transfer.
 
 This BYOD (Bring Your Own Data) pipeline lets you take **real exports** (from a bookkeeping/accounting system)
-and convert them into the same **Track D dataset contract** used in the workbook.
+and convert them into the same **Track D dataset contract** used in the workbook. In the commands below, replace <BYOD_DIR> with your project folder (for example: byod/gnucash_demo).
 
 What “BYOD” means in Track D
 ----------------------------
@@ -23,13 +23,18 @@ The core idea is: *separate the messy export from the clean analysis tables*.
 Quick start (template)
 ----------------------
 
+If an option name ever changes, the source of truth is always the CLI help:
+
+- ``pystatsv1 trackd byod --help``
+- ``pystatsv1 trackd byod init --help``
+
 Create a BYOD project folder (this writes header-only templates under ``tables/``):
 
 .. code-block:: console
 
-   pystatsv1 trackd byod init --dest byod/my_project --profile core_gl
+   pystatsv1 trackd byod init --dest <BYOD_DIR> --profile core_gl
 
-Edit ``byod/my_project/config.toml`` to choose an adapter (examples):
+Edit ``<BYOD_DIR>/config.toml`` to choose an adapter (examples):
 
 - ``adapter = "passthrough"`` — your ``tables/`` files are already in Track D’s canonical format
 - ``adapter = "core_gl"`` — generic GL export adapter (varies by source)
@@ -39,18 +44,21 @@ Then normalize:
 
 .. code-block:: console
 
-   pystatsv1 trackd byod normalize --project byod/my_project
+   pystatsv1 trackd byod normalize --project <BYOD_DIR>
+
+   # (optional) override profile explicitly
+   pystatsv1 trackd byod normalize --project <BYOD_DIR> --profile core_gl
 
 You should now have:
 
-- ``byod/my_project/normalized/chart_of_accounts.csv``
-- ``byod/my_project/normalized/gl_journal.csv``
+- ``<BYOD_DIR>/normalized/chart_of_accounts.csv``
+- ``<BYOD_DIR>/normalized/gl_journal.csv``
 
 Validate the normalized tables:
 
 .. code-block:: console
 
-   pystatsv1 trackd validate --datadir byod/my_project/normalized --profile core_gl
+   pystatsv1 trackd validate --datadir <BYOD_DIR>/normalized --profile core_gl
 
 PyPI-only setup (no Git required)
 ----------------------------------------------
@@ -79,6 +87,12 @@ If you just want to *use* Track D tools (you don’t need to clone the repo):
 .. code-block:: console
 
    pystatsv1 doctor
+
+Need a reminder of commands?
+
+.. code-block:: console
+
+   pystatsv1 trackd byod --help
 
 Next: choose a tutorial
 -----------------------

@@ -20,7 +20,5 @@ PyStatsV1 Workbook
    track_d_outputs_guide
    track_d_my_own_data
    track_d_byod
-   track_d_byod_gnucash
-   track_d_byod_gnucash_demo_analysis
    track_d_assignments
    track_d_lab_ta_notes
