@@ -13,6 +13,8 @@ single source of truth stays in one place.
 from __future__ import annotations
 
 import csv
+from collections import defaultdict
+from decimal import Decimal, InvalidOperation
 import textwrap
 from pathlib import Path
 from typing import Any
@@ -331,3 +333,142 @@ def normalize_byod_project(project: PathLike, *, profile: str | None = None) -> 
         validate_dataset(ctx.normalized_dir, profile=p)
 
     return report
+
+
+# --- Phase 3 helper: daily totals from normalized GL ---
+
+def _parse_decimal_money(value: str) -> Decimal:
+    """Parse a money-like string into a Decimal.
+
+    Notes
+    -----
+    - Accepts blanks and treats them as zero.
+    - Strips commas so values like "1,234.56" work.
+    """
+
+    raw = (value or "").strip()
+    if raw == "":
+        return Decimal("0")
+
+    cleaned = raw.replace(",", "")
+    try:
+        return Decimal(cleaned)
+    except InvalidOperation as exc:
+        raise TrackDDataError(f"Invalid money amount: {value!r}") from exc
+
+
+def _fmt_2dp(x: Decimal) -> str:
+    q = x.quantize(Decimal("0.01"))
+    return f"{q:.2f}"
+
+
+def build_daily_totals(project: PathLike, *, out: PathLike | None = None) -> dict[str, Any]:
+    """Compute daily revenue/expense proxies from normalized Track D tables.
+
+    This helper is designed for students using **pip-installed** PyStatsV1.
+    It turns:
+
+    - normalized/gl_journal.csv
+    - normalized/chart_of_accounts.csv
+
+    into a small analysis-ready table:
+
+    - date
+    - revenue_proxy   (net credits to Revenue accounts)
+    - expenses_proxy  (net debits to Expense accounts)
+    - net_proxy       (revenue_proxy - expenses_proxy)
+
+    Parameters
+    ----------
+    project:
+        BYOD project root (created by ``pystatsv1 trackd byod init``).
+    out:
+        Optional output CSV path. Default: ``<project>/normalized/daily_totals.csv``.
+
+    Returns
+    -------
+    dict
+        Report with keys: ok, project, out, days, rows.
+    """
+
+    root = Path(project).expanduser().resolve()
+    normalized = root / "normalized"
+    gl_path = normalized / "gl_journal.csv"
+    coa_path = normalized / "chart_of_accounts.csv"
+
+    if not gl_path.exists():
+        raise TrackDDataError(
+            f"Missing normalized/gl_journal.csv under: {root}\n"
+            "Run: pystatsv1 trackd byod normalize --project <project>"
+        )
+    if not coa_path.exists():
+        raise TrackDDataError(
+            f"Missing normalized/chart_of_accounts.csv under: {root}\n"
+            "Run: pystatsv1 trackd byod normalize --project <project>"
+        )
+
+    # Map account_id -> account_type
+    acct_type: dict[str, str] = {}
+    with coa_path.open("r", newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            aid = (row.get("account_id") or "").strip()
+            at = (row.get("account_type") or "").strip()
+            if aid:
+                acct_type[aid] = at
+
+    rev_by_date: dict[str, Decimal] = defaultdict(lambda: Decimal("0"))
+    exp_by_date: dict[str, Decimal] = defaultdict(lambda: Decimal("0"))
+
+    with gl_path.open("r", newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            date = (row.get("date") or "").strip()
+            if not date:
+                continue
+
+            aid = (row.get("account_id") or "").strip()
+            at = acct_type.get(aid, "")
+
+            debit = _parse_decimal_money(row.get("debit") or "")
+            credit = _parse_decimal_money(row.get("credit") or "")
+
+            if at == "Revenue":
+                # Revenue is credit-normal; net revenue is credits minus debits.
+                rev_by_date[date] += credit - debit
+            elif at == "Expense":
+                # Expenses are debit-normal; net expense is debits minus credits.
+                exp_by_date[date] += debit - credit
+
+    out_path = Path(out).expanduser().resolve() if out else (normalized / "daily_totals.csv")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    dates = sorted(set(rev_by_date) | set(exp_by_date))
+
+    with out_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=("date", "revenue_proxy", "expenses_proxy", "net_proxy"),
+        )
+        writer.writeheader()
+        rows = 0
+        for d in dates:
+            r = rev_by_date.get(d, Decimal("0"))
+            e = exp_by_date.get(d, Decimal("0"))
+            writer.writerow(
+                {
+                    "date": d,
+                    "revenue_proxy": _fmt_2dp(r),
+                    "expenses_proxy": _fmt_2dp(e),
+                    "net_proxy": _fmt_2dp(r - e),
+                }
+            )
+            rows += 1
+
+    return {
+        "ok": True,
+        "project": str(root),
+        "out": str(out_path),
+        "days": len(dates),
+        "rows": rows,
+    }

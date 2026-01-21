@@ -49,3 +49,21 @@ def test_trackd_byod_gnucash_demo_example_smoke(tmp_path: Path) -> None:
     ids = {r["account_id"] for r in coa_rows}
     assert "Assets:Current Assets:Checking" in ids
     assert "Equity:Owner Capital" in ids
+
+    # Daily totals helper (analysis-ready)
+    rc2 = main(["trackd", "byod", "daily-totals", "--project", str(proj)])
+    assert rc2 == 0
+
+    daily_path = normalized / "daily_totals.csv"
+    assert daily_path.exists()
+
+    with daily_path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        assert reader.fieldnames is not None
+        for col in ("date", "revenue_proxy", "expenses_proxy", "net_proxy"):
+            assert col in reader.fieldnames
+        daily_rows = list(reader)
+
+    assert daily_rows
+    total_rev = sum(float(r["revenue_proxy"] or 0.0) for r in daily_rows)
+    assert total_rev > 0.0

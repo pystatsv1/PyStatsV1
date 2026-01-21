@@ -52,6 +52,34 @@ Validate the normalized tables:
 
    pystatsv1 trackd validate --datadir byod/my_project/normalized --profile core_gl
 
+PyPI-only setup (no Git required)
+----------------------------------------------
+
+If you just want to *use* Track D tools (you don’t need to clone the repo):
+
+1. Create a virtual environment.
+2. Install PyStatsV1 from PyPI.
+3. Use the CLI + the workbook downloads in this section.
+
+.. code-block:: console
+
+   python -m venv .venv
+
+   # Windows (Git Bash)
+   source .venv/Scripts/activate
+
+   # macOS/Linux
+   # source .venv/bin/activate
+
+   python -m pip install -U pip
+   pip install "pystatsv1[workbook]"
+
+(Optional) sanity check:
+
+.. code-block:: console
+
+   pystatsv1 doctor
+
 Next: choose a tutorial
 -----------------------
 

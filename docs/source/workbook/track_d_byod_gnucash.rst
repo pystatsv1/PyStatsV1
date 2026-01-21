@@ -83,7 +83,7 @@ Export a CSV that includes your accounts and the date range that covers your dem
 Step 4 — Initialize a Track D BYOD project
 ------------------------------------------
 
-From your PyStatsV1 repo root (or any folder you like):
+From any folder you like (your BYOD projects can live anywhere):
 
 .. code-block:: console
 
@@ -122,6 +122,12 @@ Yes, the file is called ``gl_journal.csv`` even though it is still “raw export
 The adapter reads this file and writes the canonical tables to ``normalized/``.
 
 If you want to test without GnuCash, copy the demo export instead:
+
+If you installed PyStatsV1 from PyPI (no repo clone), download **"Demo export (complex/multi-line)"** above
+and copy that file to ``byod/gnucash_demo/tables/gl_journal.csv``.
+
+If you have the repo source code, you can copy the demo export from this docs folder:
+
 
 .. code-block:: console
 

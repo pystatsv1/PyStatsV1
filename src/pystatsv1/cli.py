@@ -473,6 +473,30 @@ def cmd_trackd_byod_normalize(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_trackd_byod_daily_totals(args: argparse.Namespace) -> int:
+    from pystatsv1.trackd import TrackDDataError
+    from pystatsv1.trackd.byod import build_daily_totals
+
+    try:
+        report = build_daily_totals(args.project, out=args.out)
+    except TrackDDataError as e:
+        print(str(e))
+        return 1
+
+    print(
+        textwrap.dedent(
+            f"""\
+            Track D BYOD daily totals written.
+
+            Project: {report.get('project')}
+            Output: {report.get('out')}
+            Days: {report.get('days')}
+            """
+        ).rstrip()
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="pystatsv1",
@@ -609,6 +633,21 @@ def build_parser() -> argparse.ArgumentParser:
     )
     p_byod_norm.set_defaults(func=cmd_trackd_byod_normalize)
 
+    p_byod_daily = byod_sub.add_parser(
+        "daily-totals",
+        help="Compute daily revenue/expense proxies from normalized tables.",
+    )
+    p_byod_daily.add_argument(
+        "--project",
+        required=True,
+        help="Path to a BYOD project folder created by 'pystatsv1 trackd byod init'.",
+    )
+    p_byod_daily.add_argument(
+        "--out",
+        default=None,
+        help="Optional output CSV path (default: <project>/normalized/daily_totals.csv).",
+    )
+    p_byod_daily.set_defaults(func=cmd_trackd_byod_daily_totals)
 
     return p
 

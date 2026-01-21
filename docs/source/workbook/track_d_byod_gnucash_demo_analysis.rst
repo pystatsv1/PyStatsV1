@@ -13,8 +13,9 @@ What we’ll build
 A small daily table:
 
 - ``date``
-- ``revenue_proxy`` (credits to Income accounts)
-- ``expenses_proxy`` (debits to Expense accounts)
+- ``revenue_proxy`` (net credits to Revenue accounts)
+- ``expenses_proxy`` (net debits to Expense accounts)
+- ``net_proxy`` (revenue_proxy − expenses_proxy)
 
 Download (prebuilt)
 -------------------
@@ -31,62 +32,42 @@ Assume your BYOD project is at ``byod/gnucash_demo`` and you have:
 - ``byod/gnucash_demo/normalized/gl_journal.csv``
 - ``byod/gnucash_demo/normalized/chart_of_accounts.csv``
 
-Create a tiny script (for example ``scripts/gnucash_daily_totals.py``) with:
-
-.. code-block:: python
-
-   from pathlib import Path
-   import pandas as pd
-
-   root = Path("byod/gnucash_demo")
-
-   gl = pd.read_csv(root / "normalized" / "gl_journal.csv")
-   coa = pd.read_csv(root / "normalized" / "chart_of_accounts.csv")
-
-   gl["date"] = pd.to_datetime(gl["date"], errors="coerce")
-
-   gl["debit"] = pd.to_numeric(gl["debit"], errors="coerce").fillna(0.0)
-   gl["credit"] = pd.to_numeric(gl["credit"], errors="coerce").fillna(0.0)
-
-   gl = gl.merge(coa[["account_id", "account_type"]], on="account_id", how="left")
-
-   revenue = (
-       gl.query("account_type == 'Income'")
-         .groupby(gl["date"].dt.date)["credit"]
-         .sum()
-         .rename("revenue_proxy")
-   )
-
-   expenses = (
-       gl.query("account_type == 'Expenses'")
-         .groupby(gl["date"].dt.date)["debit"]
-         .sum()
-         .rename("expenses_proxy")
-   )
-
-   daily = (
-       pd.concat([revenue, expenses], axis=1)
-         .fillna(0.0)
-         .reset_index()
-         .rename(columns={"index": "date"})
-   )
-
-   out = root / "normalized" / "daily_totals.csv"
-   daily.to_csv(out, index=False)
-   print("Wrote:", out)
-   print(daily)
-
-Option B — Run the existing “My Own Data” explore scaffold
-----------------------------------------------------------
-
-PyStatsV1 includes a beginner-friendly scaffold script:
-
-``scripts/my_data_01_explore.py``
-
-Run it against the daily totals CSV (either the prebuilt download, or the file you generated above):
+Run the built-in helper:
 
 .. code-block:: console
 
-   python scripts/my_data_01_explore.py --csv byod/gnucash_demo/normalized/daily_totals.csv --outdir outputs/gnucash_demo
+   pystatsv1 trackd byod daily-totals --project byod/gnucash_demo
 
-This will write a few simple outputs under ``outputs/gnucash_demo/`` (tables + quick plots).
+This writes:
+
+- ``byod/gnucash_demo/normalized/daily_totals.csv``
+
+Option B — Quick first analysis (no repo clone required)
+--------------------------------------------------------
+
+Once you have ``normalized/daily_totals.csv``, you can do a quick first pass with pandas.
+This snippet prints a few summary stats and writes a simple plot:
+
+.. code-block:: console
+
+   python - <<'PY'
+   import pandas as pd
+   import matplotlib.pyplot as plt
+   from pathlib import Path
+
+   csv_path = Path("byod/gnucash_demo/normalized/daily_totals.csv")
+   outdir = Path("outputs/gnucash_demo")
+   outdir.mkdir(parents=True, exist_ok=True)
+
+   df = pd.read_csv(csv_path, parse_dates=["date"])
+   df = df.sort_values("date")
+
+   print(df.describe(include="all"))
+
+   ax = df.plot(x="date", y=["revenue_proxy", "expenses_proxy", "net_proxy"])
+   ax.figure.tight_layout()
+   ax.figure.savefig(outdir / "daily_totals.png")
+   print(f"Wrote: {outdir / 'daily_totals.png'}")
+   PY
+
+(If you *are* working from the repo source, you can also adapt ``scripts/my_data_01_explore.py`` to your needs.)
