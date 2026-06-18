@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pystatsv1"
-version = "0.22.4"
+version = "0.23.0"
 description = "PyStatsV1: applied statistics labs in Python."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -36,6 +36,8 @@ dev = [
   "pytest>=8.2",
   "ruff>=0.6",
   "black>=24.0",
+  "tomli>=2.0; python_version < '3.11'",
+  "build>=1.2",
 ]
 
 # Docs bundle: for building Sphinx locally.

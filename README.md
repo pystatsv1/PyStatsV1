@@ -48,6 +48,25 @@ pystatsv1-docs
 
 Tip: the online docs are always available via the ReadTheDocs badge at the top of this README.
 
+## 🧠 Psychology support helpers (v0.23.0)
+
+PyStatsV1 v0.23.0 adds a small public `pystatsv1.psych` helper layer for proof-first psychology and APA-style companion labs. These helpers are intentionally modest: they do **not** replace SciPy, statsmodels, Pingouin, or R for inferential statistics. They provide a reusable bridge for identity receipts, descriptive summaries, stable JSON receipts, and numeric parity comparisons.
+
+```python
+from pystatsv1.psych import (
+    package_identity,
+    describe_by_group,
+    write_json_receipt,
+    compare_numeric_results,
+)
+```
+
+This supports the companion-lab positioning:
+
+> Python for the workflow. R for verification. PyStatsV1 for the bridge.
+
+See `docs/source/psych_support_helpers.rst` and `docs/source/release_notes.rst` for details.
+
 ## Full repository (scripts, Makefile targets, tests, docs)
 
 

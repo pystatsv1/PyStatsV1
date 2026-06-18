@@ -1,9 +1,10 @@
 name: Publish to PyPI (trusted publisher)
 
+# Release policy: CI runs on v* tags first. Publish only after the tag CI is green.
+# Run manually against the release tag, for example:
+#   gh workflow run pypi-publish.yml --ref v0.23.0
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
 
 jobs:
   build-and-publish:

@@ -54,6 +54,14 @@ See :doc:`getting_started` and :doc:`contributing` for the contributor workflow.
 
    workbook/index
 
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Project docs
+
+   release_notes
+   psych_support_helpers
+
 .. toctree::
    :maxdepth: 2
    :caption: Track A – Applied Statistics with Python (Regression)
