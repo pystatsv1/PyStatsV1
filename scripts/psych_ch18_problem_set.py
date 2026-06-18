@@ -23,6 +23,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pingouin as pg
+
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
 import statsmodels.formula.api as smf
 from statsmodels.stats.anova import anova_lm
 
@@ -94,7 +100,9 @@ def simulate_ancova_dataset(
 
 def run_ancova(data: pd.DataFrame) -> pd.DataFrame:
     """Run ANCOVA: posttest ~ group + pretest."""
-    return pg.ancova(data=data, dv="posttest", covar="pretest", between="group")
+    return add_pingouin_legacy_aliases(
+        pg.ancova(data=data, dv="posttest", covar="pretest", between="group")
+    )
 
 
 def run_slopes_test(data: pd.DataFrame) -> pd.DataFrame:

@@ -19,6 +19,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 
 def simulate_mixed_design_data(
     n_per_group: int = 20,
@@ -86,7 +92,7 @@ def run_pingouin_mixed_anova(df_long: pd.DataFrame) -> pd.DataFrame:
         data=df_long,
         effsize="np2",
     )
-    return anova_table
+    return add_pingouin_legacy_aliases(anova_table)
 
 
 def main() -> None:

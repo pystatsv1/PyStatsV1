@@ -23,6 +23,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SYNTHETIC_DATA_DIR = PROJECT_ROOT / "data" / "synthetic"
@@ -137,7 +143,7 @@ def run_mixed_anova(data: pd.DataFrame) -> pd.DataFrame:
         between="group",
         subject="subject",
     )
-    return table
+    return add_pingouin_legacy_aliases(table)
 
 
 def _cell_means(data: pd.DataFrame) -> pd.DataFrame:

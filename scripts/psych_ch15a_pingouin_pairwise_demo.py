@@ -5,6 +5,12 @@ from typing import Final
 
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports direct script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 from scripts.psych_ch15_correlation import simulate_psych_correlation_dataset
 
 ROOT: Final[Path] = Path(__file__).resolve().parents[1]
@@ -46,7 +52,7 @@ def compute_pairwise_corr(
         method=method,
         padjust=padjust,
     )
-    return pairwise
+    return add_pingouin_legacy_aliases(pairwise)
 
 
 def run_pairwise_demo() -> None:

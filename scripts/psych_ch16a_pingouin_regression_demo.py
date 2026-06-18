@@ -25,6 +25,12 @@ from typing import Dict, List, Tuple
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 from scripts.psych_ch16_regression import simulate_psych_regression_dataset
 
 
@@ -67,13 +73,13 @@ def build_pingouin_regression_tables(
     X = df[predictors]
     y = df[outcome]
 
-    raw_table = pg.linear_regression(X=X, y=y)
+    raw_table = add_pingouin_legacy_aliases(pg.linear_regression(X=X, y=y))
 
     zdf = zscore_columns(df, [outcome] + predictors)
     X_z = zdf[[p + "_z" for p in predictors]]
     y_z = zdf[outcome + "_z"]
 
-    standardized_table = pg.linear_regression(X=X_z, y=y_z)
+    standardized_table = add_pingouin_legacy_aliases(pg.linear_regression(X=X_z, y=y_z))
 
     return raw_table, standardized_table
 
@@ -89,7 +95,7 @@ def compute_partial_corr_exam_study(
         covar=["stress", "motivation"],
         method="pearson",
     )
-    return partial
+    return add_pingouin_legacy_aliases(partial)
 
 
 def run_ch16a_demo(

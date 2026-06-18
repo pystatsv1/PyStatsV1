@@ -9,6 +9,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pingouin as pg
+
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports direct script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
 import seaborn as sns
 
 
@@ -59,7 +65,7 @@ def pingouin_pearsonr(df: pd.DataFrame, x: str, y: str) -> float:
     This is a tiny wrapper used by the unit tests to compare NumPy and
     Pingouin implementations.
     """
-    corr_table = pg.corr(df[x], df[y], method="pearson")
+    corr_table = add_pingouin_legacy_aliases(pg.corr(df[x], df[y], method="pearson"))
     # Pingouin returns a 1-row DataFrame; the "r" column holds the estimate.
     return float(corr_table["r"].iloc[0])
 
@@ -159,10 +165,12 @@ def run_lab() -> None:
     print(corr_matrix.round(2))
 
     # Pairwise correlations with Pingouin (gives p-values, CI, etc.)
-    pairwise_corr = pg.pairwise_corr(
-        data=df_psych,
-        columns=df_psych.columns,
-        method="pearson",
+    pairwise_corr = add_pingouin_legacy_aliases(
+        pg.pairwise_corr(
+            data=df_psych,
+            columns=df_psych.columns,
+            method="pearson",
+        )
     )
 
     print("\nPingouin pairwise correlations (first 10 rows):")
@@ -202,12 +210,14 @@ def run_lab() -> None:
     print("\nPartial correlation example:")
     print("Exam score ~ Study hours, controlling for motivation (proxy = stress).")
 
-    partial = pg.partial_corr(
-        data=df_psych,
-        x="study_hours",
-        y="exam_score",
-        covar="stress",
-        method="pearson",
+    partial = add_pingouin_legacy_aliases(
+        pg.partial_corr(
+            data=df_psych,
+            x="study_hours",
+            y="exam_score",
+            covar="stress",
+            method="pearson",
+        )
     )
     print(partial)
 

@@ -16,6 +16,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 
 DATA_DIR = Path("data") / "synthetic"
 OUT_DIR = Path("outputs") / "track_b"
@@ -65,7 +71,7 @@ def simulate_ancova_dataset(
 def run_one_way_anova(df: pd.DataFrame) -> pd.DataFrame:
     """Run a simple one-way ANOVA on post_score ~ group."""
     aov = pg.anova(dv="post_score", between="group", data=df, detailed=True)
-    return aov
+    return add_pingouin_legacy_aliases(aov)
 
 
 def run_ancova(df: pd.DataFrame) -> pd.DataFrame:
@@ -76,7 +82,7 @@ def run_ancova(df: pd.DataFrame) -> pd.DataFrame:
         between="group",
         data=df,
     )
-    return aov
+    return add_pingouin_legacy_aliases(aov)
 
 
 def compute_adjusted_means(df: pd.DataFrame) -> pd.DataFrame:

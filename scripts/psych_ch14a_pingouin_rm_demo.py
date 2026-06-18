@@ -21,6 +21,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 
 def simulate_repeated_measures_data(
     n_subjects: int = 40,
@@ -71,7 +77,7 @@ def run_pingouin_rm_anova(df_long: pd.DataFrame) -> pd.DataFrame:
         data=df_long,
         detailed=True,
     )
-    return anova_table
+    return add_pingouin_legacy_aliases(anova_table)
 
 
 def main() -> None:
