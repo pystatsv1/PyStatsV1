@@ -3,7 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 import pandas as pd
-import pingouin as pg
+
+from scripts.study_habits_02_anova import run_anova
 
 
 def test_study_habits_group_effect_is_present():
@@ -16,6 +17,10 @@ def test_study_habits_group_effect_is_present():
     means = df.groupby("group")["posttest_score"].mean().to_dict()
     assert means["spaced"] > means["flashcards"] > means["control"]
 
-    aov = pg.anova(data=df, dv="posttest_score", between="group", detailed=True)
+    # Use the public lesson wrapper rather than raw Pingouin so this test follows
+    # the same column-name compatibility path as the workbook script.
+    aov = run_anova(df)
+    assert "p-unc" in aov.columns
+
     p = float(aov.loc[aov["Source"] == "group", "p-unc"].iloc[0])
     assert p < 0.05

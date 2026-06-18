@@ -21,6 +21,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 
 DATA_DIR = Path("data") / "synthetic"
 OUTPUT_DIR = Path("outputs") / "track_c"
@@ -107,7 +113,7 @@ def run_independent_t(df: pd.DataFrame) -> pd.DataFrame:
 
     # Pass treatment as x and control as y so that cohen-d is positive
     # when the treatment group has higher scores.
-    results = pg.ttest(treatment, control, paired=False)
+    results = add_pingouin_legacy_aliases(pg.ttest(treatment, control, paired=False))
 
     mean_control = float(control.mean())
     mean_treatment = float(treatment.mean())

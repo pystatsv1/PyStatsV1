@@ -22,6 +22,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 
 DATA_DIR = Path("data") / "synthetic"
 OUTPUT_DIR = Path("outputs") / "track_b"
@@ -120,7 +126,7 @@ def run_mixed_anova(long_df: pd.DataFrame) -> pd.DataFrame:
         between="group",
         subject="subject",
     )
-    return aov
+    return add_pingouin_legacy_aliases(aov)
 
 
 def compute_group_time_means(long_df: pd.DataFrame) -> pd.DataFrame:

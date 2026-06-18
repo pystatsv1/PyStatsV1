@@ -14,6 +14,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports direct script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 
 DATA_DIR = Path("data") / "synthetic"
 OUTPUT_DIR = Path("outputs") / "track_b"
@@ -126,7 +132,7 @@ def compute_regression_diagnostics(
         add_intercept=True,
     )
 
-    return diagnostics, summary
+    return diagnostics, add_pingouin_legacy_aliases(summary)
 
 
 def plot_residuals_vs_fitted(

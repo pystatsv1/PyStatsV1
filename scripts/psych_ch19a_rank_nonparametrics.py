@@ -22,6 +22,12 @@ import numpy as np
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 # Base directories
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "synthetic"
@@ -155,20 +161,22 @@ def run_mannwhitney(df: pd.DataFrame) -> pd.DataFrame:
     x = df.loc[df["group"] == "control", "score"]
     y = df.loc[df["group"] == "treatment", "score"]
 
-    results = pg.mwu(x, y, alternative="two-sided")
+    results = add_pingouin_legacy_aliases(pg.mwu(x, y, alternative="two-sided"))
     # Reset index so callers can safely use .loc[0]
     return results.reset_index(drop=True)
 
 
 def run_wilcoxon(df_wide: pd.DataFrame) -> pd.DataFrame:
     """Run a Wilcoxon signed-rank test on the paired data."""
-    results = pg.wilcoxon(df_wide["pre"], df_wide["post"], alternative="two-sided")
+    results = add_pingouin_legacy_aliases(
+        pg.wilcoxon(df_wide["pre"], df_wide["post"], alternative="two-sided")
+    )
     return results.reset_index(drop=True)
 
 
 def run_kruskal(df: pd.DataFrame) -> pd.DataFrame:
     """Run a Kruskal–Wallis test on the 3-group data."""
-    results = pg.kruskal(dv="score", between="group", data=df)
+    results = add_pingouin_legacy_aliases(pg.kruskal(dv="score", between="group", data=df))
     return results.reset_index(drop=True)
 
 

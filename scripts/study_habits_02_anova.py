@@ -15,6 +15,12 @@ from pathlib import Path
 import pandas as pd
 import pingouin as pg
 
+try:
+    from scripts._pingouin_compat import add_pingouin_legacy_aliases
+except ModuleNotFoundError:  # pragma: no cover - supports workbook script execution
+    from _pingouin_compat import add_pingouin_legacy_aliases
+
+
 DATA_PATH = Path("data") / "study_habits.csv"
 OUTPUT_DIR = Path("outputs") / "case_studies" / "study_habits"
 
@@ -25,7 +31,9 @@ def load_data(path: Path = DATA_PATH) -> pd.DataFrame:
 
 def run_anova(df: pd.DataFrame) -> pd.DataFrame:
     """One-way ANOVA on posttest_score by group."""
-    return pg.anova(data=df, dv="posttest_score", between="group", detailed=True)
+    return add_pingouin_legacy_aliases(
+        pg.anova(data=df, dv="posttest_score", between="group", detailed=True)
+    )
 
 
 def main() -> int:
