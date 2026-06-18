@@ -6,12 +6,6 @@ from typing import Final, Sequence
 import pandas as pd
 import pingouin as pg
 
-try:
-    from scripts._pingouin_compat import add_pingouin_legacy_aliases
-except ModuleNotFoundError:  # pragma: no cover - supports direct script execution
-    from _pingouin_compat import add_pingouin_legacy_aliases
-
-
 from scripts.psych_ch15_correlation import simulate_psych_correlation_dataset
 
 ROOT: Final[Path] = Path(__file__).resolve().parents[1]
