@@ -59,6 +59,10 @@ jobs:
           python -m pip install dist/*.whl
           python -m pip install pytest
           python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
+          python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_1.zip'; assert p.is_file(), p"
+          pystatsv1 book1 init --dest /tmp/book1_smoke
+          pystatsv1 book1 verify --dest /tmp/book1_smoke
+          test -f /tmp/book1_smoke/scripts/python/generate_figures.py
           pystatsv1 workbook init --dest /tmp/wb_smoke
           test -f /tmp/wb_smoke/Makefile
           test -f /tmp/wb_smoke/scripts/psych_ch10_problem_set.py
@@ -75,6 +79,10 @@ jobs:
           .\wheeltest\Scripts\python -m pip install $wheel.FullName
           .\wheeltest\Scripts\python -m pip install pytest
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
+          .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_1.zip'; assert p.is_file(), p"
+          .\wheeltest\Scripts\pystatsv1.exe book1 init --dest book1_smoke
+          .\wheeltest\Scripts\pystatsv1.exe book1 verify --dest book1_smoke
+          if (!(Test-Path book1_smoke\scripts\python\generate_figures.py)) { throw 'Missing Book 1 figure generator' }
           .\wheeltest\Scripts\pystatsv1.exe workbook init --dest wb_smoke
           if (!(Test-Path wb_smoke\Makefile)) { throw 'Missing Makefile' }
           if (!(Test-Path wb_smoke\scripts\psych_ch10_problem_set.py)) { throw 'Missing script psych_ch10_problem_set.py' }

@@ -1,0 +1,9 @@
+{
+  "companion_version": "v0.1",
+  "launcher_schema_version": "pystatsv1-book1-launcher-v0.1",
+  "source_portal_commit": "ae20659e930994ce510f427d4f63796ec231b094",
+  "source_portal_tag": "book1-visual-evidence-candidate-v0.1",
+  "source_portal_repository": "nicholaskarlson/nekpress-learntoprogram-portal-private",
+  "synthetic_data_only": true,
+  "notes": "This source snapshot is packaged as a PyStatsV1 Book 1 launcher asset. It contains only synthetic teaching materials."
+}

@@ -61,6 +61,7 @@ See :doc:`getting_started` and :doc:`contributing` for the contributor workflow.
 
    release_notes
    psych_support_helpers
+   book1_launcher
 
 .. toctree::
    :maxdepth: 2

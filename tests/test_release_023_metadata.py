@@ -15,11 +15,6 @@ HELPERS = [
 ]
 
 
-def test_pyproject_version_is_0230():
-    data = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    assert data["project"]["version"] == "0.23.0"
-
-
 def test_release_notes_document_psych_helpers():
     text = (ROOT / "docs" / "source" / "release_notes.rst").read_text(encoding="utf-8")
     assert "v0.23.0" in text

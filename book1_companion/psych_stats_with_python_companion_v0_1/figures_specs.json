@@ -1,0 +1,53 @@
+{
+  "schema_version": "book1-visual-evidence-spec-v0.1",
+  "companion_version": "v0.1",
+  "generator": "scripts/python/generate_figures.py",
+  "synthetic_data_only": true,
+  "figures": [
+    {
+      "figure_id": "fig_03_1_distribution_zscore",
+      "chapter_placement": "Chapter 3",
+      "source_csv": "data/ch10_correlation.csv",
+      "output_filename": "figures/fig_03_1_distribution_zscore.png",
+      "alt_text": "Histogram of synthetic test scores from the correlation teaching file. Dashed markers show the sample mean and one sample standard deviation above the mean. A labelled marker identifies one observed score and its z-score location.",
+      "caption": "Figure 3.1. Distribution of synthetic test scores. The markers show the observed sample mean, one sample standard deviation above that mean, and one score's z-score location. The figure does not establish population normality, validate the scale, or classify a student.",
+      "does_not_prove": "The figure does not establish population normality, validate the scale, or classify a student."
+    },
+    {
+      "figure_id": "fig_06_1_paired_change",
+      "chapter_placement": "Chapter 6",
+      "source_csv": "data/ch06_paired.csv",
+      "output_filename": "figures/fig_06_1_paired_change.png",
+      "alt_text": "Connected points show each synthetic participant's anxiety score before and after a workshop. A thicker labelled line shows the two sample means.",
+      "caption": "Figure 6.1. Synthetic paired anxiety scores before and after the workshop. Each line connects the same participant's two scores; the thicker line marks the sample means. The visual pattern does not by itself establish that the workshop caused the change.",
+      "does_not_prove": "The visual pattern does not by itself establish that the workshop caused the change."
+    },
+    {
+      "figure_id": "fig_08_1_interaction",
+      "chapter_placement": "Chapter 8",
+      "source_csv": "data/ch08_two_way_anova.csv",
+      "output_filename": "figures/fig_08_1_interaction.png",
+      "alt_text": "Interaction plot of synthetic test-score means by feedback condition. One line represents the standard strategy and one line represents the structured strategy. The lines are close to parallel.",
+      "caption": "Figure 8.1. Synthetic cell means for study strategy by feedback. Nonparallel lines would signal that the feedback difference changes across strategies; these nearly parallel lines show why the synthetic interaction result is not supported. The figure does not prove that the population interaction is exactly zero.",
+      "does_not_prove": "The figure does not prove that the population interaction is exactly zero."
+    },
+    {
+      "figure_id": "fig_09_1_repeated_trajectory",
+      "chapter_placement": "Chapter 9",
+      "source_csv": "data/ch09_repeated_measures.csv",
+      "output_filename": "figures/fig_09_1_repeated_trajectory.png",
+      "alt_text": "Synthetic confidence scores across baseline, week 2, and week 4. Thin lines represent individual participant trajectories; a thicker labelled line shows the mean confidence trend.",
+      "caption": "Figure 9.1. Synthetic confidence trajectories across three occasions. Thin lines preserve the within-person structure, and the thicker line shows the sample mean trend. The figure does not identify why confidence changed or resolve missing-data decisions in a real study.",
+      "does_not_prove": "The figure does not identify why confidence changed or resolve missing-data decisions in a real study."
+    },
+    {
+      "figure_id": "fig_10_11_1_scatter_regression",
+      "chapter_placement": "Chapters 10-11",
+      "source_csv": "data/ch10_correlation.csv",
+      "output_filename": "figures/fig_10_11_1_scatter_regression.png",
+      "alt_text": "Scatterplot of synthetic weekly study hours and test score with a fitted least-squares line. The points show the observed sample; the line slopes upward.",
+      "caption": "Figure 10.1 / 11.1. Synthetic weekly study hours and test score with a fitted least-squares line. The scatterplot helps readers inspect linearity, spread, and unusual points before interpreting correlation or regression. The line summarizes this synthetic sample and does not establish that study hours caused score changes or predict an individual exactly.",
+      "does_not_prove": "The line summarizes this synthetic sample and does not establish that study hours caused score changes or predict an individual exactly."
+    }
+  ]
+}

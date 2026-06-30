@@ -1,6 +1,27 @@
 Release notes
 =============
 
+v0.24.0 — Book 1 companion launcher
+------------------------------------
+
+PyStatsV1 v0.24.0 packages the synthetic-only executable companion for
+*Psych Stats with Python* and adds a conservative local launcher.
+
+Highlights
+~~~~~~~~~~
+
+* Adds ``pystatsv1 book1 info``, ``pystatsv1 book1 init``, and
+  ``pystatsv1 book1 verify``.
+* Packages a deterministic companion ZIP containing synthetic CSVs, transparent
+  Python and base-R scripts, Matplotlib figure specifications, and a source-file
+  integrity manifest.
+* Refuses to overwrite an existing destination and checks archive paths before
+  extraction.
+* Adds wheel-smoke coverage for the packaged Book 1 asset on Linux, macOS, and
+  Windows.
+* Does not publish to PyPI, change the Book 1 KDP proof, or automate real-data
+  analysis. A PyPI publication remains a separate reviewed release action.
+
 v0.23.0 — APA Lab support helpers
 ---------------------------------
 

@@ -12,6 +12,8 @@ from importlib import metadata, resources
 from pathlib import Path
 from typing import Final
 
+from pystatsv1.book1 import DEFAULT_DEST_NAME, initialize_book1, packaged_book1_info, verify_book1_directory
+
 
 PKG: Final[str] = "pystatsv1"
 
@@ -158,6 +160,67 @@ def cmd_workbook_init(args: argparse.Namespace) -> int:
             Tip: If you're new to Python, always work inside a virtual environment.
             """
         ).rstrip()
+    )
+    return 0
+
+
+def cmd_book1_info(_: argparse.Namespace) -> int:
+    manifest = packaged_book1_info()
+    print(
+        textwrap.dedent(
+            f"""\
+            PyStatsV1 Book 1 launcher
+            Companion version: {manifest["companion_version"]}
+            Source files: {len(manifest["files"])}
+            Synthetic data only: {manifest["synthetic_data_only"]}
+            Default destination: {DEFAULT_DEST_NAME}
+
+            Create a local copy with:
+              pystatsv1 book1 init
+            """
+        ).rstrip()
+    )
+    return 0
+
+
+def cmd_book1_init(args: argparse.Namespace) -> int:
+    try:
+        result = initialize_book1(Path(args.dest))
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
+    print(
+        textwrap.dedent(
+            f"""\
+            OK: Book 1 executable companion created at:
+
+                {result.destination}
+
+            Companion version: {result.companion_version}
+            Verified source files: {result.file_count}
+
+            Next steps:
+              1) cd {result.destination}
+              2) python -m pip install -r requirements-book1-companion.txt
+              3) make figures
+              4) make all    # requires Rscript for Python/R parity
+              5) pystatsv1 book1 verify --dest {result.destination}
+
+            The bundle contains synthetic teaching data only. It is not a real-data
+            analysis service and does not replace research judgment.
+            """
+        ).rstrip()
+    )
+    return 0
+
+
+def cmd_book1_verify(args: argparse.Namespace) -> int:
+    try:
+        result = verify_book1_directory(Path(args.dest))
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
+    print(
+        f"PYSTATSV1_BOOK1_VERIFY_OK companion_version={result.companion_version} "
+        f"source_files={result.file_count} destination={result.destination}"
     )
     return 0
 
@@ -520,6 +583,40 @@ def build_parser() -> argparse.ArgumentParser:
         help="Print Python/platform info and package versions.",
     )
     p_doctor.set_defaults(func=cmd_doctor)
+
+    p_book1 = sub.add_parser(
+        "book1",
+        help="Psych Stats with Python executable companion helpers.",
+    )
+    book1_sub = p_book1.add_subparsers(dest="book1_cmd", required=True)
+
+    p_book1_info = book1_sub.add_parser("info", help="Show packaged Book 1 companion identity.")
+    p_book1_info.set_defaults(func=cmd_book1_info)
+
+    p_book1_init = book1_sub.add_parser(
+        "init",
+        help="Create a new local Book 1 executable companion folder.",
+    )
+    p_book1_init.add_argument(
+        "--dest",
+        default=DEFAULT_DEST_NAME,
+        help=(
+            "New destination directory (default: " + DEFAULT_DEST_NAME + "). "
+            "The launcher never overwrites an existing directory."
+        ),
+    )
+    p_book1_init.set_defaults(func=cmd_book1_init)
+
+    p_book1_verify = book1_sub.add_parser(
+        "verify",
+        help="Check Book 1 source files against the packaged bundle manifest.",
+    )
+    p_book1_verify.add_argument(
+        "--dest",
+        default=DEFAULT_DEST_NAME,
+        help="Book 1 companion directory to verify.",
+    )
+    p_book1_verify.set_defaults(func=cmd_book1_verify)
 
     p_wb = sub.add_parser("workbook", help="Workbook helpers (student labs).")
     wb_sub = p_wb.add_subparsers(dest="workbook_cmd", required=True)
