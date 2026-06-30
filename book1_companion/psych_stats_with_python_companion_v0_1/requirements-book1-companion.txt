@@ -2,5 +2,5 @@ numpy>=1.24
 pandas>=2.0
 scipy>=1.10
 statsmodels>=0.14
-pystatsv1>=0.24.0,<0.25.0
+pystatsv1>=0.24.1,<0.25.0
 matplotlib==3.10.8

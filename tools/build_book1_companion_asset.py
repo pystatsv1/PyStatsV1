@@ -72,7 +72,9 @@ def _source_entries(source: Path) -> list[tuple[str, bytes, int]]:
             continue
         relative = _safe_relative(path, source)
         data = path.read_bytes()
-        mode = stat.S_IMODE(path.stat().st_mode)
+        # Git for Windows does not preserve POSIX executable bits. Archive modes
+        # are therefore a versioned bundle contract, not a host-filesystem fact.
+        mode = 0o755 if relative.startswith(("scripts/python/", "scripts/r/")) else 0o644
         entries.append((relative, data, mode))
     return entries
 

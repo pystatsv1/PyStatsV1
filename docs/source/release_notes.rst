@@ -1,6 +1,21 @@
 Release notes
 =============
 
+v0.24.1 — Cross-platform Book 1 asset manifest
+------------------------------------------------
+
+PyStatsV1 v0.24.1 corrects the packaged Book 1 companion release candidate
+without changing the launcher interface or synthetic teaching analyses.
+
+Highlights
+~~~~~~~~~~
+
+* Records stable logical archive modes in the Book 1 bundle manifest: scripts
+  are ``755`` and all other provisioned files are ``644``.
+* Makes source-snapshot asset rebuilding consistent across Linux, macOS, and
+  Windows checkouts.
+* Preserves the synthetic-only bundle, source hashes, and launcher commands.
+
 v0.24.0 — Book 1 companion launcher
 ------------------------------------
 

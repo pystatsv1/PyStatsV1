@@ -1,7 +1,7 @@
 Psych Stats with Python — Book 1 Launcher
 =========================================
 
-PyStatsV1 v0.24.0 packages a synthetic-only, inspectable local companion for
+PyStatsV1 v0.24.1 packages a synthetic-only, inspectable local companion for
 *Psych Stats with Python*. The launcher creates a new directory from a
 versioned package asset. It does not overwrite existing work, upload data, run
 an analysis automatically, or make a real-data claim.
@@ -11,7 +11,7 @@ Quick start
 
 .. code-block:: bash
 
-   python -m pip install "pystatsv1[book1]==0.24.0"
+   python -m pip install "pystatsv1[book1]==0.24.1"
    pystatsv1 book1 init
    cd psych_stats_with_python_companion_v0_1
    python -m pip install -r requirements-book1-companion.txt

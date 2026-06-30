@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -39,6 +40,29 @@ def test_book1_asset_has_expected_manifest_and_no_transient_members() -> None:
     assert "scripts/r/run_all.R" in names
     assert not any("__pycache__/" in name or name.endswith((".pyc", ".pyo")) for name in names)
     assert not any(name.startswith("outputs/") for name in names)
+    modes = {row["path"]: row["mode"] for row in manifest["files"]}
+    assert modes["README.md"] == "644"
+    assert modes["scripts/python/ch12_apa_reporting.py"] == "755"
+    assert modes["scripts/r/ch12_apa_reporting.R"] == "755"
+
+
+def test_book1_manifest_uses_logical_modes_instead_of_host_permissions(tmp_path: Path) -> None:
+    source = ROOT / "book1_companion" / "psych_stats_with_python_companion_v0_1"
+    copied = tmp_path / "companion"
+    shutil.copytree(source, copied)
+    (copied / "README.md").chmod(0o755)
+    (copied / "scripts" / "python" / "ch12_apa_reporting.py").chmod(0o644)
+    rebuilt = tmp_path / ASSET_NAME
+    subprocess.run(
+        [sys.executable, str(BUILDER), "--source", str(copied), "--dest", str(rebuilt)],
+        cwd=ROOT,
+        check=True,
+    )
+    with ZipFile(rebuilt) as zf:
+        manifest = json.loads(zf.read(MANIFEST_NAME).decode("utf-8"))
+    modes = {row["path"]: row["mode"] for row in manifest["files"]}
+    assert modes["README.md"] == "644"
+    assert modes["scripts/python/ch12_apa_reporting.py"] == "755"
 
 
 def test_book1_asset_is_current_against_source_snapshot(tmp_path: Path) -> None:
@@ -83,5 +107,5 @@ def test_book1_snapshot_targets_the_launcher_release_series() -> None:
         ROOT / "book1_companion" / "psych_stats_with_python_companion_v0_1" / "requirements-book1-companion.txt"
     ).read_text(encoding="utf-8")
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert 'version = "0.24.0"' in pyproject
-    assert "pystatsv1>=0.24.0,<0.25.0" in requirements
+    assert 'version = "0.24.1"' in pyproject
+    assert "pystatsv1>=0.24.1,<0.25.0" in requirements
