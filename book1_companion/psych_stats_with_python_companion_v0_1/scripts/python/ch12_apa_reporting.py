@@ -2,9 +2,7 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
-
-from common import OUTPUTS, ROOT, format_p, rounded, sha256, write_result
+from common import OUTPUTS, format_p, sha256, write_result
 
 
 CHAPTERS = ["ch05", "ch06", "ch07", "ch08", "ch09", "ch10", "ch11"]
