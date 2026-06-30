@@ -46,6 +46,16 @@ def test_book1_asset_has_expected_manifest_and_no_transient_members() -> None:
     assert modes["scripts/r/ch12_apa_reporting.R"] == "755"
 
 
+def test_book1_manifest_paths_use_canonical_posix_order() -> None:
+    with ZipFile(ASSET) as zf:
+        manifest = json.loads(zf.read(MANIFEST_NAME).decode("utf-8"))
+    paths = [row["path"] for row in manifest["files"]]
+    # pathlib.Path ordering differs by host: Windows compares paths
+    # case-insensitively, while POSIX does not. The generated manifest must
+    # instead use a stable archive-name ordering everywhere.
+    assert paths == sorted(paths)
+
+
 def test_book1_manifest_uses_logical_modes_instead_of_host_permissions(tmp_path: Path) -> None:
     source = ROOT / "book1_companion" / "psych_stats_with_python_companion_v0_1"
     copied = tmp_path / "companion"

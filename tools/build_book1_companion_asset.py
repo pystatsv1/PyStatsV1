@@ -67,7 +67,11 @@ def _sha256_bytes(data: bytes) -> str:
 
 def _source_entries(source: Path) -> list[tuple[str, bytes, int]]:
     entries: list[tuple[str, bytes, int]] = []
-    for path in sorted(p for p in source.rglob("*") if p.is_file()):
+    # Sort by the POSIX archive member name, not by Path objects. Path ordering
+    # is platform-dependent (notably case-insensitive on Windows), while the
+    # bundle manifest and archive must be byte-stable on every supported host.
+    paths = [path for path in source.rglob("*") if path.is_file()]
+    for path in sorted(paths, key=lambda candidate: _safe_relative(candidate, source)):
         if not _include(path, source):
             continue
         relative = _safe_relative(path, source)
