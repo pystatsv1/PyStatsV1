@@ -1,7 +1,7 @@
 Psych Stats with Python — Book 1 Launcher
 =========================================
 
-PyStatsV1 v0.24.1 packages a synthetic-only, inspectable local companion for
+PyStatsV1 v0.25.0 packages Companion v0.2, a synthetic-only, inspectable local companion for
 *Psych Stats with Python*. The launcher creates a new directory from a
 versioned package asset. It does not overwrite existing work, upload data, run
 an analysis automatically, or make a real-data claim.
@@ -11,16 +11,16 @@ Quick start
 
 .. code-block:: bash
 
-   python -m pip install "pystatsv1[book1]==0.24.1"
+   python -m pip install "pystatsv1[book1]==0.25.0"
    pystatsv1 book1 init
-   cd psych_stats_with_python_companion_v0_1
+   cd psych_stats_with_python_companion_v0_2
    python -m pip install -r requirements-book1-companion.txt
    make figures
    make all
    pystatsv1 book1 verify --dest .
 
 ``make all`` requires ``Rscript`` because the full Book 1 workflow compares
-named Python and base-R reportable fields. ``make figures`` builds five
+named Python and base-R reportable fields. ``make figures`` builds six source-faithful high-contrast grayscale
 synthetic-data teaching plots with Matplotlib and writes an evidence manifest.
 
 Commands
@@ -37,6 +37,14 @@ Commands
   Checks the extracted source data, scripts, figure specification, and reader
   files against the package manifest. It intentionally ignores generated
   ``outputs/`` because students create those by running the companion.
+
+Figure evidence
+---------------
+
+Chapter 10 correlation and Chapter 11 regression have separate source-faithful
+figures. Their manifest records source CSV, analysis script, result path,
+caption, accessibility text, SHA-256, and a minimum effective print resolution
+of 300 PPI at the documented Book 1 image slot.
 
 Scope boundary
 --------------

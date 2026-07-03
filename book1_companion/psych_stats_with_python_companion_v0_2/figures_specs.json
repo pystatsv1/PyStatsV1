@@ -1,0 +1,141 @@
+{
+  "schema_version": "book1-visual-evidence-spec-v0.2",
+  "companion_version": "v0.2",
+  "release_status": "public_release",
+  "generator": "scripts/python/generate_figures.py",
+  "synthetic_data_only": true,
+  "print_profile": "high-contrast-grayscale",
+  "planned_print_width_inches": 5.8,
+  "planned_print_height_inches": 4.15,
+  "minimum_effective_ppi": 300,
+  "figures": [
+    {
+      "figure_id": "fig_03_1_distribution_zscore",
+      "chapter_placement": "Chapter 3",
+      "source_csv": "data/ch10_correlation.csv",
+      "output_filename": "figures/fig_03_1_distribution_zscore.png",
+      "alt_text": "Grayscale histogram of synthetic test scores from the correlation teaching file. A solid black marker identifies an example score; dashed and dotted gray lines identify the sample mean and one sample standard deviation above it.",
+      "caption": "Figure 3.1. Distribution of synthetic test scores in grayscale. The markers show the observed sample mean, one sample standard deviation above that mean, and one score's z-score location. The figure does not establish population normality, validate the scale, or classify a student.",
+      "does_not_prove": "The figure does not establish population normality, validate the scale, or classify a student.",
+      "analysis_contract": {
+        "analysis_script": "scripts/python/ch10_correlation.py",
+        "python_result": "outputs/ch10/py_results.json",
+        "apa_source_id": null,
+        "expected_result_fields": [
+          "study_hours_mean",
+          "test_score_mean"
+        ],
+        "reporting_scope": "descriptive figure only; it does not supply an APA inferential sentence."
+      }
+    },
+    {
+      "figure_id": "fig_06_1_paired_change",
+      "chapter_placement": "Chapter 6",
+      "source_csv": "data/ch06_paired.csv",
+      "output_filename": "figures/fig_06_1_paired_change.png",
+      "alt_text": "High-contrast grayscale connected-points plot of synthetic anxiety before and after a workshop. Light-gray lines preserve individual pairs; a thick black line with circles shows the sample means.",
+      "caption": "Figure 6.1. Synthetic paired anxiety scores before and after the workshop in grayscale. Each light-gray line connects the same participant's two scores; the thick black line marks the sample means. The visual pattern does not by itself establish that the workshop caused the change.",
+      "does_not_prove": "The visual pattern does not by itself establish that the workshop caused the change.",
+      "analysis_contract": {
+        "analysis_script": "scripts/python/ch06_paired_t.py",
+        "python_result": "outputs/ch06/py_results.json",
+        "apa_source_id": "ch06",
+        "expected_result_fields": [
+          "pre_mean",
+          "post_mean",
+          "mean_difference_post_minus_pre",
+          "t_statistic",
+          "p_value",
+          "cohen_dz"
+        ]
+      }
+    },
+    {
+      "figure_id": "fig_08_1_interaction",
+      "chapter_placement": "Chapter 8",
+      "source_csv": "data/ch08_two_way_anova.csv",
+      "output_filename": "figures/fig_08_1_interaction.png",
+      "alt_text": "High-contrast grayscale interaction plot of synthetic test-score means by feedback condition. The standard-strategy line is solid with circles; the structured-strategy line is dashed with squares. The lines are close to parallel.",
+      "caption": "Figure 8.1. Synthetic cell means for study strategy by feedback in grayscale. Solid circles identify the standard strategy and dashed squares identify the structured strategy. Nearly parallel lines show why the synthetic interaction result is not supported. The figure does not prove that the population interaction is exactly zero.",
+      "does_not_prove": "The figure does not prove that the population interaction is exactly zero.",
+      "analysis_contract": {
+        "analysis_script": "scripts/python/ch08_two_way_anova.py",
+        "python_result": "outputs/ch08/py_results.json",
+        "apa_source_id": "ch08",
+        "expected_result_fields": [
+          "strategy_f",
+          "feedback_f",
+          "interaction_f",
+          "interaction_p",
+          "interaction_partial_eta_squared"
+        ]
+      }
+    },
+    {
+      "figure_id": "fig_09_1_repeated_trajectory",
+      "chapter_placement": "Chapter 9",
+      "source_csv": "data/ch09_repeated_measures.csv",
+      "output_filename": "figures/fig_09_1_repeated_trajectory.png",
+      "alt_text": "High-contrast grayscale trajectory plot of synthetic confidence across baseline, week 2, and week 4. Light-gray lines represent individuals; a thick black line with circles shows the mean trend.",
+      "caption": "Figure 9.1. Synthetic confidence trajectories across three occasions in grayscale. Light-gray lines preserve the within-person structure, and the thick black line shows the sample mean trend. The figure does not identify why confidence changed or resolve missing-data decisions in a real study.",
+      "does_not_prove": "The figure does not identify why confidence changed or resolve missing-data decisions in a real study.",
+      "analysis_contract": {
+        "analysis_script": "scripts/python/ch09_repeated_measures_anova.py",
+        "python_result": "outputs/ch09/py_results.json",
+        "apa_source_id": "ch09",
+        "expected_result_fields": [
+          "baseline_mean",
+          "week_2_mean",
+          "week_4_mean",
+          "f_statistic",
+          "p_value",
+          "partial_eta_squared"
+        ]
+      }
+    },
+    {
+      "figure_id": "fig_10_1_correlation_scatter",
+      "chapter_placement": "Chapter 10",
+      "source_csv": "data/ch10_correlation.csv",
+      "output_filename": "figures/fig_10_1_correlation_scatter.png",
+      "alt_text": "High-contrast grayscale scatterplot of synthetic weekly study hours and test score. Gray circles show the observed students without a fitted line, so readers inspect the points before reducing them to a correlation.",
+      "caption": "Figure 10.1. Synthetic weekly study hours and test score in grayscale. The points support inspection of direction, spread, curvature, clusters, and unusual observations before Pearson's r is read. The figure does not establish that study hours caused score changes.",
+      "does_not_prove": "The figure does not establish that study hours caused score changes.",
+      "analysis_contract": {
+        "analysis_script": "scripts/python/ch10_correlation.py",
+        "python_result": "outputs/ch10/py_results.json",
+        "apa_source_id": "ch10",
+        "expected_result_fields": [
+          "correlation_r",
+          "degrees_of_freedom",
+          "p_value",
+          "n"
+        ]
+      }
+    },
+    {
+      "figure_id": "fig_11_1_regression_scatter",
+      "chapter_placement": "Chapter 11",
+      "source_csv": "data/ch11_regression.csv",
+      "output_filename": "figures/fig_11_1_regression_scatter.png",
+      "alt_text": "High-contrast grayscale scatterplot of the synthetic regression teaching data. Gray circles show observed students; a thick black least-squares line shows the fitted one-predictor regression relationship.",
+      "caption": "Figure 11.1. Synthetic weekly study hours and test score from the regression teaching file in grayscale, with a fitted least-squares line. The line summarizes the Chapter 11 model and does not establish causation or predict an individual exactly.",
+      "does_not_prove": "The line summarizes the Chapter 11 model and does not establish causation or predict an individual exactly.",
+      "analysis_contract": {
+        "analysis_script": "scripts/python/ch11_regression.py",
+        "python_result": "outputs/ch11/py_results.json",
+        "apa_source_id": "ch11",
+        "expected_result_fields": [
+          "intercept",
+          "slope",
+          "slope_standard_error",
+          "t_statistic",
+          "p_value",
+          "r_squared",
+          "n"
+        ]
+      }
+    }
+  ],
+  "required_pystatsv1_release": "0.25.0"
+}

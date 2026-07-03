@@ -1,0 +1,61 @@
+{
+  "companion_version": "v0.2",
+  "lint_only_release_adjustments": [
+    {
+      "path": "scripts/python/ch12_apa_reporting.py",
+      "portal_candidate_sha256": "b1a5095da7ca7544b9882667c5c86a2893db62f45ecb59824e67ae20bb849ff0",
+      "reason": "Remove unused imports so repository-wide Ruff lint passes; analysis logic and generated result fields are unchanged.",
+      "release_source_sha256": "cdf5ed1845c5fbc2e7d9faef39d18d2bdec30d4856a622fc42efc1be26732691"
+    },
+    {
+      "path": "scripts/python/finalize_apa_reporting_audit.py",
+      "portal_candidate_sha256": "7c07e9d3f7941d574a7df7dfd6c77b311c2d611254dabef88b23e8c8219ded25",
+      "reason": "Remove unused imports so repository-wide Ruff lint passes; analysis logic and generated result fields are unchanged.",
+      "release_source_sha256": "32211f814fba5bfdba8a7665021b29d95a8eeb6c572a1338cea0801b076fb254"
+    }
+  ],
+  "portal_commit": "20076607ebf37245f0eb9ed7c5a56f56a042a8f5",
+  "portal_repository": "nicholaskarlson/nekpress-learntoprogram-portal-private",
+  "portal_tag": "book1-companion-v0.2-candidate",
+  "preserved_tag": "book1-kdp-proof-candidate-v0.4",
+  "release_metadata_changed_from_portal_candidate": [
+    "BOOK1_SOURCE_PROVENANCE.json",
+    "BOOK1_PORTAL_HANDOFF_RECEIPT.json",
+    "README.md",
+    "requirements-book1-companion.txt",
+    "figures_specs.json",
+    "Makefile"
+  ],
+  "schema_version": "book1-portal-handoff-receipt-v0.2",
+  "synthetic_data_only": true,
+  "unchanged_payload_sha256": {
+    "data/ch05_independent.csv": "194890fdee907b9c0c02c98e975f2ca7a3b52e1bf5f8b07e1c04a2e1f96eeaf6",
+    "data/ch06_paired.csv": "88c29fbf8b74bbc7f48b0f3bc21a9846960b9828b1f159534cd291858efdf0ab",
+    "data/ch07_one_way_anova.csv": "7d0e5d3758a8493fbc7b20b6245b047b7276137f989b36b3634608566beca573",
+    "data/ch08_two_way_anova.csv": "b8bebc818ce0349199029b1753e3d5dcb54411e879fc966061c8113377dc9125",
+    "data/ch09_repeated_measures.csv": "a669c585ad668f15e171f1bb095e1acdd74507b715664124c584d6fa669dbceb",
+    "data/ch10_correlation.csv": "96ccc3881595d9df342cad5ace13d0cf508e4017d6d2f91f25dd93cbddaa4fd7",
+    "data/ch11_regression.csv": "b04d4b439c5f76b7e6aac70a614fb9c2249bea4f41481b2a970ed1d2836ad9e5",
+    "scripts/python/ch05_independent_t.py": "c1da8759b86551b98d7638e2557623987fd2e3211cbc333b2f02a851784b66d3",
+    "scripts/python/ch06_paired_t.py": "450fef6e343183730b041e46c781fefe6752af37132e1f90b36c8f1d3aa785c0",
+    "scripts/python/ch07_one_way_anova.py": "d08b52837184a1320b9aaa1102163b603dea3c473613efb9d5707f23b21bb7c7",
+    "scripts/python/ch08_two_way_anova.py": "b1c61882677497d716808ac593e2939770c5fbeeb1533e4da5ac00f95971e9b5",
+    "scripts/python/ch09_repeated_measures_anova.py": "b8e1de6b4b09ac8ea6d3695d0651a120ddd4d3755ade9e61376245f15eab1d73",
+    "scripts/python/ch10_correlation.py": "acef0669ef8a7b20963e063a88ed555feb117c34d6eba4eccfeddf5efe6f4d9b",
+    "scripts/python/ch11_regression.py": "944c07681861dc719e8d3898da2ccb4d67a1a1a0bf254eedcb1d7a8490b3cb11",
+    "scripts/python/common.py": "26c0a92cedc50bb621b6d8f6c55550dbc0a3ffc34c0aa8f4f70fdd71135c6679",
+    "scripts/python/compare_results.py": "2f3f99b9bbab1ad8a53acb49520c75552a2ffdea774895a031e22c918f1bd396",
+    "scripts/python/generate_figures.py": "b28697ca2af53d1dc95fb4661aef2525ef377c9b27a30c2e2bec434faaa2561f",
+    "scripts/python/run_all.py": "24982aaf2e500e9fb5c828fe27a70e92df0d6697868a9a06beac620c65376d7c",
+    "scripts/r/ch05_independent_t.R": "305593da58387af6961f6d33cc12251d92c1f3dba02572e007e429aea3219d92",
+    "scripts/r/ch06_paired_t.R": "86f270b4ca0c5b88e389a7343cc1b9fa4750a0a2d5c90284a4c7688479052bdc",
+    "scripts/r/ch07_one_way_anova.R": "cfba0856ad46c6c6332ef6901bf332f78fe63c8aba7c71dd002124040348e1eb",
+    "scripts/r/ch08_two_way_anova.R": "d411da1cd74f11c99ab0ee819e41d09333da7ae597b81b16d364a8df419c20b2",
+    "scripts/r/ch09_repeated_measures_anova.R": "0b1118153bfddac43c821f617e88dab956b26158a01b3bf9f0cdda8c373aa0db",
+    "scripts/r/ch10_correlation.R": "2cc71edda1362296139c711ab0250e559f234a28871327bd1e8e3788e53a6226",
+    "scripts/r/ch11_regression.R": "971679000a821db7fe7c32087eb16931900fb482b18ac6251b2f1dd45ff4bffa",
+    "scripts/r/ch12_apa_reporting.R": "e6d5886316d0b60ef9bb1d89337a3d6050c65de0db965cf5079628546b4b88d6",
+    "scripts/r/common.R": "a7b4c9b7a83837c624f66c0d0ce2ba6084bfe350a1d6e687f680fde66ef72888",
+    "scripts/r/run_all.R": "59dfe85c6654a68c2c10b4861d78666ff5cc07d9685e88540cb5aa5f21a62ede"
+  }
+}

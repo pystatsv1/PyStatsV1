@@ -40,15 +40,15 @@ pytest -q
 
 ## Psych Stats with Python — Book 1 companion
 
-PyStatsV1 v0.24.1 adds a launcher for the synthetic-only executable companion
+PyStatsV1 v0.25.0 packages Companion v0.2, the synthetic-only executable companion
 to *Psych Stats with Python*. It writes an inspectable local folder; it does
 not hide the analysis, overwrite an existing destination, or turn a real-data
 workflow into a one-command claim.
 
 ```bash
-python -m pip install "pystatsv1[book1]==0.24.1"
+python -m pip install "pystatsv1[book1]==0.25.0"
 pystatsv1 book1 init
-cd psych_stats_with_python_companion_v0_1
+cd psych_stats_with_python_companion_v0_2
 python -m pip install -r requirements-book1-companion.txt
 make figures
 make all  # requires Rscript for Python/R parity
@@ -56,8 +56,9 @@ pystatsv1 book1 verify --dest .
 ```
 
 The launcher bundle contains versioned synthetic CSVs, transparent Python
-scripts, optional base-R verification scripts, figure specifications, and a
-source-file manifest. It is a foundations teaching companion, not a
+scripts, optional base-R verification scripts, six source-faithful grayscale
+figure specifications, and a source-file manifest. Chapter 10 correlation and
+Chapter 11 regression now use separate source datasets and figures. It is a foundations teaching companion, not a
 real-data intake service or a substitute for statistical judgment.
 
 Open the bundled local PDF docs (works offline):

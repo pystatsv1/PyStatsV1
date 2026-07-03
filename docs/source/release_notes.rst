@@ -1,6 +1,27 @@
 Release notes
 =============
 
+v0.25.0 — Book 1 Companion v0.2
+---------------------------------
+
+PyStatsV1 v0.25.0 packages the public synthetic-only Book 1 Companion v0.2.
+
+Highlights
+~~~~~~~~~~
+
+* Updates ``pystatsv1 book1 init`` to create
+  ``psych_stats_with_python_companion_v0_2``.
+* Preserves the transparent Python/R teaching analyses while packaging six
+  source-faithful, high-contrast grayscale figures for the five visual
+  teaching placements.
+* Separates the Chapter 10 correlation and Chapter 11 regression figures so
+  each is tied to its own CSV, analysis script, Python result, and APA source
+  identifier where applicable.
+* Carries an internal portal handoff receipt that records the portal tag and
+  immutable data/script hashes used for the packaged snapshot.
+* Keeps the bundle synthetic-only; it does not change the launcher interface
+  into a real-data analysis service.
+
 v0.24.1 — Cross-platform Book 1 asset manifest
 ------------------------------------------------
 

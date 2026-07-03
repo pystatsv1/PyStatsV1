@@ -21,8 +21,8 @@ from typing import Final
 
 PKG: Final[str] = "pystatsv1"
 ASSET_PACKAGE: Final[str] = f"{PKG}.assets"
-ASSET_NAME: Final[str] = "psych_stats_with_python_companion_v0_1.zip"
-DEFAULT_DEST_NAME: Final[str] = "psych_stats_with_python_companion_v0_1"
+ASSET_NAME: Final[str] = "psych_stats_with_python_companion_v0_2.zip"
+DEFAULT_DEST_NAME: Final[str] = "psych_stats_with_python_companion_v0_2"
 MANIFEST_NAME: Final[str] = "BOOK1_BUNDLE_MANIFEST.json"
 MANIFEST_SCHEMA: Final[str] = "pystatsv1-book1-bundle-manifest-v0.1"
 

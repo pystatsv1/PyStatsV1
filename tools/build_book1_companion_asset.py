@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build the deterministic PyStatsV1 Book 1 companion asset.
 
-The source snapshot under book1_companion/ is the PyStatsV1-side source of
-truth for the package asset. The archive contains only synthetic teaching
+The v0.2 source snapshot under book1_companion/ is the PyStatsV1-side source
+of truth for the package asset. The archive contains only synthetic teaching
 materials and a manifest of the source files it provisions.
 """
 from __future__ import annotations
@@ -15,8 +15,8 @@ import zipfile
 from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE = ROOT / "book1_companion" / "psych_stats_with_python_companion_v0_1"
-DEFAULT_DEST = ROOT / "src" / "pystatsv1" / "assets" / "psych_stats_with_python_companion_v0_1.zip"
+DEFAULT_SOURCE = ROOT / "book1_companion" / "psych_stats_with_python_companion_v0_2"
+DEFAULT_DEST = ROOT / "src" / "pystatsv1" / "assets" / "psych_stats_with_python_companion_v0_2.zip"
 MANIFEST_NAME = "BOOK1_BUNDLE_MANIFEST.json"
 SCHEMA_VERSION = "pystatsv1-book1-bundle-manifest-v0.1"
 EXCLUDED_DIRS = {"__pycache__", ".pytest_cache", ".git"}
@@ -28,6 +28,7 @@ REQUIRED_FILES = {
     "requirements-book1-companion.txt",
     "figures_specs.json",
     "BOOK1_SOURCE_PROVENANCE.json",
+    "BOOK1_PORTAL_HANDOFF_RECEIPT.json",
     "data/ch05_independent.csv",
     "data/ch06_paired.csv",
     "data/ch07_one_way_anova.csv",

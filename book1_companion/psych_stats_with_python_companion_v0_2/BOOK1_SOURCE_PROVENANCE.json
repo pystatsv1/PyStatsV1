@@ -1,0 +1,30 @@
+{
+  "companion_version": "v0.2",
+  "notes": "Public PyStatsV1 Book 1 companion release with source-faithful, high-contrast grayscale figures for the five visual teaching placements.",
+  "release_status": "public_release",
+  "release_transformations_from_portal_candidate": {
+    "lint_adjustment_reason": "Remove unused imports so repository-wide Ruff lint passes; analysis logic and generated result fields are unchanged.",
+    "lint_only_scripts": [
+      "scripts/python/ch12_apa_reporting.py",
+      "scripts/python/finalize_apa_reporting_audit.py"
+    ],
+    "metadata_and_reader_files": [
+      "BOOK1_SOURCE_PROVENANCE.json",
+      "BOOK1_PORTAL_HANDOFF_RECEIPT.json",
+      "README.md",
+      "requirements-book1-companion.txt",
+      "figures_specs.json",
+      "Makefile"
+    ]
+  },
+  "required_pystatsv1_release": "0.25.0",
+  "source_portal_commit": "20076607ebf37245f0eb9ed7c5a56f56a042a8f5",
+  "source_portal_repository": "nicholaskarlson/nekpress-learntoprogram-portal-private",
+  "source_portal_tag": "book1-companion-v0.2-candidate",
+  "source_portal_v04_tag_preserved": "book1-kdp-proof-candidate-v0.4",
+  "synthetic_data_only": true,
+  "unchanged_payload_roots": [
+    "data",
+    "scripts except lint_only_scripts"
+  ]
+}
