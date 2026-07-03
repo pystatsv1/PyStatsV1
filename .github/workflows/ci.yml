@@ -53,6 +53,7 @@ jobs:
       - name: Install wheel + smoke test (posix)
         if: runner.os != 'Windows'
         run: |
+          set -euo pipefail
           python -m venv /tmp/wheeltest
           source /tmp/wheeltest/bin/activate
           python -m pip install -U pip
@@ -64,6 +65,10 @@ jobs:
           pystatsv1 book1 verify --dest /tmp/book1_smoke
           test -f /tmp/book1_smoke/scripts/python/generate_figures.py
           test -f /tmp/book1_smoke/BOOK1_PORTAL_HANDOFF_RECEIPT.json
+          python -m pip install -r /tmp/book1_smoke/requirements-book1-companion.txt
+          make -C /tmp/book1_smoke figures
+          test -f /tmp/book1_smoke/outputs/figure_manifest.json
+          test -f /tmp/book1_smoke/outputs/figures/fig_11_1_regression_scatter.png
           pystatsv1 workbook init --dest /tmp/wb_smoke
           test -f /tmp/wb_smoke/Makefile
           test -f /tmp/wb_smoke/scripts/psych_ch10_problem_set.py
@@ -74,6 +79,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          $ErrorActionPreference = "Stop"
           python -m venv wheeltest
           .\wheeltest\Scripts\python -m pip install -U pip
           $wheel = Get-ChildItem dist\*.whl | Select-Object -First 1
@@ -85,12 +91,52 @@ jobs:
           .\wheeltest\Scripts\pystatsv1.exe book1 verify --dest book1_smoke
           if (!(Test-Path book1_smoke\scripts\python\generate_figures.py)) { throw 'Missing Book 1 figure generator' }
           if (!(Test-Path book1_smoke\BOOK1_PORTAL_HANDOFF_RECEIPT.json)) { throw 'Missing Book 1 portal handoff receipt' }
+          .\wheeltest\Scripts\python -m pip install -r book1_smoke\requirements-book1-companion.txt
+          Push-Location book1_smoke
+          ..\wheeltest\Scripts\python scripts\python\generate_figures.py
+          Pop-Location
+          if (!(Test-Path book1_smoke\outputs\figure_manifest.json)) { throw 'Missing Book 1 public figure manifest' }
+          if (!(Test-Path book1_smoke\outputs\figures\fig_11_1_regression_scatter.png)) { throw 'Missing Book 1 regression figure' }
           .\wheeltest\Scripts\pystatsv1.exe workbook init --dest wb_smoke
           if (!(Test-Path wb_smoke\Makefile)) { throw 'Missing Makefile' }
           if (!(Test-Path wb_smoke\scripts\psych_ch10_problem_set.py)) { throw 'Missing script psych_ch10_problem_set.py' }
           .\wheeltest\Scripts\pystatsv1.exe workbook run ch10 --workdir wb_smoke
           .\wheeltest\Scripts\pystatsv1.exe workbook check ch10 --workdir wb_smoke
 
+
+  book1-companion-release-smoke:
+    name: book1-companion-release-smoke (ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install R for public companion parity smoke
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes r-base
+
+      - name: Build wheel and run released Book 1 workflow
+        run: |
+          set -euo pipefail
+          python -m pip install -U pip build
+          python -m build --wheel
+          python -m venv /tmp/book1-release-smoke
+          source /tmp/book1-release-smoke/bin/activate
+          python -m pip install -U pip
+          python -m pip install dist/*.whl
+          pystatsv1 book1 init --dest /tmp/book1-public
+          python -m pip install -r /tmp/book1-public/requirements-book1-companion.txt
+          make -C /tmp/book1-public figures
+          make -C /tmp/book1-public all
+          pystatsv1 book1 verify --dest /tmp/book1-public
+          test -f /tmp/book1-public/outputs/figure_manifest.json
+          test -f /tmp/book1-public/outputs/figures/fig_10_1_correlation_scatter.png
+          test -f /tmp/book1-public/outputs/figures/fig_11_1_regression_scatter.png
 
   windows-py310:
     runs-on: windows-latest

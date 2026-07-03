@@ -106,12 +106,25 @@ def test_book1_v02_portal_handoff_preserves_data_and_scripts() -> None:
         path = SOURCE / rel
         assert hashlib.sha256(path.read_bytes()).hexdigest() == row["release_source_sha256"]
         assert row["portal_candidate_sha256"] != row["release_source_sha256"]
+
+    workflow_repairs = {
+        row["path"]: row
+        for row in receipt["pretag_public_figure_workflow_repair_adjustments"]
+    }
+    assert set(workflow_repairs) == {"scripts/python/generate_figures.py"}
+    repair = workflow_repairs["scripts/python/generate_figures.py"]
+    assert hashlib.sha256((SOURCE / repair["path"]).read_bytes()).hexdigest() == repair["release_source_sha256"]
+    assert repair["portal_candidate_sha256"] != repair["release_source_sha256"]
+    assert "public_release guard" in repair["reason"]
+
     ch12 = (SOURCE / "scripts/python/ch12_apa_reporting.py").read_text(encoding="utf-8")
     audit = (SOURCE / "scripts/python/finalize_apa_reporting_audit.py").read_text(encoding="utf-8")
+    figures = (SOURCE / "scripts/python/generate_figures.py").read_text(encoding="utf-8")
     assert "from pathlib import Path" not in ch12
     assert " ROOT," not in ch12
     assert " rounded," not in ch12
     assert "from pathlib import Path" not in audit
+    assert 'PUBLIC_RELEASE_STATUS = "public_release"' in figures
 
 
 def test_book1_v02_figure_contract_has_six_source_faithful_grayscale_figures() -> None:
@@ -133,6 +146,54 @@ def test_book1_v02_figure_contract_has_six_source_faithful_grayscale_figures() -
     assert figures["fig_11_1_regression_scatter"]["source_csv"] == "data/ch11_regression.csv"
     assert figures["fig_10_1_correlation_scatter"]["analysis_contract"]["apa_source_id"] == "ch10"
     assert figures["fig_11_1_regression_scatter"]["analysis_contract"]["apa_source_id"] == "ch11"
+
+
+def test_book1_v02_public_figure_workflow_runs_from_packaged_asset(tmp_path: Path) -> None:
+    dest = tmp_path / "book1"
+    initialize_book1(dest)
+
+    completed = subprocess.run(
+        [sys.executable, "scripts/python/generate_figures.py"],
+        cwd=dest,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    assert "PYSTATSV1_BOOK1_V02_PUBLIC_FIGURES_OK" in completed.stdout
+
+    manifest = json.loads((dest / "outputs" / "figure_manifest.json").read_text(encoding="utf-8"))
+    assert manifest["companion_version"] == "v0.2"
+    assert manifest["release_status"] == "public_release"
+    assert manifest["print_profile"] == "high-contrast-grayscale"
+    assert len(manifest["figures"]) == 6
+    for row in manifest["figures"]:
+        assert (dest / "outputs" / row["output_filename"]).is_file()
+
+
+@pytest.mark.parametrize("release_status", [None, "candidate_not_public", "unknown_status"])
+def test_book1_v02_public_figure_workflow_rejects_nonpublic_status(
+    tmp_path: Path, release_status: str | None
+) -> None:
+    dest = tmp_path / "book1"
+    initialize_book1(dest)
+    spec_path = dest / "figures_specs.json"
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    if release_status is None:
+        spec.pop("release_status", None)
+    else:
+        spec["release_status"] = release_status
+    spec_path.write_text(json.dumps(spec, indent=2) + "\n", encoding="utf-8")
+
+    completed = subprocess.run(
+        [sys.executable, "scripts/python/generate_figures.py"],
+        cwd=dest,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    assert completed.returncode != 0
+    assert "public release status must remain explicit" in completed.stderr
+    assert not (dest / "outputs").exists()
 
 
 def test_book1_cli_init_and_verify_v02(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

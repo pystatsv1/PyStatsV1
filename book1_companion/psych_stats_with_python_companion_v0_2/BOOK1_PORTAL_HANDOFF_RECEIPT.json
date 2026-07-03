@@ -18,6 +18,14 @@
   "portal_repository": "nicholaskarlson/nekpress-learntoprogram-portal-private",
   "portal_tag": "book1-companion-v0.2-candidate",
   "preserved_tag": "book1-kdp-proof-candidate-v0.4",
+  "pretag_public_figure_workflow_repair_adjustments": [
+    {
+      "path": "scripts/python/generate_figures.py",
+      "portal_candidate_sha256": "b28697ca2af53d1dc95fb4661aef2525ef377c9b27a30c2e2bec434faaa2561f",
+      "reason": "Replace the inherited candidate-only release-status guard with an explicit public_release guard so the public Companion v0.2 make figures workflow can generate the declared released evidence figures. The source CSV selection, figure specifications, plotting calculations, and statistical result contracts are unchanged.",
+      "release_source_sha256": "8f3ad8b53e34bcda359c6f056251c3796cd251416a53c123b011254a33fb5c83"
+    }
+  ],
   "release_metadata_changed_from_portal_candidate": [
     "BOOK1_SOURCE_PROVENANCE.json",
     "BOOK1_PORTAL_HANDOFF_RECEIPT.json",
@@ -45,7 +53,6 @@
     "scripts/python/ch11_regression.py": "944c07681861dc719e8d3898da2ccb4d67a1a1a0bf254eedcb1d7a8490b3cb11",
     "scripts/python/common.py": "26c0a92cedc50bb621b6d8f6c55550dbc0a3ffc34c0aa8f4f70fdd71135c6679",
     "scripts/python/compare_results.py": "2f3f99b9bbab1ad8a53acb49520c75552a2ffdea774895a031e22c918f1bd396",
-    "scripts/python/generate_figures.py": "b28697ca2af53d1dc95fb4661aef2525ef377c9b27a30c2e2bec434faaa2561f",
     "scripts/python/run_all.py": "24982aaf2e500e9fb5c828fe27a70e92df0d6697868a9a06beac620c65376d7c",
     "scripts/r/ch05_independent_t.R": "305593da58387af6961f6d33cc12251d92c1f3dba02572e007e429aea3219d92",
     "scripts/r/ch06_paired_t.R": "86f270b4ca0c5b88e389a7343cc1b9fa4750a0a2d5c90284a4c7688479052bdc",

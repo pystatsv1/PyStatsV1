@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate source-faithful, grayscale Book 1 v0.2 candidate figures.
+"""Generate source-faithful, grayscale Book 1 v0.2 public-release figures.
 
-The PNGs are reproducible outputs. Do not hand-edit them. This unpublished
-candidate preserves the public Companion v0.1 and prepares an explicit v0.2
-handoff for the next PyStatsV1 launcher release.
+The PNGs are reproducible outputs. Do not hand-edit them. This public
+Companion v0.2 bundle preserves the historical v0.1 companion while providing
+source-faithful evidence figures for the released launcher workflow.
 """
 from __future__ import annotations
 
@@ -27,6 +27,7 @@ DEFAULT_OUTPUT_ROOT = ROOT / "outputs" / "figures"
 DEFAULT_MANIFEST = ROOT / "outputs" / "figure_manifest.json"
 GENERATOR_RELATIVE_PATH = "scripts/python/generate_figures.py"
 PRINT_PROFILE = "high-contrast-grayscale"
+PUBLIC_RELEASE_STATUS = "public_release"
 PLOT_DPI = 360
 
 BLACK = "0.0"
@@ -74,7 +75,7 @@ def save_figure(figure, path: Path) -> None:
         bbox_inches="tight",
         pad_inches=0.08,
         facecolor="white",
-        metadata={"Software": "Psych Stats with Python Book 1 visual evidence v0.2 candidate"},
+        metadata={"Software": "Psych Stats with Python Book 1 visual evidence v0.2 public release"},
     )
     plt.close(figure)
 
@@ -197,13 +198,14 @@ def main() -> None:
     if spec_document.get("generator") != GENERATOR_RELATIVE_PATH:
         raise SystemExit("figure specification generator path is not current")
     if spec_document.get("companion_version") != "v0.2":
-        raise SystemExit("v0.2 candidate figure specification must declare Companion v0.2")
-    if spec_document.get("release_status") != "candidate_not_public":
-        raise SystemExit("candidate release status must remain explicit")
+        raise SystemExit("public v0.2 figure specification must declare Companion v0.2")
+    release_status = spec_document.get("release_status")
+    if release_status != PUBLIC_RELEASE_STATUS:
+        raise SystemExit("public release status must remain explicit")
     if spec_document.get("synthetic_data_only") is not True:
         raise SystemExit("figure specification must require synthetic data only")
     if spec_document.get("print_profile") != PRINT_PROFILE:
-        raise SystemExit("candidate figure specification must require grayscale print profile")
+        raise SystemExit("public figure specification must require grayscale print profile")
 
     figures = spec_document.get("figures", [])
     selected = [row for row in figures if args.only is None or row["figure_id"] == args.only]
@@ -255,7 +257,7 @@ def main() -> None:
     manifest = {
         "schema_version": "book1-visual-evidence-manifest-v0.2",
         "companion_version": "v0.2",
-        "release_status": "candidate_not_public",
+        "release_status": release_status,
         "generator": GENERATOR_RELATIVE_PATH,
         "synthetic_data_only": True,
         "print_profile": PRINT_PROFILE,
@@ -264,7 +266,7 @@ def main() -> None:
     }
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(f"BOOK1_COMPANION_V02_CANDIDATE_FIGURES_OK figures={len(rows)} manifest={args.manifest}")
+    print(f"PYSTATSV1_BOOK1_V02_PUBLIC_FIGURES_OK figures={len(rows)} manifest={args.manifest}")
 
 
 if __name__ == "__main__":

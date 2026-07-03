@@ -15,7 +15,13 @@
       "requirements-book1-companion.txt",
       "figures_specs.json",
       "Makefile"
-    ]
+    ],
+    "pretag_public_figure_workflow_repair": {
+      "portal_candidate_sha256": "b28697ca2af53d1dc95fb4661aef2525ef377c9b27a30c2e2bec434faaa2561f",
+      "reason": "Replace the inherited candidate-only release-status guard with an explicit public_release guard so make figures works in the public Companion v0.2 release. The source CSV selection, figure specifications, plotting calculations, and statistical result contracts are unchanged.",
+      "release_source_sha256": "8f3ad8b53e34bcda359c6f056251c3796cd251416a53c123b011254a33fb5c83",
+      "script": "scripts/python/generate_figures.py"
+    }
   },
   "required_pystatsv1_release": "0.25.0",
   "source_portal_commit": "20076607ebf37245f0eb9ed7c5a56f56a042a8f5",
