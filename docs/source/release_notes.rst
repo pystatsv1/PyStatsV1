@@ -17,8 +17,8 @@ Highlights
   reached within ``n_max`` rather than returning an unsupported boundary value.
 * Adds dependency-matrix CI coverage for the Chapter 20 power regression,
   including the supported floor and the current SciPy resolver path.
-* Requires the manual PyPI workflow to run from an annotated ``v<version>`` tag
-  that matches ``pyproject.toml`` exactly.
+* Requires the manual PyPI workflow to fetch and verify the requested annotated
+  ``v<version>`` tag against ``pyproject.toml`` exactly before it builds or publishes.
 * Retains the public Book 1 Companion v0.2 asset and its canonical
   ``pystatsv1[book1]==0.25.0`` proof binding unchanged.
 

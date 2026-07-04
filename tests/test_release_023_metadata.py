@@ -50,7 +50,7 @@ def test_pypi_publish_is_manual_after_green_tag_ci():
     text = (ROOT / ".github" / "workflows" / "pypi-publish.yml").read_text(encoding="utf-8")
     assert "workflow_dispatch" in text
     assert "push:" not in text
-    assert "gh workflow run pypi-publish.yml --ref v0.23.0" in text
+    assert "gh workflow run pypi-publish.yml --ref main -f release_tag=v0.25.1" in text
 
 
 def test_dev_extra_supports_py310_release_build():

@@ -1,10 +1,15 @@
 name: Publish to PyPI (trusted publisher)
 
 # Release policy: CI runs on v* tags first. Publish only after the tag CI is green.
-# Run manually against the release tag, for example:
-#   gh workflow run pypi-publish.yml --ref v0.23.0
+# Dispatch from main and provide the immutable annotated release tag, for example:
+#   gh workflow run pypi-publish.yml --ref main -f release_tag=v0.25.1
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Annotated release tag to build and publish (for example, v0.25.1)"
+        required: true
+        type: string
 
 jobs:
   build-and-publish:
@@ -15,10 +20,47 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout source
+      - name: Checkout requested release source
         uses: actions/checkout@v4
         with:
+          ref: ${{ inputs.release_tag }}
           fetch-depth: 0
+          fetch-tags: true
+
+      # actions/checkout can materialize a commit-shaped local tag ref when a
+      # workflow is dispatched against a tag. Re-fetch the named ref explicitly
+      # so the release gate sees the original annotated tag object from origin.
+      - name: Restore and verify exact annotated release tag
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          case "$RELEASE_TAG" in
+            v[0-9]*) ;;
+            *)
+              echo "Release tag must start with v followed by a version: $RELEASE_TAG"
+              exit 1
+              ;;
+          esac
+
+          git fetch --force origin "refs/tags/${RELEASE_TAG}:refs/tags/${RELEASE_TAG}"
+
+          object_type="$(git cat-file -t "refs/tags/${RELEASE_TAG}")"
+          if [ "$object_type" != "tag" ]; then
+            echo "Expected an annotated tag, found ${object_type} for ${RELEASE_TAG}"
+            exit 1
+          fi
+
+          tagged_commit="$(git rev-parse "refs/tags/${RELEASE_TAG}^{commit}")"
+          checked_out_commit="$(git rev-parse HEAD)"
+          if [ "$tagged_commit" != "$checked_out_commit" ]; then
+            echo "Requested tag does not resolve to the checked-out source"
+            echo "tagged_commit=${tagged_commit}"
+            echo "checked_out_commit=${checked_out_commit}"
+            exit 1
+          fi
+
+          echo "PYSTATSV1_RELEASE_ANNOTATED_TAG_FETCH_OK tag=${RELEASE_TAG} commit=${tagged_commit}"
 
       - name: Set up Python
         uses: actions/setup-python@v5

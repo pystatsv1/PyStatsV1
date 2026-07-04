@@ -40,10 +40,16 @@ def test_packaged_assets_configuration_includes_zip_assets():
     assert "*.zip" in package_data["pystatsv1.assets"]
 
 
-def test_release_workflow_requires_the_checked_out_annotated_version_tag():
+def test_release_workflow_rehydrates_the_requested_annotated_version_tag():
     workflow = (ROOT / ".github" / "workflows" / "pypi-publish.yml").read_text(encoding="utf-8")
     checker = (ROOT / "tools" / "check_release_tag.py").read_text(encoding="utf-8")
+    assert "release_tag:" in workflow
+    assert "ref: ${{ inputs.release_tag }}" in workflow
     assert "fetch-depth: 0" in workflow
+    assert "fetch-tags: true" in workflow
+    assert '"refs/tags/${RELEASE_TAG}:refs/tags/${RELEASE_TAG}"' in workflow
+    assert 'git cat-file -t "refs/tags/${RELEASE_TAG}"' in workflow
+    assert "PYSTATSV1_RELEASE_ANNOTATED_TAG_FETCH_OK" in workflow
     assert "python tools/check_release_tag.py" in workflow
     assert "--exact-match" in checker
     assert "must be an annotated tag" in checker
