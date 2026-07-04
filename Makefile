@@ -35,6 +35,7 @@ help:
 	@echo "  business-ch09 - Track D Chapter 9 analysis (plotting/reporting style contract + example figures)"
 	@echo "  trackd-zip  - rebuild Track D workbook ZIP from workbooks/track_d_template/"
 	@echo "  book1-asset - rebuild packaged Psych Stats Book 1 companion ZIP"
+	@echo "  release-verify - require an annotated v<version> tag matching pyproject.toml"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
 	@echo "  test       - pytest"
@@ -53,6 +54,10 @@ trackd-zip:
 .PHONY: book1-asset
 book1-asset:
 	$(PYTHON) tools/build_book1_companion_asset.py
+
+.PHONY: release-verify
+release-verify:
+	$(PYTHON) tools/check_release_tag.py
 
 docs:
 	$(PYTHON) -m sphinx -b html docs/source docs/build/html

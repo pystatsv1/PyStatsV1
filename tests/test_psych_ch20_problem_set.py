@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
+import pytest
 
 from scripts.psych_ch20_problem_set import (
     ProblemResult,
@@ -35,8 +37,26 @@ def test_exercise_1_power_analysis_reasonable_n() -> None:
 
     # Cross-check helper functions directly
     n_req2 = required_n_ttest(0.5, target_power=0.80, alpha=0.05, two_sided=True)
-    assert n_req2 == n_req
+    assert n_req2 == n_req == 64
     assert power_ttest_ind(0.5, n_req2, alpha=0.05, two_sided=True) >= 0.80
+
+
+def test_power_helper_stays_finite_at_large_sample_sizes() -> None:
+    """The tiny opposite tail must not turn a stable power result into NaN."""
+    power = power_ttest_ind(0.5, 1000, alpha=0.05, two_sided=True)
+    assert np.isfinite(power)
+    assert 0.999 < power <= 1.0
+
+
+def test_two_sided_power_is_symmetric_in_effect_direction() -> None:
+    positive = power_ttest_ind(0.5, 64, alpha=0.05, two_sided=True)
+    negative = power_ttest_ind(-0.5, 64, alpha=0.05, two_sided=True)
+    assert positive == pytest.approx(negative, rel=0.0, abs=1e-12)
+
+
+def test_required_n_rejects_an_unreachable_target_within_n_max() -> None:
+    with pytest.raises(ValueError, match="cannot be reached within n_max=20"):
+        required_n_ttest(0.1, target_power=0.99, alpha=0.05, two_sided=True, n_max=20)
 
 
 def test_exercise_2_meta_analysis_has_heterogeneity() -> None:

@@ -29,6 +29,29 @@ jobs:
 
       - name: Build docs (workbook strict)
         run: make docs-workbook-strict
+  power-analysis-dependency-matrix:
+    name: power-analysis-dependency-matrix (${{ matrix.scipy_requirement }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scipy_requirement: ["scipy==1.11.*", "scipy"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Run stable Chapter 20 power regression checks
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas matplotlib "${{ matrix.scipy_requirement }}" pytest
+          python -m pip install -e . --no-deps
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q tests/test_psych_ch20_problem_set.py
+
   wheel-smoke:
     name: wheel-smoke (${{ matrix.os }})
     runs-on: ${{ matrix.os }}

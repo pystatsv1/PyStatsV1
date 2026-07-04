@@ -1,6 +1,27 @@
 Release notes
 =============
 
+v0.25.1 — Chapter 20 power stability and release guard
+----------------------------------------------------------
+
+PyStatsV1 v0.25.1 corrects a numerical stability defect in the Chapter 20
+independent-samples t-test power helper and adds a release safety check.
+
+Highlights
+~~~~~~~~~~
+
+* Calculates two-sided noncentral-t power from stable survival-function tails,
+  avoiding ``NaN`` results for a numerically tiny opposite tail at large sample
+  sizes.
+* Makes ``required_n_ttest()`` fail clearly when the requested target cannot be
+  reached within ``n_max`` rather than returning an unsupported boundary value.
+* Adds dependency-matrix CI coverage for the Chapter 20 power regression,
+  including the supported floor and the current SciPy resolver path.
+* Requires the manual PyPI workflow to run from an annotated ``v<version>`` tag
+  that matches ``pyproject.toml`` exactly.
+* Retains the public Book 1 Companion v0.2 asset and its canonical
+  ``pystatsv1[book1]==0.25.0`` proof binding unchanged.
+
 v0.25.0 — Book 1 Companion v0.2
 ---------------------------------
 

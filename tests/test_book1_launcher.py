@@ -228,8 +228,8 @@ def test_book1_info_reads_packaged_v02_manifest() -> None:
     assert len(manifest["files"]) >= 37
 
 
-def test_book1_snapshot_targets_the_launcher_release_series() -> None:
+def test_book1_snapshot_preserves_the_0250_launcher_proof_route() -> None:
     requirements = (SOURCE / "requirements-book1-companion.txt").read_text(encoding="utf-8")
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    assert 'version = "0.25.0"' in pyproject
+    assert 'version = "0.25.1"' in pyproject
     assert "pystatsv1>=0.25.0,<0.26.0" in requirements

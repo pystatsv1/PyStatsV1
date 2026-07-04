@@ -1,10 +1,12 @@
 Psych Stats with Python — Book 1 Launcher
 =========================================
 
-PyStatsV1 v0.25.0 packages Companion v0.2, a synthetic-only, inspectable local companion for
-*Psych Stats with Python*. The launcher creates a new directory from a
-versioned package asset. It does not overwrite existing work, upload data, run
-an analysis automatically, or make a real-data claim.
+The canonical Book 1 proof route is PyStatsV1 v0.25.0 with Companion v0.2,
+a synthetic-only, inspectable local companion for *Psych Stats with Python*.
+PyStatsV1 v0.25.1 is a maintenance release and does not alter this Book 1
+binding, the companion asset, or its teaching calculations. The launcher creates
+a new directory from a versioned package asset. It does not overwrite existing
+work, upload data, run an analysis automatically, or make a real-data claim.
 
 Quick start
 -----------

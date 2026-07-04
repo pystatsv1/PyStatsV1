@@ -40,10 +40,12 @@ pytest -q
 
 ## Psych Stats with Python — Book 1 companion
 
-PyStatsV1 v0.25.0 packages Companion v0.2, the synthetic-only executable companion
-to *Psych Stats with Python*. It writes an inspectable local folder; it does
-not hide the analysis, overwrite an existing destination, or turn a real-data
-workflow into a one-command claim.
+PyStatsV1 v0.25.1 retains Companion v0.2, the synthetic-only executable companion
+to *Psych Stats with Python*. The canonical Book 1 proof route remains pinned
+to v0.25.0 below; this maintenance release does not alter the companion asset,
+its synthetic teaching data, or that reader-facing binding. It writes an
+inspectable local folder; it does not hide the analysis, overwrite an existing
+destination, or turn a real-data workflow into a one-command claim.
 
 ```bash
 python -m pip install "pystatsv1[book1]==0.25.0"

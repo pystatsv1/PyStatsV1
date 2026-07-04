@@ -47,6 +47,18 @@ def _ensure_dirs() -> None:
 # -------------------------
 # Exercise 1: Power analysis
 # -------------------------
+def _validate_power_inputs(d: float, n_per_group: int, alpha: float) -> None:
+    """Validate the small public surface used by the Chapter 20 power helper."""
+    if isinstance(n_per_group, bool) or not isinstance(n_per_group, (int, np.integer)):
+        raise ValueError("n_per_group must be an integer >= 2")
+    if n_per_group < 2:
+        raise ValueError("n_per_group must be >= 2")
+    if not np.isfinite(float(d)):
+        raise ValueError("d must be finite")
+    if not (0.0 < float(alpha) < 1.0):
+        raise ValueError("alpha must be in (0, 1)")
+
+
 def power_ttest_ind(
     d: float,
     n_per_group: int,
@@ -60,21 +72,33 @@ def power_ttest_ind(
 
     d: Cohen's d (standardized mean difference)
     n_per_group: sample size per group (integer >= 2)
-    """
-    if n_per_group < 2:
-        raise ValueError("n_per_group must be >= 2")
 
-    df = 2 * n_per_group - 2
-    ncp = float(d) * np.sqrt(n_per_group / 2.0)
+    The two-sided calculation intentionally uses survival functions for both
+    rejection tails.  At large positive or negative noncentralities, some
+    SciPy ``nct.cdf`` versions can return ``NaN`` for the numerically tiny
+    opposite tail.  The survival-function identity below avoids subtracting
+    nearly equal probabilities and keeps the result finite across the
+    supported SciPy range.
+    """
+    _validate_power_inputs(d, n_per_group, alpha)
+
+    df = 2 * int(n_per_group) - 2
+    ncp = float(d) * np.sqrt(int(n_per_group) / 2.0)
 
     if two_sided:
         tcrit = stats.t.ppf(1.0 - alpha / 2.0, df)
-        cdf_pos = stats.nct.cdf(tcrit, df, ncp)
-        cdf_neg = stats.nct.cdf(-tcrit, df, ncp)
-        return float(1.0 - (cdf_pos - cdf_neg))
+        upper_tail = stats.nct.sf(tcrit, df, ncp)
+        # For a noncentral t variate T(ncp),
+        # P(T <= -tcrit) = P(T(-ncp) >= tcrit).
+        lower_tail = stats.nct.sf(tcrit, df, -ncp)
+        power = float(upper_tail + lower_tail)
+    else:
+        tcrit = stats.t.ppf(1.0 - alpha, df)
+        power = float(stats.nct.sf(tcrit, df, ncp))
 
-    tcrit = stats.t.ppf(1.0 - alpha, df)
-    return float(1.0 - stats.nct.cdf(tcrit, df, ncp))
+    if not np.isfinite(power):
+        raise RuntimeError("noncentral-t power calculation returned a non-finite value")
+    return float(np.clip(power, 0.0, 1.0))
 
 
 def required_n_ttest(
@@ -87,10 +111,21 @@ def required_n_ttest(
     n_max: int = 5000,
 ) -> int:
     """Smallest n_per_group that achieves target_power for the independent t-test."""
-    if not (0 < target_power < 1):
+    if not (0.0 < float(target_power) < 1.0):
         raise ValueError("target_power must be in (0, 1)")
+    _validate_power_inputs(d, n_min, alpha)
+    _validate_power_inputs(d, n_max, alpha)
+    if n_max < n_min:
+        raise ValueError("n_max must be greater than or equal to n_min")
 
-    lo, hi = n_min, n_max
+    maximum_power = power_ttest_ind(d, n_max, alpha=alpha, two_sided=two_sided)
+    if maximum_power < target_power:
+        raise ValueError(
+            "target_power cannot be reached within n_max="
+            f"{n_max} (maximum power={maximum_power:.6f})"
+        )
+
+    lo, hi = int(n_min), int(n_max)
     while lo < hi:
         mid = (lo + hi) // 2
         pwr = power_ttest_ind(d, mid, alpha=alpha, two_sided=two_sided)
