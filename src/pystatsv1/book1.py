@@ -21,10 +21,14 @@ from typing import Final
 
 PKG: Final[str] = "pystatsv1"
 ASSET_PACKAGE: Final[str] = f"{PKG}.assets"
-ASSET_NAME: Final[str] = "psych_stats_with_python_companion_v0_2.zip"
-DEFAULT_DEST_NAME: Final[str] = "psych_stats_with_python_companion_v0_2"
+ASSET_NAME: Final[str] = "psych_stats_with_python_companion_v0_2_1.zip"
+DEFAULT_DEST_NAME: Final[str] = "psych_stats_with_python_companion_v0_2_1"
 MANIFEST_NAME: Final[str] = "BOOK1_BUNDLE_MANIFEST.json"
 MANIFEST_SCHEMA: Final[str] = "pystatsv1-book1-bundle-manifest-v0.1"
+CURRENT_COMPANION_VERSION: Final[str] = "v0.2.1"
+MAINTENANCE_NAME: Final[str] = "BOOK1_MAINTENANCE_RECEIPT.json"
+MAINTENANCE_SCHEMA: Final[str] = "book1-companion-maintenance-receipt-v0.1"
+CH08_DATA_PATH: Final[str] = "data/ch08_two_way_anova.csv"
 
 
 @dataclass(frozen=True)
@@ -70,6 +74,101 @@ def _read_manifest_from_zip(zf: zipfile.ZipFile) -> dict:
     return payload
 
 
+def _manifest_hash(manifest: dict, relative: str) -> str:
+    for row in manifest["files"]:
+        if row.get("path") == relative:
+            value = row.get("sha256")
+            if isinstance(value, str) and len(value) == 64:
+                return value
+            break
+    raise RuntimeError(f"Book 1 bundle manifest lacks a valid hash for: {relative}")
+
+
+def _validate_current_maintenance_receipt(data: bytes, manifest: dict) -> None:
+    if manifest.get("companion_version") != CURRENT_COMPANION_VERSION:
+        return
+    try:
+        receipt = json.loads(data.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise RuntimeError("Book 1 v0.2.1 maintenance receipt is invalid") from exc
+
+    if receipt.get("schema_version") != MAINTENANCE_SCHEMA:
+        raise RuntimeError("Book 1 v0.2.1 maintenance receipt schema is not supported")
+    if receipt.get("companion_version") != CURRENT_COMPANION_VERSION:
+        raise RuntimeError("Book 1 v0.2.1 maintenance receipt version does not match")
+    if receipt.get("synthetic_data_only") is not True:
+        raise RuntimeError("Book 1 v0.2.1 maintenance receipt must remain synthetic-only")
+
+    release_target = receipt.get("release_target", {})
+    expected_target = {
+        "package": "pystatsv1",
+        "package_version": "0.25.2",
+        "companion_version": CURRENT_COMPANION_VERSION,
+        "default_destination": DEFAULT_DEST_NAME,
+    }
+    if release_target != expected_target:
+        raise RuntimeError("Book 1 v0.2.1 maintenance release target is invalid")
+
+    correction = receipt.get("correction", {})
+    if correction.get("affected_path") != CH08_DATA_PATH:
+        raise RuntimeError("Book 1 v0.2.1 maintenance receipt has the wrong affected path")
+    if correction.get("new_sha256") != _manifest_hash(manifest, CH08_DATA_PATH):
+        raise RuntimeError("Book 1 v0.2.1 corrected CSV hash does not match the bundle manifest")
+    if correction.get("old_sha256") == correction.get("new_sha256"):
+        raise RuntimeError("Book 1 v0.2.1 maintenance receipt does not record a changed CSV")
+    if correction.get("participant_id_sequence") != "ch08_001 through ch08_048":
+        raise RuntimeError("Book 1 v0.2.1 participant ID sequence is invalid")
+
+    contract = receipt.get("change_contract", {})
+    required_true = {
+        "participant_id_changed",
+        "strategy_unchanged",
+        "feedback_unchanged",
+        "test_score_unchanged",
+        "row_count_unchanged",
+        "row_order_unchanged",
+        "cell_membership_unchanged",
+        "cell_counts_unchanged",
+        "cell_means_unchanged",
+        "statistical_analysis_scripts_unchanged",
+    }
+    if any(contract.get(key) is not True for key in required_true):
+        raise RuntimeError("Book 1 v0.2.1 change contract is incomplete")
+
+    data_contract = receipt.get("data_contract_after_correction", {})
+    expected_data_contract = {
+        "row_count": 48,
+        "unique_participant_id_count": 48,
+        "duplicate_participant_row_count": 0,
+        "cell_count": 4,
+        "rows_per_cell": 12,
+    }
+    if any(data_contract.get(key) != value for key, value in expected_data_contract.items()):
+        raise RuntimeError("Book 1 v0.2.1 corrected data contract is invalid")
+
+    statistical = receipt.get("statistical_verification", {})
+    required_statistical_true = {
+        "python_reported_fields_exactly_unchanged",
+        "r_reported_fields_exactly_unchanged",
+        "python_r_reported_fields_exactly_equal",
+        "chapter12_all_apa_examples_sourced",
+        "chapter12_all_parity_receipts_pass",
+        "apa_sentence_exactly_unchanged",
+    }
+    if any(statistical.get(key) is not True for key in required_statistical_true):
+        raise RuntimeError("Book 1 v0.2.1 statistical verification is incomplete")
+    if statistical.get("chapter8_parity_status") != "PASS":
+        raise RuntimeError("Book 1 v0.2.1 Chapter 8 parity is not PASS")
+
+    figure = receipt.get("figure_verification", {})
+    if figure.get("byte_identical") is not True or figure.get("figure_count") != 6:
+        raise RuntimeError("Book 1 v0.2.1 figure verification is incomplete")
+
+    lineage = receipt.get("lineage", {})
+    if lineage.get("historical_portal_handoff_receipt_preserved_unchanged") is not True:
+        raise RuntimeError("Book 1 v0.2.1 historical handoff lineage is not preserved")
+
+
 def _validate_zip_members(zf: zipfile.ZipFile, manifest: dict) -> None:
     names: set[str] = set()
     for info in zf.infolist():
@@ -92,13 +191,21 @@ def _validate_zip_members(zf: zipfile.ZipFile, manifest: dict) -> None:
             pieces.append("missing: " + ", ".join(missing))
         if extra:
             pieces.append("unexpected: " + ", ".join(extra))
-        raise RuntimeError("packaged Book 1 asset members do not match manifest (" + "; ".join(pieces) + ")")
+        raise RuntimeError(
+            "packaged Book 1 asset members do not match manifest ("
+            + "; ".join(pieces)
+            + ")"
+        )
     for row in manifest["files"]:
         name = str(row["path"])
         _safe_relative(name)
         actual = hashlib.sha256(zf.read(name)).hexdigest()
         if actual != row.get("sha256"):
             raise RuntimeError(f"packaged Book 1 asset hash mismatch: {name}")
+    if manifest.get("companion_version") == CURRENT_COMPANION_VERSION:
+        if MAINTENANCE_NAME not in names:
+            raise RuntimeError(f"packaged Book 1 v0.2.1 asset is missing {MAINTENANCE_NAME}")
+        _validate_current_maintenance_receipt(zf.read(MAINTENANCE_NAME), manifest)
 
 
 def packaged_book1_info() -> dict:
@@ -180,4 +287,9 @@ def verify_book1_directory(destination: Path) -> Book1Verification:
             raise RuntimeError(f"Book 1 bundle manifest has invalid hash for: {rel.as_posix()}")
         if _sha256(path) != expected:
             raise RuntimeError(f"Book 1 bundle source file hash mismatch: {rel.as_posix()}")
+    if companion_version == CURRENT_COMPANION_VERSION:
+        maintenance_path = dest / MAINTENANCE_NAME
+        if not maintenance_path.is_file():
+            raise RuntimeError(f"Book 1 v0.2.1 bundle is missing {MAINTENANCE_NAME}")
+        _validate_current_maintenance_receipt(maintenance_path.read_bytes(), manifest)
     return Book1Verification(dest, companion_version, len(rows))

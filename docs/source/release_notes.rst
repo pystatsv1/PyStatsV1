@@ -1,6 +1,30 @@
 Release notes
 =============
 
+v0.25.2 — Book 1 Companion v0.2.1 identity correction
+----------------------------------------------------------------
+
+PyStatsV1 v0.25.2 packages Book 1 Companion v0.2.1 and corrects the Chapter 8
+synthetic participant identifiers without changing the teaching analysis.
+
+Highlights
+~~~~~~~~~~
+
+* Replaces condition-repeated Chapter 8 participant IDs with globally unique
+  ``ch08_001`` through ``ch08_048`` identifiers in stable row order.
+* Preserves ``strategy``, ``feedback``, ``test_score``, cell membership, cell
+  counts, cell means, all Python/R reported fields, the APA sentence, and the
+  Chapter 8 figure.
+* Adds ``BOOK1_MAINTENANCE_RECEIPT.json`` with old/new CSV hashes, the ID-only
+  change contract, statistical parity evidence, figure evidence, and parent
+  lineage.
+* Updates ``pystatsv1 book1 init`` to create
+  ``psych_stats_with_python_companion_v0_2_1`` by default.
+* Preserves the historical Companion v0.2 source snapshot, packaged ZIP,
+  portal-handoff receipt, and ``pystatsv1[book1]==0.25.0`` proof route.
+* Keeps the bundle synthetic-only and retains the launcher's non-overwrite,
+  safe-path, source-hash, and generated-output boundaries.
+
 v0.25.1 — Chapter 20 power stability and release guard
 ----------------------------------------------------------
 

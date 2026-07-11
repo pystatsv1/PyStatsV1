@@ -1,0 +1,993 @@
+{
+  "chapters": {
+    "ch05": {
+      "analysis_binding": {
+        "apa_source_id": "ch05",
+        "binding_details": {
+          "difference_direction": "structured minus standard",
+          "grouping_variable": "group",
+          "outcome": "test_score",
+          "python_call": "stats.ttest_ind(structured, standard, equal_var=False)",
+          "r_call": "t.test(structured, standard, var.equal=FALSE)"
+        },
+        "data_file": "data/ch05_independent.csv",
+        "method": "Welch independent-samples t-test",
+        "outputs": {
+          "parity_receipt": "outputs/ch05/parity_receipt.md",
+          "python_result": "outputs/ch05/py_results.json",
+          "r_result": "outputs/ch05/r_results.json"
+        },
+        "python": {
+          "script": "scripts/python/ch05_independent_t.py",
+          "script_sha256": "c1da8759b86551b98d7638e2557623987fd2e3211cbc333b2f02a851784b66d3"
+        },
+        "r": {
+          "independent_implementation": true,
+          "script": "scripts/r/ch05_independent_t.R",
+          "script_sha256": "305593da58387af6961f6d33cc12251d92c1f3dba02572e007e429aea3219d92"
+        }
+      },
+      "design_type": "independent_groups_two_group",
+      "figure_binding": {
+        "reason": "No Chapter 5 figure is declared.",
+        "status": "NOT_APPLICABLE"
+      },
+      "non_claims": [
+        "The audit does not prove random assignment.",
+        "The audit does not establish a causal effect."
+      ],
+      "release_fingerprint": {
+        "group_counts": {
+          "standard": 16,
+          "structured": 15
+        },
+        "observed_numeric_ranges": {
+          "test_score": {
+            "max": 85.91,
+            "min": 66.813
+          }
+        },
+        "row_count": 31,
+        "source_csv_sha256": "194890fdee907b9c0c02c98e975f2ca7a3b52e1bf5f8b07e1c04a2e1f96eeaf6",
+        "unique_participant_id_count": 31
+      },
+      "research_question": "In this synthetic sample, did observed test scores differ between the structured and standard study-routine groups?",
+      "semantic_contract": {
+        "columns": {
+          "allow_duplicate_column_names": false,
+          "allow_unexpected_columns": false,
+          "exact_order": [
+            "participant_id",
+            "group",
+            "test_score"
+          ],
+          "required": [
+            "participant_id",
+            "group",
+            "test_score"
+          ]
+        },
+        "factors": {
+          "group": {
+            "exact_levels": [
+              "standard",
+              "structured"
+            ]
+          }
+        },
+        "identifier": {
+          "column": "participant_id",
+          "one_group_per_participant": true,
+          "one_row_per_participant": true,
+          "unique_within_dataset": true
+        },
+        "numeric_fields": {
+          "test_score": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true
+          }
+        },
+        "row_unit": "one independent synthetic participant"
+      },
+      "source_csv": "data/ch05_independent.csv",
+      "title": "Independent-Samples t-Tests"
+    },
+    "ch06": {
+      "analysis_binding": {
+        "apa_source_id": "ch06",
+        "binding_details": {
+          "difference_direction": "post minus pre",
+          "post_variable": "anxiety_post",
+          "pre_variable": "anxiety_pre",
+          "python_call": "stats.ttest_rel(anxiety_post, anxiety_pre)",
+          "r_call": "t.test(anxiety_post, anxiety_pre, paired=TRUE)"
+        },
+        "data_file": "data/ch06_paired.csv",
+        "method": "Paired-samples t-test",
+        "outputs": {
+          "parity_receipt": "outputs/ch06/parity_receipt.md",
+          "python_result": "outputs/ch06/py_results.json",
+          "r_result": "outputs/ch06/r_results.json"
+        },
+        "python": {
+          "script": "scripts/python/ch06_paired_t.py",
+          "script_sha256": "450fef6e343183730b041e46c781fefe6752af37132e1f90b36c8f1d3aa785c0"
+        },
+        "r": {
+          "independent_implementation": true,
+          "script": "scripts/r/ch06_paired_t.R",
+          "script_sha256": "86f270b4ca0c5b88e389a7343cc1b9fa4750a0a2d5c90284a4c7688479052bdc"
+        }
+      },
+      "design_type": "paired_wide_one_row_per_participant",
+      "figure_binding": {
+        "figure_id": "fig_06_1_paired_change",
+        "status": "REQUIRED"
+      },
+      "non_claims": [
+        "The audit does not prove that the workshop caused the observed change."
+      ],
+      "release_fingerprint": {
+        "observed_numeric_ranges": {
+          "anxiety_post": {
+            "max": 83.13,
+            "min": 50.683
+          },
+          "anxiety_pre": {
+            "max": 85.11,
+            "min": 54.721
+          }
+        },
+        "row_count": 18,
+        "source_csv_sha256": "88c29fbf8b74bbc7f48b0f3bc21a9846960b9828b1f159534cd291858efdf0ab",
+        "unique_participant_id_count": 18
+      },
+      "research_question": "In this synthetic sample, did anxiety scores change from before to after the workshop?",
+      "semantic_contract": {
+        "columns": {
+          "allow_duplicate_column_names": false,
+          "allow_unexpected_columns": false,
+          "exact_order": [
+            "participant_id",
+            "anxiety_pre",
+            "anxiety_post"
+          ],
+          "required": [
+            "participant_id",
+            "anxiety_pre",
+            "anxiety_post"
+          ]
+        },
+        "identifier": {
+          "column": "participant_id",
+          "one_row_per_participant": true,
+          "unique_within_dataset": true
+        },
+        "numeric_fields": {
+          "anxiety_post": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true
+          },
+          "anxiety_pre": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true
+          }
+        },
+        "pairing": {
+          "both_values_required_on_each_row": true,
+          "difference_direction": "post minus pre",
+          "required_columns": [
+            "anxiety_pre",
+            "anxiety_post"
+          ]
+        },
+        "row_unit": "one synthetic participant with both paired measurements"
+      },
+      "source_csv": "data/ch06_paired.csv",
+      "title": "Paired-Samples t-Tests"
+    },
+    "ch07": {
+      "analysis_binding": {
+        "apa_source_id": "ch07",
+        "binding_details": {
+          "factor": "study_condition",
+          "outcome": "test_score",
+          "python_call": "stats.f_oneway over groups formed by study_condition",
+          "r_formula": "test_score ~ study_condition",
+          "scope": "omnibus test only"
+        },
+        "data_file": "data/ch07_one_way_anova.csv",
+        "method": "One-way ANOVA",
+        "outputs": {
+          "parity_receipt": "outputs/ch07/parity_receipt.md",
+          "python_result": "outputs/ch07/py_results.json",
+          "r_result": "outputs/ch07/r_results.json"
+        },
+        "python": {
+          "script": "scripts/python/ch07_one_way_anova.py",
+          "script_sha256": "d08b52837184a1320b9aaa1102163b603dea3c473613efb9d5707f23b21bb7c7"
+        },
+        "r": {
+          "independent_implementation": true,
+          "script": "scripts/r/ch07_one_way_anova.R",
+          "script_sha256": "cfba0856ad46c6c6332ef6901bf332f78fe63c8aba7c71dd002124040348e1eb"
+        }
+      },
+      "design_type": "independent_groups_one_factor_three_level",
+      "figure_binding": {
+        "reason": "No Chapter 7 figure is declared.",
+        "status": "NOT_APPLICABLE"
+      },
+      "non_claims": [
+        "The omnibus audit does not establish which specific pairs differ.",
+        "The audit does not establish causation."
+      ],
+      "release_fingerprint": {
+        "condition_counts": {
+          "practice_quiz": 12,
+          "retrieval_practice": 12,
+          "spaced_review": 12
+        },
+        "expected_df_within": 33,
+        "observed_numeric_ranges": {
+          "test_score": {
+            "max": 81.253,
+            "min": 60.405
+          }
+        },
+        "row_count": 36,
+        "source_csv_sha256": "7d0e5d3758a8493fbc7b20b6245b047b7276137f989b36b3634608566beca573",
+        "unique_participant_id_count": 36
+      },
+      "research_question": "In this synthetic sample, did test scores differ across the three study conditions?",
+      "semantic_contract": {
+        "columns": {
+          "allow_duplicate_column_names": false,
+          "allow_unexpected_columns": false,
+          "exact_order": [
+            "participant_id",
+            "study_condition",
+            "test_score"
+          ],
+          "required": [
+            "participant_id",
+            "study_condition",
+            "test_score"
+          ]
+        },
+        "degrees_of_freedom_consistency": {
+          "df_between": 2,
+          "df_within_rule": "N - k",
+          "k": 3
+        },
+        "factors": {
+          "study_condition": {
+            "exact_levels": [
+              "practice_quiz",
+              "retrieval_practice",
+              "spaced_review"
+            ]
+          }
+        },
+        "identifier": {
+          "column": "participant_id",
+          "one_condition_per_participant": true,
+          "one_row_per_participant": true,
+          "unique_within_dataset": true
+        },
+        "numeric_fields": {
+          "test_score": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true
+          }
+        },
+        "row_unit": "one independent synthetic participant in one condition"
+      },
+      "source_csv": "data/ch07_one_way_anova.csv",
+      "title": "One-Way ANOVA"
+    },
+    "ch08": {
+      "analysis_binding": {
+        "apa_source_id": "ch08",
+        "binding_details": {
+          "balanced_design_required_for_declared_cross-tool_alignment": true,
+          "factors": [
+            "strategy",
+            "feedback"
+          ],
+          "outcome": "test_score",
+          "python_formula": "test_score ~ C(strategy) * C(feedback)",
+          "python_sums_of_squares_type": 2,
+          "r_formula": "test_score ~ strategy * feedback"
+        },
+        "data_file": "data/ch08_two_way_anova.csv",
+        "method": "Two-way factorial ANOVA",
+        "outputs": {
+          "parity_receipt": "outputs/ch08/parity_receipt.md",
+          "python_result": "outputs/ch08/py_results.json",
+          "r_result": "outputs/ch08/r_results.json"
+        },
+        "python": {
+          "script": "scripts/python/ch08_two_way_anova.py",
+          "script_sha256": "b1c61882677497d716808ac593e2939770c5fbeeb1533e4da5ac00f95971e9b5"
+        },
+        "r": {
+          "independent_implementation": true,
+          "script": "scripts/r/ch08_two_way_anova.R",
+          "script_sha256": "d411da1cd74f11c99ab0ee819e41d09333da7ae597b81b16d364a8df419c20b2"
+        }
+      },
+      "design_type": "independent_groups_balanced_two_by_two_factorial",
+      "figure_binding": {
+        "figure_id": "fig_08_1_interaction",
+        "status": "REQUIRED"
+      },
+      "historical_negative_control": {
+        "description": "Historical Companion v0.2 Chapter 8 source with condition-reused participant IDs.",
+        "expected_failure_code": "INDEPENDENT_DESIGN_ID_NOT_UNIQUE",
+        "historical_artifact_must_remain_unchanged": true,
+        "row_count": 48,
+        "source_csv_sha256": "b8bebc818ce0349199029b1753e3d5dcb54411e879fc966061c8113377dc9125",
+        "unique_participant_id_count": 24
+      },
+      "non_claims": [
+        "The audit does not prove that the population interaction is exactly zero.",
+        "The audit does not establish causal effects."
+      ],
+      "release_fingerprint": {
+        "cell_counts": {
+          "standard|feedback": 12,
+          "standard|no_feedback": 12,
+          "structured|feedback": 12,
+          "structured|no_feedback": 12
+        },
+        "observed_numeric_ranges": {
+          "test_score": {
+            "max": 86.62,
+            "min": 58.842
+          }
+        },
+        "row_count": 48,
+        "source_csv_sha256": "27dd7131bb304aad6d7d69d26462df021c6f1dc2e9889fa4d69e508ae4d605d6",
+        "unique_participant_id_count": 48
+      },
+      "research_question": "In this synthetic sample, do strategy, feedback, and their interaction describe test-score differences?",
+      "semantic_contract": {
+        "columns": {
+          "allow_duplicate_column_names": false,
+          "allow_unexpected_columns": false,
+          "exact_order": [
+            "participant_id",
+            "strategy",
+            "feedback",
+            "test_score"
+          ],
+          "required": [
+            "participant_id",
+            "strategy",
+            "feedback",
+            "test_score"
+          ]
+        },
+        "degrees_of_freedom_consistency": {
+          "df_effect": 1,
+          "df_error": 44
+        },
+        "factorial_structure": {
+          "all_cells_nonempty": true,
+          "complete_cartesian_product": true,
+          "expected_cell_count": 4
+        },
+        "factors": {
+          "feedback": {
+            "exact_levels": [
+              "no_feedback",
+              "feedback"
+            ]
+          },
+          "strategy": {
+            "exact_levels": [
+              "standard",
+              "structured"
+            ]
+          }
+        },
+        "identifier": {
+          "column": "participant_id",
+          "one_factor_cell_per_participant": true,
+          "one_row_per_participant": true,
+          "required_exact_sequence": {
+            "end": 48,
+            "prefix": "ch08_",
+            "start": 1,
+            "zero_pad_width": 3
+          },
+          "unique_within_dataset": true
+        },
+        "numeric_fields": {
+          "test_score": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true
+          }
+        },
+        "row_unit": "one independent synthetic participant in one factorial cell"
+      },
+      "source_csv": "data/ch08_two_way_anova.csv",
+      "title": "Two-Way ANOVA and Interaction Thinking"
+    },
+    "ch09": {
+      "analysis_binding": {
+        "apa_source_id": "ch09",
+        "binding_details": {
+          "outcome": "confidence_score",
+          "python_reshape": "pivot(index=participant_id, columns=time, values=confidence_score)",
+          "r_reshape": "xtabs(confidence_score ~ participant_id + time)",
+          "reported_model": "explicit one-factor repeated-measures sums-of-squares calculation",
+          "subject_identifier": "participant_id",
+          "time_order": [
+            "baseline",
+            "week_2",
+            "week_4"
+          ],
+          "within_subject_factor": "time"
+        },
+        "data_file": "data/ch09_repeated_measures.csv",
+        "method": "One-factor repeated-measures ANOVA",
+        "outputs": {
+          "parity_receipt": "outputs/ch09/parity_receipt.md",
+          "python_result": "outputs/ch09/py_results.json",
+          "r_result": "outputs/ch09/r_results.json"
+        },
+        "python": {
+          "script": "scripts/python/ch09_repeated_measures_anova.py",
+          "script_sha256": "b8e1de6b4b09ac8ea6d3695d0651a120ddd4d3755ade9e61376245f15eab1d73"
+        },
+        "r": {
+          "independent_implementation": true,
+          "script": "scripts/r/ch09_repeated_measures_anova.R",
+          "script_sha256": "0b1118153bfddac43c821f617e88dab956b26158a01b3bf9f0cdda8c373aa0db"
+        }
+      },
+      "design_type": "repeated_measures_long_complete_three_occasion",
+      "figure_binding": {
+        "figure_id": "fig_09_1_repeated_trajectory",
+        "status": "REQUIRED"
+      },
+      "non_claims": [
+        "The audit does not establish why confidence changed.",
+        "The audit does not establish a treatment effect without a suitable comparison design."
+      ],
+      "release_fingerprint": {
+        "observed_numeric_ranges": {
+          "confidence_score": {
+            "max": 86.905,
+            "min": 61.98
+          }
+        },
+        "occasion_counts": {
+          "baseline": 18,
+          "week_2": 18,
+          "week_4": 18
+        },
+        "participant_id_frequency_distribution": {
+          "3": 18
+        },
+        "row_count": 54,
+        "source_csv_sha256": "a669c585ad668f15e171f1bb095e1acdd74507b715664124c584d6fa669dbceb",
+        "unique_participant_id_count": 18
+      },
+      "research_question": "In this synthetic sample, did confidence scores change across baseline, week 2, and week 4?",
+      "semantic_contract": {
+        "cartesian_structure": {
+          "complete": true,
+          "expected_long_rows": 54,
+          "expected_wide_shape": [
+            18,
+            3
+          ],
+          "no_missing_values_after_pivot": true,
+          "occasions": 3,
+          "participants": 18
+        },
+        "columns": {
+          "allow_duplicate_column_names": false,
+          "allow_unexpected_columns": false,
+          "exact_order": [
+            "participant_id",
+            "time",
+            "confidence_score"
+          ],
+          "required": [
+            "participant_id",
+            "time",
+            "confidence_score"
+          ]
+        },
+        "degrees_of_freedom_consistency": {
+          "df_error": 34,
+          "df_time": 2,
+          "k": 3,
+          "n": 18
+        },
+        "identifier": {
+          "column": "participant_id",
+          "composite_key": [
+            "participant_id",
+            "time"
+          ],
+          "composite_key_unique": true,
+          "expected_rows_per_participant": 3,
+          "participant_ids_repeat_by_design": true
+        },
+        "numeric_fields": {
+          "confidence_score": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true
+          }
+        },
+        "occasions": {
+          "analysis_order": [
+            "baseline",
+            "week_2",
+            "week_4"
+          ],
+          "column": "time",
+          "every_participant_has_each_occasion_exactly_once": true,
+          "exact_levels": [
+            "baseline",
+            "week_2",
+            "week_4"
+          ]
+        },
+        "row_unit": "one synthetic participant at one occasion"
+      },
+      "source_csv": "data/ch09_repeated_measures.csv",
+      "title": "Repeated-Measures ANOVA"
+    },
+    "ch10": {
+      "analysis_binding": {
+        "apa_source_id": "ch10",
+        "binding_details": {
+          "degrees_of_freedom_rule": "n - 2",
+          "python_call": "stats.pearsonr(study_hours, test_score)",
+          "r_call": "cor.test(study_hours, test_score, method=pearson)",
+          "x_variable": "study_hours",
+          "y_variable": "test_score"
+        },
+        "data_file": "data/ch10_correlation.csv",
+        "method": "Pearson correlation",
+        "outputs": {
+          "parity_receipt": "outputs/ch10/parity_receipt.md",
+          "python_result": "outputs/ch10/py_results.json",
+          "r_result": "outputs/ch10/r_results.json"
+        },
+        "python": {
+          "script": "scripts/python/ch10_correlation.py",
+          "script_sha256": "acef0669ef8a7b20963e063a88ed555feb117c34d6eba4eccfeddf5efe6f4d9b"
+        },
+        "r": {
+          "independent_implementation": true,
+          "script": "scripts/r/ch10_correlation.R",
+          "script_sha256": "2cc71edda1362296139c711ab0250e559f234a28871327bd1e8e3788e53a6226"
+        }
+      },
+      "design_type": "one_observational_pair_per_participant",
+      "figure_binding": {
+        "figure_id": "fig_10_1_correlation_scatter",
+        "status": "REQUIRED"
+      },
+      "non_claims": [
+        "The audit does not prove linearity.",
+        "The audit does not establish causation.",
+        "The audit does not establish absence of influential observations."
+      ],
+      "release_fingerprint": {
+        "observed_numeric_ranges": {
+          "study_hours": {
+            "max": 12.335,
+            "min": 2.807
+          },
+          "test_score": {
+            "max": 91.045,
+            "min": 58.709
+          }
+        },
+        "pairing_fingerprints": {
+          "ordered_id_predictor_outcome_sha256": "7bbf35939455b3a3ab30000df056846362fb8a00697398fe262ae281f50ac75a",
+          "ordered_predictor_outcome_sha256": "2feae1a85f0a1b25e423a257f11d51fbe434dc3916e2da4bcbcb9e2b6dafaf2c",
+          "purpose": "Detect accidental one-column sorting or approved-pair misalignment in this fixed release.",
+          "study_hours_sequence_sha256": "d1ac551241588212ef999349021ec716952281b65bc067e0b8a6b0e8897b2dda",
+          "test_score_sequence_sha256": "88bf4155398e6e65e894805edc7c358555c7b71290f88901b01b6420747edf10",
+          "unordered_predictor_outcome_multiset_sha256": "810dd9d8a5f3b62c79b2474e196f72b83800a6ca7813b6a7725b27fe262eb932"
+        },
+        "row_count": 32,
+        "source_csv_sha256": "96ccc3881595d9df342cad5ace13d0cf508e4017d6d2f91f25dd93cbddaa4fd7",
+        "unique_participant_id_count": 32
+      },
+      "research_question": "In this synthetic sample, how strongly are weekly study hours and test score linearly associated?",
+      "semantic_contract": {
+        "columns": {
+          "allow_duplicate_column_names": false,
+          "allow_unexpected_columns": false,
+          "exact_order": [
+            "participant_id",
+            "study_hours",
+            "test_score"
+          ],
+          "required": [
+            "participant_id",
+            "study_hours",
+            "test_score"
+          ]
+        },
+        "identifier": {
+          "column": "participant_id",
+          "one_row_per_participant": true,
+          "unique_within_dataset": true
+        },
+        "numeric_fields": {
+          "study_hours": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true,
+            "variance_greater_than_zero": true
+          },
+          "test_score": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true,
+            "variance_greater_than_zero": true
+          }
+        },
+        "pairing": {
+          "both_values_required_on_each_row": true,
+          "same_row_same_observational_unit": true,
+          "variables": [
+            "study_hours",
+            "test_score"
+          ]
+        },
+        "row_unit": "one synthetic participant with one complete variable pair"
+      },
+      "source_csv": "data/ch10_correlation.csv",
+      "title": "Correlation"
+    },
+    "ch11": {
+      "analysis_binding": {
+        "apa_source_id": "ch11",
+        "binding_details": {
+          "degrees_of_freedom_rule": "n - 2",
+          "outcome": "test_score",
+          "predictor": "study_hours",
+          "python_call": "stats.linregress(study_hours, test_score)",
+          "r_formula": "test_score ~ study_hours"
+        },
+        "data_file": "data/ch11_regression.csv",
+        "method": "Simple linear regression",
+        "outputs": {
+          "parity_receipt": "outputs/ch11/parity_receipt.md",
+          "python_result": "outputs/ch11/py_results.json",
+          "r_result": "outputs/ch11/r_results.json"
+        },
+        "python": {
+          "script": "scripts/python/ch11_regression.py",
+          "script_sha256": "944c07681861dc719e8d3898da2ccb4d67a1a1a0bf254eedcb1d7a8490b3cb11"
+        },
+        "r": {
+          "independent_implementation": true,
+          "script": "scripts/r/ch11_regression.R",
+          "script_sha256": "971679000a821db7fe7c32087eb16931900fb482b18ac6251b2f1dd45ff4bffa"
+        }
+      },
+      "design_type": "one_predictor_outcome_pair_per_participant",
+      "figure_binding": {
+        "figure_id": "fig_11_1_regression_scatter",
+        "status": "REQUIRED"
+      },
+      "non_claims": [
+        "The audit does not establish causation.",
+        "The audit does not validate prediction outside the observed predictor range."
+      ],
+      "release_fingerprint": {
+        "degrees_of_freedom": 34,
+        "observed_numeric_ranges": {
+          "study_hours": {
+            "max": 11.93,
+            "min": 4.488
+          },
+          "test_score": {
+            "max": 87.738,
+            "min": 47.312
+          }
+        },
+        "pairing_fingerprints": {
+          "ordered_id_predictor_outcome_sha256": "1e91f2b841cc3490fa3d132be647f8fa5519ab91c53299e06c8f59c756ae068c",
+          "ordered_predictor_outcome_sha256": "f673494bcc2a2aecacc910a4ffdeab1a236a7a7090c656dc6bf9c2df2a2eb0f9",
+          "purpose": "Detect accidental one-column sorting or approved-pair misalignment in this fixed release.",
+          "study_hours_sequence_sha256": "53d1514eb33838755e3955024c7a0a4db1b4511a8a1361f84c624ba17c69476c",
+          "test_score_sequence_sha256": "98db23bd956d11bfbe391a412384b7c67ec1f21b84d0acc0e4320ae81fbd24ff",
+          "unordered_predictor_outcome_multiset_sha256": "5ecffbbd11d3ee05ff94e90acf037f6db2010b8a091b17df941dc3dc80ccbd1f"
+        },
+        "row_count": 36,
+        "source_csv_sha256": "b04d4b439c5f76b7e6aac70a614fb9c2249bea4f41481b2a970ed1d2836ad9e5",
+        "unique_participant_id_count": 36
+      },
+      "research_question": "In this synthetic sample, how does predicted test score change on average with study hours?",
+      "semantic_contract": {
+        "columns": {
+          "allow_duplicate_column_names": false,
+          "allow_unexpected_columns": false,
+          "exact_order": [
+            "participant_id",
+            "study_hours",
+            "test_score"
+          ],
+          "required": [
+            "participant_id",
+            "study_hours",
+            "test_score"
+          ]
+        },
+        "identifier": {
+          "column": "participant_id",
+          "one_row_per_participant": true,
+          "unique_within_dataset": true
+        },
+        "numeric_fields": {
+          "study_hours": {
+            "finite": true,
+            "minimum_distinct_values": 2,
+            "parseable_as_numeric": true,
+            "required": true,
+            "variance_greater_than_zero": true
+          },
+          "test_score": {
+            "finite": true,
+            "parseable_as_numeric": true,
+            "required": true
+          }
+        },
+        "pairing": {
+          "both_values_required_on_each_row": true,
+          "outcome": "test_score",
+          "predictor": "study_hours",
+          "same_row_same_observational_unit": true
+        },
+        "row_unit": "one synthetic participant with one predictor/outcome pair"
+      },
+      "source_csv": "data/ch11_regression.csv",
+      "title": "Linear Regression"
+    }
+  },
+  "companion_version": "v0.2.1",
+  "cross_companion_rules": {
+    "ch10_and_ch11_source_files_must_be_distinct": true,
+    "ch10_source_csv_sha256": "96ccc3881595d9df342cad5ace13d0cf508e4017d6d2f91f25dd93cbddaa4fd7",
+    "ch11_source_csv_sha256": "b04d4b439c5f76b7e6aac70a614fb9c2249bea4f41481b2a970ed1d2836ad9e5",
+    "chapter_ids_are_not_cross_dataset_subject_links": true
+  },
+  "failure_codes": [
+    "CSV_NOT_UTF8",
+    "DUPLICATE_COLUMN_NAME",
+    "MISSING_REQUIRED_COLUMN",
+    "UNEXPECTED_COLUMN",
+    "COLUMN_ORDER_MISMATCH",
+    "MISSING_REQUIRED_VALUE",
+    "EMPTY_IDENTIFIER",
+    "LEADING_OR_TRAILING_WHITESPACE",
+    "NONNUMERIC_REQUIRED_VALUE",
+    "NONFINITE_NUMERIC_VALUE",
+    "EXACT_DUPLICATE_ROW",
+    "INDEPENDENT_DESIGN_ID_NOT_UNIQUE",
+    "PARTICIPANT_ASSIGNED_TO_MULTIPLE_GROUPS",
+    "PARTICIPANT_ASSIGNED_TO_MULTIPLE_FACTOR_CELLS",
+    "UNEXPECTED_FACTOR_LEVEL",
+    "MISSING_FACTOR_CELL",
+    "UNEXPECTED_FACTOR_CELL",
+    "RELEASE_ROW_COUNT_MISMATCH",
+    "RELEASE_GROUP_COUNT_MISMATCH",
+    "RELEASE_CELL_COUNT_MISMATCH",
+    "PAIRED_DESIGN_ID_NOT_UNIQUE",
+    "INCOMPLETE_PAIRED_ROW",
+    "DUPLICATE_SUBJECT_OCCASION",
+    "INCOMPLETE_REPEATED_TRAJECTORY",
+    "UNEXPECTED_OCCASION",
+    "REPEATED_MEASURES_ROW_COUNT_MISMATCH",
+    "PIVOT_SHAPE_MISMATCH",
+    "CONSTANT_VARIABLE",
+    "CONSTANT_PREDICTOR",
+    "INSUFFICIENT_DISTINCT_PREDICTOR_VALUES",
+    "SOURCE_FINGERPRINT_MISMATCH",
+    "PAIRING_FINGERPRINT_MISMATCH",
+    "ANALYSIS_BINDING_MISMATCH",
+    "FIGURE_BINDING_MISMATCH",
+    "REPORTING_BINDING_MISMATCH",
+    "CROSS_FILE_SOURCE_COLLISION"
+  ],
+  "figure_bindings": {
+    "expected_figure_count": 6,
+    "figures": [
+      {
+        "analysis_script": "scripts/python/ch10_correlation.py",
+        "apa_source_id": null,
+        "chapter_placement": "Chapter 3",
+        "figure_id": "fig_03_1_distribution_zscore",
+        "python_result": "outputs/ch10/py_results.json",
+        "source_csv": "data/ch10_correlation.csv"
+      },
+      {
+        "analysis_script": "scripts/python/ch06_paired_t.py",
+        "apa_source_id": "ch06",
+        "chapter_placement": "Chapter 6",
+        "figure_id": "fig_06_1_paired_change",
+        "python_result": "outputs/ch06/py_results.json",
+        "source_csv": "data/ch06_paired.csv"
+      },
+      {
+        "analysis_script": "scripts/python/ch08_two_way_anova.py",
+        "apa_source_id": "ch08",
+        "chapter_placement": "Chapter 8",
+        "figure_id": "fig_08_1_interaction",
+        "python_result": "outputs/ch08/py_results.json",
+        "source_csv": "data/ch08_two_way_anova.csv"
+      },
+      {
+        "analysis_script": "scripts/python/ch09_repeated_measures_anova.py",
+        "apa_source_id": "ch09",
+        "chapter_placement": "Chapter 9",
+        "figure_id": "fig_09_1_repeated_trajectory",
+        "python_result": "outputs/ch09/py_results.json",
+        "source_csv": "data/ch09_repeated_measures.csv"
+      },
+      {
+        "analysis_script": "scripts/python/ch10_correlation.py",
+        "apa_source_id": "ch10",
+        "chapter_placement": "Chapter 10",
+        "figure_id": "fig_10_1_correlation_scatter",
+        "python_result": "outputs/ch10/py_results.json",
+        "source_csv": "data/ch10_correlation.csv"
+      },
+      {
+        "analysis_script": "scripts/python/ch11_regression.py",
+        "apa_source_id": "ch11",
+        "chapter_placement": "Chapter 11",
+        "figure_id": "fig_11_1_regression_scatter",
+        "python_result": "outputs/ch11/py_results.json",
+        "source_csv": "data/ch11_regression.csv"
+      }
+    ],
+    "generator_script": "scripts/python/generate_figures.py",
+    "generator_script_sha256": "4d08bc6bc2e06c70be05b3fe8fc2e0fa52549ca74af22d77888a9b483bbb2097",
+    "specification_file": "figures_specs.json",
+    "specification_sha256": "39be19f150378ae73f7043ccdd1affbb7c974867ee647906cea945329076c0e9"
+  },
+  "framework": {
+    "layers": [
+      {
+        "id": "source_integrity",
+        "primary_command": "pystatsv1 book1 verify --dest .",
+        "question": "Is this the declared, versioned input intended for the analysis?"
+      },
+      {
+        "id": "design_and_data_layout_validity",
+        "primary_command": "make design-audit",
+        "question": "Do rows, identifiers, factor levels, repeated observations, variable pairings, and other structural features match the documented teaching design?"
+      },
+      {
+        "id": "analysis_binding_alignment",
+        "primary_command": "make design-audit",
+        "question": "Do the analysis, independent verification, figure, and reporting bindings use the declared inputs consistently with the documented design?"
+      },
+      {
+        "id": "calculation_and_reporting_verification",
+        "primary_commands": [
+          "make all",
+          "make figures"
+        ],
+        "question": "Do independent implementations agree when provided, and can reported values, figures, and result statements be traced to named inputs and outputs?"
+      }
+    ],
+    "limits": [
+      "measurement validity",
+      "ethical authorization",
+      "assumption adequacy",
+      "causal identification",
+      "practical importance",
+      "generalizability"
+    ],
+    "name": "NEKpress Research Proof-First Framework",
+    "proof_first_sequence": [
+      "research_question",
+      "versioned_design_contract",
+      "data_layout_audit",
+      "transparent_analysis",
+      "independent_verification_when_available",
+      "reporting_source_map_where_applicable",
+      "figure_and_artifact_provenance"
+    ]
+  },
+  "global_rules": {
+    "all_required_fields": {
+      "no_empty_identifiers": true,
+      "no_leading_or_trailing_whitespace": true,
+      "nonmissing": true
+    },
+    "all_required_numeric_fields": {
+      "finite": true,
+      "parseable": true
+    },
+    "cross_chapter_identity": "Participant identifiers are scoped to each separate synthetic teaching study; cross-chapter uniqueness is not required.",
+    "exact_duplicate_rows_allowed": false,
+    "numeric_range_policy": "Record observed ranges. Do not invent validity limits that are not explicitly documented by the teaching design.",
+    "scope": "Chapters 5 through 11 of the synthetic Book 1 Companion",
+    "source_format": {
+      "encoding": "UTF-8",
+      "header_required": true,
+      "row_width_must_match_header": true
+    },
+    "stable_rule": "Identity, repetition, grouping, and pairing must match the documented study design.",
+    "synthetic_data_only": true
+  },
+  "historical_preservation": {
+    "historical_artifacts_must_not_be_modified": true,
+    "historical_ch08_source_sha256": "b8bebc818ce0349199029b1753e3d5dcb54411e879fc966061c8113377dc9125",
+    "historical_v02_asset_sha256": "daac70c08bdec18c2b2f702d8fa57f76ab2635dd5a522c2a0620d66accbdf2de"
+  },
+  "receipt_contract": {
+    "deterministic": true,
+    "generated_json": "outputs/design/BOOK1_DESIGN_AUDIT_RECEIPT.json",
+    "generated_markdown": "outputs/design/BOOK1_DESIGN_AUDIT_SUMMARY.md",
+    "required_top_level_statuses": [
+      "semantic_design_status",
+      "release_fingerprint_status",
+      "analysis_binding_status",
+      "figure_binding_status",
+      "reporting_binding_status"
+    ],
+    "success_marker": "BOOK1_COMPANION_DESIGN_AUDIT_OK",
+    "wall_clock_timestamp_prohibited": true
+  },
+  "reporting_bindings": {
+    "chapter12_source_map_script": "scripts/python/ch12_apa_reporting.py",
+    "chapter12_source_map_script_sha256": "cdf5ed1845c5fbc2e7d9faef39d18d2bdec30d4856a622fc42efc1be26732691",
+    "chapters": [
+      "ch05",
+      "ch06",
+      "ch07",
+      "ch08",
+      "ch09",
+      "ch10",
+      "ch11"
+    ],
+    "each_record_must_bind": [
+      "chapter",
+      "analysis_name",
+      "python_result_file",
+      "r_result_file",
+      "parity_receipt",
+      "python_result_source_sha256",
+      "apa_result"
+    ],
+    "generated_audit": "outputs/ch12/apa_reporting_audit.json",
+    "generated_outputs_are_checked_when_present": true,
+    "generated_source_map": "outputs/ch12/apa_reporting_source_map.json",
+    "source_design_audit_does_not_require_generated_outputs": true
+  },
+  "required_pystatsv1_release": "0.25.2",
+  "schema_version": "book1-design-contract-v0.1",
+  "status_semantics": {
+    "analysis_binding_status": "Whether scripts, variables, methods, formulas, directions, and output paths match the contract.",
+    "figure_binding_status": "Whether figure specifications connect the declared source, analysis, result, and APA identifier.",
+    "release_fingerprint_status": "Whether the source values and pairings match the exact approved synthetic release snapshot.",
+    "reporting_binding_status": "Whether Chapter 12 source-map construction connects the declared chapter outputs and APA result.",
+    "semantic_design_status": "Whether the table structure represents the documented teaching design.",
+    "separation_rule": "A semantic-design PASS and release-fingerprint FAIL may coexist; the statuses must not be collapsed."
+  },
+  "synthetic_data_only": true
+}

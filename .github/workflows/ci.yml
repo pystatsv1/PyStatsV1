@@ -84,11 +84,14 @@ jobs:
           python -m pip install pytest
           python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
           python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2.zip'; assert p.is_file(), p"
+          python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2_1.zip'; assert p.is_file(), p"
           pystatsv1 book1 init --dest /tmp/book1_smoke
           pystatsv1 book1 verify --dest /tmp/book1_smoke
           test -f /tmp/book1_smoke/scripts/python/generate_figures.py
           test -f /tmp/book1_smoke/BOOK1_PORTAL_HANDOFF_RECEIPT.json
+          test -f /tmp/book1_smoke/BOOK1_MAINTENANCE_RECEIPT.json
           python -m pip install -r /tmp/book1_smoke/requirements-book1-companion.txt
+          make -C /tmp/book1_smoke design-audit
           make -C /tmp/book1_smoke figures
           test -f /tmp/book1_smoke/outputs/figure_manifest.json
           test -f /tmp/book1_smoke/outputs/figures/fig_11_1_regression_scatter.png
@@ -110,12 +113,15 @@ jobs:
           .\wheeltest\Scripts\python -m pip install pytest
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2.zip'; assert p.is_file(), p"
+          .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2_1.zip'; assert p.is_file(), p"
           .\wheeltest\Scripts\pystatsv1.exe book1 init --dest book1_smoke
           .\wheeltest\Scripts\pystatsv1.exe book1 verify --dest book1_smoke
           if (!(Test-Path book1_smoke\scripts\python\generate_figures.py)) { throw 'Missing Book 1 figure generator' }
           if (!(Test-Path book1_smoke\BOOK1_PORTAL_HANDOFF_RECEIPT.json)) { throw 'Missing Book 1 portal handoff receipt' }
+          if (!(Test-Path book1_smoke\BOOK1_MAINTENANCE_RECEIPT.json)) { throw 'Missing Book 1 maintenance receipt' }
           .\wheeltest\Scripts\python -m pip install -r book1_smoke\requirements-book1-companion.txt
           Push-Location book1_smoke
+          ..\wheeltest\Scripts\python scripts\python\audit_design_contract.py --root .
           ..\wheeltest\Scripts\python scripts\python\generate_figures.py
           Pop-Location
           if (!(Test-Path book1_smoke\outputs\figure_manifest.json)) { throw 'Missing Book 1 public figure manifest' }
@@ -154,6 +160,7 @@ jobs:
           python -m pip install dist/*.whl
           pystatsv1 book1 init --dest /tmp/book1-public
           python -m pip install -r /tmp/book1-public/requirements-book1-companion.txt
+          make -C /tmp/book1-public design-audit
           make -C /tmp/book1-public figures
           make -C /tmp/book1-public all
           pystatsv1 book1 verify --dest /tmp/book1-public

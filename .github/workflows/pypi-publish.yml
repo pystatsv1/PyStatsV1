@@ -2,12 +2,12 @@ name: Publish to PyPI (trusted publisher)
 
 # Release policy: CI runs on v* tags first. Publish only after the tag CI is green.
 # Dispatch from main and provide the immutable annotated release tag, for example:
-#   gh workflow run pypi-publish.yml --ref main -f release_tag=v0.25.1
+#   gh workflow run pypi-publish.yml --ref main -f release_tag=v0.25.2
 on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: "Annotated release tag to build and publish (for example, v0.25.1)"
+        description: "Annotated release tag to build and publish (for example, v0.25.2)"
         required: true
         type: string
 

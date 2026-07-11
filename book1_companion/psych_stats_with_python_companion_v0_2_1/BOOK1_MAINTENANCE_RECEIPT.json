@@ -1,0 +1,91 @@
+{
+  "change_contract": {
+    "cell_counts_unchanged": true,
+    "cell_means_unchanged": true,
+    "cell_membership_unchanged": true,
+    "feedback_unchanged": true,
+    "participant_id_changed": true,
+    "row_count_unchanged": true,
+    "row_order_unchanged": true,
+    "statistical_analysis_scripts_unchanged": true,
+    "strategy_unchanged": true,
+    "test_score_unchanged": true
+  },
+  "companion_version": "v0.2.1",
+  "correction": {
+    "affected_path": "data/ch08_two_way_anova.csv",
+    "new_sha256": "27dd7131bb304aad6d7d69d26462df021c6f1dc2e9889fa4d69e508ae4d605d6",
+    "old_sha256": "b8bebc818ce0349199029b1753e3d5dcb54411e879fc966061c8113377dc9125",
+    "participant_id_sequence": "ch08_001 through ch08_048",
+    "reason": "Replace condition-repeated synthetic participant identifiers with globally unique neutral identifiers so the data layout matches the documented independent-groups 2 x 2 factorial design.",
+    "stable_existing_row_order": true
+  },
+  "data_contract_after_correction": {
+    "cell_count": 4,
+    "duplicate_participant_row_count": 0,
+    "feedback_levels": [
+      "feedback",
+      "no_feedback"
+    ],
+    "row_count": 48,
+    "rows_per_cell": 12,
+    "strategy_levels": [
+      "standard",
+      "structured"
+    ],
+    "unique_participant_id_count": 48
+  },
+  "figure_verification": {
+    "baseline_sha256": "23e28a62e48ec753f9c5d4c70fb0d6ebb96f8c3542645ea9ffa965d4c8a3ed19",
+    "byte_identical": true,
+    "corrected_sha256": "23e28a62e48ec753f9c5d4c70fb0d6ebb96f8c3542645ea9ffa965d4c8a3ed19",
+    "figure_count": 6,
+    "figure_id": "fig_08_1_interaction"
+  },
+  "lineage": {
+    "baseline_evidence_receipt_sha256": "cff3e9cad76cd3f2914728deb7cb6f58d9c14ceccab8562278e7b277f1ebd2fa",
+    "historical_portal_handoff_receipt": "BOOK1_PORTAL_HANDOFF_RECEIPT.json",
+    "historical_portal_handoff_receipt_preserved_unchanged": true,
+    "historical_portal_handoff_receipt_sha256": "9430a5b9f790fe1b030181cee63752791d49102fde91fd999e5e0c344e1681a2",
+    "parent_pystatsv1_source_commit": "2a1e290b6ddcbd96b40e6ccbffbb4c8864bf805a",
+    "parent_source_provenance_sha256": "0580739e536d28007113c5d41630d925532347ffd1706c20781113a89824b479",
+    "release_commit_recording": "The final immutable release commit is established by Git history, the annotated release tag, and post-commit release evidence. It is not embedded in this tracked receipt because that would create a self-referential commit hash."
+  },
+  "parent_companion_version": "v0.2",
+  "release_target": {
+    "companion_version": "v0.2.1",
+    "default_destination": "psych_stats_with_python_companion_v0_2_1",
+    "package": "pystatsv1",
+    "package_version": "0.25.2"
+  },
+  "schema_version": "book1-companion-maintenance-receipt-v0.1",
+  "statistical_verification": {
+    "apa_sentence_exactly_unchanged": true,
+    "baseline_ch08_result_source_sha256": "5e284c75f904c5ae1515942f8488b913bfcf5d566bf1e9416668b2d9fe215604",
+    "chapter12_all_apa_examples_sourced": true,
+    "chapter12_all_parity_receipts_pass": true,
+    "chapter8_parity_status": "PASS",
+    "corrected_ch08_result_source_sha256": "5e284c75f904c5ae1515942f8488b913bfcf5d566bf1e9416668b2d9fe215604",
+    "python_r_reported_fields_exactly_equal": true,
+    "python_reported_fields_exactly_unchanged": true,
+    "r_reported_fields_exactly_unchanged": true,
+    "reported_fields": {
+      "df_effect": 1,
+      "df_error": 44,
+      "feedback_f": 19.22021433,
+      "feedback_p": 7.143692536e-05,
+      "feedback_partial_eta_squared": 0.3040200754,
+      "interaction_f": 0.05444694968,
+      "interaction_p": 0.8165805806,
+      "interaction_partial_eta_squared": 0.001235901332,
+      "standard_feedback_mean": 71.87733333,
+      "standard_no_feedback_mean": 66.85875,
+      "strategy_f": 42.69586552,
+      "strategy_p": 5.524452415e-08,
+      "strategy_partial_eta_squared": 0.4924786812,
+      "structured_feedback_mean": 80.05983333,
+      "structured_no_feedback_mean": 74.477
+    }
+  },
+  "synthetic_data_only": true
+}

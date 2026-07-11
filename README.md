@@ -40,17 +40,22 @@ pytest -q
 
 ## Psych Stats with Python — Book 1 companion
 
-PyStatsV1 v0.25.1 retains Companion v0.2, the synthetic-only executable companion
-to *Psych Stats with Python*. The canonical Book 1 proof route remains pinned
-to v0.25.0 below; this maintenance release does not alter the companion asset,
-its synthetic teaching data, or that reader-facing binding. It writes an
-inspectable local folder; it does not hide the analysis, overwrite an existing
-destination, or turn a real-data workflow into a one-command claim.
+PyStatsV1 v0.25.2 packages Companion v0.2.1, the corrected synthetic-only
+executable companion to *Psych Stats with Python*. Chapter 8 now uses globally
+unique participant IDs (`ch08_001` through `ch08_048`) while preserving the
+analytical columns, row order, reported statistics, APA sentence, Python/R
+parity, and figure content.
+
+The historical PyStatsV1 v0.25.0 with Companion v0.2 proof route remains
+preserved as immutable lineage evidence. New installations should use the
+corrected route below. The launcher writes an inspectable local folder; it does
+not hide the analysis, overwrite an existing destination, or turn a real-data
+workflow into a one-command claim.
 
 ```bash
-python -m pip install "pystatsv1[book1]==0.25.0"
+python -m pip install "pystatsv1[book1]==0.25.2"
 pystatsv1 book1 init
-cd psych_stats_with_python_companion_v0_2
+cd psych_stats_with_python_companion_v0_2_1
 python -m pip install -r requirements-book1-companion.txt
 make figures
 make all  # requires Rscript for Python/R parity
@@ -59,9 +64,10 @@ pystatsv1 book1 verify --dest .
 
 The launcher bundle contains versioned synthetic CSVs, transparent Python
 scripts, optional base-R verification scripts, six source-faithful grayscale
-figure specifications, and a source-file manifest. Chapter 10 correlation and
-Chapter 11 regression now use separate source datasets and figures. It is a foundations teaching companion, not a
-real-data intake service or a substitute for statistical judgment.
+figure specifications, a source-file manifest, and a maintenance receipt.
+Chapter 10 correlation and Chapter 11 regression use separate source datasets
+and figures. It is a foundations teaching companion, not a real-data intake
+service or a substitute for statistical judgment.
 
 Open the bundled local PDF docs (works offline):
 

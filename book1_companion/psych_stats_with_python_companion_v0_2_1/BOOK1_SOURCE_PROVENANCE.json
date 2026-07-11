@@ -1,0 +1,35 @@
+{
+  "companion_version": "v0.2.1",
+  "maintenance_correction": {
+    "affected_path": "data/ch08_two_way_anova.csv",
+    "analytical_values_and_row_order_unchanged": true,
+    "apa_sentence_unchanged": true,
+    "chapter8_figure_byte_identical": true,
+    "new_sha256": "27dd7131bb304aad6d7d69d26462df021c6f1dc2e9889fa4d69e508ae4d605d6",
+    "old_sha256": "b8bebc818ce0349199029b1753e3d5dcb54411e879fc966061c8113377dc9125",
+    "only_participant_id_changed": true,
+    "parity_status": "PASS",
+    "python_r_reported_fields_unchanged": true,
+    "receipt": "BOOK1_MAINTENANCE_RECEIPT.json"
+  },
+  "notes": "PyStatsV1 Book 1 companion maintenance release with globally unique Chapter 8 synthetic participant identifiers and unchanged analysis values, APA reporting, Python/R parity, and figure content.",
+  "original_portal_lineage": {
+    "historical_handoff_receipt": "BOOK1_PORTAL_HANDOFF_RECEIPT.json",
+    "historical_handoff_receipt_preserved_unchanged": true,
+    "historical_handoff_receipt_sha256": "9430a5b9f790fe1b030181cee63752791d49102fde91fd999e5e0c344e1681a2",
+    "source_portal_commit": "20076607ebf37245f0eb9ed7c5a56f56a042a8f5",
+    "source_portal_repository": "nicholaskarlson/nekpress-learntoprogram-portal-private",
+    "source_portal_tag": "book1-companion-v0.2-candidate",
+    "source_portal_v04_tag_preserved": "book1-kdp-proof-candidate-v0.4"
+  },
+  "parent_companion": {
+    "companion_version": "v0.2",
+    "pystatsv1_source_commit": "2a1e290b6ddcbd96b40e6ccbffbb4c8864bf805a",
+    "required_pystatsv1_release": "0.25.0",
+    "source_directory": "book1_companion/psych_stats_with_python_companion_v0_2",
+    "source_provenance_sha256": "0580739e536d28007113c5d41630d925532347ffd1706c20781113a89824b479"
+  },
+  "release_status": "public_release",
+  "required_pystatsv1_release": "0.25.2",
+  "synthetic_data_only": true
+}
