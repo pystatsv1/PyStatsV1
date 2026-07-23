@@ -1,0 +1,29 @@
+{
+  "analysis_source": "scripts/python/studies.py",
+  "analysis_source_sha256": "b542735f97b2fb4876d71e011fcae85f9af487047dce25fcf9aa3c75757f58f6",
+  "analysis_version": "0.1",
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "data_file": "data/swl_s02_structured_study_routine.csv",
+  "data_sha256": "42b977f231609300049524d19e64ed6223f50d0cdb1881b857f34b49884dd88d",
+  "design_contract": "contracts/SWL-S02_DESIGN_CONTRACT.json",
+  "design_contract_sha256": "4c90d374c7318bf0a45e0afa465f4d924362286fb40092bfb5af569541d46619",
+  "engine": "numpy/scipy transparent analysis",
+  "reported_fields": {
+    "ci_95_high": 7.615616474,
+    "ci_95_low": 4.384383526,
+    "cohen_d_pooled": 1.855921454,
+    "mean_difference_structured_minus_standard": 6.0,
+    "mean_standard": 68.0,
+    "mean_structured": 74.0,
+    "n_standard": 32,
+    "n_structured": 32,
+    "p_value_two_sided": 3.962227572e-10,
+    "sd_standard": 3.232895436,
+    "sd_structured": 3.232895436,
+    "welch_df": 62.0,
+    "welch_t": 7.423685817
+  },
+  "study_id": "SWL-S02",
+  "synthetic_only": true
+}

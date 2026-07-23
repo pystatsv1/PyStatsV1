@@ -1,0 +1,10 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "Causal interpretation is limited to the declared assignment, implementation, and synthetic pilot conditions.",
+  "contract_version": "0.1",
+  "design": "Two-group pilot with declared stratified random assignment.",
+  "matched_limitation": "The small synthetic pilot represents one implementation of the routine; it does not establish transportability to other students, settings, or delivery conditions.",
+  "must_accompany_apa_result": true,
+  "study_id": "SWL-S02",
+  "synthetic_only": true
+}

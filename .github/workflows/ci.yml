@@ -168,6 +168,31 @@ jobs:
           test -f /tmp/book1-public/outputs/figures/fig_10_1_correlation_scatter.png
           test -f /tmp/book1-public/outputs/figures/fig_11_1_regression_scatter.png
 
+  psych-design-swl-first-batch-r-verify:
+    name: psych-design-swl-first-batch-r-verify (ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Python and R dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes r-base
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+          python -m pip install -e .
+
+      - name: Verify SWL-S02 through SWL-S05 candidate
+        run: |
+          set -euo pipefail
+          make psych-design-swl-s02-s05-verify
+          make psych-design-swl-s02-s05-r-verify
+
   windows-py310:
     runs-on: windows-latest
     timeout-minutes: 20

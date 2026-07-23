@@ -1,0 +1,57 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "limitation_path": "evidence/SWL-S04/MATCHED_LIMITATION.json",
+  "policy": "Book prose must be written from these stable fields and rechecked after any dataset or analysis change.",
+  "prose_is_generated_from_stable_fields": false,
+  "receipt_path": "evidence/SWL-S04/PYTHON_RESULT_RECEIPT.json",
+  "receipt_sha256": "1df650f539d707b79023e8f0b229be150e96f778e0f3696e173b7a1f4e0694a0",
+  "reported_number_bindings": [
+    {
+      "json_pointer": "/reported_fields/anova_f",
+      "reporting_role": "anova_f"
+    },
+    {
+      "json_pointer": "/reported_fields/df_between",
+      "reporting_role": "df_between"
+    },
+    {
+      "json_pointer": "/reported_fields/df_within",
+      "reporting_role": "df_within"
+    },
+    {
+      "json_pointer": "/reported_fields/p_value",
+      "reporting_role": "p_value"
+    },
+    {
+      "json_pointer": "/reported_fields/eta_squared",
+      "reporting_role": "eta_squared"
+    },
+    {
+      "json_pointer": "/reported_fields/contrast_guided_average_minus_standard_estimate",
+      "reporting_role": "contrast_guided_average_minus_standard_estimate"
+    },
+    {
+      "json_pointer": "/reported_fields/contrast_guided_average_minus_standard_t",
+      "reporting_role": "contrast_guided_average_minus_standard_t"
+    },
+    {
+      "json_pointer": "/reported_fields/contrast_guided_average_minus_standard_p_holm",
+      "reporting_role": "contrast_guided_average_minus_standard_p_holm"
+    },
+    {
+      "json_pointer": "/reported_fields/contrast_feedback_increment_estimate",
+      "reporting_role": "contrast_feedback_increment_estimate"
+    },
+    {
+      "json_pointer": "/reported_fields/contrast_feedback_increment_t",
+      "reporting_role": "contrast_feedback_increment_t"
+    },
+    {
+      "json_pointer": "/reported_fields/contrast_feedback_increment_p_holm",
+      "reporting_role": "contrast_feedback_increment_p_holm"
+    }
+  ],
+  "source_mapping_complete": true,
+  "study_id": "SWL-S04"
+}

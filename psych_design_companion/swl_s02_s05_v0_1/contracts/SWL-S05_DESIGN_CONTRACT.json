@@ -1,0 +1,36 @@
+{
+  "apa_source_map": "evidence/SWL-S05/APA_RESULT_SOURCE_MAP.json",
+  "assignment_procedure": "Synthetic students are assigned in equal numbers to all four cells.",
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "Causal interpretation is conditional on random assignment, implementation fidelity, and the defined factor levels.",
+  "chapter_id": "ch09",
+  "contract_version": "0.1",
+  "data_file": "data/swl_s05_strategy_feedback.csv",
+  "design": "Balanced two-factor between-student factorial experiment.",
+  "factor_levels": {
+    "feedback_condition": [
+      "no_feedback",
+      "explanatory_feedback"
+    ],
+    "study_strategy": [
+      "rereading",
+      "retrieval_practice"
+    ]
+  },
+  "figure_spec": "evidence/SWL-S05/FIGURE_SPEC.json",
+  "identifier_fields": [
+    "participant_id"
+  ],
+  "matched_limitation": "evidence/SWL-S05/MATCHED_LIMITATION.json",
+  "missingness_rule": "The registered dataset contains all four cells with equal counts and no missing outcomes.",
+  "outcome": "assessment_performance",
+  "python_analysis": "scripts/python/studies.py",
+  "r_verification": "scripts/r/swl_s05.R",
+  "research_question": "Does the effect of study strategy on assessment performance depend on the feedback condition?",
+  "result_receipt": "evidence/SWL-S05/PYTHON_RESULT_RECEIPT.json",
+  "row_structure": "One row per student with exactly one valid strategy-by-feedback cell.",
+  "short_name": "Strategy-by-Feedback Experiment",
+  "study_id": "SWL-S05",
+  "synthetic_only": true,
+  "unit_of_analysis": "student"
+}

@@ -1,0 +1,10 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "The analysis estimates within-person change, not the workshop's causal effect in the absence of a control condition.",
+  "contract_version": "0.1",
+  "design": "Within-person pre/post study.",
+  "matched_limitation": "Pre/post change may reflect history, testing, maturation, or other time-varying influences because the design has no control condition.",
+  "must_accompany_apa_result": true,
+  "study_id": "SWL-S03",
+  "synthetic_only": true
+}

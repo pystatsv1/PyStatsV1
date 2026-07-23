@@ -1,0 +1,53 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "limitation_path": "evidence/SWL-S02/MATCHED_LIMITATION.json",
+  "policy": "Book prose must be written from these stable fields and rechecked after any dataset or analysis change.",
+  "prose_is_generated_from_stable_fields": false,
+  "receipt_path": "evidence/SWL-S02/PYTHON_RESULT_RECEIPT.json",
+  "receipt_sha256": "a68446594f45495ac601e68fd90be4cc18b6de29a6b4f2126ab9c14bad77a7a6",
+  "reported_number_bindings": [
+    {
+      "json_pointer": "/reported_fields/mean_standard",
+      "reporting_role": "mean_standard"
+    },
+    {
+      "json_pointer": "/reported_fields/sd_standard",
+      "reporting_role": "sd_standard"
+    },
+    {
+      "json_pointer": "/reported_fields/mean_structured",
+      "reporting_role": "mean_structured"
+    },
+    {
+      "json_pointer": "/reported_fields/sd_structured",
+      "reporting_role": "sd_structured"
+    },
+    {
+      "json_pointer": "/reported_fields/welch_t",
+      "reporting_role": "welch_t"
+    },
+    {
+      "json_pointer": "/reported_fields/welch_df",
+      "reporting_role": "welch_df"
+    },
+    {
+      "json_pointer": "/reported_fields/p_value_two_sided",
+      "reporting_role": "p_value_two_sided"
+    },
+    {
+      "json_pointer": "/reported_fields/ci_95_low",
+      "reporting_role": "ci_95_low"
+    },
+    {
+      "json_pointer": "/reported_fields/ci_95_high",
+      "reporting_role": "ci_95_high"
+    },
+    {
+      "json_pointer": "/reported_fields/cohen_d_pooled",
+      "reporting_role": "cohen_d_pooled"
+    }
+  ],
+  "source_mapping_complete": true,
+  "study_id": "SWL-S02"
+}

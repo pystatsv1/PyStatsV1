@@ -35,6 +35,8 @@ help:
 	@echo "  business-ch09 - Track D Chapter 9 analysis (plotting/reporting style contract + example figures)"
 	@echo "  trackd-zip  - rebuild Track D workbook ZIP from workbooks/track_d_template/"
 	@echo "  book1-asset - rebuild packaged Psych Stats Book 1 companion ZIP"
+	@echo "  psych-design-swl-s02-s05-verify - verify the private SWL-S02–S05 source candidate"
+	@echo "  psych-design-swl-s02-s05-r-verify - run independent base-R parity"
 	@echo "  release-verify - require an annotated v<version> tag matching pyproject.toml"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
@@ -58,6 +60,22 @@ book1-asset:
 .PHONY: release-verify
 release-verify:
 	$(PYTHON) tools/check_release_tag.py
+
+.PHONY: psych-design-swl-s02-s05-refresh
+psych-design-swl-s02-s05-refresh:
+	$(PYTHON) tools/build_psych_design_swl_s02_s05.py
+
+.PHONY: psych-design-swl-s02-s05-verify
+psych-design-swl-s02-s05-verify:
+	$(PYTHON) tools/check_psych_design_swl_s02_s05.py
+
+.PHONY: psych-design-swl-s02-s05-r-verify
+psych-design-swl-s02-s05-r-verify:
+	$(PYTHON) tools/check_psych_design_swl_s02_s05.py --run-r
+
+.PHONY: psych-design-swl-s02-s05-figures
+psych-design-swl-s02-s05-figures:
+	$(PYTHON) psych_design_companion/swl_s02_s05_v0_1/scripts/python/generate_figures.py
 
 docs:
 	$(PYTHON) -m sphinx -b html docs/source docs/build/html
