@@ -22,10 +22,8 @@ def copy_companion(tmp_path: Path) -> Path:
 
 
 def write_json(path: Path, payload: dict[str, object]) -> None:
-    path.write_text(
-        json.dumps(payload, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
 
 
 def test_pristine_batch_passes_exact_verification() -> None:
@@ -231,3 +229,42 @@ def test_anova_r_paths_use_explicit_finite_formulas() -> None:
     assert "summary(fit)" not in swl_s05
     assert "pf(anova_f" in swl_s04
     assert "pf(interaction_f" in swl_s05
+
+def test_generated_assets_use_canonical_lf_and_posix_receipt_paths() -> None:
+    receipt_path = COMPANION / "evidence" / "BATCH_EXACT_REGENERATION_RECEIPT.json"
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    generated_paths = list(receipt["generated_file_sha256"])
+
+    assert generated_paths
+    assert all("\\" not in path for path in generated_paths)
+    assert all(not Path(path).is_absolute() for path in generated_paths)
+
+    for relative in [*generated_paths, "evidence/BATCH_EXACT_REGENERATION_RECEIPT.json"]:
+        payload = (COMPANION / relative).read_bytes()
+        assert b"\r\n" not in payload, relative
+        assert payload.endswith(b"\n"), relative
+
+
+def test_generator_declares_platform_independent_text_serialization() -> None:
+    source = (COMPANION / "scripts" / "python" / "studies.py").read_text(
+        encoding="utf-8"
+    )
+    assert 'newline="\\n"' in source
+    assert 'write_bytes(csv_text.encode("utf-8"))' in source
+    assert '.relative_to(output_root).as_posix()' in source
+
+
+def test_r_verification_has_dedicated_nonduplicating_workflow() -> None:
+    ci = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+    workflow = (
+        ROOT
+        / ".github"
+        / "workflows"
+        / "psych-design-swl-first-batch-r-verify.yml"
+    ).read_text(encoding="utf-8")
+
+    assert "psych-design-swl-first-batch-r-verify:" not in ci
+    assert "pull_request:" in workflow
+    assert "branches: [ main ]" in workflow
+    assert "make psych-design-swl-s02-s05-r-verify" in workflow
+    assert "feat/**" not in workflow

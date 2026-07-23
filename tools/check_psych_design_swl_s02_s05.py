@@ -7,7 +7,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -52,7 +52,11 @@ def read_json(path: Path) -> dict[str, Any]:
 
 def generated_relative_paths(root: Path) -> list[Path]:
     receipt = read_json(root / "evidence" / "BATCH_EXACT_REGENERATION_RECEIPT.json")
-    paths = [Path(path) for path in receipt["generated_file_sha256"]]
+    raw_paths = list(receipt["generated_file_sha256"])
+    for raw_path in raw_paths:
+        if "\\" in raw_path or PurePosixPath(raw_path).is_absolute():
+            raise ValueError(f"non-canonical generated path: {raw_path}")
+    paths = [Path(*PurePosixPath(path).parts) for path in raw_paths]
     paths.append(Path("evidence/BATCH_EXACT_REGENERATION_RECEIPT.json"))
     return sorted(paths)
 

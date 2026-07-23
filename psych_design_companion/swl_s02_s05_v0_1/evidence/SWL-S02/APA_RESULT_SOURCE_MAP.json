@@ -5,7 +5,7 @@
   "policy": "Book prose must be written from these stable fields and rechecked after any dataset or analysis change.",
   "prose_is_generated_from_stable_fields": false,
   "receipt_path": "evidence/SWL-S02/PYTHON_RESULT_RECEIPT.json",
-  "receipt_sha256": "a68446594f45495ac601e68fd90be4cc18b6de29a6b4f2126ab9c14bad77a7a6",
+  "receipt_sha256": "4dcd4f5889ab0c56574a34d0d5dc9e3e5bd7c03adb9bdbe7da21884b93fbf4ff",
   "reported_number_bindings": [
     {
       "json_pointer": "/reported_fields/mean_standard",

@@ -28,10 +28,8 @@ def stable_number(value: float | int) -> float | int:
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(payload, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
 
 
 def sha256(path: Path) -> str:
@@ -812,7 +810,8 @@ def validate_dataset(study_id: str, df: pd.DataFrame) -> None:
 
 def _write_dataset(path: Path, df: pd.DataFrame) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(path, index=False, lineterminator="\n")
+    csv_text = df.to_csv(index=False, lineterminator="\n")
+    path.write_bytes(csv_text.encode("utf-8"))
 
 
 def generate_tracked_assets(output_root: Path, source_root: Path) -> list[Path]:
@@ -939,7 +938,7 @@ def generate_tracked_assets(output_root: Path, source_root: Path) -> list[Path]:
     generated.append(handoff_path)
 
     relative_hashes = {
-        str(path.relative_to(output_root)): sha256(path)
+        path.relative_to(output_root).as_posix(): sha256(path)
         for path in sorted(generated)
     }
     receipt_path = output_root / "evidence" / "BATCH_EXACT_REGENERATION_RECEIPT.json"
