@@ -1,0 +1,61 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "limitation_path": "evidence/SWL-S05/MATCHED_LIMITATION.json",
+  "policy": "Book prose must be written from these stable fields and rechecked after any dataset or analysis change.",
+  "prose_is_generated_from_stable_fields": false,
+  "receipt_path": "evidence/SWL-S05/PYTHON_RESULT_RECEIPT.json",
+  "receipt_sha256": "1451c6a584723efdfbc98d9d61120fdceb691dd161a3dd582e956d205ff48710",
+  "reported_number_bindings": [
+    {
+      "json_pointer": "/reported_fields/interaction_f",
+      "reporting_role": "interaction_f"
+    },
+    {
+      "json_pointer": "/reported_fields/df_effect",
+      "reporting_role": "df_effect"
+    },
+    {
+      "json_pointer": "/reported_fields/df_within",
+      "reporting_role": "df_within"
+    },
+    {
+      "json_pointer": "/reported_fields/interaction_p",
+      "reporting_role": "interaction_p"
+    },
+    {
+      "json_pointer": "/reported_fields/interaction_partial_eta_squared",
+      "reporting_role": "interaction_partial_eta_squared"
+    },
+    {
+      "json_pointer": "/reported_fields/interaction_difference_in_differences",
+      "reporting_role": "interaction_difference_in_differences"
+    },
+    {
+      "json_pointer": "/reported_fields/simple_strategy_no_feedback_estimate",
+      "reporting_role": "simple_strategy_no_feedback_estimate"
+    },
+    {
+      "json_pointer": "/reported_fields/simple_strategy_no_feedback_t",
+      "reporting_role": "simple_strategy_no_feedback_t"
+    },
+    {
+      "json_pointer": "/reported_fields/simple_strategy_no_feedback_p",
+      "reporting_role": "simple_strategy_no_feedback_p"
+    },
+    {
+      "json_pointer": "/reported_fields/simple_strategy_explanatory_feedback_estimate",
+      "reporting_role": "simple_strategy_explanatory_feedback_estimate"
+    },
+    {
+      "json_pointer": "/reported_fields/simple_strategy_explanatory_feedback_t",
+      "reporting_role": "simple_strategy_explanatory_feedback_t"
+    },
+    {
+      "json_pointer": "/reported_fields/simple_strategy_explanatory_feedback_p",
+      "reporting_role": "simple_strategy_explanatory_feedback_p"
+    }
+  ],
+  "source_mapping_complete": true,
+  "study_id": "SWL-S05"
+}

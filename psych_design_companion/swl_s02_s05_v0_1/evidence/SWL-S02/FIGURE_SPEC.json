@@ -1,0 +1,13 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "caption_scope": "Synthetic Structured Study-Routine Pilot display; interpretation remains bounded by the matched limitation.",
+  "contract_version": "0.1",
+  "data_file": "data/swl_s02_structured_study_routine.csv",
+  "figure_id": "SWL-S02-FIG-01",
+  "figure_type": "two_group_mean_ci",
+  "grayscale_required": true,
+  "minimum_dpi": 300,
+  "output_role": "generated_build_instance_not_tracked",
+  "source_script": "scripts/python/generate_figures.py",
+  "study_id": "SWL-S02"
+}

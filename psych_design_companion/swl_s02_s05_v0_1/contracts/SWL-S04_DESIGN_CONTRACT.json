@@ -1,0 +1,33 @@
+{
+  "apa_source_map": "evidence/SWL-S04/APA_RESULT_SOURCE_MAP.json",
+  "assignment_procedure": "Synthetic students are assigned in equal numbers to three declared conditions.",
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "Causal interpretation is conditional on the declared random assignment and implementation fidelity.",
+  "chapter_id": "ch08",
+  "contract_version": "0.1",
+  "data_file": "data/swl_s04_three_condition_support.csv",
+  "design": "Three-condition between-student randomized study.",
+  "factor_levels": {
+    "support_condition": [
+      "standard_support",
+      "guided_practice",
+      "guided_practice_plus_feedback"
+    ]
+  },
+  "figure_spec": "evidence/SWL-S04/FIGURE_SPEC.json",
+  "identifier_fields": [
+    "participant_id"
+  ],
+  "matched_limitation": "evidence/SWL-S04/MATCHED_LIMITATION.json",
+  "missingness_rule": "No missing outcomes in the registered synthetic dataset.",
+  "outcome": "assessment_performance",
+  "python_analysis": "scripts/python/studies.py",
+  "r_verification": "scripts/r/swl_s04.R",
+  "research_question": "Do assessment outcomes differ across standard support, guided practice, and guided practice plus feedback, and which planned contrasts answer the substantive questions?",
+  "result_receipt": "evidence/SWL-S04/PYTHON_RESULT_RECEIPT.json",
+  "row_structure": "One row per student.",
+  "short_name": "Three-Condition Learning-Support Study",
+  "study_id": "SWL-S04",
+  "synthetic_only": true,
+  "unit_of_analysis": "student"
+}

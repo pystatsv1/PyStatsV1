@@ -258,6 +258,28 @@ If you’d like to champion a specific chapter or topic, open an issue and we ca
 
 ---
 
+## 📘 Psychological Statistics by Design source candidate
+
+The private, synthetic-only SWL-S02 through SWL-S05 implementation batch lives
+under `psych_design_companion/swl_s02_s05_v0_1/`. It supplies the governed
+study assets needed before Chapters 6–9 of *Psychological Statistics by Design*
+are drafted. It is not part of the public Book 1 companion and does not change
+the PyPI release version.
+
+```bash
+make psych-design-swl-s02-s05-verify
+make psych-design-swl-s02-s05-r-verify
+```
+
+The first target checks exact regeneration, study IDs, design contracts,
+result receipts, figure specifications, APA source maps, matched limitations,
+and source boundaries. The second runs independent base-R analyses and compares
+them with the Python results.
+
+See `docs/PSYCH_DESIGN_SWL_S02_S05_FIRST_BATCH.md` for scope and exclusions.
+
+---
+
 ## 🧪 Development Workflow
 
 From the project root:

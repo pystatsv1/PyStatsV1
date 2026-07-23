@@ -1,0 +1,10 @@
+{
+  "baseline_pystatsv1_commit": "621b1eb4a534f4dfedb0647b7e0853a7fd9b8a90",
+  "book_dropin_009_merged_main": "0bb3db0c53dd3bb7ad18adc682a3fe1d39de5df0",
+  "book_handoff_path": "evidence/dropin_009_study_readiness/PYSTATSV1_FIRST_BATCH_IMPLEMENTATION_HANDOFF.json",
+  "candidate_identity": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "public_release": false,
+  "source_anchor_after_merge": "to_be_recorded_by_the_book_repository_after_green_merge",
+  "synthetic_only": true
+}

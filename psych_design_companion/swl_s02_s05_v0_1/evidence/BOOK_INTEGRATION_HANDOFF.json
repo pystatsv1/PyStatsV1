@@ -1,0 +1,30 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "book_baseline_commit": "0bb3db0c53dd3bb7ad18adc682a3fe1d39de5df0",
+  "candidate_tag": "psych-design-swl-s02-s05-v0-1",
+  "contract_version": "0.1",
+  "current_book_source_anchor": "621b1eb4a534f4dfedb0647b7e0853a7fd9b8a90",
+  "new_source_commit": "resolve_from_the_merged_candidate_tag",
+  "portal_change_authorized": false,
+  "public_release_authorized": false,
+  "required_book_actions": [
+    "record the exact merged PyStatsV1 commit",
+    "update the book source anchor explicitly",
+    "regenerate the exact source inventory",
+    "rerun the ten-study readiness matrix",
+    "authorize the Chapters 6-9 drafting batch only after those gates pass"
+  ],
+  "status": "ready_after_green_merge",
+  "unblocked_chapter_ids": [
+    "ch06",
+    "ch07",
+    "ch08",
+    "ch09"
+  ],
+  "unblocked_study_ids": [
+    "SWL-S02",
+    "SWL-S03",
+    "SWL-S04",
+    "SWL-S05"
+  ]
+}

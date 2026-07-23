@@ -1,0 +1,57 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "limitation_path": "evidence/SWL-S03/MATCHED_LIMITATION.json",
+  "policy": "Book prose must be written from these stable fields and rechecked after any dataset or analysis change.",
+  "prose_is_generated_from_stable_fields": false,
+  "receipt_path": "evidence/SWL-S03/PYTHON_RESULT_RECEIPT.json",
+  "receipt_sha256": "6a4b963dc3dbbf26460029cd364192e560c31135bf074aeb7f855f57dbe35b6e",
+  "reported_number_bindings": [
+    {
+      "json_pointer": "/reported_fields/n_paired",
+      "reporting_role": "n_paired"
+    },
+    {
+      "json_pointer": "/reported_fields/mean_pre",
+      "reporting_role": "mean_pre"
+    },
+    {
+      "json_pointer": "/reported_fields/mean_post",
+      "reporting_role": "mean_post"
+    },
+    {
+      "json_pointer": "/reported_fields/mean_change_post_minus_pre",
+      "reporting_role": "mean_change_post_minus_pre"
+    },
+    {
+      "json_pointer": "/reported_fields/sd_change",
+      "reporting_role": "sd_change"
+    },
+    {
+      "json_pointer": "/reported_fields/paired_t",
+      "reporting_role": "paired_t"
+    },
+    {
+      "json_pointer": "/reported_fields/df",
+      "reporting_role": "df"
+    },
+    {
+      "json_pointer": "/reported_fields/p_value_two_sided",
+      "reporting_role": "p_value_two_sided"
+    },
+    {
+      "json_pointer": "/reported_fields/ci_95_low",
+      "reporting_role": "ci_95_low"
+    },
+    {
+      "json_pointer": "/reported_fields/ci_95_high",
+      "reporting_role": "ci_95_high"
+    },
+    {
+      "json_pointer": "/reported_fields/cohen_dz",
+      "reporting_role": "cohen_dz"
+    }
+  ],
+  "source_mapping_complete": true,
+  "study_id": "SWL-S03"
+}

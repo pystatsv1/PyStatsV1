@@ -1,0 +1,67 @@
+{
+  "baseline_source_commit": "621b1eb4a534f4dfedb0647b7e0853a7fd9b8a90",
+  "contract_version": "0.1",
+  "policy": "The SWL batch rewrites and binds method-level support without replacing or silently modifying the existing chapter sources.",
+  "studies": [
+    {
+      "method_python": {
+        "path": "scripts/psych_ch10_independent_t.py",
+        "sha256": "a8872f355ede8e52976fe43d8e97b7429a7180c7af544c161dc83324b549b8f3"
+      },
+      "method_rst": {
+        "path": "docs/source/psych_ch10_independent_t.rst",
+        "sha256": "45ba7d7cedb4728fe53a3dd5f813aee2e197e0d16ee9035c22abddd216ef2b77"
+      },
+      "method_test": {
+        "path": "tests/test_psych_ch10_independent_t.py",
+        "sha256": "574424d8c836dcd5baaa565fd8acb38f8b07b2866fdaa4475130e137f15eab84"
+      },
+      "study_id": "SWL-S02"
+    },
+    {
+      "method_python": {
+        "path": "scripts/psych_ch11_paired_t.py",
+        "sha256": "07e9f73a5d3eec8de0629846dba1e1f0e9809d1f551800ab557f1ce6cf31df43"
+      },
+      "method_rst": {
+        "path": "docs/source/psych_ch11_paired_t.rst",
+        "sha256": "2dcb0e6f2aa14bad361759b8a1f581fbf92ffae37f6c2eb786af0f8fb65801e2"
+      },
+      "method_test": {
+        "path": "tests/test_psych_ch11_paired_t.py",
+        "sha256": "859d8084c18da739032fe8a1b99cb7273e5c0ec0fb0f6082c2eb515660747a76"
+      },
+      "study_id": "SWL-S03"
+    },
+    {
+      "method_python": {
+        "path": "scripts/psych_ch12_one_way_anova.py",
+        "sha256": "4ce48f4212d3c3298984cfa36a897d02957aed8545d168e210b1f40146a74cbe"
+      },
+      "method_rst": {
+        "path": "docs/source/psych_ch12_one_way_anova.rst",
+        "sha256": "5f4b939c9d533a93e82bdd0c98b2c4394bf995a3545330bf3638fb00ef525217"
+      },
+      "method_test": {
+        "path": "tests/test_psych_ch12_one_way_anova.py",
+        "sha256": "09689c446658a869ba95a36be7f968d147dc44aae2050ece2d3192ac94a8554c"
+      },
+      "study_id": "SWL-S04"
+    },
+    {
+      "method_python": {
+        "path": "scripts/psych_ch13_two_way_anova.py",
+        "sha256": "c07fee2174b8074adb00672872e7968df5ef7f113874461d54847d74bfa6167d"
+      },
+      "method_rst": {
+        "path": "docs/source/psych_ch13_two_way_anova.rst",
+        "sha256": "45cbc33cb8e7140e6bcd0f61c866ce004a3aaae581da6a0f39b7bbfc6e113dd9"
+      },
+      "method_test": {
+        "path": "tests/test_psych_ch13_two_way_anova.py",
+        "sha256": "9682e267fcc07425ff8415f0e985ca8417c4259f8714106cbe2a9d8c0fc65745"
+      },
+      "study_id": "SWL-S05"
+    }
+  ]
+}

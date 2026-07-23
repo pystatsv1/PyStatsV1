@@ -1,0 +1,53 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "baseline_source_commit": "621b1eb4a534f4dfedb0647b7e0853a7fd9b8a90",
+  "book_handoff_commit": "0bb3db0c53dd3bb7ad18adc682a3fe1d39de5df0",
+  "branch": "feat/psych-design-swl-s02-s05-first-batch",
+  "contract_version": "0.1",
+  "expected_tag": "psych-design-swl-s02-s05-v0-1",
+  "public_release": false,
+  "purpose": "Implement the four-study Part II first batch for Psychological Statistics by Design without releasing a public companion.",
+  "python_primary": true,
+  "r_independent_verification": true,
+  "real_data_authorized": false,
+  "required_deliverables": [
+    "versioned_synthetic_dataset",
+    "machine_readable_design_contract",
+    "transparent_python_analysis",
+    "independent_r_verification_path",
+    "stable_result_receipt",
+    "grayscale_figure_or_diagnostic_source",
+    "apa_result_source_map",
+    "matched_limitation_record",
+    "exact_regeneration_receipt"
+  ],
+  "source_candidate_only": true,
+  "studies": [
+    {
+      "chapter_id": "ch06",
+      "dataset": "data/swl_s02_structured_study_routine.csv",
+      "design_contract": "contracts/SWL-S02_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S02"
+    },
+    {
+      "chapter_id": "ch07",
+      "dataset": "data/swl_s03_skills_workshop_pre_post.csv",
+      "design_contract": "contracts/SWL-S03_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S03"
+    },
+    {
+      "chapter_id": "ch08",
+      "dataset": "data/swl_s04_three_condition_support.csv",
+      "design_contract": "contracts/SWL-S04_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S04"
+    },
+    {
+      "chapter_id": "ch09",
+      "dataset": "data/swl_s05_strategy_feedback.csv",
+      "design_contract": "contracts/SWL-S05_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S05"
+    }
+  ],
+  "synthetic_only": true,
+  "verification_marker": "PYSTATSV1_PSYCH_DESIGN_SWL_S02_S05_VERIFY_OK"
+}

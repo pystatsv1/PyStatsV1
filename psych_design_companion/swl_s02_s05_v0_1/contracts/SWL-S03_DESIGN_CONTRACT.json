@@ -1,0 +1,33 @@
+{
+  "apa_source_map": "evidence/SWL-S03/APA_RESULT_SOURCE_MAP.json",
+  "assignment_procedure": "No control condition is present.",
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "The analysis estimates within-person change, not the workshop's causal effect in the absence of a control condition.",
+  "chapter_id": "ch07",
+  "contract_version": "0.1",
+  "data_file": "data/swl_s03_skills_workshop_pre_post.csv",
+  "design": "Within-person pre/post study.",
+  "factor_levels": {
+    "occasion": [
+      "pre",
+      "post"
+    ]
+  },
+  "figure_spec": "evidence/SWL-S03/FIGURE_SPEC.json",
+  "identifier_fields": [
+    "participant_id",
+    "occasion"
+  ],
+  "matched_limitation": "evidence/SWL-S03/MATCHED_LIMITATION.json",
+  "missingness_rule": "The registered dataset contains exactly one pre and one post row per participant; incomplete pairs are not silently retained.",
+  "outcome": "academic_confidence",
+  "python_analysis": "scripts/python/studies.py",
+  "r_verification": "scripts/r/swl_s03.R",
+  "research_question": "How does academic confidence change from before to after a skills workshop for students with linked observations?",
+  "result_receipt": "evidence/SWL-S03/PYTHON_RESULT_RECEIPT.json",
+  "row_structure": "Two occasion rows per participant in long form.",
+  "short_name": "Skills Workshop Pre/Post Study",
+  "study_id": "SWL-S03",
+  "synthetic_only": true,
+  "unit_of_analysis": "student"
+}
