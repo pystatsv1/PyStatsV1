@@ -198,7 +198,9 @@ jobs:
           pip install -e .
 
       - name: Lint
-        run: make lint
+        run: |
+          ruff --version
+          make lint
 
       - name: Build docs
         run: make docs

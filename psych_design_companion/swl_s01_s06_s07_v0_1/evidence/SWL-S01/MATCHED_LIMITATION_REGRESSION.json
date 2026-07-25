@@ -1,0 +1,12 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch11",
+    "ch12"
+  ],
+  "contract_version": "0.1",
+  "limitation": "Predictive performance is registered only for the generated records and observed predictor ranges; the model does not authorize extrapolation, causal interpretation, or performance claims for real students.",
+  "limitation_role": "regression",
+  "study_id": "SWL-S01",
+  "synthetic_only": true
+}

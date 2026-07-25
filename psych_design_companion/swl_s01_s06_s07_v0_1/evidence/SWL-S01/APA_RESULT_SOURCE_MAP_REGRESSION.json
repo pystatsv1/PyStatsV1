@@ -1,0 +1,70 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch11",
+    "ch12"
+  ],
+  "contract_version": "0.1",
+  "reported_number_bindings": [
+    {
+      "field": "n",
+      "json_pointer": "/reported_fields/n"
+    },
+    {
+      "field": "regression_f",
+      "json_pointer": "/reported_fields/regression_f"
+    },
+    {
+      "field": "regression_df_model",
+      "json_pointer": "/reported_fields/regression_df_model"
+    },
+    {
+      "field": "regression_df_residual",
+      "json_pointer": "/reported_fields/regression_df_residual"
+    },
+    {
+      "field": "regression_p",
+      "json_pointer": "/reported_fields/regression_p"
+    },
+    {
+      "field": "regression_r_squared",
+      "json_pointer": "/reported_fields/regression_r_squared"
+    },
+    {
+      "field": "study_hours_b",
+      "json_pointer": "/reported_fields/study_hours_b"
+    },
+    {
+      "field": "study_hours_se",
+      "json_pointer": "/reported_fields/study_hours_se"
+    },
+    {
+      "field": "study_hours_t",
+      "json_pointer": "/reported_fields/study_hours_t"
+    },
+    {
+      "field": "study_hours_p",
+      "json_pointer": "/reported_fields/study_hours_p"
+    },
+    {
+      "field": "confidence_b",
+      "json_pointer": "/reported_fields/confidence_b"
+    },
+    {
+      "field": "confidence_se",
+      "json_pointer": "/reported_fields/confidence_se"
+    },
+    {
+      "field": "confidence_t",
+      "json_pointer": "/reported_fields/confidence_t"
+    },
+    {
+      "field": "confidence_p",
+      "json_pointer": "/reported_fields/confidence_p"
+    }
+  ],
+  "reporting_role": "regression",
+  "result_receipt": "evidence/SWL-S01/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S01",
+  "synthetic_only": true
+}

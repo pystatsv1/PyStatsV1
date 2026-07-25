@@ -278,6 +278,22 @@ them with the Python results.
 
 See `docs/PSYCH_DESIGN_SWL_S02_S05_FIRST_BATCH.md` for scope and exclusions.
 
+### Second study-specific source batch
+
+The private, synthetic-only SWL-S01, SWL-S06, and SWL-S07 source candidate
+lives under `psych_design_companion/swl_s01_s06_s07_v0_1/`. It supplies the
+association, prediction, complete-case repeated-measures, missing-visit, and
+baseline-adjusted evidence required before Chapters 10 through 13 may be
+drafted. It is not a public companion release and does not change the PyPI
+version.
+
+```bash
+make psych-design-swl-s01-s06-s07-verify
+make psych-design-swl-s01-s06-s07-r-verify
+```
+
+See `docs/PSYCH_DESIGN_SWL_S01_S06_S07_SECOND_BATCH.md` for scope and exclusions.
+
 ---
 
 ## 🧪 Development Workflow

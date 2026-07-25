@@ -1,0 +1,36 @@
+{
+  "analysis_version": "0.1",
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "causal_scope": "Causal language remains conditional on the declared assignment and intervention implementation; adjustment alone does not create randomization.",
+  "chapter_ids": [
+    "ch13"
+  ],
+  "contract_version": "0.1",
+  "design": "Two-group synthetic intervention study with one pre-treatment baseline covariate.",
+  "factor_levels": {
+    "intervention_group": [
+      "comparison",
+      "intervention"
+    ]
+  },
+  "identifier_fields": [
+    "participant_id"
+  ],
+  "missingness_rule": "No missing values in the registered synthetic dataset.",
+  "outcomes": [
+    "post_performance"
+  ],
+  "predictors": [
+    "intervention_group",
+    "baseline_performance"
+  ],
+  "real_data_authorized": false,
+  "research_questions": [
+    "Do the intervention and comparison groups differ in post performance after adjustment to the overall baseline mean?"
+  ],
+  "row_structure": "One row per synthetic participant.",
+  "short_name": "Baseline-Adjusted Intervention",
+  "study_id": "SWL-S07",
+  "synthetic_only": true,
+  "unit_of_analysis": "student"
+}

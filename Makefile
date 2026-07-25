@@ -37,6 +37,8 @@ help:
 	@echo "  book1-asset - rebuild packaged Psych Stats Book 1 companion ZIP"
 	@echo "  psych-design-swl-s02-s05-verify - verify the private SWL-S02–S05 source candidate"
 	@echo "  psych-design-swl-s02-s05-r-verify - run independent base-R parity"
+	@echo "  psych-design-swl-s01-s06-s07-verify - verify the private SWL-S01/S06/S07 source candidate"
+	@echo "  psych-design-swl-s01-s06-s07-r-verify - run independent base-R parity for the second batch"
 	@echo "  release-verify - require an annotated v<version> tag matching pyproject.toml"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
@@ -60,6 +62,23 @@ book1-asset:
 .PHONY: release-verify
 release-verify:
 	$(PYTHON) tools/check_release_tag.py
+
+
+.PHONY: psych-design-swl-s01-s06-s07-refresh
+psych-design-swl-s01-s06-s07-refresh:
+	$(PYTHON) tools/build_psych_design_swl_s01_s06_s07.py
+
+.PHONY: psych-design-swl-s01-s06-s07-verify
+psych-design-swl-s01-s06-s07-verify:
+	$(PYTHON) tools/check_psych_design_swl_s01_s06_s07.py
+
+.PHONY: psych-design-swl-s01-s06-s07-r-verify
+psych-design-swl-s01-s06-s07-r-verify:
+	$(PYTHON) tools/check_psych_design_swl_s01_s06_s07.py --run-r
+
+.PHONY: psych-design-swl-s01-s06-s07-figures
+psych-design-swl-s01-s06-s07-figures:
+	$(PYTHON) psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/generate_figures.py
 
 .PHONY: psych-design-swl-s02-s05-refresh
 psych-design-swl-s02-s05-refresh:

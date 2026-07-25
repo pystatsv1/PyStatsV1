@@ -1,0 +1,27 @@
+{
+  "all_study_specific_asset_sets_complete": true,
+  "baseline_source_commit": "da9abc9d5c71779cf794804cce6cfe245980b988",
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "book_drafting_unblock_role": "eligible_after_green_merge_and_explicit_new_commit_anchor",
+  "book_handoff_commit": "954835653734a33f234308fec78282b5dc8feb3d",
+  "contract_version": "0.1",
+  "dimensions": {
+    "apa_source_map_present": true,
+    "dataset_present": true,
+    "design_contract_present": true,
+    "exact_regeneration_status": "passed",
+    "figure_source_present": true,
+    "limitations_present": true,
+    "python_analysis_present": true,
+    "r_verification_path_present": true,
+    "result_receipt_present": true
+  },
+  "public_release": false,
+  "r_parity_status_role": "required_green_local_and_ci_gate_not_tracked_runtime_output",
+  "study_ids": [
+    "SWL-S01",
+    "SWL-S06",
+    "SWL-S07"
+  ],
+  "synthetic_only": true
+}
