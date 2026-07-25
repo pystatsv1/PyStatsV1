@@ -1,0 +1,49 @@
+{
+  "baseline_source_commit": "da9abc9d5c71779cf794804cce6cfe245980b988",
+  "contract_version": "0.1",
+  "policy": "This study batch binds and rewrites method-level support without modifying the existing RST chapters, method scripts, or method tests.",
+  "studies": [
+    {
+      "method_python": [
+        {"path": "scripts/psych_ch15_correlation.py", "sha256": "a86161d686871dc6166d4feeaf85c0aae8a4ddd88a6010b9cf1837cb9f509231"},
+        {"path": "scripts/psych_ch16_regression.py", "sha256": "03d5a5a0e9768fccaea9f2b9a027d42e51013d58b68b8c29f8b19616d63fe16e"},
+        {"path": "scripts/psych_ch16b_pingouin_regression_diagnostics.py", "sha256": "90c8227c1b2a39f0feff20de26cb831361bbf9e760b9e623342bc5185f802e85"}
+      ],
+      "method_rst": [
+        {"path": "docs/source/psych_ch15_correlation.rst", "sha256": "3e04d276b4420da0093764d04ac97ca6c96b79a1c4498b5d8e249a3d6bf45c62"},
+        {"path": "docs/source/psych_ch16_regression.rst", "sha256": "b3819c2a5e146024acc3037e916cc1a7137c61765bacf683837138ecd69ed99b"},
+        {"path": "docs/source/psych_ch16b_pingouin_regression.rst", "sha256": "8d0a5f8d5b714065bbf7b93eb3a06cf235891010a40d51af6484280b3685d1fc"}
+      ],
+      "method_test": [
+        {"path": "tests/test_psych_ch15_correlation.py", "sha256": "d2dad17a088dbe4555feb01fdd9b87f2fc708e3c6ed4ed93d5864e425a68c1d2"},
+        {"path": "tests/test_psych_ch16_regression.py", "sha256": "a50319f8856fbd77314c1a8d366372d0f392938a46f3d41d9f9c468341424738"},
+        {"path": "tests/test_psych_ch16b_pingouin_regression_diagnostics.py", "sha256": "2244380a445ff1d252af4f29df0d70c420ce0963c3563382d6ee6ab959b40c90"}
+      ],
+      "study_id": "SWL-S01"
+    },
+    {
+      "method_python": [
+        {"path": "scripts/psych_ch14_repeated_measures_anova.py", "sha256": "c35bb68a358f5df0a63ab9bb0b49a5dda0b1e1902ca9ef5288a30891eb099145"}
+      ],
+      "method_rst": [
+        {"path": "docs/source/psych_ch14_repeated_measures_anova.rst", "sha256": "009becda5fe0ab2f15268b61f999a893d9d5217b46aea5309d6f4383cc2262e6"}
+      ],
+      "method_test": [
+        {"path": "tests/test_psych_ch14_repeated_measures_anova.py", "sha256": "2aabc7d9cb53e710f1f0d289a7aeb78e264d4ed09ad5770a0f330a7d8fcf993f"}
+      ],
+      "study_id": "SWL-S06"
+    },
+    {
+      "method_python": [
+        {"path": "scripts/psych_ch18_ancova.py", "sha256": "511cf7a690c31cbc8a8881888ba30162c18ccfd52bec8ea2b7029a21a55b5d0f"}
+      ],
+      "method_rst": [
+        {"path": "docs/source/psych_ch18_ancova.rst", "sha256": "612fb362b564dbc5e4b9e8aeed24e1d44c93a0e1309e94035b1728fe2d97c3c3"}
+      ],
+      "method_test": [
+        {"path": "tests/test_psych_ch18_ancova.py", "sha256": "d97b522ed1bf0d9e4e2ad5bf041efd5acc092692688aac4538604a1a8d9c21a1"}
+      ],
+      "study_id": "SWL-S07"
+    }
+  ]
+}

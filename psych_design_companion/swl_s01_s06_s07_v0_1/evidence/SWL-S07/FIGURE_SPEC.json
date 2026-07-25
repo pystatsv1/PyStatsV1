@@ -1,0 +1,14 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch13"
+  ],
+  "contract_version": "0.1",
+  "figure_role": "primary",
+  "figure_type": "ancova_parallel_lines",
+  "generator": "scripts/python/generate_figures.py",
+  "grayscale": true,
+  "result_source": "evidence/SWL-S07/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S07",
+  "synthetic_only": true
+}

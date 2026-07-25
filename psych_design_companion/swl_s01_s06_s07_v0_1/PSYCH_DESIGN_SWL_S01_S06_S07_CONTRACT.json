@@ -1,0 +1,47 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "baseline_source_commit": "da9abc9d5c71779cf794804cce6cfe245980b988",
+  "book_handoff_commit": "954835653734a33f234308fec78282b5dc8feb3d",
+  "branch": "feat/psych-design-swl-s01-s06-s07-second-batch",
+  "contract_version": "0.1",
+  "expected_tag": "psych-design-swl-s01-s06-s07-v0-1",
+  "public_release": false,
+  "purpose": "Implement the second study-specific source batch needed before Chapters 10 through 13 of Psychological Statistics by Design may be drafted.",
+  "python_primary": true,
+  "r_independent_verification": true,
+  "real_data_authorized": false,
+  "required_deliverables": [
+    "versioned_synthetic_dataset",
+    "machine_readable_design_contract",
+    "transparent_python_analysis",
+    "independent_r_verification_path",
+    "stable_result_receipt",
+    "grayscale_figure_or_diagnostic_source",
+    "apa_result_source_map",
+    "matched_limitation_record",
+    "exact_regeneration_receipt"
+  ],
+  "source_candidate_only": true,
+  "studies": [
+    {
+      "chapter_ids": ["ch11", "ch12"],
+      "dataset": "data/swl_s01_student_well_being_survey.csv",
+      "design_contract": "contracts/SWL-S01_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S01"
+    },
+    {
+      "chapter_ids": ["ch10"],
+      "dataset": "data/swl_s06_confidence_trajectory.csv",
+      "design_contract": "contracts/SWL-S06_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S06"
+    },
+    {
+      "chapter_ids": ["ch13"],
+      "dataset": "data/swl_s07_baseline_adjusted_intervention.csv",
+      "design_contract": "contracts/SWL-S07_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S07"
+    }
+  ],
+  "synthetic_only": true,
+  "verification_marker": "PYSTATSV1_PSYCH_DESIGN_SWL_S01_S06_S07_VERIFY_OK"
+}

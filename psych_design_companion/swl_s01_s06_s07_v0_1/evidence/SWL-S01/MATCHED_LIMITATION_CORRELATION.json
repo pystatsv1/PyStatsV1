@@ -1,0 +1,12 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch11",
+    "ch12"
+  ],
+  "contract_version": "0.1",
+  "limitation": "The cross-sectional synthetic association does not establish temporal order, rule out common causes, or support the claim that changing sleep would change confidence.",
+  "limitation_role": "correlation",
+  "study_id": "SWL-S01",
+  "synthetic_only": true
+}

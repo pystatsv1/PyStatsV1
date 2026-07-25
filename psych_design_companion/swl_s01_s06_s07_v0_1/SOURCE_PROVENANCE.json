@@ -1,0 +1,12 @@
+{
+  "baseline_pystatsv1_commit": "da9abc9d5c71779cf794804cce6cfe245980b988",
+  "baseline_source_archive": "PyStatsV1-main(47).zip",
+  "baseline_source_archive_sha256": "d2dfee169b733e9ab4e8a3b5e09c8639d46136579ebec22a23eb3796cfaf5e3e",
+  "book_dropin_012_merged_main": "954835653734a33f234308fec78282b5dc8feb3d",
+  "book_handoff_role": "Provide complete study-specific assets so a later book-repository source-acceptance drop-in may advance the PyStatsV1 anchor and authorize Chapters 10 through 13.",
+  "candidate_identity": "psych-design-swl-s01-s06-s07-v0.1",
+  "contract_version": "0.1",
+  "public_release": false,
+  "source_anchor_after_merge": "to_be_recorded_by_the_book_repository_after_green_merge",
+  "synthetic_only": true
+}

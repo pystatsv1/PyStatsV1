@@ -1,0 +1,15 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch11",
+    "ch12"
+  ],
+  "contract_version": "0.1",
+  "figure_role": "correlation",
+  "figure_type": "correlation_scatter",
+  "generator": "scripts/python/generate_figures.py",
+  "grayscale": true,
+  "result_source": "evidence/SWL-S01/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S01",
+  "synthetic_only": true
+}
