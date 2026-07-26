@@ -1,0 +1,59 @@
+{
+  "baseline_source_commit": "bb618a4c8c8186df43823b33bf2fab3e5d42330a",
+  "batch_id": "psych-design-swl-s08-s10-v0.1",
+  "book_handoff_commit": "2d8532a62e7b4f1ded957325426ac6ed16a69e06",
+  "branch": "feat/psych-design-swl-s08-s10-final-batch",
+  "contract_version": "0.1",
+  "expected_tag": "psych-design-swl-s08-s10-v0-1",
+  "part_opener_unblocked_after_book_acceptance": "part04",
+  "public_release": false,
+  "purpose": "Implement the final study-specific source batch required before controlled construction of Chapters 14 through 19 of Psychological Statistics by Design.",
+  "python_primary": true,
+  "r_independent_verification": true,
+  "real_data_authorized": false,
+  "required_deliverables": [
+    "versioned_synthetic_dataset",
+    "machine_readable_design_contract",
+    "transparent_python_analysis",
+    "independent_r_verification_path",
+    "stable_result_receipt",
+    "grayscale_figure_or_diagnostic_source",
+    "apa_result_source_map",
+    "matched_limitation_record",
+    "exact_regeneration_receipt"
+  ],
+  "source_candidate_only": true,
+  "studies": [
+    {
+      "chapter_ids": [
+        "ch14"
+      ],
+      "dataset": "data/swl_s08_longitudinal_treatment.csv",
+      "design_contract": "contracts/SWL-S08_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S08"
+    },
+    {
+      "chapter_ids": [
+        "ch15"
+      ],
+      "dataset": "data/swl_s09_outcome_distribution_extension.csv",
+      "design_contract": "contracts/SWL-S09_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S09"
+    },
+    {
+      "chapter_ids": [
+        "ch16"
+      ],
+      "dataset": "data/swl_s10_replication_program.csv",
+      "design_contract": "contracts/SWL-S10_DESIGN_CONTRACT.json",
+      "study_id": "SWL-S10"
+    }
+  ],
+  "synthesis_chapters_unblocked_after_book_acceptance": [
+    "ch17",
+    "ch18",
+    "ch19"
+  ],
+  "synthetic_only": true,
+  "verification_marker": "PYSTATSV1_PSYCH_DESIGN_SWL_S08_S10_VERIFY_OK"
+}

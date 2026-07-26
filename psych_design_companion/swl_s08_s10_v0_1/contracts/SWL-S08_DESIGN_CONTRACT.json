@@ -1,0 +1,35 @@
+{
+  "chapter_ids": [
+    "ch14"
+  ],
+  "claim_boundary": "The synthetic model demonstrates differential change under the declared random-intercept specification; it is not evidence about a real treatment.",
+  "contract_version": "0.1",
+  "data_layout": {
+    "format": "long",
+    "observed_rows": 168,
+    "participants": 60,
+    "primary_key": [
+      "participant_id",
+      "occasion"
+    ],
+    "scheduled_rows": 180,
+    "unequal_visit_counts_permitted": true
+  },
+  "dataset": "data/swl_s08_longitudinal_treatment.csv",
+  "design": "two-group longitudinal study with three scheduled occasions",
+  "estimands": [
+    "additional treatment-group change from baseline to post",
+    "additional treatment-group change from baseline to follow-up"
+  ],
+  "missingness_fixture": "Twelve visit omissions are fixed by participant identifier before outcome generation and do not depend on realized outcomes.",
+  "model": {
+    "engine": "statsmodels MixedLM",
+    "estimation": "maximum likelihood",
+    "fixed_effects": "well_being_score ~ treatment + post + followup + treatment_post + treatment_followup",
+    "random_effects": "random intercept for participant_id"
+  },
+  "outcome": "well_being_score",
+  "study_id": "SWL-S08",
+  "synthetic_only": true,
+  "verification_category": "V3 fixed-effect estimand alignment plus V4 inference documentation"
+}

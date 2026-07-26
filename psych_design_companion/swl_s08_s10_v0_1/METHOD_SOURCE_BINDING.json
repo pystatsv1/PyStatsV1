@@ -1,0 +1,94 @@
+{
+  "baseline_source_commit": "bb618a4c8c8186df43823b33bf2fab3e5d42330a",
+  "contract_version": "0.1",
+  "policy": "This final study batch binds and rewrites method-level support without modifying existing RST chapters, method scripts, or method tests.",
+  "studies": [
+    {
+      "method_python": [
+        {
+          "path": "scripts/psych_ch14_repeated_measures_anova.py",
+          "sha256": "c35bb68a358f5df0a63ab9bb0b49a5dda0b1e1902ca9ef5288a30891eb099145"
+        },
+        {
+          "path": "scripts/psych_ch17_mixed_models.py",
+          "sha256": "a62f6b8c36fd37d89de75aaac5226de8f55a5b309dfcafd06a52fbba2358968c"
+        }
+      ],
+      "method_rst": [
+        {
+          "path": "docs/source/psych_ch14_repeated_measures_anova.rst",
+          "sha256": "009becda5fe0ab2f15268b61f999a893d9d5217b46aea5309d6f4383cc2262e6"
+        },
+        {
+          "path": "docs/source/psych_ch17_mixed_models.rst",
+          "sha256": "7907f7788416d8c2ba86158050961bc34668abb4b623bd38c8400024f991fa28"
+        }
+      ],
+      "method_test": [
+        {
+          "path": "tests/test_psych_ch14_repeated_measures_anova.py",
+          "sha256": "2aabc7d9cb53e710f1f0d289a7aeb78e264d4ed09ad5770a0f330a7d8fcf993f"
+        },
+        {
+          "path": "tests/test_psych_ch17_mixed_models.py",
+          "sha256": "035fb10e83e288d57437a2763c90cdd2861172d38302424e79e5e36f815459a9"
+        }
+      ],
+      "study_id": "SWL-S08"
+    },
+    {
+      "method_python": [
+        {
+          "path": "scripts/psych_ch19_nonparametrics.py",
+          "sha256": "245680f788c5d8b9569b35cf88e5c424b452fe2ad0ee752ff0a720361f05340e"
+        },
+        {
+          "path": "scripts/psych_ch19a_rank_nonparametrics.py",
+          "sha256": "bd18769b27675859b7be1b0cc3ac1caecd5ff88f487d4d99ca43737c9cc42285"
+        }
+      ],
+      "method_rst": [
+        {
+          "path": "docs/source/psych_ch19_nonparametrics.rst",
+          "sha256": "c83a7e7626e1d3f8d2c75db0705ba0e9450ef41d7238769676442c8cd4ab4d39"
+        },
+        {
+          "path": "docs/source/psych_ch19a_rank_nonparametrics.rst",
+          "sha256": "0646ac33d8eee77240b31a35ea1bff6d337a13419244abf59de6dd4daf18fd29"
+        }
+      ],
+      "method_test": [
+        {
+          "path": "tests/test_psych_ch19_nonparametrics.py",
+          "sha256": "8f99d564b9bbabaaac378544c1ef9e2566c256372598bca22927a14841c99674"
+        },
+        {
+          "path": "tests/test_psych_ch19a_rank_nonparametrics.py",
+          "sha256": "f030f039973367142ff8ccc5a6266a289a27f2932d2e12c5a58cc7bff6a5a9f1"
+        }
+      ],
+      "study_id": "SWL-S09"
+    },
+    {
+      "method_python": [
+        {
+          "path": "scripts/psych_ch20_responsible_researcher.py",
+          "sha256": "07f3ca4da0cd90b94d9c7d3abde08394a4a3b3a1ea7e0a6b1d25e0d4cf2833c4"
+        }
+      ],
+      "method_rst": [
+        {
+          "path": "docs/source/psych_ch20_responsible_researcher.rst",
+          "sha256": "e5d7ac27825697d0b4c300a3e78a5c5e84e37dacfba161400ced3fa7b3e4e7dd"
+        }
+      ],
+      "method_test": [
+        {
+          "path": "tests/test_psych_ch20_responsible_researcher.py",
+          "sha256": "eb5e2ba49f4b25c2eb259213b295f988d89b37081e8d03316bdbf6b8dc6061be"
+        }
+      ],
+      "study_id": "SWL-S10"
+    }
+  ]
+}

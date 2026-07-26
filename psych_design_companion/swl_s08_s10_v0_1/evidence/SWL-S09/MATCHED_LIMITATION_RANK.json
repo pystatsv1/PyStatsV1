@@ -1,0 +1,7 @@
+{
+  "analysis_role": "positive_skew_recovery_burden",
+  "contract_version": "0.1",
+  "limitation": "The rank-based test detects a distributional shift under the independent-groups design; it is not automatically a test of means or medians unless stronger shape assumptions are defended.",
+  "study_id": "SWL-S09",
+  "synthetic_only": true
+}

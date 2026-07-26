@@ -1,0 +1,14 @@
+{
+  "caption": "Positive-skew recovery burden by support condition.",
+  "contract_version": "0.1",
+  "generator": "scripts/python/generate_figures.py",
+  "grayscale": true,
+  "output": "swl_s09_recovery_burden.png",
+  "required_axis_labels": [
+    "Support condition",
+    "Recovery burden (days)"
+  ],
+  "role": "rank_analysis_distribution_display",
+  "study_id": "SWL-S09",
+  "synthetic_only": true
+}

@@ -1,0 +1,39 @@
+name: Psych Design SWL Final Batch R Verify
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  psych-design-swl-final-batch-r-verify:
+    name: psych-design-swl-final-batch-r-verify (ubuntu)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install Python and R dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --yes r-base r-cran-nlme
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+          python -m pip install -r psych_design_companion/swl_s08_s10_v0_1/requirements-psych-design-companion.txt
+          python -m pip install -e .
+
+      - name: Verify SWL-S08 through SWL-S10 candidate
+        run: |
+          set -euo pipefail
+          make psych-design-swl-s08-s10-verify
+          make psych-design-swl-s08-s10-r-verify

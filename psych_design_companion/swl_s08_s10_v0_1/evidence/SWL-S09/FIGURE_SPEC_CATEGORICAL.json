@@ -1,0 +1,14 @@
+{
+  "caption": "Improvement-status proportions by support condition.",
+  "contract_version": "0.1",
+  "generator": "scripts/python/generate_figures.py",
+  "grayscale": true,
+  "output": "swl_s09_improvement_proportions.png",
+  "required_axis_labels": [
+    "Support condition",
+    "Proportion"
+  ],
+  "role": "categorical_outcome_descriptive",
+  "study_id": "SWL-S09",
+  "synthetic_only": true
+}

@@ -1,0 +1,28 @@
+{
+  "accepted_book_baseline": "2d8532a62e7b4f1ded957325426ac6ed16a69e06",
+  "analysis_chapter_authorization_candidate": [
+    "ch14",
+    "ch15",
+    "ch16"
+  ],
+  "batch_id": "psych-design-swl-s08-s10-v0.1",
+  "book_construction_candidate": [
+    "ch14",
+    "ch15",
+    "ch16",
+    "part04",
+    "ch17",
+    "ch18",
+    "ch19"
+  ],
+  "contract_version": "0.1",
+  "next_book_action": "After this PyStatsV1 batch is merged and tagged, create a book source-anchor acceptance drop-in that verifies the exact assets and reopens controlled construction of Chapters 14 through 19.",
+  "public_release": false,
+  "required_new_pystatsv1_commit_anchor": true,
+  "study_ids": [
+    "SWL-S08",
+    "SWL-S09",
+    "SWL-S10"
+  ],
+  "synthetic_only": true
+}
