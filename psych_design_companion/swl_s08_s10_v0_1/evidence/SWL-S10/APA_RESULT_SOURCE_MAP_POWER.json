@@ -1,0 +1,26 @@
+{
+  "analysis_role": "prospective_power_planning",
+  "contract_version": "0.1",
+  "rendered_text": "Under the declared normal-approximation assumptions, detecting d = 0.40 with 80% power and two-sided alpha = .05 required 99 participants per group after rounding up.",
+  "reported_number_bindings": [
+    {
+      "field": "target_effect_size_d",
+      "json_pointer": "/reported_fields/target_effect_size_d"
+    },
+    {
+      "field": "planning_power_primary",
+      "json_pointer": "/reported_fields/planning_power_primary"
+    },
+    {
+      "field": "planning_alpha_two_sided",
+      "json_pointer": "/reported_fields/planning_alpha_two_sided"
+    },
+    {
+      "field": "planning_n_per_group_ceiling_80",
+      "json_pointer": "/reported_fields/planning_n_per_group_ceiling_80"
+    }
+  ],
+  "result_source": "evidence/SWL-S10/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S10",
+  "synthetic_only": true
+}

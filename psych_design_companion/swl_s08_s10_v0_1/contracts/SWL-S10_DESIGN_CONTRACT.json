@@ -1,0 +1,23 @@
+{
+  "chapter_ids": [
+    "ch16"
+  ],
+  "claim_boundary": "Prospective power depends on a justified target effect and model; the fixed-effect synthesis assumes one common true effect and does not address publication bias or selective reporting.",
+  "contract_version": "0.1",
+  "data_layout": {
+    "format": "one row per completed synthetic replication",
+    "primary_key": [
+      "study_id"
+    ],
+    "replication_count": 6
+  },
+  "dataset": "data/swl_s10_replication_program.csv",
+  "design": "registered replication program summarized at study level",
+  "estimands": [
+    "prospective per-group sample size for d=0.40 at 80 percent power",
+    "fixed-effect pooled standardized mean difference across six replications"
+  ],
+  "study_id": "SWL-S10",
+  "synthetic_only": true,
+  "verification_category": "V2 numeric parity"
+}

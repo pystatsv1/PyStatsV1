@@ -294,6 +294,20 @@ make psych-design-swl-s01-s06-s07-r-verify
 
 See `docs/PSYCH_DESIGN_SWL_S01_S06_S07_SECOND_BATCH.md` for scope and exclusions.
 
+The private, synthetic-only SWL-S08 through SWL-S10 final source candidate
+lives under `psych_design_companion/swl_s08_s10_v0_1/`. It supplies the
+longitudinal mixed-model, outcome/distribution extension, and
+power/replication/cumulative-evidence assets required before Chapters 14
+through 19 may be constructed. It is not a public companion release and does
+not change the PyPI version.
+
+```bash
+make psych-design-swl-s08-s10-verify
+make psych-design-swl-s08-s10-r-verify
+```
+
+See `docs/PSYCH_DESIGN_SWL_S08_S10_FINAL_BATCH.md` for scope and exclusions.
+
 ---
 
 ## 🧪 Development Workflow

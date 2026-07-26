@@ -1,0 +1,25 @@
+{
+  "contract_version": "0.1",
+  "python_engine": "statsmodels MixedLM",
+  "r_engine": "nlme::lme",
+  "shared_model": {
+    "estimation_method": "maximum likelihood",
+    "fixed_effects_formula": "well_being_score ~ treatment + post + followup + treatment_post + treatment_followup",
+    "group_reference": "control",
+    "occasion_reference": "baseline",
+    "random_effects_structure": "random intercept for participant_id"
+  },
+  "study_id": "SWL-S08",
+  "v3_estimand_aligned_fields": {
+    "estimate_absolute_tolerance": 0.05,
+    "standard_error_absolute_tolerance": 0.15
+  },
+  "v4_documented_fields": [
+    "test_statistic_type",
+    "denominator_degrees_of_freedom",
+    "p_value",
+    "confidence_interval_method",
+    "optimizer_details",
+    "log_likelihood_and_information_criteria"
+  ]
+}

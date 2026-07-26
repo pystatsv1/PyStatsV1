@@ -1,0 +1,14 @@
+{
+  "baseline_pystatsv1_commit": "bb618a4c8c8186df43823b33bf2fab3e5d42330a",
+  "baseline_source_archive": "PyStatsV1-main(51).zip",
+  "baseline_source_archive_sha256": "ff89793ae92d148a257589620f9690df97bfff541e1a2ba891345d5db264d4d0",
+  "book_dropin_016_merged_main": "2d8532a62e7b4f1ded957325426ac6ed16a69e06",
+  "book_handoff_role": "Provide complete SWL-S08 through SWL-S10 study-specific assets so a later book source-acceptance unit may advance the PyStatsV1 anchor and authorize controlled Chapters 14 through 19 construction.",
+  "book_source_archive": "nekpress-psychological-statistics-by-design-kdp-private-main(33).zip",
+  "book_source_archive_sha256": "57b1ebf6c93ef8c4747a0cb0b30f58426bbaa3238f2a845316b8cd51f7c02758",
+  "candidate_identity": "psych-design-swl-s08-s10-v0.1",
+  "contract_version": "0.1",
+  "public_release": false,
+  "source_anchor_after_merge": "to_be_recorded_by_the_book_repository_after_green_merge",
+  "synthetic_only": true
+}

@@ -39,6 +39,8 @@ help:
 	@echo "  psych-design-swl-s02-s05-r-verify - run independent base-R parity"
 	@echo "  psych-design-swl-s01-s06-s07-verify - verify the private SWL-S01/S06/S07 source candidate"
 	@echo "  psych-design-swl-s01-s06-s07-r-verify - run independent base-R parity for the second batch"
+	@echo "  psych-design-swl-s08-s10-verify - verify the private SWL-S08-S10 final source candidate"
+	@echo "  psych-design-swl-s08-s10-r-verify - run independent R verification for the final batch"
 	@echo "  release-verify - require an annotated v<version> tag matching pyproject.toml"
 	@echo "  lint       - ruff check"
 	@echo "  lint-fix   - ruff check with fixes"
@@ -79,6 +81,22 @@ psych-design-swl-s01-s06-s07-r-verify:
 .PHONY: psych-design-swl-s01-s06-s07-figures
 psych-design-swl-s01-s06-s07-figures:
 	$(PYTHON) psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/generate_figures.py
+
+.PHONY: psych-design-swl-s08-s10-refresh
+psych-design-swl-s08-s10-refresh:
+	$(PYTHON) tools/build_psych_design_swl_s08_s10.py
+
+.PHONY: psych-design-swl-s08-s10-verify
+psych-design-swl-s08-s10-verify:
+	$(PYTHON) tools/check_psych_design_swl_s08_s10.py
+
+.PHONY: psych-design-swl-s08-s10-r-verify
+psych-design-swl-s08-s10-r-verify:
+	$(PYTHON) tools/check_psych_design_swl_s08_s10.py --run-r
+
+.PHONY: psych-design-swl-s08-s10-figures
+psych-design-swl-s08-s10-figures:
+	$(PYTHON) psych_design_companion/swl_s08_s10_v0_1/scripts/python/generate_figures.py
 
 .PHONY: psych-design-swl-s02-s05-refresh
 psych-design-swl-s02-s05-refresh:

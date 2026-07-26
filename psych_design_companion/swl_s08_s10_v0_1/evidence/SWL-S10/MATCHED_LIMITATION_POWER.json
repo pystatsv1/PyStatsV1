@@ -1,0 +1,7 @@
+{
+  "analysis_role": "prospective_power_planning",
+  "contract_version": "0.1",
+  "limitation": "The sample-size calculation is conditional on the chosen target effect, two-sided alpha, equal allocation, independent observations, and the normal approximation; power cannot repair invalid design or measurement.",
+  "study_id": "SWL-S10",
+  "synthetic_only": true
+}

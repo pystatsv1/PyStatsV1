@@ -1,0 +1,54 @@
+{
+  "analysis_role": "fixed_effect_cumulative_evidence",
+  "contract_version": "0.1",
+  "rendered_text": "Across six synthetic replications, the fixed-effect pooled estimate was d = 0.40, SE = 0.07, z = 6.05, p < .001, 95% CI [0.27, 0.53], with Q(5) = 1.60, p = .901, I-squared = 0%.",
+  "reported_number_bindings": [
+    {
+      "field": "study_count",
+      "json_pointer": "/reported_fields/study_count"
+    },
+    {
+      "field": "fixed_effect_pooled_d",
+      "json_pointer": "/reported_fields/fixed_effect_pooled_d"
+    },
+    {
+      "field": "fixed_effect_se",
+      "json_pointer": "/reported_fields/fixed_effect_se"
+    },
+    {
+      "field": "fixed_effect_z",
+      "json_pointer": "/reported_fields/fixed_effect_z"
+    },
+    {
+      "field": "fixed_effect_p",
+      "json_pointer": "/reported_fields/fixed_effect_p"
+    },
+    {
+      "field": "fixed_effect_ci_95_low",
+      "json_pointer": "/reported_fields/fixed_effect_ci_95_low"
+    },
+    {
+      "field": "fixed_effect_ci_95_high",
+      "json_pointer": "/reported_fields/fixed_effect_ci_95_high"
+    },
+    {
+      "field": "cochran_q",
+      "json_pointer": "/reported_fields/cochran_q"
+    },
+    {
+      "field": "cochran_q_df",
+      "json_pointer": "/reported_fields/cochran_q_df"
+    },
+    {
+      "field": "cochran_q_p",
+      "json_pointer": "/reported_fields/cochran_q_p"
+    },
+    {
+      "field": "i_squared_percent",
+      "json_pointer": "/reported_fields/i_squared_percent"
+    }
+  ],
+  "result_source": "evidence/SWL-S10/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S10",
+  "synthetic_only": true
+}
