@@ -292,19 +292,16 @@ def test_environment_checker_is_executable_and_has_marker() -> None:
     assert "metadata.version" in text
 
 
-def test_r_verification_has_dedicated_workflow() -> None:
+def test_r_verification_is_governed_local_only() -> None:
     workflow = ROOT / ".github/workflows/psych-design-swl-second-batch-r-verify.yml"
-    text = workflow.read_text(encoding="utf-8")
-    assert "pull_request:" in text
-    assert "branches: [ main ]" in text
-    assert "actions/checkout@v5" in text
-    assert "actions/setup-python@v6" in text
-    assert "python-version: \"3.10\"" in text
-    assert "requirements-psych-design-companion.txt" in text
-    assert "--constraint psych_design_companion/swl_s01_s06_s07_v0_1/requirements-psych-design-companion.txt" in text
-    assert "-e ." in text
-    assert "python -m pip install --no-deps -e ." not in text
-    assert "python -m pip check" in text
-    assert "make psych-design-swl-s01-s06-s07-environment-verify" in text
-    assert "make psych-design-swl-s01-s06-s07-r-verify" in text
-    assert "feat/**" not in text
+    assert not workflow.exists()
+
+    policy = (ROOT / "docs/LOCAL_R_VERIFICATION_POLICY.md").read_text(encoding="utf-8")
+    runner = (ROOT / "tools/run_local_r_verification.py").read_text(encoding="utf-8")
+    makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+
+    assert "Python 3.10" in policy
+    assert "requirements-psych-design-companion.txt" in policy
+    assert "psych-design-swl-s01-s06-s07-environment-verify" in runner
+    assert "psych-design-swl-s01-s06-s07-r-verify" in runner
+    assert "local-r-verify:" in makefile

@@ -72,6 +72,11 @@ checkout and rejects byte-level drift. The R target runs three independent R
 implementations and enforces exact V2 numeric parity for SWL-S09 and SWL-S10,
 plus the declared V3 tolerances for SWL-S08.
 
+R verification is now a governed local-only gate. GitHub-hosted workflows do
+not install or execute R. Run the combined `make local-r-verify` gate in the
+environment documented by `docs/LOCAL_R_VERIFICATION_POLICY.md`; the local
+machine must provide the `nlme` R package.
+
 ## Exclusions
 
 This source candidate does not:

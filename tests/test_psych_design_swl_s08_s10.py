@@ -246,11 +246,12 @@ def test_generated_assets_use_lf_and_posix_receipt_paths() -> None:
         assert payload.endswith(b"\n"), relative
 
 
-def test_r_verification_has_dedicated_workflow() -> None:
+def test_r_verification_is_governed_local_only() -> None:
     workflow = ROOT / ".github/workflows/psych-design-swl-final-batch-r-verify.yml"
-    text = workflow.read_text(encoding="utf-8")
-    assert "pull_request:" in text
-    assert "branches: [ main ]" in text
-    assert "r-cran-nlme" in text
-    assert "make psych-design-swl-s08-s10-r-verify" in text
-    assert "feat/**" not in text
+    assert not workflow.exists()
+
+    runner = (ROOT / "tools/run_local_r_verification.py").read_text(encoding="utf-8")
+    policy = (ROOT / "docs/LOCAL_R_VERIFICATION_POLICY.md").read_text(encoding="utf-8")
+    assert "psych-design-swl-s08-s10-r-verify" in runner
+    assert "nlme" in runner
+    assert "r-cran-nlme" in policy

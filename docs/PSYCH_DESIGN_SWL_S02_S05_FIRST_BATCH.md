@@ -51,6 +51,8 @@ reported numeric fields against the Python results within a declared tolerance.
 Generated R outputs, parity receipts, and figures remain under ignored output
 paths.
 
+R verification is now a governed local-only gate. GitHub-hosted workflows do not install or execute R. Run the combined `make local-r-verify` gate in the environment documented by `docs/LOCAL_R_VERIFICATION_POLICY.md`.
+
 ## Exclusions
 
 This source-candidate does not:

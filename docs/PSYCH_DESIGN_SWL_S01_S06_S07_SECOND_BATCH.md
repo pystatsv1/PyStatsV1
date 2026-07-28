@@ -98,6 +98,6 @@ This source candidate does not:
 
 ## Reproducibility hardening
 
-The dedicated Ubuntu workflow installs PyStatsV1 and all declared runtime dependencies while applying the batch-specific requirements file as a pip constraint. This preserves the exact governed NumPy, pandas, SciPy, and Matplotlib versions without leaving required PyStatsV1 dependencies absent. The workflow then verifies Python 3.10 and the exact package versions recorded in `ENVIRONMENT_CONTRACT.json` before exact receipt identity and independent R parity are evaluated.
+The governed local R environment installs PyStatsV1 and all declared runtime dependencies while applying the batch-specific requirements file as a pip constraint. This preserves the exact Python 3.10, NumPy, pandas, SciPy, and Matplotlib versions without leaving required PyStatsV1 dependencies absent. The local gate verifies the exact versions recorded in `ENVIRONMENT_CONTRACT.json` before exact receipt identity and independent R parity are evaluated.
 
-The general repository test suite uses structural validation for this batch so that an unrelated numerical-library drift cannot mask tests of schema, provenance, APA binding, or lifecycle failures. Exact floating-point identity remains mandatory in the governed workflow, where a mismatch now identifies every differing field and its absolute difference.
+The general repository test suite uses structural validation for this batch so that an unrelated numerical-library drift cannot mask tests of schema, provenance, APA binding, or lifecycle failures. Exact floating-point identity remains mandatory in the governed local gate, where a mismatch identifies every differing field and its absolute difference. GitHub-hosted Actions deliberately do not install or execute R.

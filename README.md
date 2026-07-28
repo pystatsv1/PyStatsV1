@@ -274,9 +274,18 @@ make psych-design-swl-s02-s05-r-verify
 The first target checks exact regeneration, study IDs, design contracts,
 result receipts, figure specifications, APA source maps, matched limitations,
 and source boundaries. The second runs independent base-R analyses and compares
-them with the Python results.
+them with the Python results. R parity is a governed **local** gate and is not
+executed by GitHub-hosted Actions.
 
-See `docs/PSYCH_DESIGN_SWL_S02_S05_FIRST_BATCH.md` for scope and exclusions.
+For one authoritative command covering all three SWL batches and the current
+Book 1 companion, prepare the pinned local environment and run:
+
+```bash
+make PYTHON="$PWD/.venv-psych-design-r/bin/python" local-r-verify
+```
+
+See `docs/LOCAL_R_VERIFICATION_POLICY.md` and
+`docs/PSYCH_DESIGN_SWL_S02_S05_FIRST_BATCH.md` for scope and exclusions.
 
 ### Second study-specific source batch
 
@@ -292,7 +301,9 @@ make psych-design-swl-s01-s06-s07-verify
 make psych-design-swl-s01-s06-s07-r-verify
 ```
 
-See `docs/PSYCH_DESIGN_SWL_S01_S06_S07_SECOND_BATCH.md` for scope and exclusions.
+The R target runs locally in the governed Python 3.10 environment; GitHub CI does
+not install or execute R. See `docs/LOCAL_R_VERIFICATION_POLICY.md` and
+`docs/PSYCH_DESIGN_SWL_S01_S06_S07_SECOND_BATCH.md` for scope and exclusions.
 
 The private, synthetic-only SWL-S08 through SWL-S10 final source candidate
 lives under `psych_design_companion/swl_s08_s10_v0_1/`. It supplies the
@@ -306,7 +317,9 @@ make psych-design-swl-s08-s10-verify
 make psych-design-swl-s08-s10-r-verify
 ```
 
-See `docs/PSYCH_DESIGN_SWL_S08_S10_FINAL_BATCH.md` for scope and exclusions.
+The R target runs locally and requires the `nlme` R package. GitHub CI remains
+Python-only. See `docs/LOCAL_R_VERIFICATION_POLICY.md` and
+`docs/PSYCH_DESIGN_SWL_S08_S10_FINAL_BATCH.md` for scope and exclusions.
 
 ---
 
