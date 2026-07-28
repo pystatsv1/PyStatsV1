@@ -254,17 +254,16 @@ def test_generator_declares_platform_independent_text_serialization() -> None:
     assert '.relative_to(output_root).as_posix()' in source
 
 
-def test_r_verification_has_dedicated_nonduplicating_workflow() -> None:
-    ci = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+def test_r_verification_is_governed_local_only() -> None:
     workflow = (
         ROOT
         / ".github"
         / "workflows"
         / "psych-design-swl-first-batch-r-verify.yml"
-    ).read_text(encoding="utf-8")
+    )
+    assert not workflow.exists()
 
-    assert "psych-design-swl-first-batch-r-verify:" not in ci
-    assert "pull_request:" in workflow
-    assert "branches: [ main ]" in workflow
-    assert "make psych-design-swl-s02-s05-r-verify" in workflow
-    assert "feat/**" not in workflow
+    runner = (ROOT / "tools/run_local_r_verification.py").read_text(encoding="utf-8")
+    policy = (ROOT / "docs/LOCAL_R_VERIFICATION_POLICY.md").read_text(encoding="utf-8")
+    assert "psych-design-swl-s02-s05-r-verify" in runner
+    assert "GitHub-hosted Actions" in policy
