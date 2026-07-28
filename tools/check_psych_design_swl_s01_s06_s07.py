@@ -44,6 +44,7 @@ def load_studies(root: Path):
 
 def verify_static_files(companion: Path) -> None:
     required = [
+        "ENVIRONMENT_CONTRACT.json",
         "METHOD_SOURCE_BINDING.json",
         "PSYCH_DESIGN_SWL_S01_S06_S07_CONTRACT.json",
         "README.md",
@@ -111,7 +112,41 @@ def verify_method_bindings(companion: Path) -> None:
                     fail("bound method source drift: " + row["path"])
 
 
-def verify_studies(companion: Path) -> None:
+def compare_reported_fields(
+    study_id: str,
+    expected: dict[str, Any],
+    actual: dict[str, Any],
+    *,
+    exact_numeric: bool,
+) -> None:
+    if set(expected) != set(actual):
+        missing = sorted(set(actual) - set(expected))
+        extra = sorted(set(expected) - set(actual))
+        fail(
+            "stale result field set: "
+            + study_id
+            + f"; missing_from_receipt={missing}; extra_in_receipt={extra}"
+        )
+    if not exact_numeric:
+        return
+    mismatches: list[str] = []
+    for field in sorted(actual):
+        if expected[field] == actual[field]:
+            continue
+        detail = f"{field}: receipt={expected[field]!r}, recomputed={actual[field]!r}"
+        if isinstance(expected[field], (int, float)) and isinstance(actual[field], (int, float)):
+            detail += f", absolute_difference={abs(float(expected[field]) - float(actual[field])):.12g}"
+        mismatches.append(detail)
+    if mismatches:
+        fail(
+            "stale result hash or reported fields: "
+            + study_id
+            + "; "
+            + " | ".join(mismatches)
+        )
+
+
+def verify_studies(companion: Path, *, exact_numeric: bool) -> None:
     studies = load_studies(companion)
     verification = read_json(companion / "evidence/PYTHON_R_VERIFICATION_CONTRACT.json")
     parity_by_study = {row["study_id"]: row["parity_fields"] for row in verification["studies"]}
@@ -129,8 +164,12 @@ def verify_studies(companion: Path) -> None:
         if receipt.get("design_contract_sha256") != sha256(contract):
             fail("stale design hash: " + study_id)
         recomputed = studies.ANALYZERS[study_id](frame)
-        if receipt.get("reported_fields") != recomputed:
-            fail("stale result hash or reported fields: " + study_id)
+        compare_reported_fields(
+            study_id,
+            receipt.get("reported_fields", {}),
+            recomputed,
+            exact_numeric=exact_numeric,
+        )
         for field in parity_by_study[study_id]:
             if field not in recomputed:
                 fail("R parity field contract drifted: " + study_id + ":" + field)
@@ -152,7 +191,7 @@ def verify_studies(companion: Path) -> None:
             fail("matched limitation missing: " + study_id)
 
 
-def verify_exact_regeneration() -> None:
+def verify_exact_regeneration(*, exact_numeric: bool) -> None:
     exact = read_json(COMPANION / "evidence/BATCH_EXACT_REGENERATION_RECEIPT.json")
     if exact.get("exact_regeneration_status") != "passed":
         fail("exact regeneration status changed")
@@ -160,12 +199,17 @@ def verify_exact_regeneration() -> None:
         fail("exact regeneration baseline mismatch")
     for relative, expected in exact.get("generated_file_sha256", {}).items():
         path = COMPANION / relative
-        if not path.is_file() or sha256(path) != expected:
+        if not path.is_file():
+            fail("exact regeneration asset missing: " + relative)
+        if exact_numeric and sha256(path) != expected:
             fail("exact regeneration mismatch: " + relative)
     for relative, expected in exact.get("source_input_sha256", {}).items():
         path = COMPANION / relative
         if not path.is_file() or sha256(path) != expected:
             fail("source input drift: " + relative)
+
+    if not exact_numeric:
+        return
 
     with tempfile.TemporaryDirectory() as directory:
         copied_root = Path(directory) / "repo"
@@ -214,13 +258,18 @@ def run_r_verification(companion: Path) -> None:
         )
 
 
-def verify_companion(companion: Path = COMPANION, run_r: bool = False) -> None:
+def verify_companion(
+    companion: Path = COMPANION,
+    run_r: bool = False,
+    *,
+    exact_numeric: bool = True,
+) -> None:
     verify_static_files(companion)
     verify_contracts(companion)
     verify_method_bindings(companion)
-    verify_studies(companion)
+    verify_studies(companion, exact_numeric=exact_numeric)
     if companion.resolve() == COMPANION.resolve():
-        verify_exact_regeneration()
+        verify_exact_regeneration(exact_numeric=exact_numeric)
     if run_r:
         run_r_verification(companion)
 
@@ -228,8 +277,13 @@ def verify_companion(companion: Path = COMPANION, run_r: bool = False) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-r", action="store_true")
+    parser.add_argument(
+        "--structural-only",
+        action="store_true",
+        help="validate field sets and bindings without exact floating-point identity",
+    )
     args = parser.parse_args()
-    verify_companion(run_r=args.run_r)
+    verify_companion(run_r=args.run_r, exact_numeric=not args.structural_only)
     print("PYSTATSV1_PSYCH_DESIGN_SWL_S01_S06_S07_VERIFY_OK")
 
 

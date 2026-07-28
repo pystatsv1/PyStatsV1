@@ -95,3 +95,9 @@ This source candidate does not:
 - accept real participant, student, clinical, institutional, or restricted
   data;
 - authorize KDP production.
+
+## Reproducibility hardening
+
+The dedicated Ubuntu workflow installs the batch-specific requirements before installing PyStatsV1 with `--no-deps`. It then verifies Python 3.10 and the exact NumPy, pandas, and SciPy versions recorded in `ENVIRONMENT_CONTRACT.json` before exact receipt identity and independent R parity are evaluated.
+
+The general repository test suite uses structural validation for this batch so that an unrelated numerical-library drift cannot mask tests of schema, provenance, APA binding, or lifecycle failures. Exact floating-point identity remains mandatory in the governed workflow, where a mismatch now identifies every differing field and its absolute difference.
