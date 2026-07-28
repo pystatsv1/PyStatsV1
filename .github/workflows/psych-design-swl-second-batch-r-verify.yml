@@ -30,8 +30,8 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements-dev.txt
           python -m pip install \
-            -r psych_design_companion/swl_s01_s06_s07_v0_1/requirements-psych-design-companion.txt
-          python -m pip install --no-deps -e .
+            --constraint psych_design_companion/swl_s01_s06_s07_v0_1/requirements-psych-design-companion.txt \
+            -e .
           python -m pip check
 
       - name: Verify governed numerical environment

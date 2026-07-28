@@ -301,7 +301,10 @@ def test_r_verification_has_dedicated_workflow() -> None:
     assert "actions/setup-python@v6" in text
     assert "python-version: \"3.10\"" in text
     assert "requirements-psych-design-companion.txt" in text
-    assert "python -m pip install --no-deps -e ." in text
+    assert "--constraint psych_design_companion/swl_s01_s06_s07_v0_1/requirements-psych-design-companion.txt" in text
+    assert "-e ." in text
+    assert "python -m pip install --no-deps -e ." not in text
+    assert "python -m pip check" in text
     assert "make psych-design-swl-s01-s06-s07-environment-verify" in text
     assert "make psych-design-swl-s01-s06-s07-r-verify" in text
     assert "feat/**" not in text
