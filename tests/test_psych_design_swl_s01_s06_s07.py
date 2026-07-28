@@ -15,6 +15,7 @@ from scipy import stats
 ROOT = Path(__file__).resolve().parents[1]
 COMPANION = ROOT / "psych_design_companion/swl_s01_s06_s07_v0_1"
 CHECKER = ROOT / "tools/check_psych_design_swl_s01_s06_s07.py"
+ENVIRONMENT_CHECKER = ROOT / "tools/check_psych_design_swl_s01_s06_s07_environment.py"
 
 spec = importlib.util.spec_from_file_location("second_batch_checker", CHECKER)
 assert spec is not None and spec.loader is not None
@@ -46,9 +47,9 @@ def copy_companion(tmp_path: Path) -> Path:
     return copied
 
 
-def test_checker_passes() -> None:
+def test_structural_checker_passes_in_general_test_environment() -> None:
     done = subprocess.run(
-        [sys.executable, str(CHECKER)],
+        [sys.executable, str(CHECKER), "--structural-only"],
         capture_output=True,
         text=True,
     )
@@ -119,7 +120,7 @@ def test_duplicate_swl_s01_identifier_is_rejected(tmp_path: Path) -> None:
     frame.loc[1, "participant_id"] = frame.loc[0, "participant_id"]
     frame.to_csv(path, index=False, lineterminator="\n")
     with pytest.raises(ValueError, match="SWL-S01 row or participant count"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_swl_s06_missing_visit_drift_is_rejected(tmp_path: Path) -> None:
@@ -129,7 +130,7 @@ def test_swl_s06_missing_visit_drift_is_rejected(tmp_path: Path) -> None:
     frame.loc[frame.index[0], "academic_confidence"] = None
     frame.to_csv(path, index=False, lineterminator="\n", na_rep="")
     with pytest.raises(ValueError, match="SWL-S06 missing-visit count"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_swl_s07_group_count_drift_is_rejected(tmp_path: Path) -> None:
@@ -139,7 +140,7 @@ def test_swl_s07_group_count_drift_is_rejected(tmp_path: Path) -> None:
     frame.loc[0, "intervention_group"] = "intervention"
     frame.to_csv(path, index=False, lineterminator="\n")
     with pytest.raises(ValueError, match="SWL-S07 group counts"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_stale_result_receipt_is_rejected(tmp_path: Path) -> None:
@@ -159,14 +160,14 @@ def test_stale_apa_binding_is_rejected(tmp_path: Path) -> None:
     payload["reported_number_bindings"][0]["json_pointer"] = "/reported_fields/not_registered"
     write(path, payload)
     with pytest.raises(ValueError, match="APA field bindings drifted"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_missing_r_path_is_rejected(tmp_path: Path) -> None:
     copied = copy_companion(tmp_path)
     (copied / "scripts/r/swl_s06.R").unlink()
     with pytest.raises(ValueError, match="missing static files"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_public_release_claim_is_rejected(tmp_path: Path) -> None:
@@ -176,7 +177,7 @@ def test_public_release_claim_is_rejected(tmp_path: Path) -> None:
     payload["public_release"] = True
     write(path, payload)
     with pytest.raises(ValueError, match="must not be a public release"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_source_anchor_drift_is_rejected(tmp_path: Path) -> None:
@@ -186,7 +187,7 @@ def test_source_anchor_drift_is_rejected(tmp_path: Path) -> None:
     payload["baseline_pystatsv1_commit"] = "0" * 40
     write(path, payload)
     with pytest.raises(ValueError, match="source provenance baseline mismatch"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_figure_sources_generate_four_grayscale_candidates(tmp_path: Path) -> None:
@@ -217,7 +218,7 @@ def test_incomplete_batch_receipt_is_rejected(tmp_path: Path) -> None:
     payload["all_study_specific_asset_sets_complete"] = False
     write(path, payload)
     with pytest.raises(ValueError, match="batch implementation is not complete"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_r_parity_field_drift_is_rejected(tmp_path: Path) -> None:
@@ -227,7 +228,7 @@ def test_r_parity_field_drift_is_rejected(tmp_path: Path) -> None:
     payload["studies"][0]["parity_fields"].append("not_a_metric")
     write(path, payload)
     with pytest.raises(ValueError, match="R parity field contract drifted"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_method_source_hash_drift_is_rejected(tmp_path: Path) -> None:
@@ -237,7 +238,7 @@ def test_method_source_hash_drift_is_rejected(tmp_path: Path) -> None:
     payload["studies"][0]["method_python"][0]["sha256"] = "0" * 64
     write(path, payload)
     with pytest.raises(ValueError, match="bound method source drift"):
-        MOD.verify_companion(copied)
+        MOD.verify_companion(copied, exact_numeric=False)
 
 
 def test_generated_assets_use_lf_and_posix_receipt_paths() -> None:
@@ -252,10 +253,58 @@ def test_generated_assets_use_lf_and_posix_receipt_paths() -> None:
         assert payload.endswith(b"\n"), relative
 
 
+def test_governed_environment_contract_and_requirements_are_exact() -> None:
+    contract = read(COMPANION / "ENVIRONMENT_CONTRACT.json")
+    assert contract["python"] == {"major": 3, "minor": 10}
+    assert contract["packages"] == {
+        "matplotlib": "3.10.8",
+        "numpy": "2.2.6",
+        "pandas": "2.2.3",
+        "scipy": "1.15.3",
+    }
+    requirements = (COMPANION / "requirements-psych-design-companion.txt").read_text(encoding="utf-8")
+    for name, version in contract["packages"].items():
+        assert f"{name}=={version}" in requirements
+
+
+def test_exact_comparison_reports_the_drifting_field() -> None:
+    with pytest.raises(ValueError, match="intercept_ci_95_low"):
+        MOD.compare_reported_fields(
+            "SWL-S01",
+            {"intercept_ci_95_low": 0.3707463941},
+            {"intercept_ci_95_low": 0.3707463939},
+            exact_numeric=True,
+        )
+
+
+def test_structural_comparison_preserves_field_contract_without_numeric_identity() -> None:
+    MOD.compare_reported_fields(
+        "SWL-S01",
+        {"intercept_ci_95_low": 0.3707463941},
+        {"intercept_ci_95_low": 0.3707463939},
+        exact_numeric=False,
+    )
+
+
+def test_environment_checker_is_executable_and_has_marker() -> None:
+    text = ENVIRONMENT_CHECKER.read_text(encoding="utf-8")
+    assert "PYSTATSV1_PSYCH_DESIGN_SWL_S01_S06_S07_ENVIRONMENT_OK" in text
+    assert "metadata.version" in text
+
+
 def test_r_verification_has_dedicated_workflow() -> None:
     workflow = ROOT / ".github/workflows/psych-design-swl-second-batch-r-verify.yml"
     text = workflow.read_text(encoding="utf-8")
     assert "pull_request:" in text
     assert "branches: [ main ]" in text
+    assert "actions/checkout@v5" in text
+    assert "actions/setup-python@v6" in text
+    assert "python-version: \"3.10\"" in text
+    assert "requirements-psych-design-companion.txt" in text
+    assert "--constraint psych_design_companion/swl_s01_s06_s07_v0_1/requirements-psych-design-companion.txt" in text
+    assert "-e ." in text
+    assert "python -m pip install --no-deps -e ." not in text
+    assert "python -m pip check" in text
+    assert "make psych-design-swl-s01-s06-s07-environment-verify" in text
     assert "make psych-design-swl-s01-s06-s07-r-verify" in text
     assert "feat/**" not in text

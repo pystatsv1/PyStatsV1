@@ -37,6 +37,7 @@ help:
 	@echo "  book1-asset - rebuild packaged Psych Stats Book 1 companion ZIP"
 	@echo "  psych-design-swl-s02-s05-verify - verify the private SWL-S02–S05 source candidate"
 	@echo "  psych-design-swl-s02-s05-r-verify - run independent base-R parity"
+	@echo "  psych-design-swl-s01-s06-s07-environment-verify - verify the pinned second-batch numerical environment"
 	@echo "  psych-design-swl-s01-s06-s07-verify - verify the private SWL-S01/S06/S07 source candidate"
 	@echo "  psych-design-swl-s01-s06-s07-r-verify - run independent base-R parity for the second batch"
 	@echo "  psych-design-swl-s08-s10-verify - verify the private SWL-S08-S10 final source candidate"
@@ -69,6 +70,10 @@ release-verify:
 .PHONY: psych-design-swl-s01-s06-s07-refresh
 psych-design-swl-s01-s06-s07-refresh:
 	$(PYTHON) tools/build_psych_design_swl_s01_s06_s07.py
+
+.PHONY: psych-design-swl-s01-s06-s07-environment-verify
+psych-design-swl-s01-s06-s07-environment-verify:
+	$(PYTHON) tools/check_psych_design_swl_s01_s06_s07_environment.py
 
 .PHONY: psych-design-swl-s01-s06-s07-verify
 psych-design-swl-s01-s06-s07-verify:

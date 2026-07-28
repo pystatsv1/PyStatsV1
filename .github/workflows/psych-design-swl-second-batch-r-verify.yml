@@ -14,22 +14,30 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.10"
           cache: pip
 
-      - name: Install Python and R dependencies
+      - name: Install governed Python and R dependencies
         run: |
           set -euo pipefail
           sudo apt-get update
           sudo apt-get install --yes r-base
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt -r requirements-dev.txt
-          python -m pip install -e .
+          python -m pip install -r requirements-dev.txt
+          python -m pip install \
+            --constraint psych_design_companion/swl_s01_s06_s07_v0_1/requirements-psych-design-companion.txt \
+            -e .
+          python -m pip check
+
+      - name: Verify governed numerical environment
+        run: |
+          set -euo pipefail
+          make psych-design-swl-s01-s06-s07-environment-verify
 
       - name: Verify SWL-S01, SWL-S06, and SWL-S07 candidate
         run: |
