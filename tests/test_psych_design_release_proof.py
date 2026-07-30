@@ -144,7 +144,19 @@ def _receipt(role: str, png_suffix: str = "a") -> dict:
             else [],
             "reviewer_packet_membership": [f"file-{number}" for number in range(12)],
             "reviewer_packet_file_count": 12,
-            "reviewer_packet_source_hashes": {"DESIGN_CONTRACT.json": "4" * 64},
+            "reviewer_packet_source_hashes": {
+                "APA_SOURCE_MAP.json": "4" * 64,
+                "DATA_LAYOUT_AUDIT.json": "5" * 64,
+                "DESIGN_CONTRACT.json": "6" * 64,
+                "FIGURE_SPECS.json": "7" * 64,
+                "MATCHED_LIMITATION.md": "8" * 64,
+                "MEASUREMENT_MAP.json": "9" * 64,
+                "PYTHON_RESULT.json": "a" * 64,
+                "R_RESULT.csv": "b" * 64,
+                "SOURCE_MANIFEST_RECORD.json": "c" * 64,
+                "STUDY_INDEX_RECORD.json": "d" * 64,
+                "VERIFICATION_RECEIPT.json": "e" * 64,
+            },
             "apa_runtime_binding_sha256": "5" * 64,
             "matched_limitation_runtime_sha256": "6" * 64,
             "figures": {
@@ -315,3 +327,219 @@ def test_readiness_state_is_coherent_and_never_opens_release_gates() -> None:
     assert state["portal_release_authorized"] is False
     assert state["book_binding_authorized"] is False
     assert state["real_data_authorized"] is False
+
+
+
+def _compare_receipts(
+    tmp_path: Path,
+    left: dict,
+    right: dict,
+) -> tuple[subprocess.CompletedProcess[str], dict, dict]:
+    ubuntu = tmp_path / "ubuntu.json"
+    wsl = tmp_path / "wsl.json"
+    comparison = tmp_path / "comparison.json"
+    readiness = tmp_path / "readiness.json"
+    ubuntu.write_text(json.dumps(left), encoding="utf-8")
+    wsl.write_text(json.dumps(right), encoding="utf-8")
+    completed = run(
+        sys.executable,
+        str(COMPARATOR),
+        "--ubuntu",
+        str(ubuntu),
+        "--wsl",
+        str(wsl),
+        "--comparison",
+        str(comparison),
+        "--readiness",
+        str(readiness),
+    )
+    result = load(comparison) if comparison.is_file() else {}
+    state = load(readiness) if readiness.is_file() else {}
+    return completed, result, state
+
+
+def test_cross_platform_comparison_accepts_observed_machine_precision_pattern(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    left_row = left["study_evidence"]["SWL-S08"]["verification_comparisons"][0]
+    right_row = right["study_evidence"]["SWL-S08"]["verification_comparisons"][0]
+    left_row["absolute_difference"] = "1.42108547152e-14"
+    right_row["absolute_difference"] = "3.5527136788e-14"
+    right_hashes = right["study_evidence"]["SWL-S08"][
+        "reviewer_packet_source_hashes"
+    ]
+    right_hashes["R_RESULT.csv"] = "1" * 64
+    right_hashes["VERIFICATION_RECEIPT.json"] = "2" * 64
+
+    completed, result, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    normalized = result["verification_comparison_normalization"]
+    assert normalized["absolute_difference_serialization_tolerance"] == "1e-12"
+    study = normalized["studies"]["SWL-S08"]
+    assert study["status"] == "pass"
+    assert study["maximum_observed_absolute_difference_delta"] == (
+        "2.13162820728e-14"
+    )
+    runtime = result["generated_runtime_evidence_hash_comparison"]["studies"][
+        "SWL-S08"
+    ]
+    assert runtime["files"]["R_RESULT.csv"]["status"] == (
+        "allowed_generated_runtime_evidence_difference"
+    )
+    assert runtime["files"]["VERIFICATION_RECEIPT.json"]["status"] == (
+        "allowed_generated_runtime_evidence_difference"
+    )
+    assert state["technical_release_ready"] is True
+
+
+def test_cross_platform_comparison_rejects_r_canonical_result_drift(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    right["study_evidence"]["SWL-S03"]["r_metrics"]["estimate"] = "1.26"
+
+    completed, _, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode != 0
+    assert "SWL-S03.r_metrics" in completed.stderr
+    assert state["technical_release_ready"] is False
+
+
+def test_cross_platform_comparison_rejects_widened_registered_tolerance(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    right["study_evidence"]["SWL-S04"]["verification_comparisons"][0][
+        "allowed_absolute_difference"
+    ] = "1e-07"
+
+    completed, _, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode != 0
+    assert (
+        "SWL-S04.verification_comparisons.estimate.allowed_absolute_difference"
+        in completed.stderr
+    )
+    assert state["technical_release_ready"] is False
+
+
+def test_cross_platform_comparison_rejects_comparison_status_change(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    right["study_evidence"]["SWL-S05"]["verification_comparisons"][0][
+        "status"
+    ] = "fail"
+
+    completed, _, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode != 0
+    assert "SWL-S05.verification_comparisons.estimate.status" in completed.stderr
+    assert "SWL-S05.verification_comparisons.estimate.wsl_status_pass" in (
+        completed.stderr
+    )
+    assert state["technical_release_ready"] is False
+
+
+def test_cross_platform_comparison_rejects_large_derived_difference_delta(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    right["study_evidence"]["SWL-S06"]["verification_comparisons"][0][
+        "absolute_difference"
+    ] = "2e-12"
+
+    completed, result, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode != 0
+    assert (
+        "SWL-S06.verification_comparisons.estimate."
+        "absolute_difference_serialization"
+    ) in completed.stderr
+    field = result["verification_comparison_normalization"]["studies"][
+        "SWL-S06"
+    ]["fields"][0]
+    assert field["observed_delta"] == "2e-12"
+    assert field["allowed_cross_platform_delta"] == "1e-12"
+    assert state["technical_release_ready"] is False
+
+
+def test_cross_platform_comparison_accepts_only_runtime_evidence_hash_differences(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    hashes = right["study_evidence"]["SWL-S07"][
+        "reviewer_packet_source_hashes"
+    ]
+    hashes["R_RESULT.csv"] = "1" * 64
+    hashes["VERIFICATION_RECEIPT.json"] = "2" * 64
+
+    completed, result, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    study = result["generated_runtime_evidence_hash_comparison"]["studies"][
+        "SWL-S07"
+    ]
+    assert study["status"] == "pass"
+    assert {
+        row["status"] for row in study["files"].values()
+    } == {"allowed_generated_runtime_evidence_difference"}
+    assert state["technical_release_ready"] is True
+
+
+def test_cross_platform_comparison_rejects_changed_immutable_packet_hash(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    right["study_evidence"]["SWL-S08"]["reviewer_packet_source_hashes"][
+        "DESIGN_CONTRACT.json"
+    ] = "0" * 64
+
+    completed, _, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode != 0
+    assert (
+        "SWL-S08.reviewer_packet_source_hashes.immutable_hashes"
+        in completed.stderr
+    )
+    assert state["technical_release_ready"] is False
+
+
+def test_cross_platform_comparison_rejects_changed_packet_membership(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    right["study_evidence"]["SWL-S09"]["reviewer_packet_membership"].pop()
+    right["study_evidence"]["SWL-S09"]["reviewer_packet_file_count"] = 11
+
+    completed, _, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode != 0
+    assert "SWL-S09.reviewer_packet_membership" in completed.stderr
+    assert "SWL-S09.reviewer_packet_file_count" in completed.stderr
+    assert state["technical_release_ready"] is False
+
+
+def test_cross_platform_comparison_rejects_open_release_gate(
+    tmp_path: Path,
+) -> None:
+    left = _receipt("ubuntu")
+    right = _receipt("wsl")
+    right["publication_gates"]["pypi_release_authorized"] = True
+
+    completed, result, state = _compare_receipts(tmp_path, left, right)
+
+    assert completed.returncode != 0
+    assert "wsl receipt opens a closed release gate" in completed.stderr
+    assert result == {}
+    assert state == {}
