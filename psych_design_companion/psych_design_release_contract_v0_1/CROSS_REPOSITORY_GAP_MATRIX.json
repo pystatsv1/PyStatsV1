@@ -2,65 +2,65 @@
   "rows": [
     {
       "area": "Source studies",
-      "current": "All ten SWL studies exist in three governed private source-candidate batches.",
-      "gap": "Unification and public packaging absent.",
-      "next_action": "copy without scientific drift into a unified release-candidate source tree and prove preservation",
+      "current": "Unified release-candidate source tree and deterministic asset implemented; three governed batches remain preserved.",
+      "gap": "Clean reader and installed-wheel proof pending.",
+      "next_action": "Run Drop-in 034 proof without scientific drift.",
       "owner_repo": "PyStatsV1",
       "target": "One public synthetic companion with a stable registry."
     },
     {
       "area": "CLI and PyPI extra",
-      "current": "Only workbook, book1, trackd, docs, and general doctor commands exist; package is 0.25.2.",
-      "gap": "No launcher, verify, list-studies, or companion-specific doctor.",
-      "next_action": "implement CLI and immutable asset launcher in the next unit",
+      "current": "psych-design namespace, launcher, verify, list-studies, doctor, and 0.26.0 extra implemented in source.",
+      "gap": "PyPI publication remains unauthorized.",
+      "next_action": "Prove installed wheel in clean Ubuntu and WSL before release authorization.",
       "owner_repo": "PyStatsV1",
       "target": "psych-design namespace and psych-design extra in planned 0.26.0."
     },
     {
       "area": "Visible per-study Python scripts",
-      "current": "Current batch calculations are concentrated in shared studies.py modules and batch run_all.py orchestrators.",
-      "gap": "Reader-facing script granularity absent.",
-      "next_action": "create thin transparent study entry scripts that call no hidden method selector",
+      "current": "Ten visible reader entry scripts implemented and registry-bound.",
+      "gap": "Clean reader command proof pending.",
+      "next_action": "Execute every printed command from extracted wheel asset.",
       "owner_repo": "PyStatsV1",
       "target": "One visible script per study plus Make orchestration."
     },
     {
       "area": "R verification",
-      "current": "Independent R scripts exist for all ten studies; V3/V4 policy exists for SWL-S08.",
-      "gap": "Paths and outputs differ by batch and are not reader-packaged.",
-      "next_action": "normalize orchestration while preserving field policies",
+      "current": "Unified R launcher and per-study comparison policy implemented; SWL-S08 V3/V4 boundary preserved.",
+      "gap": "Full R proof requires supported reader environments.",
+      "next_action": "Run all ten independent R paths in Drop-in 034.",
       "owner_repo": "PyStatsV1",
       "target": "Unified commands and receipts."
     },
     {
       "area": "Study registry",
-      "current": "Batch contracts contain partial mappings.",
-      "gap": "No single source of truth.",
-      "next_action": "materialize the target index from governed assets",
+      "current": "Central no-placeholder STUDY_INDEX.json implemented and consumed by scripts, Make, launcher, and packets.",
+      "gap": "Book command-card binding intentionally deferred.",
+      "next_action": "Bind only after public package release.",
       "owner_repo": "PyStatsV1",
       "target": "Central STUDY_INDEX.json used by CLI, Make, book cards, and packets."
     },
     {
       "area": "Measurement maps",
-      "current": "Measurement information is embedded in design/source artifacts but no dedicated public map is registered for every study.",
-      "gap": "Dedicated artifact missing.",
-      "next_action": "extract bounded maps without changing results",
+      "current": "Dedicated synthetic-safe measurement map implemented for every study.",
+      "gap": "Reader adaptation review remains pending.",
+      "next_action": "Review in clean-reader proof.",
       "owner_repo": "PyStatsV1",
       "target": "measurement/ map per study."
     },
     {
       "area": "Reviewer packets",
-      "current": "Book explains packets; current batches retain evidence pieces.",
-      "gap": "No packet generator or manifest.",
-      "next_action": "implement deterministic packet builder",
+      "current": "Deterministic bounded packet builder and manifest implemented.",
+      "gap": "Full ten-packet R-backed proof pending.",
+      "next_action": "Generate all packets in Drop-in 034.",
       "owner_repo": "PyStatsV1",
       "target": "make packet STUDY=... with bounded manifest."
     },
     {
       "area": "Licensing",
-      "current": "Repository software is MIT licensed; existing Book 1 bundles carry boundary notes; psych-design batches have no public release license note.",
-      "gap": "Companion-specific distribution notice absent.",
-      "next_action": "add LICENSE_NOTES.md and package audit before release",
+      "current": "Companion-specific MIT and synthetic-only boundary note implemented.",
+      "gap": "Public distribution authorization remains false.",
+      "next_action": "Re-audit packaged asset before release.",
       "owner_repo": "PyStatsV1",
       "target": "Explicit public asset license and synthetic-only boundary."
     },
@@ -82,9 +82,9 @@
     },
     {
       "area": "Clean reader proofs",
-      "current": "No advanced-companion Ubuntu or WSL reader proof.",
-      "gap": "Not possible before companion implementation.",
-      "next_action": "perform after portal release candidate and before final interior re-freeze",
+      "current": "Release candidate now makes clean proof possible.",
+      "gap": "Ubuntu and WSL installed-wheel proof not yet completed.",
+      "next_action": "Perform next in Drop-in 034.",
       "owner_repo": "cross-repository",
       "target": "Exact printed-command proofs in clean Ubuntu and WSL."
     }

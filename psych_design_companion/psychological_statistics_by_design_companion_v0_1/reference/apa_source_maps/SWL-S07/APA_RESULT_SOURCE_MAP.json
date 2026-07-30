@@ -1,0 +1,53 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch13"
+  ],
+  "contract_version": "0.1",
+  "reported_number_bindings": [
+    {
+      "field": "n_total",
+      "json_pointer": "/reported_fields/n_total"
+    },
+    {
+      "field": "adjusted_mean_comparison_at_overall_baseline",
+      "json_pointer": "/reported_fields/adjusted_mean_comparison_at_overall_baseline"
+    },
+    {
+      "field": "adjusted_mean_intervention_at_overall_baseline",
+      "json_pointer": "/reported_fields/adjusted_mean_intervention_at_overall_baseline"
+    },
+    {
+      "field": "adjusted_group_difference_intervention_minus_comparison",
+      "json_pointer": "/reported_fields/adjusted_group_difference_intervention_minus_comparison"
+    },
+    {
+      "field": "group_effect_f",
+      "json_pointer": "/reported_fields/group_effect_f"
+    },
+    {
+      "field": "group_effect_df",
+      "json_pointer": "/reported_fields/group_effect_df"
+    },
+    {
+      "field": "model_df_error",
+      "json_pointer": "/reported_fields/model_df_error"
+    },
+    {
+      "field": "group_effect_p",
+      "json_pointer": "/reported_fields/group_effect_p"
+    },
+    {
+      "field": "group_partial_eta_squared",
+      "json_pointer": "/reported_fields/group_partial_eta_squared"
+    },
+    {
+      "field": "homogeneity_interaction_p",
+      "json_pointer": "/reported_fields/homogeneity_interaction_p"
+    }
+  ],
+  "reporting_role": "primary",
+  "result_receipt": "evidence/SWL-S07/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S07",
+  "synthetic_only": true
+}

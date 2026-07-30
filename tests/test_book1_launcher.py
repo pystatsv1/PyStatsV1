@@ -412,7 +412,7 @@ def test_book1_historical_and_current_release_bindings_are_explicit() -> None:
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     assert "pystatsv1>=0.25.0,<0.26.0" in old_requirements
     assert "pystatsv1>=0.25.2,<0.26.0" in new_requirements
-    assert 'version = "0.25.2"' in pyproject
+    assert 'version = "0.26.0"' in pyproject
 
 def test_book1_v021_design_audit_source_route_passes_without_writing(
     tmp_path: Path,

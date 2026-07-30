@@ -1,0 +1,12 @@
+synthetic_example: Psychological Statistics by Design companion v0.1
+reader_project_authorized: false
+deltas:
+  unit: {synthetic: DECLARE, reader_project: DECLARE, revalidation: independence_and_clustering}
+  outcome: {synthetic: DECLARE, reader_project: DECLARE, revalidation: scoring_validity_and_missing_items}
+  group_or_exposure: {synthetic: DECLARE, reader_project: DECLARE, revalidation: selection_and_causal_scope}
+  occasion: {synthetic: DECLARE, reader_project: DECLARE, revalidation: linkage_and_missing_visits}
+  estimand: {synthetic: DECLARE, reader_project: DECLARE, revalidation: scientific_meaning}
+  rows: {synthetic: DECLARE, reader_project: DECLARE, revalidation: exclusions_and_missingness}
+  model: {synthetic: DECLARE, reader_project: DECLARE, revalidation: assumptions_and_diagnostics}
+  verification: {synthetic: DECLARE, reader_project: DECLARE, revalidation: category_and_tolerance}
+  reporting: {synthetic: DECLARE, reader_project: DECLARE, revalidation: claim_and_limitation}

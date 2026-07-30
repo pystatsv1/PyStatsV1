@@ -1,0 +1,14 @@
+{
+  "caption": "Observed well-being means by group and occasion.",
+  "contract_version": "0.1",
+  "generator": "scripts/python/generate_figures.py",
+  "grayscale": true,
+  "output": "swl_s08_group_time_means.png",
+  "required_axis_labels": [
+    "Occasion",
+    "Well-being score"
+  ],
+  "role": "descriptive_pattern_not_model_result",
+  "study_id": "SWL-S08",
+  "synthetic_only": true
+}

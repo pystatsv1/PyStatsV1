@@ -1,266 +1,690 @@
 {
+  "actual_registry": "psych_design_companion/psychological_statistics_by_design_companion_v0_1/STUDY_INDEX.json",
+  "actual_registry_sha256": "1c2525fa1ef4b720d758a32f5e3ad987264e8dfeb28f3967201efca575ef6df7",
   "schema_version": "psych-design-target-study-index-v0.1",
-  "status": "contract_not_implemented",
+  "status": "release_candidate_implemented_not_public",
   "studies": [
     {
-      "apa_source_map": "outputs/swl_s01/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S01/APA_RESULT_SOURCE_MAP_CORRELATION.json",
+        "reference/apa_source_maps/SWL-S01/APA_RESULT_SOURCE_MAP_REGRESSION.json"
+      ],
       "book_chapters": [
         "11",
         "12"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "association and within-domain prediction",
       "comparison_receipt": "outputs/swl_s01/verification_receipt.json",
       "dataset_path": "data/swl_s01_student_well_being_survey.csv",
       "design_contract_path": "design/SWL-S01_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s01.json",
-      "matched_limitation": "outputs/swl_s01/matched_limitation.md",
+      "estimands_and_direction": [
+        "Pearson association between sleep quality and academic confidence",
+        "regression coefficients predicting assessment performance within the observed predictor domain"
+      ],
+      "expected_rows": 120,
+      "expected_unique_keys": 120,
+      "expected_unique_units": 120,
+      "factor_levels": {},
+      "figure_specs": [
+        "figures/specs/SWL-S01/FIGURE_SPEC_CORRELATION.json",
+        "figures/specs/SWL-S01/FIGURE_SPEC_REGRESSION.json"
+      ],
+      "first_fields_to_inspect": [
+        "n",
+        "correlation_r_sleep_confidence",
+        "regression_r_squared",
+        "study_hours_b",
+        "confidence_b"
+      ],
+      "generated_figure_manifest": "outputs/swl_s01/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "No intervention or causal claim is authorized from the cross-sectional survey.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S01/MATCHED_LIMITATION_CORRELATION.json",
+        "reference/matched_limitations/SWL-S01/MATCHED_LIMITATION_REGRESSION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S01_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S01",
       "python_result_receipt": "outputs/swl_s01/python_result.json",
       "python_script": "scripts/python/swl_s01_survey_association_prediction.py",
-      "r_result": "outputs/swl_s01/r_result.json",
-      "r_script": "scripts/r/swl_s01.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s01/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s01_s06_s07_v0_1/swl_s01.R",
       "reader_command": "make study STUDY=SWL-S01",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S01_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "How are sleep quality and academic confidence associated in the synthetic survey records?",
+        "How well do weekly study hours and academic confidence predict synthetic assessment performance within the registered predictor domain?"
+      ],
       "reviewer_packet": "outputs/swl_s01/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s01/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s01/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S01",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S01",
       "verification_script": "scripts/verification/verify_swl_s01.py"
     },
     {
-      "apa_source_map": "outputs/swl_s02/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S02/APA_RESULT_SOURCE_MAP.json"
+      ],
       "book_chapters": [
         "6"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "independent-group mean difference with conditional causal scope",
       "comparison_receipt": "outputs/swl_s02/verification_receipt.json",
       "dataset_path": "data/swl_s02_structured_study_routine.csv",
       "design_contract_path": "design/SWL-S02_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s02.json",
-      "matched_limitation": "outputs/swl_s02/matched_limitation.md",
+      "estimands_and_direction": [
+        "structured_routine minus standard_routine mean post-session performance"
+      ],
+      "expected_rows": 64,
+      "expected_unique_keys": 64,
+      "expected_unique_units": 64,
+      "factor_levels": {
+        "study_routine_group": [
+          "standard_routine",
+          "structured_routine"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S02/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_standard",
+        "n_structured",
+        "mean_standard",
+        "mean_structured",
+        "mean_difference_structured_minus_standard",
+        "ci_95_low",
+        "ci_95_high",
+        "welch_t",
+        "p_value_two_sided",
+        "cohen_d_pooled"
+      ],
+      "generated_figure_manifest": "outputs/swl_s02/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not generalize beyond the synthetic pilot or ignore assignment and implementation conditions.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S02/MATCHED_LIMITATION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S02_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S02",
       "python_result_receipt": "outputs/swl_s02/python_result.json",
       "python_script": "scripts/python/swl_s02_independent_groups.py",
-      "r_result": "outputs/swl_s02/r_result.json",
-      "r_script": "scripts/r/swl_s02.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s02/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s02_s05_v0_1/swl_s02.R",
       "reader_command": "make study STUDY=SWL-S02",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S02_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "Do students assigned to a structured study routine differ in post-session performance from students using a standard routine?"
+      ],
       "reviewer_packet": "outputs/swl_s02/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s02/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s02/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S02",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S02",
       "verification_script": "scripts/verification/verify_swl_s02.py"
     },
     {
-      "apa_source_map": "outputs/swl_s03/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S03/APA_RESULT_SOURCE_MAP.json"
+      ],
       "book_chapters": [
         "7"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "within-person paired change without a unique causal attribution",
       "comparison_receipt": "outputs/swl_s03/verification_receipt.json",
       "dataset_path": "data/swl_s03_skills_workshop_pre_post.csv",
       "design_contract_path": "design/SWL-S03_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s03.json",
-      "matched_limitation": "outputs/swl_s03/matched_limitation.md",
+      "estimands_and_direction": [
+        "post minus pre mean paired change"
+      ],
+      "expected_rows": 96,
+      "expected_unique_keys": 96,
+      "expected_unique_units": 48,
+      "factor_levels": {
+        "occasion": [
+          "pre",
+          "post"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S03/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_paired",
+        "mean_pre",
+        "mean_post",
+        "mean_change_post_minus_pre",
+        "sd_change",
+        "paired_t",
+        "p_value_two_sided",
+        "cohen_dz"
+      ],
+      "generated_figure_manifest": "outputs/swl_s03/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not identify the workshop as the unique cause without a control condition.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S03/MATCHED_LIMITATION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S03_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S03",
       "python_result_receipt": "outputs/swl_s03/python_result.json",
       "python_script": "scripts/python/swl_s03_paired_change.py",
-      "r_result": "outputs/swl_s03/r_result.json",
-      "r_script": "scripts/r/swl_s03.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s03/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s02_s05_v0_1/swl_s03.R",
       "reader_command": "make study STUDY=SWL-S03",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S03_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "How does academic confidence change from before to after a skills workshop for students with linked observations?"
+      ],
       "reviewer_packet": "outputs/swl_s03/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s03/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s03/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S03",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id",
+        "occasion"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S03",
       "verification_script": "scripts/verification/verify_swl_s03.py"
     },
     {
-      "apa_source_map": "outputs/swl_s04/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S04/APA_RESULT_SOURCE_MAP.json"
+      ],
       "book_chapters": [
         "8"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "omnibus several-group comparison and two registered planned contrasts",
       "comparison_receipt": "outputs/swl_s04/verification_receipt.json",
       "dataset_path": "data/swl_s04_three_condition_support.csv",
       "design_contract_path": "design/SWL-S04_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s04.json",
-      "matched_limitation": "outputs/swl_s04/matched_limitation.md",
+      "estimands_and_direction": [
+        "guided-condition average minus standard support",
+        "guided practice plus feedback minus guided practice"
+      ],
+      "expected_rows": 90,
+      "expected_unique_keys": 90,
+      "expected_unique_units": 90,
+      "factor_levels": {
+        "support_condition": [
+          "standard_support",
+          "guided_practice",
+          "guided_practice_plus_feedback"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S04/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_total",
+        "mean_standard_support",
+        "mean_guided_practice",
+        "mean_guided_practice_plus_feedback",
+        "anova_f",
+        "contrast_guided_average_minus_standard_estimate",
+        "contrast_feedback_increment_estimate"
+      ],
+      "generated_figure_manifest": "outputs/swl_s04/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not replace the registered comparison family with post-result pairwise fishing.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S04/MATCHED_LIMITATION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S04_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S04",
       "python_result_receipt": "outputs/swl_s04/python_result.json",
       "python_script": "scripts/python/swl_s04_planned_contrasts.py",
-      "r_result": "outputs/swl_s04/r_result.json",
-      "r_script": "scripts/r/swl_s04.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s04/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s02_s05_v0_1/swl_s04.R",
       "reader_command": "make study STUDY=SWL-S04",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S04_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "Do assessment outcomes differ across standard support, guided practice, and guided practice plus feedback, and which planned contrasts answer the substantive questions?"
+      ],
       "reviewer_packet": "outputs/swl_s04/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s04/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s04/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S04",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S04",
       "verification_script": "scripts/verification/verify_swl_s04.py"
     },
     {
-      "apa_source_map": "outputs/swl_s05/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S05/APA_RESULT_SOURCE_MAP.json"
+      ],
       "book_chapters": [
         "9"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "factorial interaction and registered simple strategy effects",
       "comparison_receipt": "outputs/swl_s05/verification_receipt.json",
       "dataset_path": "data/swl_s05_strategy_feedback.csv",
       "design_contract_path": "design/SWL-S05_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s05.json",
-      "matched_limitation": "outputs/swl_s05/matched_limitation.md",
+      "estimands_and_direction": [
+        "retrieval-practice effect with feedback minus retrieval-practice effect without feedback"
+      ],
+      "expected_rows": 96,
+      "expected_unique_keys": 96,
+      "expected_unique_units": 96,
+      "factor_levels": {
+        "feedback_condition": [
+          "no_feedback",
+          "explanatory_feedback"
+        ],
+        "study_strategy": [
+          "rereading",
+          "retrieval_practice"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S05/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_total",
+        "mean_rereading_no_feedback",
+        "mean_retrieval_no_feedback",
+        "mean_rereading_explanatory_feedback",
+        "mean_retrieval_explanatory_feedback",
+        "interaction_difference_in_differences",
+        "interaction_f"
+      ],
+      "generated_figure_manifest": "outputs/swl_s05/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not report only averaged main effects when the interaction is the registered target.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S05/MATCHED_LIMITATION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S05_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S05",
       "python_result_receipt": "outputs/swl_s05/python_result.json",
       "python_script": "scripts/python/swl_s05_factorial_interaction.py",
-      "r_result": "outputs/swl_s05/r_result.json",
-      "r_script": "scripts/r/swl_s05.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s05/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s02_s05_v0_1/swl_s05.R",
       "reader_command": "make study STUDY=SWL-S05",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S05_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "Does the effect of study strategy on assessment performance depend on the feedback condition?"
+      ],
       "reviewer_packet": "outputs/swl_s05/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s05/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s05/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S05",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S05",
       "verification_script": "scripts/verification/verify_swl_s05.py"
     },
     {
-      "apa_source_map": "outputs/swl_s06/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S06/APA_RESULT_SOURCE_MAP.json"
+      ],
       "book_chapters": [
         "10"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "complete-trajectory occasion comparison with missing-visit disclosure",
       "comparison_receipt": "outputs/swl_s06/verification_receipt.json",
       "dataset_path": "data/swl_s06_confidence_trajectory.csv",
       "design_contract_path": "design/SWL-S06_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s06.json",
-      "matched_limitation": "outputs/swl_s06/matched_limitation.md",
+      "estimands_and_direction": [
+        "occasion effect across baseline, post, and follow_up among complete trajectories"
+      ],
+      "expected_rows": 180,
+      "expected_unique_keys": 180,
+      "expected_unique_units": 60,
+      "factor_levels": {
+        "occasion": [
+          "baseline",
+          "post",
+          "follow_up"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S06/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_scheduled_participants",
+        "observed_outcomes",
+        "missing_outcomes",
+        "n_complete_case",
+        "mean_baseline_complete_case",
+        "mean_post_complete_case",
+        "mean_follow_up_complete_case",
+        "rm_anova_f"
+      ],
+      "generated_figure_manifest": "outputs/swl_s06/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not treat complete-case occasion differences as a unique causal effect or hide missing visits.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S06/MATCHED_LIMITATION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S06_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S06",
       "python_result_receipt": "outputs/swl_s06/python_result.json",
       "python_script": "scripts/python/swl_s06_repeated_measures.py",
-      "r_result": "outputs/swl_s06/r_result.json",
-      "r_script": "scripts/r/swl_s06.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s06/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s01_s06_s07_v0_1/swl_s06.R",
       "reader_command": "make study STUDY=SWL-S06",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S06_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "Does mean academic confidence differ across baseline, post, and follow-up among complete synthetic trajectories?"
+      ],
       "reviewer_packet": "outputs/swl_s06/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s06/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s06/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S06",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id",
+        "occasion"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S06",
       "verification_script": "scripts/verification/verify_swl_s06.py"
     },
     {
-      "apa_source_map": "outputs/swl_s07/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S07/APA_RESULT_SOURCE_MAP.json"
+      ],
       "book_chapters": [
         "13"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "baseline-adjusted group comparison under the registered ANCOVA model",
       "comparison_receipt": "outputs/swl_s07/verification_receipt.json",
       "dataset_path": "data/swl_s07_baseline_adjusted_intervention.csv",
       "design_contract_path": "design/SWL-S07_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s07.json",
-      "matched_limitation": "outputs/swl_s07/matched_limitation.md",
+      "estimands_and_direction": [
+        "intervention minus comparison adjusted post-performance difference at the overall baseline mean"
+      ],
+      "expected_rows": 90,
+      "expected_unique_keys": 90,
+      "expected_unique_units": 90,
+      "factor_levels": {
+        "intervention_group": [
+          "comparison",
+          "intervention"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S07/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_total",
+        "raw_post_mean_comparison",
+        "raw_post_mean_intervention",
+        "adjusted_mean_comparison_at_overall_baseline",
+        "adjusted_mean_intervention_at_overall_baseline",
+        "adjusted_group_difference_intervention_minus_comparison",
+        "group_effect_f"
+      ],
+      "generated_figure_manifest": "outputs/swl_s07/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not claim that covariate adjustment creates randomization or removes unmeasured confounding.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S07/MATCHED_LIMITATION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S07_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S07",
       "python_result_receipt": "outputs/swl_s07/python_result.json",
       "python_script": "scripts/python/swl_s07_ancova.py",
-      "r_result": "outputs/swl_s07/r_result.json",
-      "r_script": "scripts/r/swl_s07.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s07/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s01_s06_s07_v0_1/swl_s07.R",
       "reader_command": "make study STUDY=SWL-S07",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S07_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "Do the intervention and comparison groups differ in post performance after adjustment to the overall baseline mean?"
+      ],
       "reviewer_packet": "outputs/swl_s07/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s07/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s07/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S07",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S07",
       "verification_script": "scripts/verification/verify_swl_s07.py"
     },
     {
-      "apa_source_map": "outputs/swl_s08/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S08/APA_RESULT_SOURCE_MAP.json"
+      ],
       "book_chapters": [
         "14"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "longitudinal treatment-versus-control differential change",
       "comparison_receipt": "outputs/swl_s08/verification_receipt.json",
       "dataset_path": "data/swl_s08_longitudinal_treatment.csv",
       "design_contract_path": "design/SWL-S08_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s08.json",
-      "matched_limitation": "outputs/swl_s08/matched_limitation.md",
+      "estimands_and_direction": [
+        "additional treatment-group change from baseline to post",
+        "additional treatment-group change from baseline to follow-up"
+      ],
+      "expected_rows": 168,
+      "expected_unique_keys": 168,
+      "expected_unique_units": 60,
+      "factor_levels": {
+        "occasion": [
+          "baseline",
+          "post",
+          "followup"
+        ],
+        "treatment_group": [
+          "control",
+          "treatment"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S08/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_participants",
+        "observed_rows",
+        "missing_visits",
+        "treatment_post_b",
+        "treatment_post_se",
+        "treatment_followup_b",
+        "treatment_followup_se"
+      ],
+      "generated_figure_manifest": "outputs/swl_s08/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not claim that a mixed model makes outcome-dependent missingness harmless or proves a real treatment effect.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S08/MATCHED_LIMITATION.json"
+      ],
       "measurement_map_path": "measurement/SWL-S08_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S08",
       "python_result_receipt": "outputs/swl_s08/python_result.json",
       "python_script": "scripts/python/swl_s08_mixed_model.py",
-      "r_result": "outputs/swl_s08/r_result.json",
-      "r_script": "scripts/r/swl_s08.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s08/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s08_s10_v0_1/swl_s08.R",
       "reader_command": "make study STUDY=SWL-S08",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S08_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "Does change in synthetic well-being from baseline differ between treatment and control when participants have unequal numbers of observed visits?"
+      ],
       "reviewer_packet": "outputs/swl_s08/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s08/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s08/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S08",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id",
+        "occasion"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V3_V4",
+      "verification_command": "make verify-study STUDY=SWL-S08",
       "verification_script": "scripts/verification/verify_swl_s08.py"
     },
     {
-      "apa_source_map": "outputs/swl_s09/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S09/APA_RESULT_SOURCE_MAP_CATEGORICAL.json",
+        "reference/apa_source_maps/SWL-S09/APA_RESULT_SOURCE_MAP_RANK.json"
+      ],
       "book_chapters": [
         "15"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "categorical association and rank-based distributional shift",
       "comparison_receipt": "outputs/swl_s09/verification_receipt.json",
       "dataset_path": "data/swl_s09_outcome_distribution_extension.csv",
       "design_contract_path": "design/SWL-S09_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s09.json",
-      "matched_limitation": "outputs/swl_s09/matched_limitation.md",
+      "estimands_and_direction": [
+        "intervention minus comparison improvement-risk difference",
+        "distributional shift in recovery burden with intervention oriented as lower burden"
+      ],
+      "expected_rows": 160,
+      "expected_unique_keys": 160,
+      "expected_unique_units": 160,
+      "factor_levels": {
+        "clinically_improved": [
+          "yes",
+          "no"
+        ],
+        "support_condition": [
+          "comparison",
+          "intervention"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S09/FIGURE_SPEC_CATEGORICAL.json",
+        "figures/specs/SWL-S09/FIGURE_SPEC_RANK.json"
+      ],
+      "first_fields_to_inspect": [
+        "n_total",
+        "comparison_improved_proportion",
+        "intervention_improved_proportion",
+        "chi_square",
+        "cramers_v",
+        "comparison_burden_median",
+        "intervention_burden_median",
+        "mann_whitney_u_intervention"
+      ],
+      "generated_figure_manifest": "outputs/swl_s09/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not treat either registered outcome analysis as a generic repair for failed normality.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S09/MATCHED_LIMITATION_CATEGORICAL.json",
+        "reference/matched_limitations/SWL-S09/MATCHED_LIMITATION_RANK.json"
+      ],
       "measurement_map_path": "measurement/SWL-S09_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S09",
       "python_result_receipt": "outputs/swl_s09/python_result.json",
       "python_script": "scripts/python/swl_s09_distribution_extension.py",
-      "r_result": "outputs/swl_s09/r_result.json",
-      "r_script": "scripts/r/swl_s09.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s09/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s08_s10_v0_1/swl_s09.R",
       "reader_command": "make study STUDY=SWL-S09",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S09_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "Does clinical-improvement status differ by support condition, and does positive-skew recovery burden shift between the two independent conditions?"
+      ],
       "reviewer_packet": "outputs/swl_s09/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s09/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s09/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S09",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "participant_id"
+      ],
+      "unit_of_analysis": "student",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S09",
       "verification_script": "scripts/verification/verify_swl_s09.py"
     },
     {
-      "apa_source_map": "outputs/swl_s10/apa_source_map.json",
+      "apa_source_maps": [
+        "reference/apa_source_maps/SWL-S10/APA_RESULT_SOURCE_MAP_META.json",
+        "reference/apa_source_maps/SWL-S10/APA_RESULT_SOURCE_MAP_POWER.json"
+      ],
       "book_chapters": [
         "16"
       ],
-      "claim_type": "to be registered from the governed book/design contract",
+      "claim_type": "prospective power planning and fixed-effect cumulative evidence",
       "comparison_receipt": "outputs/swl_s10/verification_receipt.json",
       "dataset_path": "data/swl_s10_replication_program.csv",
       "design_contract_path": "design/SWL-S10_DESIGN_CONTRACT.json",
-      "figure_source": "figures/swl_s10.json",
-      "matched_limitation": "outputs/swl_s10/matched_limitation.md",
+      "estimands_and_direction": [
+        "per-group sample size for d=0.40 at 80% power",
+        "fixed-effect pooled standardized mean difference across six replications"
+      ],
+      "expected_rows": 6,
+      "expected_unique_keys": 6,
+      "expected_unique_units": 6,
+      "factor_levels": {
+        "replication_type": [
+          "conceptual",
+          "direct"
+        ]
+      },
+      "figure_specs": [
+        "figures/specs/SWL-S10/FIGURE_SPEC.json"
+      ],
+      "first_fields_to_inspect": [
+        "planning_n_per_group_ceiling_80",
+        "study_count",
+        "fixed_effect_pooled_d",
+        "fixed_effect_se",
+        "fixed_effect_ci_95_low",
+        "fixed_effect_ci_95_high",
+        "cochran_q",
+        "i_squared_percent"
+      ],
+      "generated_figure_manifest": "outputs/swl_s10/figures/FIGURE_MANIFEST.json",
+      "main_prohibited_inference": "Do not interpret planned power or a fixed-effect synthesis as proof against bias, heterogeneity, or selective evidence.",
+      "matched_limitations": [
+        "reference/matched_limitations/SWL-S10/MATCHED_LIMITATION_META.json",
+        "reference/matched_limitations/SWL-S10/MATCHED_LIMITATION_POWER.json"
+      ],
       "measurement_map_path": "measurement/SWL-S10_MEASUREMENT_MAP.json",
+      "packet_command": "make packet STUDY=SWL-S10",
       "python_result_receipt": "outputs/swl_s10/python_result.json",
       "python_script": "scripts/python/swl_s10_power_replication.py",
-      "r_result": "outputs/swl_s10/r_result.json",
-      "r_script": "scripts/r/swl_s10.R",
+      "r_launcher": "scripts/r/run_study.R",
+      "r_result": "outputs/swl_s10/r_result.csv",
+      "r_script": "scripts/r/batches/swl_s08_s10_v0_1/swl_s10.R",
       "reader_command": "make study STUDY=SWL-S10",
-      "research_question_source": "to be copied from the governed design contract without scientific drift",
+      "reference_python_result": "reference/results/SWL-S10_PYTHON_RESULT_RECEIPT.json",
+      "research_questions": [
+        "What per-group sample size follows from the registered d=0.40 power target, and what fixed-effect estimate summarizes the six completed synthetic replications?"
+      ],
       "reviewer_packet": "outputs/swl_s10/reviewer_packet/MANIFEST.json",
-      "status": "target_contract_not_yet_implemented",
+      "runtime_apa_source_map": "outputs/swl_s10/apa_source_map.json",
+      "runtime_matched_limitation": "outputs/swl_s10/matched_limitation.md",
+      "status": "release_candidate_implemented_not_public",
       "study_id": "SWL-S10",
-      "unique_key": "to be copied from the governed design contract",
-      "unit_of_analysis": "to be copied from the governed design contract",
+      "unique_key": [
+        "study_id"
+      ],
+      "unit_of_analysis": "completed synthetic replication",
       "verification_category": "V2",
+      "verification_command": "make verify-study STUDY=SWL-S10",
       "verification_script": "scripts/verification/verify_swl_s10.py"
     }
   ]

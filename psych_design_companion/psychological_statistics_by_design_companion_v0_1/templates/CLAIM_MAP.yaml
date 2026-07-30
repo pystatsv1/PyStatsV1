@@ -1,0 +1,4 @@
+primary_claim: DECLARE
+claim_type: DECLARE
+stronger_prohibited_claims: [DECLARE]
+generalization_boundary: DECLARE

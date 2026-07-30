@@ -1,0 +1,7 @@
+unit: DECLARE
+rows: DECLARE
+identifiers: [DECLARE]
+unique_key: [DECLARE]
+factor_levels: {}
+occasion_schedule: []
+missingness_representation: DECLARE

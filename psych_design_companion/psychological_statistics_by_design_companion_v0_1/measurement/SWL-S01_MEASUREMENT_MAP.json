@@ -1,0 +1,35 @@
+{
+  "factor_levels": {},
+  "measurement_boundary": "Association and within-domain prediction only; no intervention or causal claim is authorized.",
+  "missingness_rule": "No missing values in the registered synthetic dataset.",
+  "outcomes": [
+    "academic_confidence",
+    "assessment_performance"
+  ],
+  "predictors": [
+    "sleep_quality",
+    "study_hours_per_week",
+    "academic_confidence"
+  ],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "Pearson association between sleep quality and academic confidence",
+    "regression coefficients predicting assessment performance within the observed predictor domain"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "sleep_quality",
+    "study_hours_per_week",
+    "anxiety_score",
+    "academic_confidence",
+    "assessment_performance"
+  ],
+  "study_id": "SWL-S01",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id"
+  ],
+  "unit_of_analysis": "student"
+}

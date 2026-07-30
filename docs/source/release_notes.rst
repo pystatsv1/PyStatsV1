@@ -1,6 +1,37 @@
 Release notes
 =============
 
+v0.26.0 release candidate — Psychological Statistics by Design companion v0.1
+---------------------------------------------------------------------------------
+
+PyStatsV1 v0.26.0 is prepared as a non-public release candidate for the
+synthetic-only *Psychological Statistics by Design* executable companion.
+Publication to PyPI, portal deployment, and book binding remain separate,
+explicitly unauthorized actions.
+
+Highlights
+~~~~~~~~~~
+
+* Adds ``pystatsv1 psych-design info``, ``init``, ``verify``,
+  ``list-studies``, and ``doctor`` behind the release-candidate source tree.
+* Packages all ten SWL studies in one deterministic companion with a central
+  ``STUDY_INDEX.json``, ten visible Python entry scripts, independent base-R
+  paths, V2/V3/V4 comparison policies, figures, APA source maps, matched
+  limitations, and bounded reviewer packets.
+* Makes SWL-S02 the first-result vertical slice from source identity and row
+  audit through Python, R, parity receipt, figure, source map, limitation, and
+  packet.
+* Preserves the three governed source batches byte for byte and records their
+  lineage in the unified companion.
+* Keeps immutable source verification separate from generated ``outputs/`` so
+  readers can clean and regenerate results without invalidating the released
+  source bundle.
+* Includes synthetic-safe adaptation templates and states that adaptation is a
+  new research project rather than replacement of a CSV.
+* Retains all public-release, PyPI, portal, book-binding, and real-data
+  authorization gates as false pending clean Ubuntu and WSL installed-wheel
+  proofs.
+
 v0.25.2 — Book 1 Companion v0.2.1 identity correction
 ----------------------------------------------------------------
 

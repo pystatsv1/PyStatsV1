@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pystatsv1"
-version = "0.25.2"
+version = "0.26.0"
 description = "PyStatsV1: applied statistics labs in Python."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -35,6 +35,15 @@ workbook = [
 # transparent numerical and plotting libraries used by the synthetic bundle.
 book1 = [
   "matplotlib>=3.8",
+]
+
+# Psychological Statistics by Design companion release-candidate environment.
+psych-design = [
+  "numpy==2.2.6",
+  "pandas==2.2.3",
+  "scipy==1.15.3",
+  "statsmodels==0.14.6",
+  "matplotlib==3.10.8",
 ]
 
 # Contributor bundle: formatting + lint + tests.

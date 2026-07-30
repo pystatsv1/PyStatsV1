@@ -1,0 +1,27 @@
+{
+  "analysis_source": "scripts/python/studies.py",
+  "analysis_source_sha256": "3264f890504a2ae305fcb271f556332c7d60835778fcb27a3206a75bdeb4df0e",
+  "analysis_version": "0.1",
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "data_file": "data/swl_s03_skills_workshop_pre_post.csv",
+  "data_sha256": "5c1d114eac729358602bd621a5b5c74f3cd073ceeeb794407eb21b88dea08e28",
+  "design_contract": "contracts/SWL-S03_DESIGN_CONTRACT.json",
+  "design_contract_sha256": "f69dba723c6a2147029c99810307a1953976e6b001b77ea5897217741dc55ded",
+  "engine": "numpy/scipy transparent analysis",
+  "reported_fields": {
+    "ci_95_high": 5.06979397,
+    "ci_95_low": 3.263539363,
+    "cohen_dz": 1.339649325,
+    "df": 47,
+    "mean_change_post_minus_pre": 4.166666667,
+    "mean_post": 58.58333333,
+    "mean_pre": 54.41666667,
+    "n_paired": 48,
+    "p_value_two_sided": 3.358781243e-12,
+    "paired_t": 9.281362778,
+    "sd_change": 3.110266687
+  },
+  "study_id": "SWL-S03",
+  "synthetic_only": true
+}

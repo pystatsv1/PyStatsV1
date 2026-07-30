@@ -1,0 +1,35 @@
+{
+  "factor_levels": {
+    "intervention_group": [
+      "comparison",
+      "intervention"
+    ]
+  },
+  "measurement_boundary": "Causal language remains conditional on the declared assignment and intervention implementation; adjustment alone does not create randomization.",
+  "missingness_rule": "No missing values in the registered synthetic dataset.",
+  "outcomes": [
+    "post_performance"
+  ],
+  "predictors": [
+    "intervention_group",
+    "baseline_performance"
+  ],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "intervention minus comparison adjusted post-performance difference at the overall baseline mean"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "intervention_group",
+    "baseline_performance",
+    "post_performance"
+  ],
+  "study_id": "SWL-S07",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id"
+  ],
+  "unit_of_analysis": "student"
+}

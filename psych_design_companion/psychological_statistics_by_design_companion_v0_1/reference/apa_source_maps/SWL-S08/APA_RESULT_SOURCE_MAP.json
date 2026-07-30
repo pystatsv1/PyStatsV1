@@ -1,0 +1,58 @@
+{
+  "analysis_role": "longitudinal_random_intercept_model",
+  "contract_version": "0.1",
+  "rendered_text": "A maximum-likelihood random-intercept model indicated larger treatment-group change from baseline to post, b = 5.86, SE = 0.87, z = 6.74, p < .001, 95% CI [4.16, 7.57], and from baseline to follow-up, b = 7.78, SE = 0.89, z = 8.70, p < .001, 95% CI [6.03, 9.54].",
+  "reported_number_bindings": [
+    {
+      "field": "treatment_post_b",
+      "json_pointer": "/reported_fields/treatment_post_b"
+    },
+    {
+      "field": "treatment_post_se",
+      "json_pointer": "/reported_fields/treatment_post_se"
+    },
+    {
+      "field": "treatment_post_z",
+      "json_pointer": "/reported_fields/treatment_post_z"
+    },
+    {
+      "field": "treatment_post_p",
+      "json_pointer": "/reported_fields/treatment_post_p"
+    },
+    {
+      "field": "treatment_post_ci_95_low",
+      "json_pointer": "/reported_fields/treatment_post_ci_95_low"
+    },
+    {
+      "field": "treatment_post_ci_95_high",
+      "json_pointer": "/reported_fields/treatment_post_ci_95_high"
+    },
+    {
+      "field": "treatment_followup_b",
+      "json_pointer": "/reported_fields/treatment_followup_b"
+    },
+    {
+      "field": "treatment_followup_se",
+      "json_pointer": "/reported_fields/treatment_followup_se"
+    },
+    {
+      "field": "treatment_followup_z",
+      "json_pointer": "/reported_fields/treatment_followup_z"
+    },
+    {
+      "field": "treatment_followup_p",
+      "json_pointer": "/reported_fields/treatment_followup_p"
+    },
+    {
+      "field": "treatment_followup_ci_95_low",
+      "json_pointer": "/reported_fields/treatment_followup_ci_95_low"
+    },
+    {
+      "field": "treatment_followup_ci_95_high",
+      "json_pointer": "/reported_fields/treatment_followup_ci_95_high"
+    }
+  ],
+  "result_source": "evidence/SWL-S08/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S08",
+  "synthetic_only": true
+}

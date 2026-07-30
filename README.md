@@ -38,6 +38,34 @@ python scripts/psych_ch10_problem_set.py
 pytest -q
 ```
 
+## Psychological Statistics by Design companion — v0.26.0 release candidate
+
+The source tree now contains a **non-public release candidate** for
+*Psychological Statistics by Design — Executable Companion v0.1*. It unifies
+ten synthetic Student Well-Being and Learning studies behind one registry, ten
+visible Python entry scripts, independent R implementations, verification
+receipts, figure specifications, reviewer packets, and synthetic-safe adaptation
+templates. PyStatsV1 remains the versioned bridge and launcher; it does not
+choose a method, validate an instrument, authorize data, or establish causality.
+
+The candidate interface is implemented for local and CI proof:
+
+```bash
+python -m pip install -e '.[psych-design]'
+python tools/build_psych_design_companion_asset.py
+pystatsv1 psych-design info
+pystatsv1 psych-design init
+cd psychological_statistics_by_design_companion_v0_1
+pystatsv1 psych-design verify --dest .
+python -m pip install -r requirements-psych-design-companion.txt
+make first-result  # complete SWL-S02 Python/R V2 chain; requires Rscript
+```
+
+This is **not yet a PyPI or portal reader route**. Public release, portal
+deployment, book binding, and real-data use remain unauthorized. The current
+public foundations companion continues to use the separately pinned Book 1
+route below.
+
 ## Psych Stats with Python — Book 1 companion
 
 PyStatsV1 v0.25.2 packages Companion v0.2.1, the corrected synthetic-only

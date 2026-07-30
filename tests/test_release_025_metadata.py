@@ -9,16 +9,17 @@ except ModuleNotFoundError:  # Python 3.10 support
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_pyproject_version_is_0252():
+def test_pyproject_version_is_0260_release_candidate():
     data = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    assert data["project"]["version"] == "0.25.2"
+    assert data["project"]["version"] == "0.26.0"
 
 
-def test_release_notes_preserve_history_and_add_v0252():
+def test_release_notes_preserve_history_and_add_v0260_candidate():
     text = (
         ROOT / "docs" / "source" / "release_notes.rst"
     ).read_text(encoding="utf-8")
     assert text.startswith("Release notes\n=============\n\n")
+    assert "v0.26.0 release candidate — Psychological Statistics by Design companion v0.1" in text
     assert "v0.25.2 — Book 1 Companion v0.2.1 identity correction" in text
     assert "v0.25.1 — Chapter 20 power stability and release guard" in text
     assert "v0.25.0 — Book 1 Companion v0.2" in text

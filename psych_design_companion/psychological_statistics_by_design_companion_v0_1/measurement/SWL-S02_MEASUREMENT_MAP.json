@@ -1,0 +1,31 @@
+{
+  "factor_levels": {
+    "study_routine_group": [
+      "standard_routine",
+      "structured_routine"
+    ]
+  },
+  "measurement_boundary": "Causal interpretation is limited to the declared assignment, implementation, and synthetic pilot conditions.",
+  "missingness_rule": "No missing outcomes in the registered synthetic dataset.",
+  "outcomes": [
+    "post_session_performance"
+  ],
+  "predictors": [],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "structured_routine minus standard_routine mean post-session performance"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "study_routine_group",
+    "post_session_performance"
+  ],
+  "study_id": "SWL-S02",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id"
+  ],
+  "unit_of_analysis": "student"
+}

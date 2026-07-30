@@ -1,0 +1,45 @@
+{
+  "factor_levels": {
+    "occasion": [
+      "baseline",
+      "post",
+      "followup"
+    ],
+    "treatment_group": [
+      "control",
+      "treatment"
+    ]
+  },
+  "measurement_boundary": "The synthetic model demonstrates differential change under the declared random-intercept specification; it is not evidence about a real treatment.",
+  "missingness_rule": "Twelve visit omissions are fixed by participant identifier before outcome generation and do not depend on realized outcomes.",
+  "outcomes": [
+    "well_being_score"
+  ],
+  "predictors": [],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "additional treatment-group change from baseline to post",
+    "additional treatment-group change from baseline to follow-up"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "treatment_group",
+    "occasion",
+    "occasion_order",
+    "treatment",
+    "post",
+    "followup",
+    "treatment_post",
+    "treatment_followup",
+    "well_being_score"
+  ],
+  "study_id": "SWL-S08",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id",
+    "occasion"
+  ],
+  "unit_of_analysis": "student"
+}

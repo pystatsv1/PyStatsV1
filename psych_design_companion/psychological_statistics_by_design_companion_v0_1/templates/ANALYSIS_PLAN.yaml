@@ -1,0 +1,6 @@
+research_target: DECLARE
+estimand_and_direction: DECLARE
+analysis_rows: DECLARE
+model: DECLARE
+assumptions_and_diagnostics: [DECLARE]
+comparison_family: [DECLARE]

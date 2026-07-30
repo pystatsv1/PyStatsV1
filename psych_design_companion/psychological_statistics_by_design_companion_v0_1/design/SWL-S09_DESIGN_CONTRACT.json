@@ -1,0 +1,28 @@
+{
+  "chapter_ids": [
+    "ch15"
+  ],
+  "claim_boundary": "The categorical and rank-based analyses answer different questions about two registered outcomes; neither is a generic repair for a failed normality test.",
+  "contract_version": "0.1",
+  "data_layout": {
+    "format": "one row per participant",
+    "participants": 160,
+    "participants_per_condition": 80,
+    "primary_key": [
+      "participant_id"
+    ]
+  },
+  "dataset": "data/swl_s09_outcome_distribution_extension.csv",
+  "design": "two independent support conditions with two registered outcomes",
+  "estimands": [
+    "association between condition and binary clinical-improvement status",
+    "distributional shift in positive-skew recovery burden between conditions"
+  ],
+  "outcomes": {
+    "categorical": "clinically_improved",
+    "positive_skew_continuous": "recovery_burden_days"
+  },
+  "study_id": "SWL-S09",
+  "synthetic_only": true,
+  "verification_category": "V2 numeric parity"
+}
