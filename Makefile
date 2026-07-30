@@ -42,6 +42,7 @@ help:
 	@echo "  psych-design-swl-s01-s06-s07-r-verify - run independent base-R parity for the second batch"
 	@echo "  psych-design-swl-s08-s10-verify - verify the private SWL-S08-S10 final source candidate"
 	@echo "  psych-design-swl-s08-s10-r-verify - run independent R verification for the final batch"
+	@echo "  psych-design-release-contract-verify - verify the advanced-book companion audit and command contract"
 	@echo "  local-r-verify - run all governed R parity checks locally (never in GitHub Actions)"
 	@echo "  release-verify - require an annotated v<version> tag matching pyproject.toml"
 	@echo "  lint       - ruff check"
@@ -115,6 +116,10 @@ psych-design-swl-s02-s05-verify:
 .PHONY: psych-design-swl-s02-s05-r-verify
 psych-design-swl-s02-s05-r-verify:
 	$(PYTHON) tools/check_psych_design_swl_s02_s05.py --run-r
+
+.PHONY: psych-design-release-contract-verify
+psych-design-release-contract-verify:
+	$(PYTHON) tools/check_psych_design_release_contract.py
 
 .PHONY: local-r-verify
 local-r-verify:

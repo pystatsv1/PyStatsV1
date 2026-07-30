@@ -1,0 +1,93 @@
+{
+  "rows": [
+    {
+      "area": "Source studies",
+      "current": "All ten SWL studies exist in three governed private source-candidate batches.",
+      "gap": "Unification and public packaging absent.",
+      "next_action": "copy without scientific drift into a unified release-candidate source tree and prove preservation",
+      "owner_repo": "PyStatsV1",
+      "target": "One public synthetic companion with a stable registry."
+    },
+    {
+      "area": "CLI and PyPI extra",
+      "current": "Only workbook, book1, trackd, docs, and general doctor commands exist; package is 0.25.2.",
+      "gap": "No launcher, verify, list-studies, or companion-specific doctor.",
+      "next_action": "implement CLI and immutable asset launcher in the next unit",
+      "owner_repo": "PyStatsV1",
+      "target": "psych-design namespace and psych-design extra in planned 0.26.0."
+    },
+    {
+      "area": "Visible per-study Python scripts",
+      "current": "Current batch calculations are concentrated in shared studies.py modules and batch run_all.py orchestrators.",
+      "gap": "Reader-facing script granularity absent.",
+      "next_action": "create thin transparent study entry scripts that call no hidden method selector",
+      "owner_repo": "PyStatsV1",
+      "target": "One visible script per study plus Make orchestration."
+    },
+    {
+      "area": "R verification",
+      "current": "Independent R scripts exist for all ten studies; V3/V4 policy exists for SWL-S08.",
+      "gap": "Paths and outputs differ by batch and are not reader-packaged.",
+      "next_action": "normalize orchestration while preserving field policies",
+      "owner_repo": "PyStatsV1",
+      "target": "Unified commands and receipts."
+    },
+    {
+      "area": "Study registry",
+      "current": "Batch contracts contain partial mappings.",
+      "gap": "No single source of truth.",
+      "next_action": "materialize the target index from governed assets",
+      "owner_repo": "PyStatsV1",
+      "target": "Central STUDY_INDEX.json used by CLI, Make, book cards, and packets."
+    },
+    {
+      "area": "Measurement maps",
+      "current": "Measurement information is embedded in design/source artifacts but no dedicated public map is registered for every study.",
+      "gap": "Dedicated artifact missing.",
+      "next_action": "extract bounded maps without changing results",
+      "owner_repo": "PyStatsV1",
+      "target": "measurement/ map per study."
+    },
+    {
+      "area": "Reviewer packets",
+      "current": "Book explains packets; current batches retain evidence pieces.",
+      "gap": "No packet generator or manifest.",
+      "next_action": "implement deterministic packet builder",
+      "owner_repo": "PyStatsV1",
+      "target": "make packet STUDY=... with bounded manifest."
+    },
+    {
+      "area": "Licensing",
+      "current": "Repository software is MIT licensed; existing Book 1 bundles carry boundary notes; psych-design batches have no public release license note.",
+      "gap": "Companion-specific distribution notice absent.",
+      "next_action": "add LICENSE_NOTES.md and package audit before release",
+      "owner_repo": "PyStatsV1",
+      "target": "Explicit public asset license and synthetic-only boundary."
+    },
+    {
+      "area": "Portal",
+      "current": "Portal main is bound to Applied Statistics with Python and R, PyStatsV1 0.25.2, and Book 1 Companion v0.2.1.",
+      "gap": "No route or asset.",
+      "next_action": "integrate only after the PyStatsV1 release candidate and authorization",
+      "owner_repo": "nekpress-learntoprogram-portal-private",
+      "target": "Separate versioned Psychological Statistics by Design route and download."
+    },
+    {
+      "area": "Book interior",
+      "current": "publication_v1_1 is a 131-page final-proof candidate with no released companion binding.",
+      "gap": "Operational components intentionally deferred.",
+      "next_action": "Book Drop-in 030 only after real companion release",
+      "owner_repo": "nekpress-psychological-statistics-by-design-kdp-private",
+      "target": "publication_v1_2 with Start Here, cards, operational Chapters 17-19, and Appendix B."
+    },
+    {
+      "area": "Clean reader proofs",
+      "current": "No advanced-companion Ubuntu or WSL reader proof.",
+      "gap": "Not possible before companion implementation.",
+      "next_action": "perform after portal release candidate and before final interior re-freeze",
+      "owner_repo": "cross-repository",
+      "target": "Exact printed-command proofs in clean Ubuntu and WSL."
+    }
+  ],
+  "schema_version": "psych-design-cross-repository-gap-matrix-v0.1"
+}

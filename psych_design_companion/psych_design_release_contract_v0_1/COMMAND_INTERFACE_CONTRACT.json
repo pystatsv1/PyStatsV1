@@ -1,0 +1,48 @@
+{
+  "commands": [
+    {
+      "command": "pystatsv1 psych-design info",
+      "implemented": false,
+      "purpose": "show packaged companion identity"
+    },
+    {
+      "command": "pystatsv1 psych-design init",
+      "implemented": false,
+      "purpose": "create a new local synthetic companion folder"
+    },
+    {
+      "command": "pystatsv1 psych-design verify --dest .",
+      "implemented": false,
+      "purpose": "verify immutable source files against the packaged manifest"
+    },
+    {
+      "command": "pystatsv1 psych-design list-studies",
+      "implemented": false,
+      "purpose": "list all ten studies and chapter mappings"
+    },
+    {
+      "command": "pystatsv1 psych-design doctor --dest .",
+      "implemented": false,
+      "purpose": "report environment, companion, manifest, dependency, R, and platform facts"
+    }
+  ],
+  "make_targets": [
+    "first-result",
+    "list-studies",
+    "design-audit",
+    "all-python",
+    "all-r",
+    "parity",
+    "figures",
+    "reviewer-packets",
+    "all",
+    "study STUDY=SWL-S02",
+    "verify-study STUDY=SWL-S02",
+    "packet STUDY=SWL-S02"
+  ],
+  "package_install": "python -m pip install \"pystatsv1[psych-design]==0.26.0\"",
+  "release_boundary": "No command in this contract may be printed as a live reader route until PyPI, asset, portal, and clean-reader proofs are complete.",
+  "schema_version": "psych-design-command-interface-contract-v0.1",
+  "status": "frozen_proposed_not_implemented_not_public",
+  "visible_script_rule": "Make targets orchestrate visible scripts and may not hide statistical calculations."
+}
