@@ -1,0 +1,16 @@
+{
+  "book_binding_authorized": false,
+  "candidate_commit": "58d92f85b865cb657bf49c731fefc381970c8bda",
+  "candidate_implementation_passed": true,
+  "clean_ubuntu_proof_passed": true,
+  "clean_wsl_proof_passed": false,
+  "companion_version": "v0.1",
+  "cross_platform_comparison_passed": false,
+  "package_version": "0.26.0",
+  "portal_release_authorized": false,
+  "pypi_release_authorized": false,
+  "real_data_authorized": false,
+  "schema_version": "pystatsv1-psych-design-release-readiness-v0.1",
+  "status": "ubuntu_passed_wsl_pending",
+  "technical_release_ready": false
+}
