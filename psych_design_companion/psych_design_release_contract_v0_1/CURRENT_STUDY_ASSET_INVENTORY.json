@@ -1,0 +1,354 @@
+{
+  "schema_version": "psych-design-current-study-asset-inventory-v0.1",
+  "studies": [
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/APA_RESULT_SOURCE_MAP_CORRELATION.json",
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/APA_RESULT_SOURCE_MAP_REGRESSION.json"
+      ],
+      "book_chapters": [
+        "11",
+        "12"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/swl_s01.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s01_student_well_being_survey.csv",
+      "design_contract_path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S01_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/FIGURE_SPEC_CORRELATION.json",
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/FIGURE_SPEC_REGRESSION.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/MATCHED_LIMITATION_CORRELATION.json",
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/MATCHED_LIMITATION_REGRESSION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s01_s06_s07_v0_1",
+      "study_id": "SWL-S01",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/APA_RESULT_SOURCE_MAP.json"
+      ],
+      "book_chapters": [
+        "6"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s02.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s02_structured_study_routine.csv",
+      "design_contract_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S02_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/MATCHED_LIMITATION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s02_s05_v0_1",
+      "study_id": "SWL-S02",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/APA_RESULT_SOURCE_MAP.json"
+      ],
+      "book_chapters": [
+        "7"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s03.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s03_skills_workshop_pre_post.csv",
+      "design_contract_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S03_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/MATCHED_LIMITATION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s02_s05_v0_1",
+      "study_id": "SWL-S03",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/APA_RESULT_SOURCE_MAP.json"
+      ],
+      "book_chapters": [
+        "8"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s04.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s04_three_condition_support.csv",
+      "design_contract_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S04_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/MATCHED_LIMITATION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s02_s05_v0_1",
+      "study_id": "SWL-S04",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/APA_RESULT_SOURCE_MAP.json"
+      ],
+      "book_chapters": [
+        "9"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s05.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s05_strategy_feedback.csv",
+      "design_contract_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S05_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/MATCHED_LIMITATION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s02_s05_v0_1",
+      "study_id": "SWL-S05",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/APA_RESULT_SOURCE_MAP.json"
+      ],
+      "book_chapters": [
+        "10"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/swl_s06.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s06_confidence_trajectory.csv",
+      "design_contract_path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S06_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/MATCHED_LIMITATION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s01_s06_s07_v0_1",
+      "study_id": "SWL-S06",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/APA_RESULT_SOURCE_MAP.json"
+      ],
+      "book_chapters": [
+        "13"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/swl_s07.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s07_baseline_adjusted_intervention.csv",
+      "design_contract_path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S07_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/MATCHED_LIMITATION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s01_s06_s07_v0_1",
+      "study_id": "SWL-S07",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/APA_RESULT_SOURCE_MAP.json"
+      ],
+      "book_chapters": [
+        "14"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/swl_s08.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s08_longitudinal_treatment.csv",
+      "design_contract_path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S08_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/MATCHED_LIMITATION.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s08_s10_v0_1",
+      "study_id": "SWL-S08",
+      "verification_category": "V3_V4"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/APA_RESULT_SOURCE_MAP_CATEGORICAL.json",
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/APA_RESULT_SOURCE_MAP_RANK.json"
+      ],
+      "book_chapters": [
+        "15"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/swl_s09.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s09_outcome_distribution_extension.csv",
+      "design_contract_path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S09_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/FIGURE_SPEC_CATEGORICAL.json",
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/FIGURE_SPEC_RANK.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/MATCHED_LIMITATION_CATEGORICAL.json",
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/MATCHED_LIMITATION_RANK.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s08_s10_v0_1",
+      "study_id": "SWL-S09",
+      "verification_category": "V2"
+    },
+    {
+      "apa_source_maps": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/APA_RESULT_SOURCE_MAP_POWER.json",
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/APA_RESULT_SOURCE_MAP_META.json"
+      ],
+      "book_chapters": [
+        "16"
+      ],
+      "current_public_release": false,
+      "current_python_implementation": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/studies.py",
+      "current_r_script": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/swl_s10.R",
+      "current_reader_command": null,
+      "current_verification_script": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/compare_r_results.py",
+      "dataset_path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s10_replication_program.csv",
+      "design_contract_path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S10_DESIGN_CONTRACT.json",
+      "figure_sources": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/FIGURE_SPEC.json"
+      ],
+      "matched_limitations": [
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/MATCHED_LIMITATION_POWER.json",
+        "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/MATCHED_LIMITATION_META.json"
+      ],
+      "measurement_map_path": null,
+      "python_result_receipt": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/PYTHON_RESULT_RECEIPT.json",
+      "release_blockers": [
+        "unified companion path absent",
+        "standalone visible Python study script absent",
+        "measurement map not registered as a dedicated public artifact",
+        "reader command absent",
+        "reviewer packet generator absent",
+        "packaged manifest and launcher absent"
+      ],
+      "source_batch_root": "psych_design_companion/swl_s08_s10_v0_1",
+      "study_id": "SWL-S10",
+      "verification_category": "V2"
+    }
+  ]
+}

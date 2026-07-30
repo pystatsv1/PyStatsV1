@@ -1,0 +1,31 @@
+{
+  "attachments": {
+    "book": {
+      "analysis_source_anchor": "b15765998198c06f1d844288b9c79f18735b1028",
+      "archive_commit": "ec14f859f4ce686ec0091f879382b5ac5bfaf5b3",
+      "clean_main_marker": "NEKPRESS_PSYCH_DESIGN_BOOK_DROPIN_029_COMPLETE_CLEAN_MAIN",
+      "expected_tag": "psych-design-book-dropin-029",
+      "paperback_pages": 131,
+      "public_companion_released": false,
+      "tests_passed": 676
+    },
+    "portal": {
+      "archive_commit": "b9c0f3a1a6dd4392e6e877d75b3c7d73aa249811",
+      "current_binding": "Applied Statistics with Python and R / PyStatsV1 0.25.2 / Book 1 Companion v0.2.1",
+      "current_route": "portal/content/psychstats.md",
+      "psychological_statistics_by_design_route_present": false
+    },
+    "pystatsv1": {
+      "archive_commit": "6cd680812c7a149d4909eff4ddaf6e1679f6aba1",
+      "package_version": "0.25.2",
+      "public_psych_design_companion_released": false,
+      "relevant_source_candidate_tags": [
+        "psych-design-swl-s02-s05-v0-1",
+        "psych-design-swl-s01-s06-s07-v0-1",
+        "psych-design-swl-s08-s10-v0-1"
+      ]
+    }
+  },
+  "schema_version": "psych-design-cross-repository-audit-anchors-v0.1",
+  "tag_verification_note": "The supplied GitHub source archives preserve commit identities but not .git tag objects. The application script verifies required tags in the user local clones before changing files."
+}

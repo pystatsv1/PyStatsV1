@@ -1,0 +1,11 @@
+{
+  "book_prose_included": false,
+  "current_repository_license": "MIT",
+  "current_repository_license_path": "LICENSE",
+  "planned_companion_code_license": "MIT",
+  "planned_synthetic_data_distribution": "distributed with explicit synthetic-only educational boundary under the repository release package",
+  "private_repository_material_included": false,
+  "real_data_included": false,
+  "release_blocker": "A companion-specific LICENSE_NOTES.md and file-level package audit must be present before public release.",
+  "schema_version": "psych-design-public-asset-license-contract-v0.1"
+}

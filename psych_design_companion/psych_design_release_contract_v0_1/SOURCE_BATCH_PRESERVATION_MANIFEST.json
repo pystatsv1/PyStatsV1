@@ -1,0 +1,707 @@
+{
+  "baseline_commit": "6cd680812c7a149d4909eff4ddaf6e1679f6aba1",
+  "batches": [
+    {
+      "batch_root": "psych_design_companion/swl_s02_s05_v0_1",
+      "file_count": 47,
+      "files": [
+        {
+          "bytes": 2511,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/METHOD_SOURCE_BINDING.json",
+          "sha256": "6817d76a40f99ed23f3afca3582564cfcb7df8726f50c8f1e13b8d2628ad42f2"
+        },
+        {
+          "bytes": 593,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/Makefile",
+          "sha256": "79f1fecfa8829623856207071e52743474c5866ec4077a4fbaced00aebaac79f"
+        },
+        {
+          "bytes": 1877,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/PSYCH_DESIGN_SWL_S02_S05_CONTRACT.json",
+          "sha256": "f1ffcb95815953af444dde76f72f38768678bac58d2539cd16cc75fc40cd1841"
+        },
+        {
+          "bytes": 1116,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/README.md",
+          "sha256": "80c567a2979333efbb8459ca2fdb11341acee263e63fcc0bb46bae04409dc0f5"
+        },
+        {
+          "bytes": 496,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/SOURCE_PROVENANCE.json",
+          "sha256": "668008eb4a9ed7f018e98a1251d05d56220f134ec6c9de0d5a6bcc7c61ba90f2"
+        },
+        {
+          "bytes": 0,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 1464,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S02_DESIGN_CONTRACT.json",
+          "sha256": "4c90d374c7318bf0a45e0afa465f4d924362286fb40092bfb5af569541d46619"
+        },
+        {
+          "bytes": 1431,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S03_DESIGN_CONTRACT.json",
+          "sha256": "f69dba723c6a2147029c99810307a1953976e6b001b77ea5897217741dc55ded"
+        },
+        {
+          "bytes": 1505,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S04_DESIGN_CONTRACT.json",
+          "sha256": "03836ba796954dde6b1a37e5df60180d8e734938404f258f074b818373db9a27"
+        },
+        {
+          "bytes": 1550,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S05_DESIGN_CONTRACT.json",
+          "sha256": "ad9f6347ac8167c7e9290eb7e806849009f0afaf8b982c2c5c655f206e4e40d8"
+        },
+        {
+          "bytes": 2437,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s02_structured_study_routine.csv",
+          "sha256": "42b977f231609300049524d19e64ed6223f50d0cdb1881b857f34b49884dd88d"
+        },
+        {
+          "bytes": 2309,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s03_skills_workshop_pre_post.csv",
+          "sha256": "5c1d114eac729358602bd621a5b5c74f3cd073ceeeb794407eb21b88dea08e28"
+        },
+        {
+          "bytes": 3665,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s04_three_condition_support.csv",
+          "sha256": "1584c1f5ebcd4890a0ed5aa35bfbf7a2e685a0f74492a4b4557fd2d49d3a87c8"
+        },
+        {
+          "bytes": 4881,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s05_strategy_feedback.csv",
+          "sha256": "9100b086a0b569bf2f9258c546e9b56b33e64c028b2e1e3b2888305b3c428445"
+        },
+        {
+          "bytes": 4834,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/BATCH_EXACT_REGENERATION_RECEIPT.json",
+          "sha256": "b4657478f1111688ca0ce4eead6fe8c7c5e6085ca4f4007962157278978778d3"
+        },
+        {
+          "bytes": 935,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/BATCH_IMPLEMENTATION_RECEIPT.json",
+          "sha256": "49cd5d8dcc897b535e40aecfac9f3b9cd7ddfc2ad06b5d8f0fe4a8536aaedd9e"
+        },
+        {
+          "bytes": 922,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/BOOK_INTEGRATION_HANDOFF.json",
+          "sha256": "fd4a4249ef206f7da6631c9390fc9f8ae7dab5eb1f132e1ca6c2fad9bad03c89"
+        },
+        {
+          "bytes": 2999,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/PYTHON_R_VERIFICATION_CONTRACT.json",
+          "sha256": "ddb5dd78472e64f1227831a9847a2b16ed0bfa291e5921a5db988611ff42c4b4"
+        },
+        {
+          "bytes": 1626,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/APA_RESULT_SOURCE_MAP.json",
+          "sha256": "9f384f80e0610d0a13641157f855cc0483bfd63b94695aab0e1e009b7b3450ac"
+        },
+        {
+          "bytes": 531,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/FIGURE_SPEC.json",
+          "sha256": "30f52f4f0a8261c87eea609b8c46cdfdd7ab7f0a91c045bb57ca8eb6ddaf2b25"
+        },
+        {
+          "bytes": 563,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/MATCHED_LIMITATION.json",
+          "sha256": "6bc4acb40c89ee7650c9ba38dca8ea7cadf118974b6b8cedd4a7e2b84831cf28"
+        },
+        {
+          "bytes": 1094,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "4dcd4f5889ab0c56574a34d0d5dc9e3e5bd7c03adb9bdbe7da21884b93fbf4ff"
+        },
+        {
+          "bytes": 1703,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/APA_RESULT_SOURCE_MAP.json",
+          "sha256": "e3e84a774606a32930b04d09b71f7f898dd868d70fdc9d5462348f0beef9942d"
+        },
+        {
+          "bytes": 527,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/FIGURE_SPEC.json",
+          "sha256": "7731e94fcf13b1de080530ace12ce5e8911475d4d3697268fb22bd1e281e9411"
+        },
+        {
+          "bytes": 513,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/MATCHED_LIMITATION.json",
+          "sha256": "0cfe0e5afbddf754125db3c663546e792a04cfaf6f48203cf10757048232a91b"
+        },
+        {
+          "bytes": 1014,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "6a4b963dc3dbbf26460029cd364192e560c31135bf074aeb7f855f57dbe35b6e"
+        },
+        {
+          "bytes": 2025,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/APA_RESULT_SOURCE_MAP.json",
+          "sha256": "51cc9bbf260a3aff6d8fb1c4e1953552edd4a5fdd8e0898f409641a859df6584"
+        },
+        {
+          "bytes": 540,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/FIGURE_SPEC.json",
+          "sha256": "d401bd90fddd1db43b8a76f51ed557f296194a51b8fc3e491681a96893cce28a"
+        },
+        {
+          "bytes": 557,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/MATCHED_LIMITATION.json",
+          "sha256": "c363e46b0bbff115f5939e925abb0f5f233276d2e1e94775891a2f73871b1a85"
+        },
+        {
+          "bytes": 1545,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "4cad31f30359c41c6dc6431882b0bd0cec84100c3d86006a883fc071a6993666"
+        },
+        {
+          "bytes": 2212,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/APA_RESULT_SOURCE_MAP.json",
+          "sha256": "075a0ba4bc525e6a840e14eeef25b5457d36418916a58dd95201cdf8f2c92447"
+        },
+        {
+          "bytes": 529,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/FIGURE_SPEC.json",
+          "sha256": "ec9311e5c7b158f9e01afd311169699e6e7c2ea9e63a3eeefc1af5e02e084803"
+        },
+        {
+          "bytes": 538,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/MATCHED_LIMITATION.json",
+          "sha256": "4145de442fb23f349055e5797e353ff2f20a5d86940946d17fe8e247e0b048a6"
+        },
+        {
+          "bytes": 1684,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "1451c6a584723efdfbc98d9d61120fdceb691dd161a3dd582e956d205ff48710"
+        },
+        {
+          "bytes": 52,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/requirements-psych-design-companion.txt",
+          "sha256": "80f8f14a19943e397bcbc36341716957d5b06d4ae4977c5ee205578c6b5f83c2"
+        },
+        {
+          "bytes": 0,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 0,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 5322,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/compare_r_results.py",
+          "sha256": "9be79e846e108ea98ac3309795cb29b3e3b6f30d21e94748818f9ad222282c92"
+        },
+        {
+          "bytes": 5516,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/generate_figures.py",
+          "sha256": "875db94a2df30ca051738472b2997a57f2319678b2063f3153f57489402e27fb"
+        },
+        {
+          "bytes": 788,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/run_all.py",
+          "sha256": "e91f68cdbb7e1adf5735eb63993a45bf90075a3bfb776a0d3ca693ae6b5c79c9"
+        },
+        {
+          "bytes": 38779,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/python/studies.py",
+          "sha256": "3264f890504a2ae305fcb271f556332c7d60835778fcb27a3206a75bdeb4df0e"
+        },
+        {
+          "bytes": 900,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/common.R",
+          "sha256": "b1c1466c25ab5b4efa7b3015af11697c342a47593279816d70fcdb66f4885399"
+        },
+        {
+          "bytes": 758,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/run_all.R",
+          "sha256": "d20e07644bb6a90ca5a949851e7920451546cec7c092c69107da938d588d17b5"
+        },
+        {
+          "bytes": 1125,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s02.R",
+          "sha256": "4887807adc27434b6b6c68065f1568d3ee2c014d8135ad94707bda202550dac7"
+        },
+        {
+          "bytes": 1067,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s03.R",
+          "sha256": "8aab43c98b65c0f890056aa0477dd8da94adab745344f9990e8b8147a4aa0116"
+        },
+        {
+          "bytes": 3166,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s04.R",
+          "sha256": "4bc2f6edd6b35a943ddf9ac726bc720a0e58eed6a4b8107105507cd246623960"
+        },
+        {
+          "bytes": 4519,
+          "path": "psych_design_companion/swl_s02_s05_v0_1/scripts/r/swl_s05.R",
+          "sha256": "a4172cc7432c1104ca51110ffb0889b117283333f89feddaeba2e1a74a5ddc56"
+        }
+      ],
+      "tree_sha256": "c9f9f34b761efd22428e8012d358b39f3b4ac7d02ed4984a1f2926dcb7b69d4c"
+    },
+    {
+      "batch_root": "psych_design_companion/swl_s01_s06_s07_v0_1",
+      "file_count": 44,
+      "files": [
+        {
+          "bytes": 682,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/ENVIRONMENT_CONTRACT.json",
+          "sha256": "9a23ace751c6672bc8e9af236ba0fa892fd9d5bd76f48a28cf6837d194364dfb"
+        },
+        {
+          "bytes": 2782,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/METHOD_SOURCE_BINDING.json",
+          "sha256": "bf649dace3417daaa5b116f892963396ed27bbdd0ad898a517a766bb432c96ba"
+        },
+        {
+          "bytes": 352,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/Makefile",
+          "sha256": "eec36381fc85597bdc38582c444beb5bc5ff87c978dfafd733d5676cbbd2ad79"
+        },
+        {
+          "bytes": 1743,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/PSYCH_DESIGN_SWL_S01_S06_S07_CONTRACT.json",
+          "sha256": "115a76c818fb831bc406c5d343717a2d32a3b45311aa302ea6177bc1854e0753"
+        },
+        {
+          "bytes": 954,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/README.md",
+          "sha256": "1e5b585efc1a10bed56e04d8685be8c951725dee08b5cf7f406a343b5abb08a9"
+        },
+        {
+          "bytes": 736,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/SOURCE_PROVENANCE.json",
+          "sha256": "94e4d41c0f30de59887a63793da91fb73949210238bb2eb9612699c19d6da878"
+        },
+        {
+          "bytes": 76,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/__init__.py",
+          "sha256": "7d8085f5f72b03f4782904d2cdf2ee8284de11667fad7790c5f76cd213d14af2"
+        },
+        {
+          "bytes": 1147,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S01_DESIGN_CONTRACT.json",
+          "sha256": "0a8888bf6693e3652bf5f076d22004bbfc4d3a3ec85b4c7bce73e3f645291955"
+        },
+        {
+          "bytes": 1124,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S06_DESIGN_CONTRACT.json",
+          "sha256": "309143adb85b2c06517d38f031234c18370f796393983b5a89fd329b8da00061"
+        },
+        {
+          "bytes": 1138,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S07_DESIGN_CONTRACT.json",
+          "sha256": "b89086a679277b1652999fde987ccb89ce78ec6f44b3186a3f0c9cb694f39048"
+        },
+        {
+          "bytes": 5458,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s01_student_well_being_survey.csv",
+          "sha256": "46c4334a443924d27ddcdbf0c5c3f5cf06eeb27323e1aebb0ebc021e4fbbd44d"
+        },
+        {
+          "bytes": 5406,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s06_confidence_trajectory.csv",
+          "sha256": "a95ef37c89f3523e59822d6729746d2499ea95acc508ca25824d3e073ed258a2"
+        },
+        {
+          "bytes": 3663,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s07_baseline_adjusted_intervention.csv",
+          "sha256": "08925df34996fd9f75a4c5bd41f0de82c655b05212f2cd21435ba70349db52fc"
+        },
+        {
+          "bytes": 4377,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/BATCH_EXACT_REGENERATION_RECEIPT.json",
+          "sha256": "704689e5ebf46e02863d27261f25986927697cd7c4f11a6445c90dedc68dccd4"
+        },
+        {
+          "bytes": 924,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/BATCH_IMPLEMENTATION_RECEIPT.json",
+          "sha256": "fd6120cb525d09fa03e46eff90fc994e660224b6ae69e0c51984b81d38461cec"
+        },
+        {
+          "bytes": 618,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/BOOK_INTEGRATION_HANDOFF.json",
+          "sha256": "add1a569fc55b60cec91cfdf248df3029efa6116361ef7abb9e92fb2dfe25b7f"
+        },
+        {
+          "bytes": 3466,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/PYTHON_R_VERIFICATION_CONTRACT.json",
+          "sha256": "f711fa8874edf749ac102d938ac109c74a68c7f773f805fab52119123e59da2f"
+        },
+        {
+          "bytes": 985,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/APA_RESULT_SOURCE_MAP_CORRELATION.json",
+          "sha256": "805913cb7b91bcab33b76411242a8ff27ec8a1a8abf7c9e1345f5206613d1f75"
+        },
+        {
+          "bytes": 1730,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/APA_RESULT_SOURCE_MAP_REGRESSION.json",
+          "sha256": "9285ebd48883c405876e4bc90ab6df2ed8fc89b0ae25c050695883e34fabf6da"
+        },
+        {
+          "bytes": 393,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/FIGURE_SPEC_CORRELATION.json",
+          "sha256": "7c17edff0a5bdceef6c4f2ee2a0a4dc01304a47e273f8b77d35f51695a5457d1"
+        },
+        {
+          "bytes": 403,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/FIGURE_SPEC_REGRESSION.json",
+          "sha256": "d83ebae14f8fc8b0a801c4a12622589d34e30a0d242b01045444d2143f3619e7"
+        },
+        {
+          "bytes": 403,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/MATCHED_LIMITATION_CORRELATION.json",
+          "sha256": "7bf6c30de5da0745a78a59f6486f5ae73516977d99b5911972e480cc92db0194"
+        },
+        {
+          "bytes": 442,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/MATCHED_LIMITATION_REGRESSION.json",
+          "sha256": "18ab75ce15b994ded2a95f17eae29c58d88fc9c61595b3348f9d67719a0a85cb"
+        },
+        {
+          "bytes": 1988,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "b2678e7085d3f2811441adf677b94bc373b627746c30ca83da6f2f922b0db48b"
+        },
+        {
+          "bytes": 1715,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/APA_RESULT_SOURCE_MAP.json",
+          "sha256": "f51547c0f6cbc49d216e3525ca1f8518e2e3916ba2f196ddb8f453ace5abe08d"
+        },
+        {
+          "bytes": 382,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/FIGURE_SPEC.json",
+          "sha256": "8a0f38207a4aec3c8d594a465433ff648051ed5283aac978c01b52891272cc99"
+        },
+        {
+          "bytes": 449,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/MATCHED_LIMITATION.json",
+          "sha256": "0b6aa98a7fd16368da163d3f5e61fa9f424d9d64a08fc3e19d862d7f25d31aba"
+        },
+        {
+          "bytes": 1335,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "cf271c251f23239159e087bdfed6cddeb4a442022e6f6fb9d21fd418fc6b039d"
+        },
+        {
+          "bytes": 1561,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/APA_RESULT_SOURCE_MAP.json",
+          "sha256": "c75b03b5033a80248bb34a6454b08f9dc5883c2f1ffdf98e17c935b80061c31c"
+        },
+        {
+          "bytes": 379,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/FIGURE_SPEC.json",
+          "sha256": "80d11884320d1f0a573aa55640904efe620a64c30346cb49aa956530e31c9e45"
+        },
+        {
+          "bytes": 471,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/MATCHED_LIMITATION.json",
+          "sha256": "6e299f3720b6fda79c43bff4f3e6172776e844544a039bd47e7bb1233b3af62b"
+        },
+        {
+          "bytes": 1823,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "a32a1674f8673e6633768ff6fe7f82ea1e3bd5d14eb6bc8949ac7b5b3bd8e9c6"
+        },
+        {
+          "bytes": 60,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/requirements-psych-design-companion.txt",
+          "sha256": "552274ff690dc6b53780b83561f2860ad01b7bbe14971fa23a611e40f4a75163"
+        },
+        {
+          "bytes": 55,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/__init__.py",
+          "sha256": "967bf24420c6277b36e60932faa9e54e93a7045d0f674924230a9e1ba1d2c518"
+        },
+        {
+          "bytes": 46,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/__init__.py",
+          "sha256": "5411df5872d884cacbb603e02f8908861c28c7eecc2ab67a9429733730d73d59"
+        },
+        {
+          "bytes": 2962,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/compare_r_results.py",
+          "sha256": "3209d0834ec3de375694d85e97dc1306fcd5c3c6453bd17b844b7fb25462a8e6"
+        },
+        {
+          "bytes": 6477,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/generate_figures.py",
+          "sha256": "4336a9eaafdc7b48074bbdc9ae1c4da234965ce250b50063285f713b25aec73d"
+        },
+        {
+          "bytes": 474,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/run_all.py",
+          "sha256": "d654624c326df74ff0fb1b9b6ffb55056c77fe8394cf5bb74222ea99395684c0"
+        },
+        {
+          "bytes": 30510,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/python/studies.py",
+          "sha256": "e93638002ac9c0d1fdb8b92a20c930be162e38c6fa6379431ca31470b3a549d2"
+        },
+        {
+          "bytes": 846,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/common.R",
+          "sha256": "bafe3c895233a42d912ae4546ca268241e33e4e9a3d03a23960de08489df83db"
+        },
+        {
+          "bytes": 692,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/run_all.R",
+          "sha256": "dec005e691f8a18d16f85b05bbd6f5435b98b289fe284ec4d19f8acb475dd59b"
+        },
+        {
+          "bytes": 2659,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/swl_s01.R",
+          "sha256": "c1ef827a662b1d8c97f6d76882087acc57aa5be5c8613e322843e052f7b3f166"
+        },
+        {
+          "bytes": 2703,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/swl_s06.R",
+          "sha256": "80f377be0203e13bd69289ac6a41e41adf67c2603ddab839488d0d7bd762ef69"
+        },
+        {
+          "bytes": 3233,
+          "path": "psych_design_companion/swl_s01_s06_s07_v0_1/scripts/r/swl_s07.R",
+          "sha256": "d346d3164a3e9fe1ddead989e17424f69aaf0d1bbc0c2c4543461023e7b4af29"
+        }
+      ],
+      "tree_sha256": "cad33f49a180cd58c46855454f523e7730f0a6078d8bc09d59da265056af1bbf"
+    },
+    {
+      "batch_root": "psych_design_companion/swl_s08_s10_v0_1",
+      "file_count": 45,
+      "files": [
+        {
+          "bytes": 3273,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/METHOD_SOURCE_BINDING.json",
+          "sha256": "0d9d8d237d3851f1fe6174b648fa25d347852b55e5b38cc71223bb2788103948"
+        },
+        {
+          "bytes": 340,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/Makefile",
+          "sha256": "fc8dc7d3344244ca64a4df0dc2413125cfe276e4efc8bf351a88e5645281370a"
+        },
+        {
+          "bytes": 1931,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/PSYCH_DESIGN_SWL_S08_S10_CONTRACT.json",
+          "sha256": "6d7a45a6233b4e30c0c28c188d1caa0b2c22abf99ffd345fff441382d4ca3afe"
+        },
+        {
+          "bytes": 1111,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/README.md",
+          "sha256": "fd3ac8023a55da2b7323d4b6e07491d8d4575142aeae2d48c92a731727d27f3f"
+        },
+        {
+          "bytes": 963,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/SOURCE_PROVENANCE.json",
+          "sha256": "293d1ef02615368b0b864dcd59002bfd2c6e7a9dfc1c01a2c8b284a8cfa8d8a5"
+        },
+        {
+          "bytes": 0,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 1353,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S08_DESIGN_CONTRACT.json",
+          "sha256": "f1d3faeb7c4e10e9836e9ac75f1bb18aa8adbe12f916ce70fe95ed73f9c38c42"
+        },
+        {
+          "bytes": 960,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S09_DESIGN_CONTRACT.json",
+          "sha256": "a3b01225008425235bea1a2f7632367a7a7746ce4f43594908a13fa59a2709de"
+        },
+        {
+          "bytes": 830,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S10_DESIGN_CONTRACT.json",
+          "sha256": "cd690cb58bd797ddc82677894df95a014ec664eea2f28c4f748f51ffe6ff38c7"
+        },
+        {
+          "bytes": 9472,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s08_longitudinal_treatment.csv",
+          "sha256": "a37e797a5d67e38d91d7f88d06014bd351559efb22b21edb3cc75ff95db82556"
+        },
+        {
+          "bytes": 6148,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s09_outcome_distribution_extension.csv",
+          "sha256": "cacafff8486624e4362629a1b7cf026aa347c7f48620b80029b6a1cfd0d31e16"
+        },
+        {
+          "bytes": 443,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s10_replication_program.csv",
+          "sha256": "4cb8239f978975c10191cbcdf47d17c62944e45dc2540cbc76ef5d4ccd366e36"
+        },
+        {
+          "bytes": 4727,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/BATCH_EXACT_REGENERATION_RECEIPT.json",
+          "sha256": "17978e44159b0a80fb2bc06e353173d1804f4d0c3a26c3d44b9b6d11d88e9315"
+        },
+        {
+          "bytes": 874,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/BATCH_IMPLEMENTATION_RECEIPT.json",
+          "sha256": "268ad1a53ba10b5e59d7154c6d7350cb8c70c0aa2e7f5ee90391be284beadcf1"
+        },
+        {
+          "bytes": 746,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/BOOK_INTEGRATION_HANDOFF.json",
+          "sha256": "45bc17719804ab9585962d0ccc403ddda2cc37e1b533bcde68ee9cfe1604079f"
+        },
+        {
+          "bytes": 3679,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/PYTHON_R_VERIFICATION_CONTRACT.json",
+          "sha256": "db72d8c401b6be4b4fbce0fd8d7ae346996b308b24438c7664af69e27df4b6ed"
+        },
+        {
+          "bytes": 1920,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/APA_RESULT_SOURCE_MAP.json",
+          "sha256": "95e3c8ebb9441baac1e29f977e2489a045c0ad97f6aa1f41604675898ad06cb8"
+        },
+        {
+          "bytes": 388,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/FIGURE_SPEC.json",
+          "sha256": "7c239e87c39da7db03b920e79ed1d7311d70a634ea01015ac0d74463302dbc8f"
+        },
+        {
+          "bytes": 401,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/MATCHED_LIMITATION.json",
+          "sha256": "590136b449042cd6a02ddbd19ae2851fb1c28e8c92f6e083163567559429ffc9"
+        },
+        {
+          "bytes": 2390,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "22648086c0775cb852745e85e5b4c9569eb6f9c1011b1dbe2bbf0ca1e39385de"
+        },
+        {
+          "bytes": 801,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/PYTHON_R_COMPARISON_POLICY.json",
+          "sha256": "b38d34698fce31f8510d7dd623e31a3a60d3459dcf03e3b7bdde5fd4c90bff08"
+        },
+        {
+          "bytes": 1100,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/APA_RESULT_SOURCE_MAP_CATEGORICAL.json",
+          "sha256": "b051538b9bfe4a81ccc6a78ede3f4f2968b665a3fb3746bda7e945c92885a36c"
+        },
+        {
+          "bytes": 1174,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/APA_RESULT_SOURCE_MAP_RANK.json",
+          "sha256": "616e17167e0cc54497d7862c5ebe1841d7ce05ff77e4e5515eaf508ae4648439"
+        },
+        {
+          "bytes": 397,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/FIGURE_SPEC_CATEGORICAL.json",
+          "sha256": "441e6d2eac6d05e823df34fbe920666d5d1b65d6b21f0edd8fb3881a2adc3b5f"
+        },
+        {
+          "bytes": 403,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/FIGURE_SPEC_RANK.json",
+          "sha256": "5e2fde3fa6462fe4e6d29d26bf85250a631d4a0be9302daf11a0604643a51347"
+        },
+        {
+          "bytes": 315,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/MATCHED_LIMITATION_CATEGORICAL.json",
+          "sha256": "c5e18f780d5b6533ac09dc0897598764ce5f1f9c0d4dc6433969a4f46b003d2d"
+        },
+        {
+          "bytes": 341,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/MATCHED_LIMITATION_RANK.json",
+          "sha256": "046f2ec5286350e1271ff1909d466ba68198d79b0b78cb55c92d0d055fb686fa"
+        },
+        {
+          "bytes": 1579,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "d972997d3d9b3c1de98d9e34046ece2c6ec84a575d5d186d0fa886a08cf79b0b"
+        },
+        {
+          "bytes": 1592,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/APA_RESULT_SOURCE_MAP_META.json",
+          "sha256": "ad6e058f02ca3f23701ef1ce5e8e0cb63d85e7d9351fdd7a13f5fa0acfe83b51"
+        },
+        {
+          "bytes": 913,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/APA_RESULT_SOURCE_MAP_POWER.json",
+          "sha256": "872a7bc5e795d90b0f685a983842894c0866e915d9228b1be28e936bf3059690"
+        },
+        {
+          "bytes": 419,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/FIGURE_SPEC.json",
+          "sha256": "85ae8c25deda6dc2430cfac861a1ecbddad071437dc5ec58cdb2c5ad0724b494"
+        },
+        {
+          "bytes": 367,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/MATCHED_LIMITATION_META.json",
+          "sha256": "00d1f88daf94d7bbd0f2a9ec711985597fd7eda5a9bfcd457566ce32071b7d3d"
+        },
+        {
+          "bytes": 365,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/MATCHED_LIMITATION_POWER.json",
+          "sha256": "f2f799a82216564314af7b544666807ca48cdabcd7af946c1bb6a2faf0d25e0c"
+        },
+        {
+          "bytes": 1281,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/PYTHON_RESULT_RECEIPT.json",
+          "sha256": "177a8e980db081f716a623ba834011965972def4b5214da89f94ba24ae410af1"
+        },
+        {
+          "bytes": 80,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/requirements-psych-design-companion.txt",
+          "sha256": "e159b0b2d998697c27e923495e072adeda9ffbbd438b8a879177a49582f0650a"
+        },
+        {
+          "bytes": 0,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 3419,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/compare_r_results.py",
+          "sha256": "5eefbf648e16322bff9042d44c31ab278c65048fcb6cfd049cefab2337b50203"
+        },
+        {
+          "bytes": 7084,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/generate_figures.py",
+          "sha256": "f4095bab13bf7ae6d41728c204583ee481b5a4b8e8b35e4b4d394423e4c04f12"
+        },
+        {
+          "bytes": 449,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/run_all.py",
+          "sha256": "2a04172df70eccbef1e982a724cab1cf75b2ec9204c37fb95b44281508f70db7"
+        },
+        {
+          "bytes": 37339,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/python/studies.py",
+          "sha256": "f882af98887efec3a7756f41b1f2b54ca63df089dd449220cab68feedbd6b363"
+        },
+        {
+          "bytes": 630,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/common.R",
+          "sha256": "45decec25b12806a5f1f12f617b49f966f6c199e8717270c1f4b6c75c3aefb74"
+        },
+        {
+          "bytes": 660,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/run_all.R",
+          "sha256": "ee028381daf131884f1f91cd89f5e01fa3b9897a497bbb6084b4446514de659b"
+        },
+        {
+          "bytes": 2594,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/swl_s08.R",
+          "sha256": "ae289062ae649304255506276a4a1a25cb0dabf0d04a7e0fcf1200b89a6ce2c4"
+        },
+        {
+          "bytes": 2838,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/swl_s09.R",
+          "sha256": "db09cc29bee977c8aa6d3d83d576c8eff1c46110310e5c4230d3268cacbc985e"
+        },
+        {
+          "bytes": 1717,
+          "path": "psych_design_companion/swl_s08_s10_v0_1/scripts/r/swl_s10.R",
+          "sha256": "536f0d0853f909dfaf3c5bedda83d94a482452a908a9201f9de23d134b178d1f"
+        }
+      ],
+      "tree_sha256": "00a046812d1dee211a672806bf2bd3eff99fa2cc500ecf57694d9f97056e2722"
+    }
+  ],
+  "schema_version": "psych-design-source-batch-preservation-v0.1"
+}
