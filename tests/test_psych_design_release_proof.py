@@ -107,6 +107,16 @@ def test_release_proof_source_checker_passes() -> None:
     assert "PYSTATSV1_PSYCH_DESIGN_RELEASE_PROOF_VERIFY_OK" in completed.stdout
 
 
+def test_windows_ci_fetches_candidate_tag_for_release_proof_checker() -> None:
+    workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(
+        encoding="utf-8"
+    )
+    windows_job = workflow.split("  windows-py310:", maxsplit=1)[1]
+    checkout = windows_job.split("      - name: Set up Python", maxsplit=1)[0]
+    assert "uses: actions/checkout@v4" in checkout
+    assert "fetch-depth: 0" in checkout
+
+
 def _receipt(role: str, png_suffix: str = "a") -> dict:
     studies = {}
     source_bindings = {}
