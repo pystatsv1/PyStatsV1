@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import platform
 import re
@@ -13,6 +14,14 @@ from pathlib import Path
 from typing import Final
 
 from pystatsv1.book1 import DEFAULT_DEST_NAME, initialize_book1, packaged_book1_info, verify_book1_directory
+from pystatsv1.psych_design import (
+    DEFAULT_DEST_NAME as PSYCH_DESIGN_DEFAULT_DEST_NAME,
+    initialize_psych_design,
+    packaged_psych_design_info,
+    packaged_study_index,
+    psych_design_doctor,
+    verify_psych_design_directory,
+)
 
 
 PKG: Final[str] = "pystatsv1"
@@ -222,6 +231,91 @@ def cmd_book1_verify(args: argparse.Namespace) -> int:
         f"PYSTATSV1_BOOK1_VERIFY_OK companion_version={result.companion_version} "
         f"source_files={result.file_count} destination={result.destination}"
     )
+    return 0
+
+
+def cmd_psych_design_info(_: argparse.Namespace) -> int:
+    manifest = packaged_psych_design_info()
+    print(
+        textwrap.dedent(
+            f"""\
+            Psychological Statistics by Design — Executable Companion
+            Companion version: {manifest["companion_version"]}
+            PyStatsV1 release candidate: {manifest["package_version"]}
+            Source files: {len(manifest["files"])}
+            Studies: {len(manifest["study_ids"])}
+            First result: {manifest["first_result_study"]}
+            Synthetic data only: {manifest["synthetic_data_only"]}
+            Public release status: {manifest["release_status"]}
+            Default destination: {PSYCH_DESIGN_DEFAULT_DEST_NAME}
+            """
+        ).rstrip()
+    )
+    return 0
+
+
+def cmd_psych_design_init(args: argparse.Namespace) -> int:
+    try:
+        result = initialize_psych_design(Path(args.dest))
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
+    print(
+        textwrap.dedent(
+            f"""\
+            OK: Psychological Statistics by Design companion created at:
+
+                {result.destination}
+
+            Companion version: {result.companion_version}
+            Verified source files: {result.file_count}
+
+            Next steps:
+              1) cd {result.destination}
+              2) python -m pip install -r requirements-psych-design-companion.txt
+              3) make first-result    # requires Rscript for the complete V2 chain
+              4) make all             # reproduces all ten synthetic studies
+              5) pystatsv1 psych-design verify --dest .
+
+            This is a synthetic-only release candidate. It does not authorize real data.
+            """
+        ).rstrip()
+    )
+    return 0
+
+
+def cmd_psych_design_verify(args: argparse.Namespace) -> int:
+    try:
+        result = verify_psych_design_directory(Path(args.dest))
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
+    print(
+        f"PYSTATSV1_PSYCH_DESIGN_VERIFY_OK companion_version={result.companion_version} "
+        f"source_files={result.file_count} destination={result.destination}"
+    )
+    return 0
+
+
+def cmd_psych_design_list_studies(_: argparse.Namespace) -> int:
+    index = packaged_study_index()
+    for row in index["studies"]:
+        chapters = ",".join(row["book_chapters"])
+        print(
+            f"{row['study_id']} | chapters {chapters} | {row['claim_type']} | "
+            f"{row['reader_command']}"
+        )
+    return 0
+
+
+def cmd_psych_design_doctor(args: argparse.Namespace) -> int:
+    try:
+        payload = psych_design_doctor(Path(args.dest))
+    except RuntimeError as exc:
+        raise SystemExit(str(exc)) from exc
+    print(json.dumps(payload, indent=2, sort_keys=True))
+    if payload["source_manifest_status"] == "pass":
+        print("PYSTATSV1_PSYCH_DESIGN_DOCTOR_OK")
+    else:
+        print("PYSTATSV1_PSYCH_DESIGN_DOCTOR_INFO source_manifest=not_checked")
     return 0
 
 
@@ -617,6 +711,58 @@ def build_parser() -> argparse.ArgumentParser:
         help="Book 1 companion directory to verify.",
     )
     p_book1_verify.set_defaults(func=cmd_book1_verify)
+
+    p_psych_design = sub.add_parser(
+        "psych-design",
+        help="Psychological Statistics by Design companion helpers.",
+    )
+    psych_design_sub = p_psych_design.add_subparsers(
+        dest="psych_design_cmd", required=True
+    )
+
+    p_psych_design_info = psych_design_sub.add_parser(
+        "info", help="Show packaged psych-design companion identity."
+    )
+    p_psych_design_info.set_defaults(func=cmd_psych_design_info)
+
+    p_psych_design_init = psych_design_sub.add_parser(
+        "init", help="Create a new local psych-design companion folder."
+    )
+    p_psych_design_init.add_argument(
+        "--dest",
+        default=PSYCH_DESIGN_DEFAULT_DEST_NAME,
+        help=(
+            "New destination directory (default: "
+            + PSYCH_DESIGN_DEFAULT_DEST_NAME
+            + "). The launcher never overwrites an existing directory."
+        ),
+    )
+    p_psych_design_init.set_defaults(func=cmd_psych_design_init)
+
+    p_psych_design_verify = psych_design_sub.add_parser(
+        "verify", help="Verify immutable psych-design source files."
+    )
+    p_psych_design_verify.add_argument(
+        "--dest",
+        default=PSYCH_DESIGN_DEFAULT_DEST_NAME,
+        help="Psych-design companion directory to verify.",
+    )
+    p_psych_design_verify.set_defaults(func=cmd_psych_design_verify)
+
+    p_psych_design_list = psych_design_sub.add_parser(
+        "list-studies", help="List the ten registered synthetic studies."
+    )
+    p_psych_design_list.set_defaults(func=cmd_psych_design_list_studies)
+
+    p_psych_design_doctor = psych_design_sub.add_parser(
+        "doctor", help="Report companion-specific environment and source facts."
+    )
+    p_psych_design_doctor.add_argument(
+        "--dest",
+        default=PSYCH_DESIGN_DEFAULT_DEST_NAME,
+        help="Companion directory to verify when it exists.",
+    )
+    p_psych_design_doctor.set_defaults(func=cmd_psych_design_doctor)
 
     p_wb = sub.add_parser("workbook", help="Workbook helpers (student labs).")
     wb_sub = p_wb.add_subparsers(dest="workbook_cmd", required=True)

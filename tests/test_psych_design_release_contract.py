@@ -44,6 +44,7 @@ def test_contract_does_not_claim_release_or_real_data_authorization() -> None:
         "public_companion_released": False,
         "pypi_release_authorized": False,
         "real_data_authorized": False,
+        "release_candidate_implemented": True,
     }
 
 
@@ -56,15 +57,15 @@ def test_source_batch_mutation_is_detected(tmp_path: Path) -> None:
     assert "preserved source file drift" in (completed.stdout + completed.stderr)
 
 
-def test_false_command_implementation_claim_is_detected(tmp_path: Path) -> None:
+def test_false_command_nonimplementation_claim_is_detected(tmp_path: Path) -> None:
     repo=copy_repo(tmp_path)
     path=repo/"psych_design_companion/psych_design_release_contract_v0_1/COMMAND_INTERFACE_CONTRACT.json"
     data=json.loads(path.read_text())
-    data["commands"][0]["implemented"]=True
+    data["commands"][0]["implemented"]=False
     path.write_text(json.dumps(data,indent=2,sort_keys=True)+"\n")
     completed=run(repo)
     assert completed.returncode != 0
-    assert "incorrectly marked implemented" in (completed.stdout + completed.stderr)
+    assert "marked unavailable" in (completed.stdout + completed.stderr)
 
 
 def test_missing_study_path_is_detected(tmp_path: Path) -> None:

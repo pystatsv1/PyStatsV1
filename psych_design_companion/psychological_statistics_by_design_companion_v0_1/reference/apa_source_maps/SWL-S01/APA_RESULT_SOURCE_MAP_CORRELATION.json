@@ -1,0 +1,38 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch11",
+    "ch12"
+  ],
+  "contract_version": "0.1",
+  "reported_number_bindings": [
+    {
+      "field": "n",
+      "json_pointer": "/reported_fields/n"
+    },
+    {
+      "field": "correlation_r_sleep_confidence",
+      "json_pointer": "/reported_fields/correlation_r_sleep_confidence"
+    },
+    {
+      "field": "correlation_df",
+      "json_pointer": "/reported_fields/correlation_df"
+    },
+    {
+      "field": "correlation_p_two_sided",
+      "json_pointer": "/reported_fields/correlation_p_two_sided"
+    },
+    {
+      "field": "correlation_ci_95_low",
+      "json_pointer": "/reported_fields/correlation_ci_95_low"
+    },
+    {
+      "field": "correlation_ci_95_high",
+      "json_pointer": "/reported_fields/correlation_ci_95_high"
+    }
+  ],
+  "reporting_role": "correlation",
+  "result_receipt": "evidence/SWL-S01/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S01",
+  "synthetic_only": true
+}

@@ -1,0 +1,34 @@
+{
+  "factor_levels": {
+    "replication_type": [
+      "conceptual",
+      "direct"
+    ]
+  },
+  "measurement_boundary": "Prospective power depends on a justified target effect and model; the fixed-effect synthesis assumes one common true effect and does not address publication bias or selective reporting.",
+  "missingness_rule": "No missingness rule beyond the governed design contract.",
+  "outcomes": [],
+  "predictors": [],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "per-group sample size for d=0.40 at 80% power",
+    "fixed-effect pooled standardized mean difference across six replications"
+  ],
+  "source_columns": [
+    "study_id",
+    "program_id",
+    "replication_type",
+    "registered_before_analysis",
+    "n_per_group",
+    "total_n",
+    "observed_cohens_d",
+    "sampling_variance_d"
+  ],
+  "study_id": "SWL-S10",
+  "synthetic_only": true,
+  "unique_key": [
+    "study_id"
+  ],
+  "unit_of_analysis": "completed synthetic replication"
+}

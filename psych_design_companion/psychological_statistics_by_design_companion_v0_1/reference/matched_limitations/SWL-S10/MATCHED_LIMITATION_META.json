@@ -1,0 +1,7 @@
+{
+  "analysis_role": "fixed_effect_cumulative_evidence",
+  "contract_version": "0.1",
+  "limitation": "The fixed-effect synthesis assumes one common true effect and the six synthetic replications are complete by construction; publication bias, selective reporting, and meaningful heterogeneity are not ruled out.",
+  "study_id": "SWL-S10",
+  "synthetic_only": true
+}

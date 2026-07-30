@@ -1,0 +1,32 @@
+{
+  "apa_source_map": "evidence/SWL-S02/APA_RESULT_SOURCE_MAP.json",
+  "assignment_procedure": "Synthetic students are assigned in equal numbers by a declared computer-generated blocked procedure.",
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "Causal interpretation is limited to the declared assignment, implementation, and synthetic pilot conditions.",
+  "chapter_id": "ch06",
+  "contract_version": "0.1",
+  "data_file": "data/swl_s02_structured_study_routine.csv",
+  "design": "Two-group pilot with declared stratified random assignment.",
+  "factor_levels": {
+    "study_routine_group": [
+      "standard_routine",
+      "structured_routine"
+    ]
+  },
+  "figure_spec": "evidence/SWL-S02/FIGURE_SPEC.json",
+  "identifier_fields": [
+    "participant_id"
+  ],
+  "matched_limitation": "evidence/SWL-S02/MATCHED_LIMITATION.json",
+  "missingness_rule": "No missing outcomes in the registered synthetic dataset.",
+  "outcome": "post_session_performance",
+  "python_analysis": "scripts/python/studies.py",
+  "r_verification": "scripts/r/swl_s02.R",
+  "research_question": "Do students assigned to a structured study routine differ in post-session performance from students using a standard routine?",
+  "result_receipt": "evidence/SWL-S02/PYTHON_RESULT_RECEIPT.json",
+  "row_structure": "One row per student.",
+  "short_name": "Structured Study-Routine Pilot",
+  "study_id": "SWL-S02",
+  "synthetic_only": true,
+  "unit_of_analysis": "student"
+}

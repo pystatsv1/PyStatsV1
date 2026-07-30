@@ -1,0 +1,10 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "Causal interpretation is conditional on random assignment, implementation fidelity, and the defined factor levels.",
+  "contract_version": "0.1",
+  "design": "Balanced two-factor between-student factorial experiment.",
+  "matched_limitation": "The interaction is specific to the registered strategy and feedback levels; main effects alone would obscure that conditional pattern.",
+  "must_accompany_apa_result": true,
+  "study_id": "SWL-S05",
+  "synthetic_only": true
+}

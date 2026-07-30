@@ -1,0 +1,13 @@
+{
+  "book_binding_authorized": false,
+  "companion_version": "v0.1",
+  "contract_tag": "psych-design-companion-release-contract-v0-1",
+  "package_version": "0.26.0",
+  "portal_release_authorized": false,
+  "pypi_release_authorized": false,
+  "real_data_authorized": false,
+  "release_status": "release_candidate_not_public",
+  "schema_version": "psych-design-companion-provenance-v0.1",
+  "source_main": "e88ff0f6f1aa1c4a946c72b97387f47b3c5311ae",
+  "synthetic_data_only": true
+}

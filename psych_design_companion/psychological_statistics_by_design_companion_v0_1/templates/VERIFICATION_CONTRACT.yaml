@@ -1,0 +1,5 @@
+verification_category: DECLARE_V1_V2_V3_OR_V4
+independent_implementation: DECLARE
+common_fields: [DECLARE]
+field_tolerances: {}
+software_specific_fields: [DECLARE]

@@ -1,0 +1,6 @@
+study_id: NEW-AUTHORIZED-STUDY
+unit_of_analysis: DECLARE
+unique_key: [DECLARE]
+expected_rows: DECLARE
+row_relationships: DECLARE
+authorization_reference: DECLARE_OUTSIDE_PUBLIC_COMPANION

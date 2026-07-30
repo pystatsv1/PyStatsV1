@@ -1,0 +1,14 @@
+{
+  "caption": "Study-level standardized effects and fixed-effect pooled estimate.",
+  "contract_version": "0.1",
+  "generator": "scripts/python/generate_figures.py",
+  "grayscale": true,
+  "output": "swl_s10_fixed_effect_forest.png",
+  "required_axis_labels": [
+    "Standardized mean difference",
+    "Replication"
+  ],
+  "role": "cumulative_evidence_forest_plot",
+  "study_id": "SWL-S10",
+  "synthetic_only": true
+}

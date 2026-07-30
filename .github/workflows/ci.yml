@@ -67,10 +67,11 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Build wheel
+      - name: Build deterministic companion assets and wheel
         run: |
           python -m pip install -U pip
-          python -m pip install build
+          python -m pip install build pandas
+          python tools/build_psych_design_companion_asset.py
           python -m build --wheel
 
       - name: Install wheel + smoke test (posix)
@@ -85,6 +86,15 @@ jobs:
           python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
           python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2.zip'; assert p.is_file(), p"
           python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2_1.zip'; assert p.is_file(), p"
+          python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psychological_statistics_by_design_companion_v0_1.zip'; assert p.is_file(), p"
+          pystatsv1 psych-design info
+          pystatsv1 psych-design list-studies | grep SWL-S10
+          pystatsv1 psych-design init --dest /tmp/psych_design_smoke
+          pystatsv1 psych-design verify --dest /tmp/psych_design_smoke
+          pystatsv1 psych-design doctor --dest /tmp/psych_design_smoke
+          python /tmp/psych_design_smoke/scripts/python/design_audit.py --check-only
+          python /tmp/psych_design_smoke/scripts/python/swl_s02_independent_groups.py
+          test -f /tmp/psych_design_smoke/outputs/swl_s02/python_result.json
           pystatsv1 book1 init --dest /tmp/book1_smoke
           pystatsv1 book1 verify --dest /tmp/book1_smoke
           test -f /tmp/book1_smoke/scripts/python/generate_figures.py
@@ -114,6 +124,15 @@ jobs:
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'workbook_starter.zip'; assert p.is_file(), p"
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2.zip'; assert p.is_file(), p"
           .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psych_stats_with_python_companion_v0_2_1.zip'; assert p.is_file(), p"
+          .\wheeltest\Scripts\python -c "from importlib import resources; p = resources.files('pystatsv1.assets') / 'psychological_statistics_by_design_companion_v0_1.zip'; assert p.is_file(), p"
+          .\wheeltest\Scripts\pystatsv1.exe psych-design info
+          .\wheeltest\Scripts\pystatsv1.exe psych-design list-studies
+          .\wheeltest\Scripts\pystatsv1.exe psych-design init --dest psych_design_smoke
+          .\wheeltest\Scripts\pystatsv1.exe psych-design verify --dest psych_design_smoke
+          .\wheeltest\Scripts\pystatsv1.exe psych-design doctor --dest psych_design_smoke
+          .\wheeltest\Scripts\python psych_design_smoke\scripts\python\design_audit.py --check-only
+          .\wheeltest\Scripts\python psych_design_smoke\scripts\python\swl_s02_independent_groups.py
+          if (!(Test-Path psych_design_smoke\outputs\swl_s02\python_result.json)) { throw 'Missing psych-design SWL-S02 result' }
           .\wheeltest\Scripts\pystatsv1.exe book1 init --dest book1_smoke
           .\wheeltest\Scripts\pystatsv1.exe book1 verify --dest book1_smoke
           if (!(Test-Path book1_smoke\scripts\python\generate_figures.py)) { throw 'Missing Book 1 figure generator' }
@@ -132,6 +151,44 @@ jobs:
           .\wheeltest\Scripts\pystatsv1.exe workbook run ch10 --workdir wb_smoke
           .\wheeltest\Scripts\pystatsv1.exe workbook check ch10 --workdir wb_smoke
 
+
+  psych-design-companion-release-candidate-smoke:
+    name: psych-design-companion-release-candidate-smoke (ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Build wheel and run clean Python release-candidate proof
+        run: |
+          set -euo pipefail
+          python -m pip install -U pip build pandas
+          python tools/build_psych_design_companion_asset.py
+          python tools/check_psych_design_release_contract.py
+          python tools/check_psych_design_release_candidate.py
+          python -m build --wheel
+          python -m venv /tmp/psych-design-release-smoke
+          source /tmp/psych-design-release-smoke/bin/activate
+          python -m pip install -U pip
+          WHEEL=$(ls dist/*.whl)
+          python -m pip install "${WHEEL}[psych-design]"
+          pystatsv1 psych-design info
+          pystatsv1 psych-design init --dest /tmp/psych-design-public
+          pystatsv1 psych-design verify --dest /tmp/psych-design-public
+          pystatsv1 psych-design list-studies | grep SWL-S10
+          pystatsv1 psych-design doctor --dest /tmp/psych-design-public
+          make -C /tmp/psych-design-public design-audit
+          make -C /tmp/psych-design-public all-python
+          make -C /tmp/psych-design-public figures
+          test -f /tmp/psych-design-public/outputs/swl_s02/python_result.json
+          test -f /tmp/psych-design-public/outputs/swl_s08/python_result.json
+          test -f /tmp/psych-design-public/outputs/swl_s10/python_result.json
+          test -f /tmp/psych-design-public/outputs/swl_s02/figures/FIGURE_MANIFEST.json
+          pystatsv1 psych-design verify --dest /tmp/psych-design-public
 
   book1-companion-release-smoke:
     name: book1-companion-release-smoke (ubuntu)

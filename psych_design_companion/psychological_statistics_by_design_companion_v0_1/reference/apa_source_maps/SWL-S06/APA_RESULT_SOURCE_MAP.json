@@ -1,0 +1,61 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch10"
+  ],
+  "contract_version": "0.1",
+  "reported_number_bindings": [
+    {
+      "field": "n_complete_case",
+      "json_pointer": "/reported_fields/n_complete_case"
+    },
+    {
+      "field": "mean_baseline_complete_case",
+      "json_pointer": "/reported_fields/mean_baseline_complete_case"
+    },
+    {
+      "field": "mean_post_complete_case",
+      "json_pointer": "/reported_fields/mean_post_complete_case"
+    },
+    {
+      "field": "mean_follow_up_complete_case",
+      "json_pointer": "/reported_fields/mean_follow_up_complete_case"
+    },
+    {
+      "field": "rm_anova_f",
+      "json_pointer": "/reported_fields/rm_anova_f"
+    },
+    {
+      "field": "rm_anova_df_occasion",
+      "json_pointer": "/reported_fields/rm_anova_df_occasion"
+    },
+    {
+      "field": "rm_anova_df_error",
+      "json_pointer": "/reported_fields/rm_anova_df_error"
+    },
+    {
+      "field": "greenhouse_geisser_epsilon",
+      "json_pointer": "/reported_fields/greenhouse_geisser_epsilon"
+    },
+    {
+      "field": "greenhouse_geisser_df_occasion",
+      "json_pointer": "/reported_fields/greenhouse_geisser_df_occasion"
+    },
+    {
+      "field": "greenhouse_geisser_df_error",
+      "json_pointer": "/reported_fields/greenhouse_geisser_df_error"
+    },
+    {
+      "field": "greenhouse_geisser_p",
+      "json_pointer": "/reported_fields/greenhouse_geisser_p"
+    },
+    {
+      "field": "partial_eta_squared",
+      "json_pointer": "/reported_fields/partial_eta_squared"
+    }
+  ],
+  "reporting_role": "primary",
+  "result_receipt": "evidence/SWL-S06/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S06",
+  "synthetic_only": true
+}

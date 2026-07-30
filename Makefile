@@ -510,6 +510,28 @@ business-ch23:
 	$(PYTHON) -m scripts.business_ch23_communicating_results_governance --datadir $(OUT_NSO_V1) --outdir $(OUT_TRACK_D) --seed $(SEED)
 
 
+
+# --- Psychological Statistics by Design companion release candidate ---
+PSYCH_DESIGN_SOURCE := psych_design_companion/psychological_statistics_by_design_companion_v0_1
+PSYCH_DESIGN_ASSET := src/pystatsv1/assets/psychological_statistics_by_design_companion_v0_1.zip
+
+.PHONY: psych-design-companion-build
+psych-design-companion-build:
+	$(PYTHON) tools/build_psych_design_companion_asset.py
+
+.PHONY: psych-design-companion-check
+psych-design-companion-check: psych-design-companion-build
+	$(PYTHON) tools/check_psych_design_release_contract.py
+	$(PYTHON) tools/check_psych_design_release_candidate.py
+
+.PHONY: psych-design-companion-python-proof
+psych-design-companion-python-proof: psych-design-companion-build
+	$(PYTHON) $(PSYCH_DESIGN_SOURCE)/scripts/python/design_audit.py --check-only
+	$(PYTHON) $(PSYCH_DESIGN_SOURCE)/scripts/python/run_all.py
+	$(PYTHON) $(PSYCH_DESIGN_SOURCE)/scripts/python/generate_figures.py
+	$(PYTHON) -m pytest -q $(PSYCH_DESIGN_SOURCE)/tests/test_companion_contract.py
+	rm -rf $(PSYCH_DESIGN_SOURCE)/outputs
+
 # --- Quality gates ---
 .PHONY: lint
 lint:

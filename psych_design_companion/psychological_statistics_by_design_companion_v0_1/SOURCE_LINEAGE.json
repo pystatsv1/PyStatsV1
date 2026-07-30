@@ -1,0 +1,280 @@
+{
+  "companion_version": "v0.1",
+  "package_release_candidate": "0.26.0",
+  "schema_version": "psych-design-source-lineage-v0.1",
+  "source_anchor": "e88ff0f6f1aa1c4a946c72b97387f47b3c5311ae",
+  "source_batches_preserved_in_place": true,
+  "studies": [
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s01_student_well_being_survey.csv",
+          "companion_sha256": "46c4334a443924d27ddcdbf0c5c3f5cf06eeb27323e1aebb0ebc021e4fbbd44d",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s01_student_well_being_survey.csv",
+          "source_sha256": "46c4334a443924d27ddcdbf0c5c3f5cf06eeb27323e1aebb0ebc021e4fbbd44d",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S01_DESIGN_CONTRACT.json",
+          "companion_sha256": "0a8888bf6693e3652bf5f076d22004bbfc4d3a3ec85b4c7bce73e3f645291955",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S01_DESIGN_CONTRACT.json",
+          "source_sha256": "0a8888bf6693e3652bf5f076d22004bbfc4d3a3ec85b4c7bce73e3f645291955",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S01_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "b2678e7085d3f2811441adf677b94bc373b627746c30ca83da6f2f922b0db48b",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S01/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "b2678e7085d3f2811441adf677b94bc373b627746c30ca83da6f2f922b0db48b",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s01_s06_s07_v0_1",
+      "study_id": "SWL-S01"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s02_structured_study_routine.csv",
+          "companion_sha256": "42b977f231609300049524d19e64ed6223f50d0cdb1881b857f34b49884dd88d",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s02_structured_study_routine.csv",
+          "source_sha256": "42b977f231609300049524d19e64ed6223f50d0cdb1881b857f34b49884dd88d",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S02_DESIGN_CONTRACT.json",
+          "companion_sha256": "4c90d374c7318bf0a45e0afa465f4d924362286fb40092bfb5af569541d46619",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S02_DESIGN_CONTRACT.json",
+          "source_sha256": "4c90d374c7318bf0a45e0afa465f4d924362286fb40092bfb5af569541d46619",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S02_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "4dcd4f5889ab0c56574a34d0d5dc9e3e5bd7c03adb9bdbe7da21884b93fbf4ff",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S02/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "4dcd4f5889ab0c56574a34d0d5dc9e3e5bd7c03adb9bdbe7da21884b93fbf4ff",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s02_s05_v0_1",
+      "study_id": "SWL-S02"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s03_skills_workshop_pre_post.csv",
+          "companion_sha256": "5c1d114eac729358602bd621a5b5c74f3cd073ceeeb794407eb21b88dea08e28",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s03_skills_workshop_pre_post.csv",
+          "source_sha256": "5c1d114eac729358602bd621a5b5c74f3cd073ceeeb794407eb21b88dea08e28",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S03_DESIGN_CONTRACT.json",
+          "companion_sha256": "f69dba723c6a2147029c99810307a1953976e6b001b77ea5897217741dc55ded",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S03_DESIGN_CONTRACT.json",
+          "source_sha256": "f69dba723c6a2147029c99810307a1953976e6b001b77ea5897217741dc55ded",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S03_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "6a4b963dc3dbbf26460029cd364192e560c31135bf074aeb7f855f57dbe35b6e",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S03/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "6a4b963dc3dbbf26460029cd364192e560c31135bf074aeb7f855f57dbe35b6e",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s02_s05_v0_1",
+      "study_id": "SWL-S03"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s04_three_condition_support.csv",
+          "companion_sha256": "1584c1f5ebcd4890a0ed5aa35bfbf7a2e685a0f74492a4b4557fd2d49d3a87c8",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s04_three_condition_support.csv",
+          "source_sha256": "1584c1f5ebcd4890a0ed5aa35bfbf7a2e685a0f74492a4b4557fd2d49d3a87c8",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S04_DESIGN_CONTRACT.json",
+          "companion_sha256": "03836ba796954dde6b1a37e5df60180d8e734938404f258f074b818373db9a27",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S04_DESIGN_CONTRACT.json",
+          "source_sha256": "03836ba796954dde6b1a37e5df60180d8e734938404f258f074b818373db9a27",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S04_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "4cad31f30359c41c6dc6431882b0bd0cec84100c3d86006a883fc071a6993666",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S04/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "4cad31f30359c41c6dc6431882b0bd0cec84100c3d86006a883fc071a6993666",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s02_s05_v0_1",
+      "study_id": "SWL-S04"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s05_strategy_feedback.csv",
+          "companion_sha256": "9100b086a0b569bf2f9258c546e9b56b33e64c028b2e1e3b2888305b3c428445",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/data/swl_s05_strategy_feedback.csv",
+          "source_sha256": "9100b086a0b569bf2f9258c546e9b56b33e64c028b2e1e3b2888305b3c428445",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S05_DESIGN_CONTRACT.json",
+          "companion_sha256": "ad9f6347ac8167c7e9290eb7e806849009f0afaf8b982c2c5c655f206e4e40d8",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/contracts/SWL-S05_DESIGN_CONTRACT.json",
+          "source_sha256": "ad9f6347ac8167c7e9290eb7e806849009f0afaf8b982c2c5c655f206e4e40d8",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S05_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "1451c6a584723efdfbc98d9d61120fdceb691dd161a3dd582e956d205ff48710",
+          "source_path": "psych_design_companion/swl_s02_s05_v0_1/evidence/SWL-S05/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "1451c6a584723efdfbc98d9d61120fdceb691dd161a3dd582e956d205ff48710",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s02_s05_v0_1",
+      "study_id": "SWL-S05"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s06_confidence_trajectory.csv",
+          "companion_sha256": "a95ef37c89f3523e59822d6729746d2499ea95acc508ca25824d3e073ed258a2",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s06_confidence_trajectory.csv",
+          "source_sha256": "a95ef37c89f3523e59822d6729746d2499ea95acc508ca25824d3e073ed258a2",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S06_DESIGN_CONTRACT.json",
+          "companion_sha256": "309143adb85b2c06517d38f031234c18370f796393983b5a89fd329b8da00061",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S06_DESIGN_CONTRACT.json",
+          "source_sha256": "309143adb85b2c06517d38f031234c18370f796393983b5a89fd329b8da00061",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S06_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "cf271c251f23239159e087bdfed6cddeb4a442022e6f6fb9d21fd418fc6b039d",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S06/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "cf271c251f23239159e087bdfed6cddeb4a442022e6f6fb9d21fd418fc6b039d",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s01_s06_s07_v0_1",
+      "study_id": "SWL-S06"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s07_baseline_adjusted_intervention.csv",
+          "companion_sha256": "08925df34996fd9f75a4c5bd41f0de82c655b05212f2cd21435ba70349db52fc",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/data/swl_s07_baseline_adjusted_intervention.csv",
+          "source_sha256": "08925df34996fd9f75a4c5bd41f0de82c655b05212f2cd21435ba70349db52fc",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S07_DESIGN_CONTRACT.json",
+          "companion_sha256": "b89086a679277b1652999fde987ccb89ce78ec6f44b3186a3f0c9cb694f39048",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/contracts/SWL-S07_DESIGN_CONTRACT.json",
+          "source_sha256": "b89086a679277b1652999fde987ccb89ce78ec6f44b3186a3f0c9cb694f39048",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S07_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "a32a1674f8673e6633768ff6fe7f82ea1e3bd5d14eb6bc8949ac7b5b3bd8e9c6",
+          "source_path": "psych_design_companion/swl_s01_s06_s07_v0_1/evidence/SWL-S07/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "a32a1674f8673e6633768ff6fe7f82ea1e3bd5d14eb6bc8949ac7b5b3bd8e9c6",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s01_s06_s07_v0_1",
+      "study_id": "SWL-S07"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s08_longitudinal_treatment.csv",
+          "companion_sha256": "a37e797a5d67e38d91d7f88d06014bd351559efb22b21edb3cc75ff95db82556",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s08_longitudinal_treatment.csv",
+          "source_sha256": "a37e797a5d67e38d91d7f88d06014bd351559efb22b21edb3cc75ff95db82556",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S08_DESIGN_CONTRACT.json",
+          "companion_sha256": "f1d3faeb7c4e10e9836e9ac75f1bb18aa8adbe12f916ce70fe95ed73f9c38c42",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S08_DESIGN_CONTRACT.json",
+          "source_sha256": "f1d3faeb7c4e10e9836e9ac75f1bb18aa8adbe12f916ce70fe95ed73f9c38c42",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S08_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "22648086c0775cb852745e85e5b4c9569eb6f9c1011b1dbe2bbf0ca1e39385de",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S08/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "22648086c0775cb852745e85e5b4c9569eb6f9c1011b1dbe2bbf0ca1e39385de",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s08_s10_v0_1",
+      "study_id": "SWL-S08"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s09_outcome_distribution_extension.csv",
+          "companion_sha256": "cacafff8486624e4362629a1b7cf026aa347c7f48620b80029b6a1cfd0d31e16",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s09_outcome_distribution_extension.csv",
+          "source_sha256": "cacafff8486624e4362629a1b7cf026aa347c7f48620b80029b6a1cfd0d31e16",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S09_DESIGN_CONTRACT.json",
+          "companion_sha256": "a3b01225008425235bea1a2f7632367a7a7746ce4f43594908a13fa59a2709de",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S09_DESIGN_CONTRACT.json",
+          "source_sha256": "a3b01225008425235bea1a2f7632367a7a7746ce4f43594908a13fa59a2709de",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S09_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "d972997d3d9b3c1de98d9e34046ece2c6ec84a575d5d186d0fa886a08cf79b0b",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S09/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "d972997d3d9b3c1de98d9e34046ece2c6ec84a575d5d186d0fa886a08cf79b0b",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s08_s10_v0_1",
+      "study_id": "SWL-S09"
+    },
+    {
+      "origins": [
+        {
+          "companion_path": "data/swl_s10_replication_program.csv",
+          "companion_sha256": "4cb8239f978975c10191cbcdf47d17c62944e45dc2540cbc76ef5d4ccd366e36",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/data/swl_s10_replication_program.csv",
+          "source_sha256": "4cb8239f978975c10191cbcdf47d17c62944e45dc2540cbc76ef5d4ccd366e36",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "design/SWL-S10_DESIGN_CONTRACT.json",
+          "companion_sha256": "cd690cb58bd797ddc82677894df95a014ec664eea2f28c4f748f51ffe6ff38c7",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/contracts/SWL-S10_DESIGN_CONTRACT.json",
+          "source_sha256": "cd690cb58bd797ddc82677894df95a014ec664eea2f28c4f748f51ffe6ff38c7",
+          "transformation": "byte-for-byte copy"
+        },
+        {
+          "companion_path": "reference/results/SWL-S10_PYTHON_RESULT_RECEIPT.json",
+          "companion_sha256": "177a8e980db081f716a623ba834011965972def4b5214da89f94ba24ae410af1",
+          "source_path": "psych_design_companion/swl_s08_s10_v0_1/evidence/SWL-S10/PYTHON_RESULT_RECEIPT.json",
+          "source_sha256": "177a8e980db081f716a623ba834011965972def4b5214da89f94ba24ae410af1",
+          "transformation": "byte-for-byte copy"
+        }
+      ],
+      "source_batch": "swl_s08_s10_v0_1",
+      "study_id": "SWL-S10"
+    }
+  ],
+  "synthetic_only": true
+}

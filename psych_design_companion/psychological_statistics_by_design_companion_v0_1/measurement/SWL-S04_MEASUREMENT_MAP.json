@@ -1,0 +1,33 @@
+{
+  "factor_levels": {
+    "support_condition": [
+      "standard_support",
+      "guided_practice",
+      "guided_practice_plus_feedback"
+    ]
+  },
+  "measurement_boundary": "Causal interpretation is conditional on the declared random assignment and implementation fidelity.",
+  "missingness_rule": "No missing outcomes in the registered synthetic dataset.",
+  "outcomes": [
+    "assessment_performance"
+  ],
+  "predictors": [],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "guided-condition average minus standard support",
+    "guided practice plus feedback minus guided practice"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "support_condition",
+    "assessment_performance"
+  ],
+  "study_id": "SWL-S04",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id"
+  ],
+  "unit_of_analysis": "student"
+}

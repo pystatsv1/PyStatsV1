@@ -1,0 +1,11 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch13"
+  ],
+  "contract_version": "0.1",
+  "limitation": "The adjusted comparison depends on linearity, reliable pre-treatment measurement, and sufficiently homogeneous covariate slopes; baseline adjustment does not repair unmeasured confounding or support generalization beyond the synthetic implementation.",
+  "limitation_role": "primary",
+  "study_id": "SWL-S07",
+  "synthetic_only": true
+}

@@ -1,0 +1,33 @@
+{
+  "factor_levels": {
+    "occasion": [
+      "baseline",
+      "post",
+      "follow_up"
+    ]
+  },
+  "measurement_boundary": "Occasion differences are descriptive/inferential within the registered synthetic schedule and do not identify a unique cause.",
+  "missingness_rule": "The registered repeated-measures ANOVA uses complete trajectories and separately reports all missing visits.",
+  "outcomes": [
+    "academic_confidence"
+  ],
+  "predictors": [],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "occasion effect across baseline, post, and follow_up among complete trajectories"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "occasion",
+    "academic_confidence"
+  ],
+  "study_id": "SWL-S06",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id",
+    "occasion"
+  ],
+  "unit_of_analysis": "student"
+}

@@ -1,0 +1,104 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "contract_version": "0.1",
+  "independent_path_required": true,
+  "python_engine": "numpy/scipy transparent analysis",
+  "r_engine": "base R stats",
+  "runtime_output_policy": "R results and parity receipts are ignored build-instance evidence.",
+  "runtime_outputs_tracked": false,
+  "studies": [
+    {
+      "parity_fields": [
+        "ci_95_high",
+        "ci_95_low",
+        "cohen_d_pooled",
+        "mean_difference_structured_minus_standard",
+        "mean_standard",
+        "mean_structured",
+        "n_standard",
+        "n_structured",
+        "p_value_two_sided",
+        "sd_standard",
+        "sd_structured",
+        "welch_df",
+        "welch_t"
+      ],
+      "r_script": "scripts/r/swl_s02.R",
+      "study_id": "SWL-S02"
+    },
+    {
+      "parity_fields": [
+        "ci_95_high",
+        "ci_95_low",
+        "cohen_dz",
+        "df",
+        "mean_change_post_minus_pre",
+        "mean_post",
+        "mean_pre",
+        "n_paired",
+        "p_value_two_sided",
+        "paired_t",
+        "sd_change"
+      ],
+      "r_script": "scripts/r/swl_s03.R",
+      "study_id": "SWL-S03"
+    },
+    {
+      "parity_fields": [
+        "anova_f",
+        "contrast_feedback_increment_estimate",
+        "contrast_feedback_increment_p",
+        "contrast_feedback_increment_p_holm",
+        "contrast_feedback_increment_t",
+        "contrast_guided_average_minus_standard_estimate",
+        "contrast_guided_average_minus_standard_p",
+        "contrast_guided_average_minus_standard_p_holm",
+        "contrast_guided_average_minus_standard_t",
+        "df_between",
+        "df_within",
+        "eta_squared",
+        "mean_guided_practice",
+        "mean_guided_practice_plus_feedback",
+        "mean_standard_support",
+        "n_guided_practice",
+        "n_guided_practice_plus_feedback",
+        "n_standard_support",
+        "n_total",
+        "p_value"
+      ],
+      "r_script": "scripts/r/swl_s04.R",
+      "study_id": "SWL-S04"
+    },
+    {
+      "parity_fields": [
+        "df_effect",
+        "df_within",
+        "feedback_f",
+        "feedback_p",
+        "feedback_partial_eta_squared",
+        "interaction_difference_in_differences",
+        "interaction_f",
+        "interaction_p",
+        "interaction_partial_eta_squared",
+        "mean_rereading_explanatory_feedback",
+        "mean_rereading_no_feedback",
+        "mean_retrieval_explanatory_feedback",
+        "mean_retrieval_no_feedback",
+        "n_per_cell",
+        "n_total",
+        "simple_strategy_explanatory_feedback_estimate",
+        "simple_strategy_explanatory_feedback_p",
+        "simple_strategy_explanatory_feedback_t",
+        "simple_strategy_no_feedback_estimate",
+        "simple_strategy_no_feedback_p",
+        "simple_strategy_no_feedback_t",
+        "strategy_f",
+        "strategy_p",
+        "strategy_partial_eta_squared"
+      ],
+      "r_script": "scripts/r/swl_s05.R",
+      "study_id": "SWL-S05"
+    }
+  ],
+  "tolerance": 1e-07
+}

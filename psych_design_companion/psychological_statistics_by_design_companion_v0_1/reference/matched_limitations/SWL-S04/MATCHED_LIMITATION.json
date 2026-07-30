@@ -1,0 +1,10 @@
+{
+  "batch_id": "psych-design-swl-s02-s05-v0.1",
+  "causal_scope": "Causal interpretation is conditional on the declared random assignment and implementation fidelity.",
+  "contract_version": "0.1",
+  "design": "Three-condition between-student randomized study.",
+  "matched_limitation": "The two planned contrasts answer only the registered support questions; they do not justify unregistered pairwise fishing or generalization beyond the synthetic implementation.",
+  "must_accompany_apa_result": true,
+  "study_id": "SWL-S04",
+  "synthetic_only": true
+}

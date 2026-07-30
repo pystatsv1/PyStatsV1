@@ -1,0 +1,38 @@
+{
+  "factor_levels": {
+    "clinically_improved": [
+      "yes",
+      "no"
+    ],
+    "support_condition": [
+      "comparison",
+      "intervention"
+    ]
+  },
+  "measurement_boundary": "The categorical and rank-based analyses answer different questions about two registered outcomes; neither is a generic repair for a failed normality test.",
+  "missingness_rule": "No missingness rule beyond the governed design contract.",
+  "outcomes": {
+    "categorical": "clinically_improved",
+    "positive_skew_continuous": "recovery_burden_days"
+  },
+  "predictors": [],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "intervention minus comparison improvement-risk difference",
+    "distributional shift in recovery burden with intervention oriented as lower burden"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "support_condition",
+    "clinically_improved",
+    "recovery_burden_days"
+  ],
+  "study_id": "SWL-S09",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id"
+  ],
+  "unit_of_analysis": "student"
+}

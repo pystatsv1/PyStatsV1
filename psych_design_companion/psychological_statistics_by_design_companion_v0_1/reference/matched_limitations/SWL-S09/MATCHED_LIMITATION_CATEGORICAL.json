@@ -1,0 +1,7 @@
+{
+  "analysis_role": "categorical_improvement_status",
+  "contract_version": "0.1",
+  "limitation": "The chi-square result concerns the registered binary outcome and does not recover information discarded when a continuous or ordinal construct is dichotomized.",
+  "study_id": "SWL-S09",
+  "synthetic_only": true
+}

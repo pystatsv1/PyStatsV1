@@ -1,0 +1,36 @@
+{
+  "factor_levels": {
+    "feedback_condition": [
+      "no_feedback",
+      "explanatory_feedback"
+    ],
+    "study_strategy": [
+      "rereading",
+      "retrieval_practice"
+    ]
+  },
+  "measurement_boundary": "Causal interpretation is conditional on random assignment, implementation fidelity, and the defined factor levels.",
+  "missingness_rule": "The registered dataset contains all four cells with equal counts and no missing outcomes.",
+  "outcomes": [
+    "assessment_performance"
+  ],
+  "predictors": [],
+  "real_data_authorized": false,
+  "schema_version": "psych-design-measurement-map-v0.1",
+  "score_direction_and_estimand": [
+    "retrieval-practice effect with feedback minus retrieval-practice effect without feedback"
+  ],
+  "source_columns": [
+    "study_id",
+    "participant_id",
+    "study_strategy",
+    "feedback_condition",
+    "assessment_performance"
+  ],
+  "study_id": "SWL-S05",
+  "synthetic_only": true,
+  "unique_key": [
+    "participant_id"
+  ],
+  "unit_of_analysis": "student"
+}

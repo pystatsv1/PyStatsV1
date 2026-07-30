@@ -1,0 +1,7 @@
+{
+  "analysis_role": "longitudinal_random_intercept_model",
+  "contract_version": "0.1",
+  "limitation": "The synthetic result validates the workflow rather than a real-world treatment claim. Interpretation depends on the declared coding, random-intercept specification, assignment, measurement stability, and an ignorable-missingness assumption.",
+  "study_id": "SWL-S08",
+  "synthetic_only": true
+}

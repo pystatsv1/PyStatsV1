@@ -1,0 +1,14 @@
+{
+  "batch_id": "psych-design-swl-s01-s06-s07-v0.1",
+  "chapter_ids": [
+    "ch10"
+  ],
+  "contract_version": "0.1",
+  "figure_role": "primary",
+  "figure_type": "complete_case_trajectory",
+  "generator": "scripts/python/generate_figures.py",
+  "grayscale": true,
+  "result_source": "evidence/SWL-S06/PYTHON_RESULT_RECEIPT.json",
+  "study_id": "SWL-S06",
+  "synthetic_only": true
+}
