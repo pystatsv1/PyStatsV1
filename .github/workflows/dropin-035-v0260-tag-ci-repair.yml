@@ -1,0 +1,97 @@
+name: Drop-in 035 v0.26.0 tag CI repair validation
+
+# The original v0.26.0 push CI run checked out the annotated release tag through
+# actions/checkout@v4, which can materialize a commit-shaped local tag ref for a
+# tag-triggered checkout. This manual workflow preserves the immutable release
+# tag and reruns the exact failed Windows job after explicitly restoring the
+# annotated tag object from origin.
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Immutable annotated release tag to validate"
+        required: true
+        default: "v0.26.0"
+        type: string
+
+jobs:
+  windows-py310-tag-repair:
+    name: windows-py310-tag-repair
+    runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      PYTHONIOENCODING: utf-8
+      RELEASE_TAG: ${{ inputs.release_tag }}
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout exact release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.release_tag }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Restore and verify annotated release tag object
+        run: |
+          $ErrorActionPreference = "Stop"
+          if ($env:RELEASE_TAG -ne "v0.26.0") {
+            throw "Drop-in 035 Repair 1 validates exactly v0.26.0"
+          }
+
+          git fetch --force origin "refs/tags/$($env:RELEASE_TAG):refs/tags/$($env:RELEASE_TAG)"
+
+          $objectType = (git cat-file -t "refs/tags/$($env:RELEASE_TAG)").Trim()
+          if ($objectType -ne "tag") {
+            throw "Expected annotated tag object, found $objectType"
+          }
+
+          $taggedCommit = (git rev-parse "refs/tags/$($env:RELEASE_TAG)^{commit}").Trim()
+          $checkedOutCommit = (git rev-parse HEAD).Trim()
+          if ($taggedCommit -ne $checkedOutCommit) {
+            throw "Release tag does not resolve to checked-out source"
+          }
+
+          "PYSTATSV1_DROPIN_035_REPAIR1_ANNOTATED_TAG_OK tag=$($env:RELEASE_TAG) commit=$taggedCommit"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install make (Chocolatey)
+        run: choco install make -y
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if (Test-Path requirements.txt) { pip install -r requirements.txt } else { pip install numpy pandas statsmodels matplotlib scipy }
+          if (Test-Path requirements-dev.txt) { pip install -r requirements-dev.txt } else { pip install ruff pytest }
+          pip install -e .
+
+      - name: Lint
+        run: |
+          ruff --version
+          make lint
+
+      - name: Build docs
+        run: make docs
+
+      - name: Tests
+        run: make test
+
+      - name: Tiny Chapter 13 smoke
+        run: make ch13-ci
+
+      - name: Upload artifacts (plots & data)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dropin-035-v0260-tag-repair-artifacts
+          if-no-files-found: ignore
+          path: |
+            data/synthetic/**
+            outputs/**

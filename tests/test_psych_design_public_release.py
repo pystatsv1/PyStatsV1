@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import io
 import json
+import subprocess
 import tarfile
 import zipfile
 from pathlib import Path
@@ -39,6 +40,17 @@ EXPECTED_PATHS = [
     "tools/check_psych_design_release_proof.py",
     "tools/verify_pystatsv1_public_release.py",
 ]
+
+POST_TAG_REPAIR_PATHS = [
+    ".github/workflows/ci.yml",
+    ".github/workflows/dropin-035-v0260-tag-ci-repair.yml",
+    "tests/test_psych_design_public_release.py",
+    "tools/check_psych_design_public_release.py",
+]
+PUBLIC_RECEIPT_RELATIVE = (
+    "release_proofs/psych_design_v0_1/evidence/"
+    "PSYCH_DESIGN_PUBLIC_RELEASE.json"
+)
 
 
 def load(path: Path) -> dict:
@@ -222,6 +234,151 @@ def test_authorization_document_requires_pypi_authorization() -> None:
 
 def test_technical_readiness_checker_accepts_completed_dropin_034() -> None:
     checker().verify_technical_readiness()
+
+
+def _scope_git_stub(module, post_tag_paths: list[str]):
+    release_commit = "a" * 40
+    parent = load(AUTHORIZATION)["release_identity"]["approved_parent_commit"]
+
+    def fake_git(*args: str, check: bool = True) -> str:
+        del check
+        if args == ("cat-file", "-e", f"{parent}^{{commit}}"):
+            return ""
+        if args == ("diff", "--name-only", "HEAD"):
+            return ""
+        if args == ("ls-files", "--others", "--exclude-standard"):
+            return ""
+        if args == ("tag", "--list"):
+            return module.EXPECTED_RELEASE_TAG
+        if args == (
+            "cat-file",
+            "-t",
+            f"refs/tags/{module.EXPECTED_RELEASE_TAG}",
+        ):
+            return "tag"
+        if args == (
+            "rev-parse",
+            f"{module.EXPECTED_RELEASE_TAG}^{{commit}}",
+        ):
+            return release_commit
+        if args == ("diff", "--name-only", f"{parent}..{release_commit}"):
+            return "\n".join(EXPECTED_PATHS)
+        if args == ("diff", "--name-only", f"{release_commit}..HEAD"):
+            return "\n".join(post_tag_paths)
+        raise AssertionError(f"unexpected git call: {args}")
+
+    return fake_git
+
+
+def _patch_release_scope_git(
+    module,
+    monkeypatch: pytest.MonkeyPatch,
+    post_tag_paths: list[str],
+    receipt_status: str,
+) -> None:
+    receipt = load(PUBLIC_RECEIPT)
+    receipt["status"] = receipt_status
+    monkeypatch.setattr(module, "_has_git", lambda: True)
+    monkeypatch.setattr(module, "_git", _scope_git_stub(module, post_tag_paths))
+    monkeypatch.setattr(module, "load", lambda _path: receipt)
+    monkeypatch.setattr(
+        module.subprocess,
+        "run",
+        lambda *_args, **_kwargs: subprocess.CompletedProcess([], 0),
+    )
+
+
+def test_pending_post_tag_path_policy_is_exact_and_bounded() -> None:
+    module = checker()
+    receipt = load(PUBLIC_RECEIPT)
+    receipt["status"] = "owner_authorized_pending_publication"
+    assert module.expected_post_tag_paths(receipt) == POST_TAG_REPAIR_PATHS
+
+
+def test_verified_post_tag_path_policy_adds_only_public_receipt() -> None:
+    module = checker()
+    receipt = load(PUBLIC_RECEIPT)
+    receipt["status"] = "public_release_verified"
+    assert module.expected_post_tag_paths(receipt) == sorted(
+        POST_TAG_REPAIR_PATHS + [PUBLIC_RECEIPT_RELATIVE]
+    )
+
+
+def test_release_source_scope_accepts_exact_pending_post_tag_repairs(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = checker()
+    _patch_release_scope_git(
+        module,
+        monkeypatch,
+        POST_TAG_REPAIR_PATHS,
+        "owner_authorized_pending_publication",
+    )
+    module.verify_release_source_paths(load(AUTHORIZATION))
+
+
+def test_release_source_scope_rejects_extra_post_tag_path(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = checker()
+    _patch_release_scope_git(
+        module,
+        monkeypatch,
+        POST_TAG_REPAIR_PATHS + ["src/pystatsv1/cli.py"],
+        "owner_authorized_pending_publication",
+    )
+    with pytest.raises(
+        module.PublicReleaseCheckError,
+        match="post-tag path scope differs",
+    ):
+        module.verify_release_source_paths(load(AUTHORIZATION))
+
+
+def test_release_source_scope_rejects_missing_governed_repair_path(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = checker()
+    _patch_release_scope_git(
+        module,
+        monkeypatch,
+        POST_TAG_REPAIR_PATHS[:-1],
+        "owner_authorized_pending_publication",
+    )
+    with pytest.raises(
+        module.PublicReleaseCheckError,
+        match="post-tag path scope differs",
+    ):
+        module.verify_release_source_paths(load(AUTHORIZATION))
+
+
+def test_release_source_scope_accepts_verified_public_receipt_delta(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = checker()
+    _patch_release_scope_git(
+        module,
+        monkeypatch,
+        POST_TAG_REPAIR_PATHS + [PUBLIC_RECEIPT_RELATIVE],
+        "public_release_verified",
+    )
+    module.verify_release_source_paths(load(AUTHORIZATION))
+
+
+def test_release_source_scope_rejects_public_receipt_before_verification(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = checker()
+    _patch_release_scope_git(
+        module,
+        monkeypatch,
+        POST_TAG_REPAIR_PATHS + [PUBLIC_RECEIPT_RELATIVE],
+        "owner_authorized_pending_publication",
+    )
+    with pytest.raises(
+        module.PublicReleaseCheckError,
+        match="post-tag path scope differs",
+    ):
+        module.verify_release_source_paths(load(AUTHORIZATION))
 
 
 def _write_wheel(path: Path, module, *, asset: bytes | None = None, version: str = "0.26.0") -> None:
@@ -461,3 +618,47 @@ def test_public_receipt_checker_rejects_open_non_pypi_gate(
     monkeypatch.setattr(module, "verify_release_tag", lambda *_args, **_kwargs: "c" * 40)
     with pytest.raises(module.PublicReleaseCheckError, match="opens closed gate"):
         module.verify_pending_public_receipt()
+
+
+def test_dropin_035_tag_ci_repair_workflow_preserves_immutable_annotated_tag() -> None:
+    workflow = (
+        ROOT / ".github/workflows/dropin-035-v0260-tag-ci-repair.yml"
+    ).read_text(encoding="utf-8")
+
+    assert "workflow_dispatch:" in workflow
+    assert 'default: "v0.26.0"' in workflow
+    assert "windows-py310-tag-repair:" in workflow
+    assert "ref: ${{ inputs.release_tag }}" in workflow
+    assert "fetch-depth: 0" in workflow
+    assert "fetch-tags: true" in workflow
+    assert (
+        'git fetch --force origin "refs/tags/$($env:RELEASE_TAG):refs/tags/$($env:RELEASE_TAG)"'
+        in workflow
+    )
+    assert 'git cat-file -t "refs/tags/$($env:RELEASE_TAG)"' in workflow
+    assert 'git rev-parse "refs/tags/$($env:RELEASE_TAG)^{commit}"' in workflow
+    assert "git rev-parse HEAD" in workflow
+    assert "PYSTATSV1_DROPIN_035_REPAIR1_ANNOTATED_TAG_OK" in workflow
+    assert "make lint" in workflow
+    assert "make docs" in workflow
+    assert "make test" in workflow
+    assert "make ch13-ci" in workflow
+    assert "gh-action-pypi-publish" not in workflow
+    assert "git tag -f" not in workflow
+    assert "git push --force" not in workflow
+
+
+def test_windows_ci_restores_annotated_v0260_tag_before_full_tests() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    windows_job = workflow.split("  windows-py310:", maxsplit=1)[1]
+    restore = windows_job.split("      - name: Set up Python", maxsplit=1)[0]
+
+    assert "Restore annotated v0.26.0 tag when present" in restore
+    assert 'git ls-remote --tags origin "refs/tags/v0.26.0"' in restore
+    assert (
+        'git fetch --force origin "refs/tags/v0.26.0:refs/tags/v0.26.0"'
+        in restore
+    )
+    assert 'git cat-file -t "refs/tags/v0.26.0"' in restore
+    assert 'if ($objectType -ne "tag")' in restore
+    assert "PYSTATSV1_WINDOWS_CI_ANNOTATED_TAG_OK" in restore

@@ -236,6 +236,21 @@ jobs:
           # The Drop-in 034 source checker verifies the frozen candidate tag.
           fetch-depth: 0
 
+      - name: Restore annotated v0.26.0 tag when present
+        run: |
+          $ErrorActionPreference = "Stop"
+          $remoteTag = @(git ls-remote --tags origin "refs/tags/v0.26.0")
+          if ($LASTEXITCODE -ne 0) { throw "Unable to inspect remote v0.26.0 tag" }
+          if ($remoteTag.Count -gt 0) {
+            git fetch --force origin "refs/tags/v0.26.0:refs/tags/v0.26.0"
+            if ($LASTEXITCODE -ne 0) { throw "Unable to restore annotated v0.26.0 tag" }
+            $objectType = (git cat-file -t "refs/tags/v0.26.0").Trim()
+            if ($objectType -ne "tag") {
+              throw "Expected annotated v0.26.0 tag object, found $objectType"
+            }
+            "PYSTATSV1_WINDOWS_CI_ANNOTATED_TAG_OK tag=v0.26.0"
+          }
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
