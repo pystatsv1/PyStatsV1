@@ -77,11 +77,27 @@ jobs:
           python tools/check_psych_design_release_proof.py --phase complete
           python tools/check_psych_design_public_release.py --phase authorization
 
-      - name: Install deterministic build backend
+      - name: Install deterministic build and companion-audit dependencies
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          python -m pip install "build>=1.2,<2" setuptools==80.9.0 wheel==0.45.1
+          python -m pip install \
+            "build>=1.2,<2" \
+            setuptools==80.9.0 \
+            wheel==0.45.1 \
+            numpy==2.2.6 \
+            pandas==2.2.3
+          python - <<'PY'
+          import numpy
+          import pandas
+
+          assert numpy.__version__ == "2.2.6"
+          assert pandas.__version__ == "2.2.3"
+          print(
+              "PYSTATSV1_DROPIN_035_REPAIR3_BUILD_ENV_OK "
+              "numpy=2.2.6 pandas=2.2.3"
+          )
+          PY
 
       - name: Build governed companion asset and distributions
         shell: bash
