@@ -43,6 +43,8 @@ help:
 	@echo "  psych-design-swl-s08-s10-verify - verify the private SWL-S08-S10 final source candidate"
 	@echo "  psych-design-swl-s08-s10-r-verify - run independent R verification for the final batch"
 	@echo "  psych-design-release-contract-verify - verify the advanced-book companion audit and command contract"
+	@echo "  psych-design-release-proof-check - verify the Drop-in 034 candidate freeze and proof contract"
+	@echo "  psych-design-release-proof-compare - compare committed Ubuntu and WSL proof receipts"
 	@echo "  local-r-verify - run all governed R parity checks locally (never in GitHub Actions)"
 	@echo "  release-verify - require an annotated v<version> tag matching pyproject.toml"
 	@echo "  lint       - ruff check"
@@ -531,6 +533,27 @@ psych-design-companion-python-proof: psych-design-companion-build
 	$(PYTHON) $(PSYCH_DESIGN_SOURCE)/scripts/python/generate_figures.py
 	$(PYTHON) -m pytest -q $(PSYCH_DESIGN_SOURCE)/tests/test_companion_contract.py
 	rm -rf $(PSYCH_DESIGN_SOURCE)/outputs
+
+# --- Psychological Statistics by Design clean-reader release proof ---
+PSYCH_DESIGN_RELEASE_PROOF := release_proofs/psych_design_v0_1
+PSYCH_DESIGN_RELEASE_EVIDENCE := $(PSYCH_DESIGN_RELEASE_PROOF)/evidence
+
+.PHONY: psych-design-release-proof-check
+psych-design-release-proof-check:
+	$(PYTHON) tools/check_psych_design_release_proof.py --phase source
+
+.PHONY: psych-design-release-proof-ubuntu-check
+psych-design-release-proof-ubuntu-check:
+	$(PYTHON) tools/check_psych_design_release_proof.py --phase ubuntu
+
+.PHONY: psych-design-release-proof-compare
+psych-design-release-proof-compare:
+	$(PYTHON) tools/compare_psych_design_release_proofs.py \
+		--ubuntu $(PSYCH_DESIGN_RELEASE_EVIDENCE)/PSYCH_DESIGN_UBUNTU_RELEASE_PROOF.json \
+		--wsl $(PSYCH_DESIGN_RELEASE_EVIDENCE)/PSYCH_DESIGN_WSL_RELEASE_PROOF.json \
+		--comparison $(PSYCH_DESIGN_RELEASE_EVIDENCE)/PSYCH_DESIGN_CROSS_PLATFORM_COMPARISON.json \
+		--readiness $(PSYCH_DESIGN_RELEASE_EVIDENCE)/PSYCH_DESIGN_RELEASE_READINESS.json
+	$(PYTHON) tools/check_psych_design_release_proof.py --phase complete
 
 # --- Quality gates ---
 .PHONY: lint

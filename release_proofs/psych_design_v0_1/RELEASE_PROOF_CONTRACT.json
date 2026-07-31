@@ -1,0 +1,142 @@
+{
+  "baseline": {
+    "candidate_commit": "58d92f85b865cb657bf49c731fefc381970c8bda",
+    "candidate_tag": "psych-design-companion-v0-1-candidate",
+    "feature_branch": "feat/psych-design-companion-v0-1-release-proof",
+    "proof_tag": "psych-design-companion-v0-1-release-proof",
+    "reserved_final_release_tag": "v0.26.0"
+  },
+  "cross_platform_comparison": {
+    "exact": [
+      "canonical wheel SHA-256",
+      "packaged companion asset SHA-256",
+      "immutable source manifest SHA-256",
+      "study registry SHA-256",
+      "dataset hashes",
+      "design-contract hashes",
+      "measurement-map hashes",
+      "V2 canonical numerical fields",
+      "declared V3 comparisons",
+      "V4 documented-not-equal field list",
+      "reviewer-packet membership",
+      "APA source bindings",
+      "matched limitations"
+    ],
+    "renderer_tolerance": {
+      "difference_policy": "PNG byte differences may be recorded only as renderer/font variation; scientific content may not drift.",
+      "png_byte_identity_required": false,
+      "required_exact": "figure specification hashes, output roles, DPI, grayscale flag, labels/source binding and pixel dimensions"
+    }
+  },
+  "dropin": "034",
+  "expected_success_markers": [
+    "PYSTATSV1_PSYCH_DESIGN_VERIFY_OK",
+    "PYSTATSV1_PSYCH_DESIGN_DOCTOR_OK",
+    "PYSTATSV1_PSYCH_DESIGN_FIRST_RESULT_OK",
+    "PYSTATSV1_PSYCH_DESIGN_ALL_PYTHON_OK",
+    "PYSTATSV1_PSYCH_DESIGN_ALL_R_OK",
+    "PYSTATSV1_PSYCH_DESIGN_ALL_VERIFICATION_OK",
+    "PYSTATSV1_PSYCH_DESIGN_COMPANION_ALL_OK",
+    "PYSTATSV1_PSYCH_DESIGN_CLEAN_READER_PROOF_OK"
+  ],
+  "lifecycle": {
+    "book_binding_authorized": false,
+    "candidate_implementation_passed": true,
+    "clean_ubuntu_proof": "generated_and_committed_by_stage_1",
+    "clean_wsl_proof": "required_before_pull_request_and_merge",
+    "portal_release_authorized": false,
+    "public_pypi_release_authorized": false,
+    "real_data_authorized": false
+  },
+  "publication_workflow_policy": {
+    "candidate_tag_may_not_publish": true,
+    "final_tag_must_be_absent_during_dropin": true,
+    "final_tag_must_be_annotated": true,
+    "final_tag_must_resolve_to_approved_commit": true,
+    "final_tag_version_must_equal": "0.26.0",
+    "trusted_publisher_workflow_may_not_be_invoked": true
+  },
+  "reader_command_sequence": [
+    "python3 -m venv .venv",
+    "source .venv/bin/activate",
+    "python -m pip install --upgrade pip",
+    "python -m pip install \"./pystatsv1-0.26.0-py3-none-any.whl[psych-design]\"",
+    "pystatsv1 psych-design info",
+    "pystatsv1 psych-design init",
+    "cd psychological_statistics_by_design_companion_v0_1",
+    "pystatsv1 psych-design verify --dest .",
+    "python -m pip install -r requirements-psych-design-companion.txt",
+    "pystatsv1 psych-design doctor --dest .",
+    "make first-result",
+    "make all",
+    "pystatsv1 psych-design verify --dest ."
+  ],
+  "release_identity": {
+    "asset_bytes": 136801,
+    "asset_manifest_sha256": "24f496631758a955a91d53193868b3c02ce9d62bb218fd59d3bb52ea9305e52f",
+    "asset_path": "src/pystatsv1/assets/psychological_statistics_by_design_companion_v0_1.zip",
+    "asset_sha256": "bd0932c1d126758f37fab180173d6b95b5e4c31bc654724251aa6eb6296243c1",
+    "companion_version": "v0.1",
+    "immutable_source_file_count": 151,
+    "package_name": "pystatsv1",
+    "package_version": "0.26.0",
+    "study_ids": [
+      "SWL-S01",
+      "SWL-S02",
+      "SWL-S03",
+      "SWL-S04",
+      "SWL-S05",
+      "SWL-S06",
+      "SWL-S07",
+      "SWL-S08",
+      "SWL-S09",
+      "SWL-S10"
+    ],
+    "study_index_sha256": "1c2525fa1ef4b720d758a32f5e3ad987264e8dfeb28f3967201efca575ef6df7",
+    "wheel_bytes": 1745654,
+    "wheel_name": "pystatsv1-0.26.0-py3-none-any.whl",
+    "wheel_sha256": "62a5c26577867f22c7bbf15dcf4253da749fe703fcec42ffc19b72454af8fa05"
+  },
+  "required_outputs": {
+    "figure_manifests": 10,
+    "python_results": 10,
+    "r_results": 10,
+    "reviewer_packet_source_files": 12,
+    "reviewer_packets": 10,
+    "studies": 10,
+    "verification_receipts": 10
+  },
+  "schema_version": "pystatsv1-psych-design-release-proof-contract-v0.1",
+  "scientific_candidate_policy": {
+    "analysis_or_dataset_changes_allowed": false,
+    "drift_consequence": "Return to release-candidate status and repeat the complete proof.",
+    "protected_source_binding": "packaged COMPANION_MANIFEST.json at the candidate asset hash"
+  },
+  "supported_reader_routes": [
+    {
+      "python": "CPython 3.10.x",
+      "r": "Rscript available; nlme installed",
+      "receipt_path_policy": "Record only Linux-home-relative workspace paths; do not persist absolute user home paths.",
+      "required": true,
+      "route_id": "ubuntu_native",
+      "status_source": "PSYCH_DESIGN_UBUNTU_RELEASE_PROOF.json",
+      "workspace_rule": "fresh path under $HOME/projects; never reuse .venv or companion directory"
+    },
+    {
+      "interop_required": [
+        "cmd.exe",
+        "wsl.exe"
+      ],
+      "python": "CPython 3.10.x",
+      "r": "Rscript available; nlme installed",
+      "receipt_path_policy": "Record only Linux-home-relative workspace paths; do not persist absolute user home paths.",
+      "required": true,
+      "route_id": "windows_11_wsl2_ubuntu",
+      "status_source": "PSYCH_DESIGN_WSL_RELEASE_PROOF.json",
+      "windows_host": "Windows 11",
+      "workspace_rule": "fresh path under the WSL Linux home; paths below /mnt are prohibited",
+      "wsl_generation": 2
+    }
+  ],
+  "title": "Psychological Statistics by Design clean Ubuntu/WSL reader proof and final release freeze"
+}
