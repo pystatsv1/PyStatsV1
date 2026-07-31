@@ -1,4 +1,38 @@
 {
+  "artifacts": {
+    "embedded_asset_identity_exact": true,
+    "sdist": {
+      "bytes": 1816662,
+      "embedded_asset_bytes": 136801,
+      "embedded_asset_member": "src/pystatsv1/assets/psychological_statistics_by_design_companion_v0_1.zip",
+      "embedded_asset_sha256": "bd0932c1d126758f37fab180173d6b95b5e4c31bc654724251aa6eb6296243c1",
+      "filename": "pystatsv1-0.26.0.tar.gz",
+      "member_count": 176,
+      "metadata_name": "pystatsv1",
+      "metadata_version": "0.26.0",
+      "packagetype": "sdist",
+      "pypi_upload_time_iso_8601": "2026-07-31T17:04:51.136367Z",
+      "requires_python": ">=3.10",
+      "sha256": "8be23830eb192aa8ecb03099c592b908d8c0de4be4e86ae90eea3514a5b62d96"
+    },
+    "wheel": {
+      "abi_tag": "none",
+      "bytes": 1745670,
+      "embedded_asset_bytes": 136801,
+      "embedded_asset_member": "pystatsv1/assets/psychological_statistics_by_design_companion_v0_1.zip",
+      "embedded_asset_sha256": "bd0932c1d126758f37fab180173d6b95b5e4c31bc654724251aa6eb6296243c1",
+      "filename": "pystatsv1-0.26.0-py3-none-any.whl",
+      "member_count": 46,
+      "metadata_name": "pystatsv1",
+      "metadata_version": "0.26.0",
+      "packagetype": "bdist_wheel",
+      "platform_tag": "any",
+      "pypi_upload_time_iso_8601": "2026-07-31T17:04:49.246764Z",
+      "python_tag": "py3",
+      "requires_python": ">=3.10",
+      "sha256": "047a04bbc4d4cf282b6abd573a46a444589965c5cf5e57db45dc25d798575e2e"
+    }
+  },
   "authorization_state": {
     "book_binding_authorized": false,
     "portal_release_authorized": false,
@@ -6,12 +40,49 @@
     "real_data_authorized": false
   },
   "companion_version": "v0.1",
+  "embedded_asset_bytes": 136801,
+  "embedded_asset_sha256": "bd0932c1d126758f37fab180173d6b95b5e4c31bc654724251aa6eb6296243c1",
   "package_name": "pystatsv1",
   "package_version": "0.26.0",
   "proof_tag": "psych-design-companion-v0-1-release-proof",
-  "public_artifacts_verified": false,
-  "release_commit": "pending_until_v0.26.0_tag_creation",
+  "public_artifacts_verified": true,
+  "public_index": "https://pypi.org/simple",
+  "publish_workflow_run_id": "30649698177",
+  "pypi_project": "https://pypi.org/project/pystatsv1/0.26.0/",
+  "reader_smoke": {
+    "absolute_workspace_path_recorded": false,
+    "command_status": {
+      "doctor": true,
+      "first_result": true,
+      "pip_install_public_exact": true,
+      "psych_design_info": true,
+      "psych_design_init": true,
+      "verify_after": true,
+      "verify_before": true
+    },
+    "first_result_outputs": {
+      "figure_manifest": true,
+      "python_result": true,
+      "r_result": true,
+      "reviewer_packet": true,
+      "verification_receipt": true
+    },
+    "fresh_virtual_environment": true,
+    "installed_asset_bytes": 136801,
+    "installed_asset_sha256": "bd0932c1d126758f37fab180173d6b95b5e4c31bc654724251aa6eb6296243c1",
+    "installed_version": "0.26.0",
+    "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+    "public_index": "https://pypi.org/simple",
+    "python_version": "3.10.12",
+    "rscript_version": "R scripting front-end version 4.1.2 (2021-11-01)",
+    "status": "pass"
+  },
+  "release_commit": "a12183c1bda17c21f1aa12d8830a5a60f49daf9c",
   "release_tag": "v0.26.0",
   "schema_version": "pystatsv1-psych-design-public-release-v0.1",
-  "status": "owner_authorized_pending_publication"
+  "scientific_candidate_unchanged": true,
+  "status": "public_release_verified",
+  "tag_ci_run_id": "30649252937",
+  "trusted_publisher": true,
+  "verified_at_utc": "2026-07-31T17:05:48+00:00"
 }
