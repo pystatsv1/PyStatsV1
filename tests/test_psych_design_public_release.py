@@ -44,6 +44,7 @@ EXPECTED_PATHS = [
 POST_TAG_REPAIR_PATHS = [
     ".github/workflows/ci.yml",
     ".github/workflows/dropin-035-v0260-tag-ci-repair.yml",
+    ".github/workflows/pypi-publish.yml",
     "tests/test_psych_design_public_release.py",
     "tools/check_psych_design_public_release.py",
 ]
@@ -177,11 +178,46 @@ def test_publish_workflow_is_manual_trusted_and_fully_gated() -> None:
     assert "python tools/check_psych_design_release_proof.py --phase complete" in workflow
     assert "python tools/check_psych_design_public_release.py --phase authorization" in workflow
     assert "python tools/build_psych_design_companion_asset.py" in workflow
-    assert '"build>=1.2,<2" setuptools==80.9.0 wheel==0.45.1' in workflow
+    assert '"build>=1.2,<2"' in workflow
+    assert "setuptools==80.9.0" in workflow
+    assert "wheel==0.45.1" in workflow
+    assert "numpy==2.2.6" in workflow
+    assert "pandas==2.2.3" in workflow
+    assert "PYSTATSV1_DROPIN_035_REPAIR3_BUILD_ENV_OK" in workflow
     assert "python -m build --no-isolation" in workflow
     assert "--phase distributions" in workflow
     assert "pypa/gh-action-pypi-publish@release/v1" in workflow
     assert "psych-design-companion-v0-1-candidate" not in workflow
+
+
+def test_publish_workflow_installs_audit_dependencies_before_asset_build() -> None:
+    workflow = (ROOT / ".github/workflows/pypi-publish.yml").read_text(
+        encoding="utf-8"
+    )
+
+    install_step = workflow.index(
+        "Install deterministic build and companion-audit dependencies"
+    )
+    numpy_pin = workflow.index("numpy==2.2.6")
+    pandas_pin = workflow.index("pandas==2.2.3")
+    environment_marker = workflow.index(
+        "PYSTATSV1_DROPIN_035_REPAIR3_BUILD_ENV_OK"
+    )
+    asset_build = workflow.index(
+        "python tools/build_psych_design_companion_asset.py"
+    )
+    distribution_build = workflow.index("python -m build --no-isolation")
+    publish_action = workflow.index("pypa/gh-action-pypi-publish@release/v1")
+
+    assert install_step < numpy_pin < environment_marker < asset_build
+    assert install_step < pandas_pin < environment_marker < asset_build
+    assert asset_build < distribution_build < publish_action
+
+
+def test_post_tag_scope_includes_only_bounded_publish_build_repair() -> None:
+    module = checker()
+    assert ".github/workflows/pypi-publish.yml" in module.POST_TAG_CI_REPAIR_PATHS
+    assert sorted(module.POST_TAG_CI_REPAIR_PATHS) == POST_TAG_REPAIR_PATHS
 
 
 def test_makefile_exposes_dropin_035_checks() -> None:

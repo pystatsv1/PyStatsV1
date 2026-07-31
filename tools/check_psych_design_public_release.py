@@ -47,6 +47,7 @@ CLOSED_GATES = (
 POST_TAG_CI_REPAIR_PATHS = (
     ".github/workflows/ci.yml",
     ".github/workflows/dropin-035-v0260-tag-ci-repair.yml",
+    ".github/workflows/pypi-publish.yml",
     "tests/test_psych_design_public_release.py",
     "tools/check_psych_design_public_release.py",
 )
