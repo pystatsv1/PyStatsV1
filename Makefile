@@ -45,6 +45,9 @@ help:
 	@echo "  psych-design-release-contract-verify - verify the advanced-book companion audit and command contract"
 	@echo "  psych-design-release-proof-check - verify the Drop-in 034 candidate freeze and proof contract"
 	@echo "  psych-design-release-proof-compare - compare committed Ubuntu and WSL proof receipts"
+	@echo "  psych-design-public-release-check - verify Drop-in 035 owner authorization and source scope"
+	@echo "  psych-design-public-release-distributions-check - verify built v0.26.0 wheel and sdist"
+	@echo "  psych-design-public-release-public-check - verify the committed public PyPI receipt"
 	@echo "  local-r-verify - run all governed R parity checks locally (never in GitHub Actions)"
 	@echo "  release-verify - require an annotated v<version> tag matching pyproject.toml"
 	@echo "  lint       - ruff check"
@@ -554,6 +557,19 @@ psych-design-release-proof-compare:
 		--comparison $(PSYCH_DESIGN_RELEASE_EVIDENCE)/PSYCH_DESIGN_CROSS_PLATFORM_COMPARISON.json \
 		--readiness $(PSYCH_DESIGN_RELEASE_EVIDENCE)/PSYCH_DESIGN_RELEASE_READINESS.json
 	$(PYTHON) tools/check_psych_design_release_proof.py --phase complete
+
+# --- Psychological Statistics by Design owner-authorized public release ---
+.PHONY: psych-design-public-release-check
+psych-design-public-release-check:
+	$(PYTHON) tools/check_psych_design_public_release.py --phase authorization
+
+.PHONY: psych-design-public-release-distributions-check
+psych-design-public-release-distributions-check:
+	$(PYTHON) tools/check_psych_design_public_release.py --phase distributions --dist-dir dist
+
+.PHONY: psych-design-public-release-public-check
+psych-design-public-release-public-check:
+	$(PYTHON) tools/check_psych_design_public_release.py --phase public
 
 # --- Quality gates ---
 .PHONY: lint

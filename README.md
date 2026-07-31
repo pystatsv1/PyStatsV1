@@ -38,31 +38,36 @@ python scripts/psych_ch10_problem_set.py
 pytest -q
 ```
 
-## Psychological Statistics by Design companion — v0.26.0 release candidate
+## Psychological Statistics by Design companion — PyStatsV1 v0.26.0
 
-The source tree now contains a **non-public release candidate** for
-*Psychological Statistics by Design — Executable Companion v0.1*. It unifies
-ten synthetic Student Well-Being and Learning studies behind one registry, ten
-visible Python entry scripts, independent R implementations, verification
-receipts, figure specifications, reviewer packets, and synthetic-safe adaptation
-templates. PyStatsV1 remains the versioned bridge and launcher; it does not
-choose a method, validate an instrument, authorize data, or establish causality.
+PyStatsV1 v0.26.0 distributes *Psychological Statistics by Design — Executable
+Companion v0.1*. It unifies ten synthetic Student Well-Being and Learning
+studies behind one registry, ten visible Python entry scripts, independent R
+implementations, verification receipts, figure specifications, reviewer
+packets, and synthetic-safe adaptation templates. PyStatsV1 remains the
+versioned bridge and launcher; it does not choose a method, validate an
+instrument, authorize data, or establish causality.
 
-The candidate interface is implemented for local and CI proof:
+The verified public reader route is:
 
 ```bash
-python -m pip install -e '.[psych-design]'
-python tools/build_psych_design_companion_asset.py
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install "pystatsv1[psych-design]==0.26.0"
 pystatsv1 psych-design info
 pystatsv1 psych-design init
 cd psychological_statistics_by_design_companion_v0_1
 pystatsv1 psych-design verify --dest .
 python -m pip install -r requirements-psych-design-companion.txt
+pystatsv1 psych-design doctor --dest .
 make first-result  # complete SWL-S02 Python/R V2 chain; requires Rscript
+pystatsv1 psych-design verify --dest .
 ```
 
-This is **not yet a PyPI or portal reader route**. Public release, portal
-deployment, book binding, and real-data use remain unauthorized. The current
+The governed reader proofs cover native Ubuntu and Windows 11 WSL2 with Ubuntu.
+The companion remains synthetic-only. Portal deployment, book binding, and
+real-data use remain separately governed and unauthorized by this release. The
 public foundations companion continues to use the separately pinned Book 1
 route below.
 
