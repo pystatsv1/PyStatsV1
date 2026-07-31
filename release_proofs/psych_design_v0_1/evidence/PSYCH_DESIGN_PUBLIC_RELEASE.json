@@ -1,0 +1,17 @@
+{
+  "authorization_state": {
+    "book_binding_authorized": false,
+    "portal_release_authorized": false,
+    "pypi_release_authorized": true,
+    "real_data_authorized": false
+  },
+  "companion_version": "v0.1",
+  "package_name": "pystatsv1",
+  "package_version": "0.26.0",
+  "proof_tag": "psych-design-companion-v0-1-release-proof",
+  "public_artifacts_verified": false,
+  "release_commit": "pending_until_v0.26.0_tag_creation",
+  "release_tag": "v0.26.0",
+  "schema_version": "pystatsv1-psych-design-public-release-v0.1",
+  "status": "owner_authorized_pending_publication"
+}

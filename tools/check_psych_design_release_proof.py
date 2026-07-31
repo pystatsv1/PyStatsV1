@@ -24,6 +24,7 @@ ASSET = (
     / "psychological_statistics_by_design_companion_v0_1.zip"
 )
 READINESS = EVIDENCE / "PSYCH_DESIGN_RELEASE_READINESS.json"
+PYPI_AUTHORIZATION = PROOF / "PYPI_RELEASE_AUTHORIZATION.json"
 EXPECTED_STUDIES = [f"SWL-S{number:02d}" for number in range(1, 11)]
 CLOSED_AUTHORIZATION_GATES = (
     "pypi_release_authorized",
@@ -129,21 +130,84 @@ def verify_publication_workflow() -> None:
         fail("candidate tag is wired into the publication workflow")
 
 
+def _git(*args: str) -> str:
+    completed = subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if completed.returncode != 0:
+        detail = completed.stderr.strip() or completed.stdout.strip()
+        fail(f"git {' '.join(args)} failed: {detail}")
+    return completed.stdout.strip()
+
+
+def verify_authorized_final_tag() -> None:
+    if not PYPI_AUTHORIZATION.is_file():
+        fail("v0.26.0 exists without Drop-in 035 owner authorization")
+    authorization = load(PYPI_AUTHORIZATION)
+    if authorization.get("schema_version") != (
+        "pystatsv1-psych-design-pypi-release-authorization-v0.1"
+    ):
+        fail("v0.26.0 authorization schema changed")
+    if authorization.get("status") != "owner_authorized_pending_publication":
+        fail("v0.26.0 authorization status changed")
+    state = authorization.get("authorization_state", {})
+    if state.get("pypi_release_authorized") is not True:
+        fail("v0.26.0 is not owner-authorized for PyPI")
+    for key in (
+        "portal_release_authorized",
+        "book_binding_authorized",
+        "real_data_authorized",
+    ):
+        if state.get(key) is not False:
+            fail(f"v0.26.0 authorization opens closed gate: {key}")
+    release = authorization.get("release_identity", {})
+    if release.get("release_tag") != "v0.26.0":
+        fail("authorized release tag changed")
+    if release.get("package_version") != "0.26.0":
+        fail("authorized package version changed")
+    if release.get("proof_tag") != "psych-design-companion-v0-1-release-proof":
+        fail("authorized proof tag changed")
+    parent = release.get("approved_parent_commit")
+    if parent != "400a3d688fb3c341fd393aca715de6d941b7f1e6":
+        fail("authorized release parent changed")
+    if _git("cat-file", "-t", "refs/tags/v0.26.0") != "tag":
+        fail("v0.26.0 must be an annotated tag")
+    tagged_commit = _git("rev-parse", "v0.26.0^{commit}")
+    expected_paths = sorted(authorization.get("allowed_release_commit_paths", []))
+    actual_paths = sorted(
+        path
+        for path in _git("diff", "--name-only", f"{parent}..{tagged_commit}").splitlines()
+        if path
+    )
+    if actual_paths != expected_paths:
+        fail("v0.26.0 source diff exceeds the owner-authorized path scope")
+    completed = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", tagged_commit, "HEAD"],
+        cwd=ROOT,
+        check=False,
+    )
+    if completed.returncode != 0:
+        fail("v0.26.0 release commit is not an ancestor of HEAD")
+
+
 def verify_git_state() -> None:
     if not (ROOT / ".git").exists():
         return
-    tags = subprocess.check_output(["git", "tag", "--list"], cwd=ROOT, text=True).splitlines()
-    if "v0.26.0" in tags:
-        fail("v0.26.0 must remain absent until explicit release authorization")
+    tags = _git("tag", "--list").splitlines()
     if "psych-design-companion-v0-1-candidate" not in tags:
         fail("candidate tag is missing")
-    candidate = subprocess.check_output(
-        ["git", "rev-parse", "psych-design-companion-v0-1-candidate^{commit}"],
-        cwd=ROOT,
-        text=True,
-    ).strip()
+    candidate = _git(
+        "rev-parse", "psych-design-companion-v0-1-candidate^{commit}"
+    )
     if candidate != "58d92f85b865cb657bf49c731fefc381970c8bda":
         fail("candidate tag does not resolve to the frozen candidate commit")
+    if "v0.26.0" in tags:
+        verify_authorized_final_tag()
 
 
 def verify_receipt(path: Path, role: str, contract: dict[str, Any]) -> dict[str, Any]:

@@ -1,19 +1,21 @@
 Release notes
 =============
 
-v0.26.0 release candidate — Psychological Statistics by Design companion v0.1
----------------------------------------------------------------------------------
+v0.26.0 — Psychological Statistics by Design companion v0.1
+------------------------------------------------------------------
 
-PyStatsV1 v0.26.0 is prepared as a non-public release candidate for the
-synthetic-only *Psychological Statistics by Design* executable companion.
-Publication to PyPI, portal deployment, and book binding remain separate,
-explicitly unauthorized actions.
+PyStatsV1 v0.26.0 publishes the synthetic-only *Psychological Statistics by
+Design* executable companion after clean native-Ubuntu and Windows 11 WSL2
+installed-wheel proofs, exact cross-platform scientific comparison, annotated
+tag CI, trusted-publisher delivery, and public-artifact verification. Portal
+deployment, book binding, and real-data support remain separate, explicitly
+unauthorized actions.
 
 Highlights
 ~~~~~~~~~~
 
 * Adds ``pystatsv1 psych-design info``, ``init``, ``verify``,
-  ``list-studies``, and ``doctor`` behind the release-candidate source tree.
+  ``list-studies``, and ``doctor`` for the governed companion.
 * Packages all ten SWL studies in one deterministic companion with a central
   ``STUDY_INDEX.json``, ten visible Python entry scripts, independent base-R
   paths, V2/V3/V4 comparison policies, figures, APA source maps, matched
@@ -28,9 +30,11 @@ Highlights
   source bundle.
 * Includes synthetic-safe adaptation templates and states that adaptation is a
   new research project rather than replacement of a CSV.
-* Retains all public-release, PyPI, portal, book-binding, and real-data
-  authorization gates as false pending clean Ubuntu and WSL installed-wheel
-  proofs.
+* Authorizes only the PyPI v0.26.0 publication path after the complete release
+  proof; portal binding, book binding, and real-data authorization remain false.
+* Records the public wheel and source-distribution hashes after trusted
+  publishing and verifies a fresh exact-version install through the SWL-S02
+  first-result route.
 
 v0.25.2 — Book 1 Companion v0.2.1 identity correction
 ----------------------------------------------------------------

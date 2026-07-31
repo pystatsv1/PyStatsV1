@@ -1,0 +1,83 @@
+{
+  "allowed_release_commit_paths": [
+    ".github/workflows/pypi-publish.yml",
+    "Makefile",
+    "README.md",
+    "docs/PYSTATSV1_DROPIN_035_OWNER_AUTHORIZED_V0260_PUBLIC_RELEASE.md",
+    "docs/source/release_notes.rst",
+    "release_proofs/psych_design_v0_1/PYPI_RELEASE_AUTHORIZATION.json",
+    "release_proofs/psych_design_v0_1/evidence/PSYCH_DESIGN_PUBLIC_RELEASE.json",
+    "tests/test_psych_design_public_release.py",
+    "tests/test_psych_design_release_proof.py",
+    "tests/test_release_025_metadata.py",
+    "tools/check_psych_design_public_release.py",
+    "tools/check_psych_design_release_proof.py",
+    "tools/verify_pystatsv1_public_release.py"
+  ],
+  "authorization": {
+    "authorized_on_local_date": "2026-07-30",
+    "authorized_scope": "Publish PyStatsV1 0.26.0 to PyPI through the existing trusted-publisher workflow and verify the public artifacts.",
+    "basis": "Explicit repository-owner instruction for PyStatsV1 Drop-in 035.",
+    "status": "explicitly_authorized"
+  },
+  "authorization_state": {
+    "book_binding_authorized": false,
+    "portal_release_authorized": false,
+    "pypi_release_authorized": true,
+    "real_data_authorized": false
+  },
+  "companion_identity": {
+    "asset_bytes": 136801,
+    "asset_manifest_sha256": "24f496631758a955a91d53193868b3c02ce9d62bb218fd59d3bb52ea9305e52f",
+    "asset_path": "src/pystatsv1/assets/psychological_statistics_by_design_companion_v0_1.zip",
+    "asset_sha256": "bd0932c1d126758f37fab180173d6b95b5e4c31bc654724251aa6eb6296243c1",
+    "companion_version": "v0.1",
+    "immutable_source_file_count": 151,
+    "study_index_sha256": "1c2525fa1ef4b720d758a32f5e3ad987264e8dfeb28f3967201efca575ef6df7"
+  },
+  "dropin": "035",
+  "protected_release_boundaries": {
+    "analysis_or_dataset_changes_allowed": false,
+    "book_or_portal_changes_allowed": false,
+    "companion_asset_changes_allowed": false,
+    "package_runtime_changes_allowed": false,
+    "proof_contract_changes_allowed": false,
+    "real_data_authorized": false
+  },
+  "public_artifact_policy": {
+    "expected_sdist_name": "pystatsv1-0.26.0.tar.gz",
+    "expected_wheel_name": "pystatsv1-0.26.0-py3-none-any.whl",
+    "fresh_public_install_required": true,
+    "public_hashes_recorded_after_publication": true,
+    "required_commands": [
+      "pystatsv1 psych-design info",
+      "pystatsv1 psych-design init",
+      "pystatsv1 psych-design verify --dest .",
+      "pystatsv1 psych-design doctor --dest .",
+      "make first-result",
+      "pystatsv1 psych-design verify --dest ."
+    ],
+    "required_index": "https://pypi.org/simple",
+    "trusted_publisher_required": true
+  },
+  "release_identity": {
+    "approved_parent_commit": "400a3d688fb3c341fd393aca715de6d941b7f1e6",
+    "candidate_commit": "58d92f85b865cb657bf49c731fefc381970c8bda",
+    "candidate_tag": "psych-design-companion-v0-1-candidate",
+    "package_name": "pystatsv1",
+    "package_version": "0.26.0",
+    "proof_tag": "psych-design-companion-v0-1-release-proof",
+    "release_commit_policy": "The annotated v0.26.0 tag must resolve to the exact merged Drop-in 035 authorization commit whose complete diff from approved_parent_commit is restricted to allowed_release_commit_paths.",
+    "release_tag": "v0.26.0"
+  },
+  "required_prepublication_state": {
+    "candidate_implementation_passed": true,
+    "clean_ubuntu_proof_passed": true,
+    "clean_wsl_proof_passed": true,
+    "cross_platform_comparison_passed": true,
+    "dropin_034_readiness_gates_remain_closed": true,
+    "technical_release_ready": true
+  },
+  "schema_version": "pystatsv1-psych-design-pypi-release-authorization-v0.1",
+  "status": "owner_authorized_pending_publication"
+}

@@ -1,13 +1,18 @@
 name: Publish to PyPI (trusted publisher)
 
-# Release policy: CI runs on v* tags first. Publish only after the tag CI is green.
-# Dispatch from main and provide the immutable annotated release tag, for example:
-#   gh workflow run pypi-publish.yml --ref main -f release_tag=v0.25.2
+# Drop-in 035 release policy:
+# 1. Merge the owner-authorization unit to main and require exact-main CI.
+# 2. Create and push the immutable annotated v0.26.0 tag.
+# 3. Require tag CI to pass.
+# 4. Dispatch this workflow from main with the exact tag:
+#      gh workflow run pypi-publish.yml --ref main -f release_tag=v0.26.0
+# 5. Verify the public wheel, sdist, embedded companion asset, and clean reader
+#    route before committing the post-publication receipt.
 on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: "Annotated release tag to build and publish (for example, v0.25.2)"
+        description: "Annotated release tag to build and publish (exactly v0.26.0 for Drop-in 035)"
         required: true
         type: string
 
@@ -16,7 +21,7 @@ jobs:
     environment: pypi
     runs-on: ubuntu-latest
     permissions:
-      id-token: write    # needed for trusted publishing
+      id-token: write    # required for trusted publishing
       contents: read
 
     steps:
@@ -29,19 +34,17 @@ jobs:
 
       # actions/checkout can materialize a commit-shaped local tag ref when a
       # workflow is dispatched against a tag. Re-fetch the named ref explicitly
-      # so the release gate sees the original annotated tag object from origin.
+      # so every release gate sees the original annotated tag object.
       - name: Restore and verify exact annotated release tag
         shell: bash
         env:
           RELEASE_TAG: ${{ inputs.release_tag }}
         run: |
-          case "$RELEASE_TAG" in
-            v[0-9]*) ;;
-            *)
-              echo "Release tag must start with v followed by a version: $RELEASE_TAG"
-              exit 1
-              ;;
-          esac
+          set -euo pipefail
+          if [ "$RELEASE_TAG" != "v0.26.0" ]; then
+            echo "Drop-in 035 authorizes exactly v0.26.0, not $RELEASE_TAG"
+            exit 1
+          fi
 
           git fetch --force origin "refs/tags/${RELEASE_TAG}:refs/tags/${RELEASE_TAG}"
 
@@ -67,16 +70,34 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Verify annotated release tag matches package version
-        run: python tools/check_release_tag.py
-
-      - name: Install build backend
+      - name: Verify release tag, technical proof, and owner authorization
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install build
+          set -euo pipefail
+          python tools/check_release_tag.py
+          python tools/check_psych_design_release_proof.py --phase complete
+          python tools/check_psych_design_public_release.py --phase authorization
 
-      - name: Build distributions
-        run: python -m build
+      - name: Install deterministic build backend
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install "build>=1.2,<2" setuptools==80.9.0 wheel==0.45.1
+
+      - name: Build governed companion asset and distributions
+        shell: bash
+        run: |
+          set -euo pipefail
+          export SOURCE_DATE_EPOCH="$(git show -s --format=%ct HEAD)"
+          rm -rf build dist *.egg-info src/*.egg-info
+          python tools/build_psych_design_companion_asset.py
+          python -m build --no-isolation
+
+      - name: Verify exact public distribution identities before upload
+        run: |
+          set -euo pipefail
+          python tools/check_psych_design_public_release.py \
+            --phase distributions \
+            --dist-dir dist
 
       - name: Publish to PyPI via trusted publisher
         uses: pypa/gh-action-pypi-publish@release/v1

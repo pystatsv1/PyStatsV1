@@ -746,3 +746,54 @@ def test_source_phase_routing_remains_independent_of_lifecycle_state(
     checker.main()
 
     assert "phase=source" in capsys.readouterr().out
+
+
+def test_dropin_034_checker_accepts_only_owner_authorized_final_tag_contract() -> None:
+    checker = _load_checker_module()
+    authorization = load(PROOF / "PYPI_RELEASE_AUTHORIZATION.json")
+    assert checker.PYPI_AUTHORIZATION == PROOF / "PYPI_RELEASE_AUTHORIZATION.json"
+    assert authorization["schema_version"] == (
+        "pystatsv1-psych-design-pypi-release-authorization-v0.1"
+    )
+    assert authorization["authorization_state"]["pypi_release_authorized"] is True
+    assert authorization["authorization_state"]["portal_release_authorized"] is False
+    assert authorization["authorization_state"]["book_binding_authorized"] is False
+    assert authorization["authorization_state"]["real_data_authorized"] is False
+
+
+def test_authorized_final_tag_checker_rejects_non_annotated_tag(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    checker = _load_checker_module()
+    authorization = load(PROOF / "PYPI_RELEASE_AUTHORIZATION.json")
+    monkeypatch.setattr(checker, "load", lambda _path: authorization)
+
+    def fake_git(*args: str) -> str:
+        if args == ("cat-file", "-t", "refs/tags/v0.26.0"):
+            return "commit"
+        raise AssertionError(args)
+
+    monkeypatch.setattr(checker, "_git", fake_git)
+    with pytest.raises(SystemExit, match="must be an annotated tag"):
+        checker.verify_authorized_final_tag()
+
+
+def test_authorized_final_tag_checker_requires_exact_allowlisted_diff(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    checker = _load_checker_module()
+    authorization = load(PROOF / "PYPI_RELEASE_AUTHORIZATION.json")
+    monkeypatch.setattr(checker, "load", lambda _path: authorization)
+
+    def fake_git(*args: str) -> str:
+        if args == ("cat-file", "-t", "refs/tags/v0.26.0"):
+            return "tag"
+        if args == ("rev-parse", "v0.26.0^{commit}"):
+            return "c" * 40
+        if args[:2] == ("diff", "--name-only"):
+            return "src/pystatsv1/cli.py"
+        raise AssertionError(args)
+
+    monkeypatch.setattr(checker, "_git", fake_git)
+    with pytest.raises(SystemExit, match="exceeds the owner-authorized path scope"):
+        checker.verify_authorized_final_tag()
