@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import subprocess
 import sys
 import zipfile
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = ROOT / "release_proofs" / "psych_design_v0_1"
@@ -44,6 +47,43 @@ def run(*command: str) -> subprocess.CompletedProcess[str]:
         stderr=subprocess.PIPE,
         check=False,
     )
+
+
+
+
+def _load_checker_module():
+    spec = importlib.util.spec_from_file_location(
+        "psych_design_release_proof_checker_for_tests", CHECKER
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _readiness_state(*, complete: bool) -> dict:
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    identity = contract["release_identity"]
+    return {
+        "schema_version": "pystatsv1-psych-design-release-readiness-v0.1",
+        "candidate_commit": contract["baseline"]["candidate_commit"],
+        "package_version": identity["package_version"],
+        "companion_version": identity["companion_version"],
+        "candidate_implementation_passed": True,
+        "clean_ubuntu_proof_passed": True,
+        "clean_wsl_proof_passed": complete,
+        "cross_platform_comparison_passed": complete,
+        "technical_release_ready": complete,
+        "pypi_release_authorized": False,
+        "portal_release_authorized": False,
+        "book_binding_authorized": False,
+        "real_data_authorized": False,
+        "status": (
+            "technical_release_ready_not_authorized"
+            if complete
+            else "ubuntu_passed_wsl_pending"
+        ),
+    }
 
 
 def test_release_proof_contract_freezes_candidate_and_closed_gates() -> None:
@@ -543,3 +583,166 @@ def test_cross_platform_comparison_rejects_open_release_gate(
     assert "wsl receipt opens a closed release gate" in completed.stderr
     assert result == {}
     assert state == {}
+
+
+def test_ubuntu_phase_accepts_pending_readiness_state() -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+
+    checker.verify_ubuntu_pending_readiness(
+        _readiness_state(complete=False), contract
+    )
+
+
+def test_ubuntu_phase_rejects_wsl_already_passed() -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    readiness = _readiness_state(complete=False)
+    readiness["clean_wsl_proof_passed"] = True
+
+    with pytest.raises(SystemExit, match="clean_wsl_proof_passed=false"):
+        checker.verify_ubuntu_pending_readiness(readiness, contract)
+
+
+def test_ubuntu_phase_rejects_technical_release_ready() -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    readiness = _readiness_state(complete=False)
+    readiness["technical_release_ready"] = True
+
+    with pytest.raises(SystemExit, match="technical_release_ready=false"):
+        checker.verify_ubuntu_pending_readiness(readiness, contract)
+
+
+def test_complete_phase_accepts_final_technical_readiness_state() -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+
+    checker.verify_complete_readiness(_readiness_state(complete=True), contract)
+
+
+@pytest.mark.parametrize(
+    "flag",
+    ("clean_ubuntu_proof_passed", "clean_wsl_proof_passed"),
+)
+def test_complete_phase_requires_both_environment_proofs(flag: str) -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    readiness = _readiness_state(complete=True)
+    readiness[flag] = False
+
+    with pytest.raises(SystemExit, match=rf"{flag}=true"):
+        checker.verify_complete_readiness(readiness, contract)
+
+
+def test_complete_phase_requires_cross_platform_comparison() -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    readiness = _readiness_state(complete=True)
+    readiness["cross_platform_comparison_passed"] = False
+
+    with pytest.raises(
+        SystemExit, match="cross_platform_comparison_passed=true"
+    ):
+        checker.verify_complete_readiness(readiness, contract)
+
+
+def test_complete_phase_requires_technical_release_readiness() -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    readiness = _readiness_state(complete=True)
+    readiness["technical_release_ready"] = False
+
+    with pytest.raises(SystemExit, match="technical_release_ready=true"):
+        checker.verify_complete_readiness(readiness, contract)
+
+
+@pytest.mark.parametrize(
+    "gate",
+    (
+        "pypi_release_authorized",
+        "portal_release_authorized",
+        "book_binding_authorized",
+        "real_data_authorized",
+    ),
+)
+def test_complete_phase_rejects_open_authorization_gate(gate: str) -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    readiness = _readiness_state(complete=True)
+    readiness[gate] = True
+
+    with pytest.raises(SystemExit, match=rf"opens closed gate: {gate}"):
+        checker.verify_complete_readiness(readiness, contract)
+
+
+def test_complete_phase_never_invokes_ubuntu_pending_readiness(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    checker = _load_checker_module()
+    contract = load(PROOF / "RELEASE_PROOF_CONTRACT.json")
+    calls: list[str] = []
+
+    monkeypatch.setattr(
+        checker, "verify_ubuntu_evidence", lambda _contract: calls.append("ubuntu")
+    )
+    monkeypatch.setattr(
+        checker, "verify_wsl_evidence", lambda _contract: calls.append("wsl")
+    )
+    monkeypatch.setattr(
+        checker,
+        "verify_cross_platform_comparison",
+        lambda: calls.append("comparison"),
+    )
+    monkeypatch.setattr(
+        checker,
+        "verify_complete_readiness",
+        lambda readiness, _contract: calls.append(readiness["status"]),
+    )
+    monkeypatch.setattr(
+        checker,
+        "verify_ubuntu_pending_readiness",
+        lambda *_args: (_ for _ in ()).throw(
+            AssertionError("complete phase invoked Ubuntu pending-state validation")
+        ),
+    )
+    monkeypatch.setattr(
+        checker, "load", lambda _path: _readiness_state(complete=True)
+    )
+
+    checker.verify_complete_phase(contract)
+
+    assert calls == [
+        "ubuntu",
+        "wsl",
+        "comparison",
+        "technical_release_ready_not_authorized",
+    ]
+
+
+def test_source_phase_routing_remains_independent_of_lifecycle_state(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    checker = _load_checker_module()
+    monkeypatch.setattr(sys, "argv", [str(CHECKER), "--phase", "source"])
+    monkeypatch.setattr(checker, "verify_source_freeze", lambda *_args: None)
+    monkeypatch.setattr(checker, "verify_publication_workflow", lambda: None)
+    monkeypatch.setattr(checker, "verify_git_state", lambda: None)
+    monkeypatch.setattr(
+        checker,
+        "verify_ubuntu_phase",
+        lambda _contract: (_ for _ in ()).throw(
+            AssertionError("source phase invoked Ubuntu lifecycle validation")
+        ),
+    )
+    monkeypatch.setattr(
+        checker,
+        "verify_complete_phase",
+        lambda _contract: (_ for _ in ()).throw(
+            AssertionError("source phase invoked complete lifecycle validation")
+        ),
+    )
+
+    checker.main()
+
+    assert "phase=source" in capsys.readouterr().out

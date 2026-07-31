@@ -16,8 +16,21 @@ EVIDENCE = PROOF / "evidence"
 CONTRACT = PROOF / "RELEASE_PROOF_CONTRACT.json"
 FREEZE = PROOF / "CANDIDATE_FREEZE.json"
 SOURCE = ROOT / "psych_design_companion" / "psychological_statistics_by_design_companion_v0_1"
-ASSET = ROOT / "src" / "pystatsv1" / "assets" / "psychological_statistics_by_design_companion_v0_1.zip"
+ASSET = (
+    ROOT
+    / "src"
+    / "pystatsv1"
+    / "assets"
+    / "psychological_statistics_by_design_companion_v0_1.zip"
+)
+READINESS = EVIDENCE / "PSYCH_DESIGN_RELEASE_READINESS.json"
 EXPECTED_STUDIES = [f"SWL-S{number:02d}" for number in range(1, 11)]
+CLOSED_AUTHORIZATION_GATES = (
+    "pypi_release_authorized",
+    "portal_release_authorized",
+    "book_binding_authorized",
+    "real_data_authorized",
+)
 
 
 def fail(message: str) -> None:
@@ -50,7 +63,9 @@ def verify_source_freeze(contract: dict[str, Any], freeze: dict[str, Any]) -> No
     identity = contract["release_identity"]
     if identity["package_version"] != "0.26.0" or identity["companion_version"] != "v0.1":
         fail("release identity changed")
-    if identity["wheel_sha256"] != "62a5c26577867f22c7bbf15dcf4253da749fe703fcec42ffc19b72454af8fa05":
+    if identity["wheel_sha256"] != (
+        "62a5c26577867f22c7bbf15dcf4253da749fe703fcec42ffc19b72454af8fa05"
+    ):
         fail("canonical wheel identity changed")
     if identity["asset_sha256"] != sha256(ASSET):
         fail("candidate companion asset changed")
@@ -163,32 +178,90 @@ def verify_receipt(path: Path, role: str, contract: dict[str, Any]) -> dict[str,
     return receipt
 
 
-def verify_ubuntu_phase(contract: dict[str, Any]) -> None:
+def verify_readiness_identity(
+    readiness: dict[str, Any], contract: dict[str, Any]
+) -> None:
+    if readiness.get("schema_version") != "pystatsv1-psych-design-release-readiness-v0.1":
+        fail("release-readiness schema changed")
+    expected = contract["release_identity"]
+    if readiness.get("candidate_commit") != contract["baseline"]["candidate_commit"]:
+        fail("release-readiness candidate commit changed")
+    if readiness.get("package_version") != expected["package_version"]:
+        fail("release-readiness package version changed")
+    if readiness.get("companion_version") != expected["companion_version"]:
+        fail("release-readiness companion version changed")
+
+
+def verify_closed_authorization_gates(
+    readiness: dict[str, Any], phase: str
+) -> None:
+    for key in CLOSED_AUTHORIZATION_GATES:
+        if readiness.get(key) is not False:
+            fail(f"{phase} proof opens closed gate: {key}")
+
+
+def require_readiness_flag(
+    readiness: dict[str, Any], key: str, expected: bool, phase: str
+) -> None:
+    if readiness.get(key) is not expected:
+        fail(f"{phase} readiness requires {key}={str(expected).lower()}")
+
+
+def verify_ubuntu_evidence(contract: dict[str, Any]) -> dict[str, Any]:
     ubuntu = verify_receipt(
         EVIDENCE / "PSYCH_DESIGN_UBUNTU_RELEASE_PROOF.json", "ubuntu", contract
     )
     wheel = load(EVIDENCE / "PSYCH_DESIGN_WHEEL_IDENTITY.json")
     asset = load(EVIDENCE / "PSYCH_DESIGN_ASSET_IDENTITY.json")
-    readiness = load(EVIDENCE / "PSYCH_DESIGN_RELEASE_READINESS.json")
-    if wheel.get("canonical_proof_wheel", {}).get("wheel_sha256") != contract["release_identity"]["wheel_sha256"]:
+    if wheel.get("candidate_commit") != contract["baseline"]["candidate_commit"]:
+        fail("wheel identity receipt candidate commit changed")
+    canonical = wheel.get("canonical_proof_wheel", {})
+    if canonical.get("wheel_sha256") != contract["release_identity"]["wheel_sha256"]:
         fail("wheel identity receipt differs from the contract")
+    if canonical.get("package_version") != contract["release_identity"]["package_version"]:
+        fail("wheel identity receipt package version changed")
+    if canonical.get("companion_version") != contract["release_identity"]["companion_version"]:
+        fail("wheel identity receipt companion version changed")
     regeneration = wheel.get("clean_regeneration", {})
     if regeneration.get("status") != "pass" or regeneration.get("byte_identical") is not True:
         fail("clean wheel regeneration did not pass")
-    if asset.get("status") != "pass" or asset.get("asset_sha256") != contract["release_identity"]["asset_sha256"]:
+    if (
+        asset.get("status") != "pass"
+        or asset.get("asset_sha256")
+        != contract["release_identity"]["asset_sha256"]
+    ):
         fail("asset identity receipt did not pass")
-    if readiness.get("clean_ubuntu_proof_passed") is not True:
-        fail("Ubuntu readiness state is not passed")
-    if readiness.get("clean_wsl_proof_passed") is not False:
-        fail("Ubuntu stage must retain WSL pending")
-    if readiness.get("technical_release_ready") is not False:
-        fail("Ubuntu stage may not declare technical release readiness")
-    if ubuntu["workspace_policy"].get("is_wsl") is not False:
+    if asset.get("candidate_commit") != contract["baseline"]["candidate_commit"]:
+        fail("asset identity receipt candidate commit changed")
+    workspace = ubuntu.get("workspace_policy", {})
+    if workspace.get("is_wsl") is not False or workspace.get("is_wsl2") is not False:
         fail("Ubuntu receipt was not produced on native Ubuntu")
+    if workspace.get("workspace_under_linux_home") is not True:
+        fail("Ubuntu proof workspace was not inside the Linux home")
+    if workspace.get("absolute_workspace_path_recorded") is not False:
+        fail("Ubuntu receipt records an absolute workspace path")
+    return ubuntu
 
 
-def verify_complete_phase(contract: dict[str, Any]) -> None:
-    verify_ubuntu_phase(contract)
+def verify_ubuntu_pending_readiness(
+    readiness: dict[str, Any], contract: dict[str, Any]
+) -> None:
+    verify_readiness_identity(readiness, contract)
+    expected = {
+        "candidate_implementation_passed": True,
+        "clean_ubuntu_proof_passed": True,
+        "clean_wsl_proof_passed": False,
+        "cross_platform_comparison_passed": False,
+        "technical_release_ready": False,
+    }
+    for key, value in expected.items():
+        require_readiness_flag(readiness, key, value, "Ubuntu")
+    if readiness.get("status") != "ubuntu_passed_wsl_pending":
+        fail("Ubuntu readiness status must be ubuntu_passed_wsl_pending")
+    verify_closed_authorization_gates(readiness, "Ubuntu")
+
+
+def verify_wsl_evidence(contract: dict[str, Any]) -> dict[str, Any]:
     wsl = verify_receipt(
         EVIDENCE / "PSYCH_DESIGN_WSL_RELEASE_PROOF.json", "wsl", contract
     )
@@ -219,22 +292,46 @@ def verify_complete_phase(contract: dict[str, Any]) -> None:
             fail(f"WSL receipt did not record required system fact: {key}")
         if isinstance(value, str) and value.lower().startswith("unavailable"):
             fail(f"WSL receipt could not collect required system fact: {key}")
+    return wsl
+
+
+def verify_cross_platform_comparison() -> dict[str, Any]:
     comparison = load(EVIDENCE / "PSYCH_DESIGN_CROSS_PLATFORM_COMPARISON.json")
-    readiness = load(EVIDENCE / "PSYCH_DESIGN_RELEASE_READINESS.json")
     if comparison.get("status") != "pass" or comparison.get("failed_exact_checks") != []:
         fail("cross-platform comparison did not pass")
     if comparison.get("png_renderer_comparison", {}).get("png_byte_identity_required") is not False:
         fail("comparison incorrectly requires PNG byte identity")
-    if readiness.get("technical_release_ready") is not True:
-        fail("complete proof did not declare technical release readiness")
-    for key in (
-        "pypi_release_authorized",
-        "portal_release_authorized",
-        "book_binding_authorized",
-        "real_data_authorized",
-    ):
-        if readiness.get(key) is not False:
-            fail(f"complete proof opens closed gate: {key}")
+    return comparison
+
+
+def verify_complete_readiness(
+    readiness: dict[str, Any], contract: dict[str, Any]
+) -> None:
+    verify_readiness_identity(readiness, contract)
+    expected = {
+        "candidate_implementation_passed": True,
+        "clean_ubuntu_proof_passed": True,
+        "clean_wsl_proof_passed": True,
+        "cross_platform_comparison_passed": True,
+        "technical_release_ready": True,
+    }
+    for key, value in expected.items():
+        require_readiness_flag(readiness, key, value, "complete")
+    if readiness.get("status") != "technical_release_ready_not_authorized":
+        fail("complete readiness status must be technical_release_ready_not_authorized")
+    verify_closed_authorization_gates(readiness, "complete")
+
+
+def verify_ubuntu_phase(contract: dict[str, Any]) -> None:
+    verify_ubuntu_evidence(contract)
+    verify_ubuntu_pending_readiness(load(READINESS), contract)
+
+
+def verify_complete_phase(contract: dict[str, Any]) -> None:
+    verify_ubuntu_evidence(contract)
+    verify_wsl_evidence(contract)
+    verify_cross_platform_comparison()
+    verify_complete_readiness(load(READINESS), contract)
 
 
 def main() -> None:
@@ -257,9 +354,11 @@ def main() -> None:
     for path in required:
         if not path.is_file():
             fail(f"required Drop-in 034 path is missing: {path.relative_to(ROOT)}")
-    if args.phase in {"ubuntu", "complete"}:
+    if args.phase == "source":
+        pass
+    elif args.phase == "ubuntu":
         verify_ubuntu_phase(contract)
-    if args.phase == "complete":
+    elif args.phase == "complete":
         verify_complete_phase(contract)
     print(
         "PYSTATSV1_PSYCH_DESIGN_RELEASE_PROOF_VERIFY_OK "
