@@ -44,6 +44,16 @@ CLOSED_GATES = (
     "book_binding_authorized",
     "real_data_authorized",
 )
+POST_TAG_CI_REPAIR_PATHS = (
+    ".github/workflows/ci.yml",
+    ".github/workflows/dropin-035-v0260-tag-ci-repair.yml",
+    "tests/test_psych_design_public_release.py",
+    "tools/check_psych_design_public_release.py",
+)
+PUBLIC_RECEIPT_RELATIVE = (
+    "release_proofs/psych_design_v0_1/evidence/"
+    "PSYCH_DESIGN_PUBLIC_RELEASE.json"
+)
 
 
 class PublicReleaseCheckError(RuntimeError):
@@ -189,23 +199,79 @@ def verify_frozen_asset() -> None:
         fail("governed companion asset hash changed")
 
 
+def expected_post_tag_paths(receipt: dict[str, Any]) -> list[str]:
+    status = receipt.get("status")
+    paths = set(POST_TAG_CI_REPAIR_PATHS)
+    if status == "public_release_verified":
+        paths.add(PUBLIC_RECEIPT_RELATIVE)
+    elif status != "owner_authorized_pending_publication":
+        fail("public-release receipt has an invalid lifecycle status")
+    return sorted(paths)
+
+
 def verify_release_source_paths(auth: dict[str, Any]) -> None:
     expected = sorted(auth.get("allowed_release_commit_paths", []))
     if len(expected) != len(set(expected)) or len(expected) != 13:
         fail("authorized path list is invalid")
     if not _has_git():
         return
+
     parent = auth["release_identity"]["approved_parent_commit"]
     _git("cat-file", "-e", f"{parent}^{{commit}}")
-    committed = _git("diff", "--name-only", f"{parent}..HEAD").splitlines()
     working = _git("diff", "--name-only", "HEAD").splitlines()
     untracked = _git("ls-files", "--others", "--exclude-standard").splitlines()
-    actual = sorted(set(committed + working + untracked))
-    if actual != expected:
-        fail(
-            "release-source path scope differs from authorization; "
-            f"expected={expected}, actual={actual}"
+    tags = set(_git("tag", "--list").splitlines())
+
+    if EXPECTED_RELEASE_TAG not in tags:
+        committed = _git("diff", "--name-only", f"{parent}..HEAD").splitlines()
+        actual = sorted(set(committed + working + untracked))
+        if actual != expected:
+            fail(
+                "release-source path scope differs from authorization; "
+                f"expected={expected}, actual={actual}"
+            )
+    else:
+        if _git("cat-file", "-t", f"refs/tags/{EXPECTED_RELEASE_TAG}") != "tag":
+            fail("v0.26.0 must be an annotated tag")
+        release_commit = _git("rev-parse", f"{EXPECTED_RELEASE_TAG}^{{commit}}")
+        tagged_paths = sorted(
+            path
+            for path in _git(
+                "diff", "--name-only", f"{parent}..{release_commit}"
+            ).splitlines()
+            if path
         )
+        if tagged_paths != expected:
+            fail("v0.26.0 does not resolve to the authorized source diff")
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "merge-base",
+                "--is-ancestor",
+                release_commit,
+                "HEAD",
+            ],
+            check=False,
+        )
+        if completed.returncode != 0:
+            fail("v0.26.0 release commit is not an ancestor of HEAD")
+
+        committed_after_tag = _git(
+            "diff", "--name-only", f"{release_commit}..HEAD"
+        ).splitlines()
+        actual_post_tag = sorted(
+            set(committed_after_tag + working + untracked)
+        )
+        expected_post_tag = expected_post_tag_paths(load(PUBLIC_RECEIPT))
+        if actual_post_tag != expected_post_tag:
+            fail(
+                "post-tag path scope differs from governed repair lifecycle; "
+                f"expected={expected_post_tag}, actual={actual_post_tag}"
+            )
+        actual = sorted(set(tagged_paths + actual_post_tag))
+
     forbidden_prefixes = (
         "src/",
         "psych_design_companion/",
